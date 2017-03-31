@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
 import jackpot.DTO.empDTO;
+import jackpot.DTO.favDTO;
 import jackpot.DTO.orgDTO;
 
 
@@ -256,5 +257,24 @@ public class EmpBean {
 	}
 	
 	
+	@RequestMapping("addfav.jp")
+	public String addfav(HttpServletRequest request,HttpSession session,Model model,favDTO dto){
+		
+		String emp_num=request.getParameter("emp_num");
+		 System.out.println(emp_num);
+		 		 	 
+		 sqlMap.insert("org.insertfav",dto);
+		 
+		 List favList = null;
+
+		    favList = sqlMap.queryForList("org.fav",emp_num);
+			model.addAttribute("favList", favList);
+		 
+		
+
+		return "/emp/addfav";
+		
+	}
+
 	
 }

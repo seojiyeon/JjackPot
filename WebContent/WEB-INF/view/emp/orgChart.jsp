@@ -3,6 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>   
+
+<script type="text/javascript">
+
+function fav(){
+	
+	 if(confirm("즐겨찾기에 추가하시겠습니까?")==true){
+		 document.orgchart.action="/JackPot/addfav.jp";
+		 document.orgchart.submit();
+	 }else{
+	 return ;
+	   }
+	
+	}
+
+
+
+
+</script>
+
+
 <html>
 
 <style type="text/css">
@@ -34,10 +54,11 @@
 
 
 	
-    			
-<form method="post"  name="orginput" enctype="multipart/form-data">
-
 <table border="1" width="900"  cellpadding="0" cellspacing="0" align="center"> 
+    			
+<form method="post"  actione="addfav.jp" name="orgchart" >
+
+
 
    <c:forEach var="article" items="${articleList}" varStatus="status">
    <c:if test="${status.index%2==0}" >
@@ -51,13 +72,13 @@
       <td>
       <font size="2.9">
        
-       &nbsp;&nbsp;<strong>${article.emp_name} ${article.position} </strong> (${article.emp_num})<br /> 
+       &nbsp;&nbsp;<input type="checkbox" name="emp_num" value="${article.emp_num}"><strong><input type="hidden" name="emp_name" value="${article.emp_name}">${article.emp_name} <input type="hidden" name="position" value="${article.position}">${article.position} </strong> (${article.emp_num})<br /> 
        </font><br/>
        <font size="2">
-       &nbsp;${article.phone} <br />
-       &nbsp;${article.mail} <br />
-       &nbsp;${article.address} <br />
-       </font>
+       &nbsp;${article.phone} <input type="hidden" name="phone" value="${article.phone}"><br />
+       &nbsp;${article.mail}  <input type="hidden" name="mail" value="${article.mail}"><br />
+       &nbsp;${article.address} <input type="hidden" name="address" value="${article.address}"><br />
+       </font><br/>
     
 
 
@@ -70,15 +91,18 @@
        </td>
    
      </c:forEach>
-      
+     
+ <tr>
 
+<input type="submit" value="즐겨찾기 추가"  onclick="fav(document.orgChart)">
 
-
-   
-  </table>
+</tr>
 
 
   </form>
+   
+  </table>
+
 </body>
   </head>
   </html>

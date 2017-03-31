@@ -3,7 +3,7 @@
 <sqlMap namespace="org">      
 
   <typeAlias alias="odto" type="jackpot.DTO.orgDTO"/>
-	
+  <typeAlias alias="favdto" type="jackpot.DTO.favDTO"/>
    
         
           <select id="emp_department" resultClass="int" parameterClass="String">
@@ -16,15 +16,26 @@
      from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=#department# order by e.position desc
      
         </select>
-        
+      
+      
       <select id="search" resultClass="odto" parameterClass="java.util.HashMap">
      <![CDATA[ 
      select emp_num,emp_name,address,phone from(select emp_num,emp_name,address,phone
      	from(select * from emp where $searchName$ like '%'||#searchValue#||'%' ))       
      ]]>
-
       </select>
       
+      
+     <insert id="insertfav"  parameterClass="favdto">
+        insert into fav values(fav_sequence.nextval,#emp_num#,1)
+           
+     </insert>  
+      
+      
+
+      <select id="fav" resultClass="favdto" parameterClass="String">
+     select e.emp_num,f.favorite,f.emp_num empfav from emp e,fav f where  e.emp_num=#emp_num#
+      </select>
       
       
 </sqlMap>
