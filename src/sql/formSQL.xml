@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="form">      
+
+	<insert id="formInsert" parameterClass="test.bean.FormDTO">
+		insert into form values(#id#,#pw#)
+	</insert>
+          
+    <select id="allList" resultClass="test.bean.FormDTO">
+    	select * from form
+    </select>
+</sqlMap>

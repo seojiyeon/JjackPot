@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+ html,BODY { height:100%; scrolling:no;}
+ 
+ .calendarform {}
+ .calendarform ul {list-style:none;}
+ .calendarform li {list-style:none;display: inline-block}
+ .calendarform ul li {}

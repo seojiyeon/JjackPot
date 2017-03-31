@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="org">      
+
+  <typeAlias alias="odto" type="jackpot.DTO.orgDTO"/>
+	
+   
+        
+          <select id="emp_department" resultClass="int" parameterClass="String">
+        	select department from emp where emp_num=#emp_num#
+        </select>
+        
+        
+        <select id="member2" resultClass="odto" parameterClass="int" >
+         select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
+     from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=#department# order by e.position desc
+     
+        </select>
+        
+      <select id="search" resultClass="odto" parameterClass="java.util.HashMap">
+     <![CDATA[ 
+     select emp_num,emp_name,address,phone from(select emp_num,emp_name,address,phone
+     	from(select * from emp where $searchName$ like '%'||#searchValue#||'%' ))       
+     ]]>
+
+      </select>
+      
+      
+      
+</sqlMap>
+
+
+

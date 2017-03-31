@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="calendar">      
+
+  <typeAlias alias="cdto" type="jackpot.DTO.calendarDTO"/>
+
+       <insert id="insertCalendar" parameterClass="cdto">
+        insert into calendar values(calendar_seq.NEXTVAL,#cl_title#,#cl_subject#,#cl_sys#,#cl_org#,#cl_place#,#cl_sdate#,
+   		#cl_stime#,#cl_edate#,#cl_etime#,#cl_participants#,#cl_contents#,#cl_writer#) 
+       </insert>
+
+        <select id="maxnum" resultClass="int">
+             select max(cl_num) from calendar
+        </select>  
+        
+        <select id="calendarList" resultClass="cdto">
+        select * from calendar
+        </select>
+        
+       
+        <select id="userCheck" resultClass="int" parameterClass="cdto">
+        </select>
+        
+        <delete id="deletePro" parameterClass="cdto">
+        
+        </delete>
+        
+</sqlMap>

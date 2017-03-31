@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+
+<sqlMap namespace="work">   
+
+	<typeAlias alias="wdto" type="jackpot.DTO.workDTO"/>
+	
+	
+	<select id="getWork" parameterClass="wdto" resultClass="wdto">
+	<![CDATA[
+		select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,r 
+		from (select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,rownum r
+		from work where emp_num=#emp_num# order by work_time desc) where rownum <= 1
+	]]>
+	</select>
+	
+	<select id="getItem" parameterClass="String" resultClass="wdto">
+		select num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip
+		from work where emp_num= #emp_num# order by num desc  
+	</select>
+	
+	<insert id="insertWork" parameterClass="wdto">
+		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip) values(
+			work_seq.nextval,
+			#emp_num#,
+			sysdate,
+			#work_off#,
+			#work_time#,
+			#h_work#,
+			#workOut#,
+			#lateNess#,
+			#early#,
+			#division#,
+			#ip# 
+		)
+	</insert>	
+	<select id="workTime" resultClass="wdto" parameterClass="String">
+	
+		select round((work_off-work_on)*24)work_time from work where emp_num=#emp_num#
+		select emp_num, work_on, round((work_off-work_on)*24)work_time from work where emp_num=#emp_num# and work_on between to_date('20170320','YYYYMMDD') and to_date('20170320','YYYYMMDD')+1
+		
+		
+	</select>
+	
+	<update id="updateWork" parameterClass="wdto">
+		update work set 
+			work_off=sysdate,
+			work_time=#work_time#,
+			h_work=#h_work#,
+			workOut=#workOut#,
+			early=#early# 
+			where num=#num#
+		
+	</update>	
+
+
+</sqlMap>
+
