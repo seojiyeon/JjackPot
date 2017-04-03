@@ -39,7 +39,7 @@ background-color: #e6e6e6;
     border-bottom: 1px solid #ddd;
     font-size : 12px;
 }
-.employee tr:nth-child(even){background-color: #f2f2f2}
+
 .employee {
     width: 1000px;
     height: 250px;
@@ -53,6 +53,9 @@ background-color: #e6e6e6;
     border: 1px solid #ddd;
     font-size : 12px;
 }
+
+tr:hover{background-color: #ffe6ff}
+
 
 .form-group th{
 	background-color: #e6e6e6;
@@ -74,6 +77,8 @@ background-color: #e6e6e6;
 
 .w100 { width:100px !important; }
 .w120 { width:120px !important; }
+.w130 { width:130px !important; }
+.w763 { width:763px !important; }
 
 
 /*============================================================
@@ -111,7 +116,7 @@ ul.tabs li.active {
     border-bottom: 1px solid #FFFFFF;
 }
 .tab_container {
-    border: 1px solid #eee;
+    
     border-top: none;
     clear: both;
     float: left;
@@ -119,6 +124,7 @@ ul.tabs li.active {
     background: #FFFFFF;
 }
 .tab_content {
+    float: left;
     padding: 5px;
     font-size: 12px;
     display: none;
@@ -177,19 +183,42 @@ $(document).ready(function(){
 
 $(function () {
 
-    $(".tab_content").hide();
-    $(".tab_content:first").show();
+
 
     $("ul.tabs li").click(function () {
         $("ul.tabs li").removeClass("active").css("color", "#333");
         //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
         $(this).addClass("active").css("color", "darkred");
-        $(".tab_content").hide()
+        $(".tab_content").hide();
         var activeTab = $(this).attr("rel");
-        $("#" + activeTab).fadeIn()
+        $("#" + activeTab).fadeIn();
     });
 });
 
+
+
+$(document).ready(function(){
+    $("#emp1").click(function(){
+        $("#emp_name").val("Dolly Duck");
+    });
+    
+    $("#emp2").click(function(){
+        $("#emp_name").val("");
+    });
+    
+});
+
+
+$(function(){
+	$("ul.panel li:not("+$("ul.tab li a.selected").attr("href")+")").hide()
+	$("ul.tab li a").click(function(){
+		$("ul.tab li a").removeClass("selected");
+		$(this).addClass("selected");
+		$("ul.panel li").hide();
+		$($(this).attr("href")).show();
+		return false;
+	});
+});
 
 
 
@@ -267,12 +296,9 @@ $(function () {
 <div class="header">
 <body>
 <center><b>사원 목록(전체 사원:${count})</b>  
-
-
-
-<input type="button" value="Excel로 저장" onClick="window.location='auserexcel.mall'">
-
+<input type="button" value="Excel로 저장" onClick="window.location='#'">
 </div>
+
 
 <c:if test="${count == 0}">
 <table width="700" border ="0" cellpadding="0" cellspacing="0">
@@ -283,6 +309,8 @@ $(function () {
   </tr>
 </table>
 </c:if>
+
+
 <div class="employee">
 <%-- <c:if test="${count > 0}"> --%>
 <table border="0" width="1000" cellpadding="0" cellspacing="0" align="center"> 
@@ -295,61 +323,37 @@ $(function () {
       <th align="center"  width="150" ><b>주소</b></th> 
       <th align="center"  width="80" ><b>핸드폰</b></th>
       <th align="center"  width="50" ><b>이메일</b></th>
-
     </tr>
 
-
- <c:forEach var="article" items="${articleList}">
-   <tr height="30">
+<div id="pink">
+ <c:forEach var="article" items="${articleList}" varStatus="st">
+   <tr height="30" id="emp${st.count}">
     <td align="center"  width="50" >
 	  ${article.emp_num}
 	</td>
-    <td  width="130" >
-          ${article.emp_name} 
-		  
-		  
-	</td>
-	
+    <td  width="130"> ${article.emp_name} </td>	
 	<td width="100" align="center"> ${article.rank}	</td>
 	<td align="center">${article.department} </td>
-	<td align="center">${article.hiredate}</td>
-	
-	
-    <td align="center"  width="100"> 
-	${article.address}
-	</td>
-    <td align="center"  width="150">${article.phone}	</td>
-    <td align="center"  width="50">
-    ${article.mail}
-    </td>
-
-    
+	<td align="center">${article.hiredate}</td>	
+    <td align="center"  width="100"> ${article.address} </td>
+    <td align="center"  width="150">${article.phone}</td>
+    <td align="center"  width="50"> ${article.mail} </td>
   </tr>
   </c:forEach>
-
-
-
-
-
-  
+</div>
 </table>
 </div>
+
+
+
+
+
 <%-- </c:if> --%>
 
 
-<!-- <div class="footer"></div> -->
 
 
 <div class="main">
-
-
-	
-
-<!-- 		<div class="ins-box"> -->
-<!-- 			<ul> -->
-
-<!-- 			</ul> -->
-<!-- 		</div> -->
 
 
 	<form id="hrBasiMatrMngForm" action="#">
@@ -376,34 +380,21 @@ $(function () {
 			<div id="container">	
 
 			<ul class="tabs" >
-			<li class="active" rel="tab1">인적사항</li>
-			<!-- 인적사항 -->
+			<li class="active" checked="checked" rel="tab1">인적사항</li>
 			<li rel="tab2">가족사항</li>
-			<!-- 가족사항 -->
 			<li rel="tab3">학력정보</li>
-			<!-- 학력정보 -->
-			<li rel="tab4">어학정보</li>
-			<!-- 어학정보 -->
+		    <li rel="tab4">어학정보</li>
 			<li rel="tab5">자격증</li>
-			<!-- 자격증 -->
 			<li rel="tab6">경력정보</li>
-			<!-- 경력정보 -->
 			<li rel="tab7">발령정보</li>
-			<!-- 발령정보 -->
 			<li rel="tab8">교육정보</li>
-			<!-- 교육정보 -->
 			<li rel="tab9">상벌정보</li>
-			<!-- 상벌정보 -->
 			<li rel="tab10">병역정보</li>
-			<!-- 병역정보 -->
 			<li rel="tab11">기타정보</li>
-			<!-- 기타정보 -->
-		</ul>
+			</ul>
 				
 		<div class="tab_container">
-        <div id="tab1" class="tab_content">
-				
-				
+        <div id="tab1" class="tab_content" style="display:block;">
 				
 					<table class="table border-top separate">
 						<colgroup>
@@ -424,14 +415,10 @@ $(function () {
 									</div>
 								</td>
 								<th scope="row"><label for="hrBasiMatrMngForm_emplMgntNo">사원번호</label></th>
-								<!-- 사원번호 -->
-								<td style="min-width: 290px;"><input type="text" class="w100" id="hrBasiMatrMngForm_emplMgntNo" name="emplMgntNo" maxlength="20" />
-									<button type="button" id="hrBasiMatrMngForm_confirmButton" class="btn btn-color7 br" style="display: none;">
-										사원번호중복확인
-									</button>
-									<!-- 중복확인 --></td>
+								<td style="min-width: 290px;"><input type="text" class="w100" id="emp_num" value="" name="emp_num" maxlength="20" />
+									
 								<th scope="row"><label for="hrBasiMatrMngForm_emplNm">성명</label></th>
-								<td style="min-width: 290px;"><input type="text" class="w100" id="hrBasiMatrMngForm_emplNm" name="emplNm" /></td>
+								<td style="min-width: 290px;"><input type="text" class="w100" id="emp_name" value="" name="emp_name" /></td>
 							</tr>
 							<tr>
 								<th scope="row"><label for="hrBasiMatrMngForm_emplEngNm">영문성명</label></th>
@@ -747,24 +734,7 @@ $(function () {
 					
 				</div>
 
-				<div class="ins-box">
-					<ul>
-						
-							<li><i class="fa fa-exclamation-circle"></i>&nbsp;회원으로 가입한 사원이 조회가 되지 않는 경우에 [인사정보재등록]에서 등록하시면 조회가 가능합니다.</li>
-							<li><i class="fa fa-exclamation-circle"></i>&nbsp;삭제한 사원에 대해서 [인사정보재등록]에서 조회가 가능합니다.</li>
-							<li><i class="fa fa-exclamation-circle"></i>&nbsp;사원번호의 변경이 필요한 경우에는 사원번호를 관리자가 직접 변경하시기 바랍니다.</li>
-							<li><i class="fa fa-exclamation-circle"></i>&nbsp;사원번호는 직원을 관리하는 체계에 맞춰 일련번호를 구성하여 부여하시기 바랍니다.</li>
-														<li><i class="fa fa-exclamation-circle"></i>&nbsp;부서, 직급의 변경 및 휴직, 복직, 퇴직처리는 [발령등록]에서 처리하시기 바랍니다.</li>
-							<li><i class="fa fa-exclamation-circle"></i>&nbsp;직책은 회사관리자가 [사용자 조직도 관리]에서 변경하시기 바랍니다.</li>
-							<li><i class="fa fa-exclamation-circle"></i>&nbsp;발령 관리를 하지 않으려면 회사관리자가 [사용자 조직도 관리]에서 직접 변경할 수 있습니다.</li>
-						
-						<li><i class="fa fa-exclamation-circle"></i>&nbsp;성명, 생일, 결혼유무, 결혼기념일, 회사전화, 핸드폰, 회사이메일, 외부이메일, 부서, 직책, 직급은 수정할 수 없습니다.</li>
-						<li><i class="fa fa-exclamation-circle"></i>&nbsp;급여계약기준이 &#39;직급호봉제&#39;일때만 호봉을 입력할 수 있습니다.</li>
-						<li><i class="fa fa-exclamation-circle"></i>&nbsp;입사일자 입력시 달력을 선택하지 않는 경우에는 숫자와 &#39;.&#39; 를 같이 입력하시기 바랍니다. (예:2001.03.02)</li>
-						<li><i class="fa fa-exclamation-circle"></i>&nbsp;자택전화 입력시 숫자와 &#39;-&#39; 를 같이 입력하시기 바랍니다. (예:02-2222-2222)</li>
-						<li><i class="fa fa-exclamation-circle"></i>&nbsp;영문성명, 영문주소, 영문부서, 영문직급은 [증명서발급]의 영문증명서에서 사용됩니다.</li>
-					</ul>
-				</div>
+				
 
 			</div>
 			</div>
@@ -774,14 +744,10 @@ $(function () {
 			
 			
 			
-			<div id="tab2" >
+			<div id="tab2" class="tab_content" style="display:none;">
 				<!-- 가족정보관리 -->
 				<div class="subtitle">
-					<div class="ins-box" style="width: 65%;">
-						<i class="fa fa-exclamation-circle"></i>&nbsp;
-						주민등록번호 입력시 &#39;-&#39; 를 같이 입력하시기 바랍니다. (예:730203-1023492)
-						<br />
-					</div>
+		
 					<table id="fmlyInfoMng_table" class="table separate fleft mt5">
 						<colgroup>
 							<col width="200" />
