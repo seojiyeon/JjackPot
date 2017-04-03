@@ -238,6 +238,15 @@ public class EmpBean {
 	@RequestMapping("orgChartPro.jp")
 	public String orgChartPro(favDTO dto,Model model,HttpSession session,HttpServletRequest request){
 
+		String IdCheck = (String)sqlMap.queryForObject("org.comfirmCheck", dto);
+         boolean check2;
+		
+		    if(IdCheck != null){
+			      check2=true;
+		    }else{
+			     
+		    }
+
 		String empfav = (String)session.getAttribute("memId");
 		String [] emp_num = request.getParameterValues("emp_num");
 //					1,2

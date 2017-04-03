@@ -16,13 +16,19 @@
   </c:if>
   
   
-   <c:if test="${check!=0 }">
+   <c:if test="${check!=0}">
 	<script> 
 	  alert("즐겨찾기에 이미 있습니다.");
       history.go(-1);
 	</script>
 </c:if>
   
+   <c:if test="${check2==false}">
+	<script> 
+	  alert("자기자신은 추가 안됩니다.");
+      history.go(-1);
+	</script>
+</c:if>
   
   </html>
   </from>

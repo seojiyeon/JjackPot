@@ -18,6 +18,17 @@ function fav(){
 	
 	}
 
+function favd(){
+
+	
+	 if(confirm("즐겨찾기를 해제하겠습니까?")==true){
+		 document.orgchart.action="/JackPot/orgChartDEL.jp";
+		 document.orgchart.submit();
+	 }else{
+	 return ;
+	   }
+	
+	}
 
 
 
@@ -59,6 +70,7 @@ function fav(){
     			
 <form method="post"  actione="addfav.jp" name="orgchart" >
 
+<c:if test="${memId!=null}">
 
 
    <c:forEach var="article" items="${articleList}" varStatus="status">
@@ -93,10 +105,11 @@ function fav(){
        </td>
    
      </c:forEach>
-     
+ </c:if>    
  <tr>
 
-<input type="button" value="즐겨찾기 추가"  onclick="fav()">
+<input type="button" value="즐겨찾기 추가"  onclick="fav()"><br/>
+<input type="button" value="즐겨찾기 해제"  onclick="favd()">
 
 </tr>
 
