@@ -39,6 +39,13 @@
 		)
 		
 	</insert>	
+	
+	<update id="updateLateNess" parameterClass="wdto">
+		update work set 
+			lateNess=#lateNess#
+			where num=#num#
+		
+	</update>	
 
 	<update id="updateWork" parameterClass="wdto">
 		update work set 
