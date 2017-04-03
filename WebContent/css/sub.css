@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
+
+#page-container{position: relative;min-height: 100%; min-width: 1200px; background:#fff;}
+
+#sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
+
+#subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
+
+#leftmenu{position:fixed;top:0;width:210px;height:100%;}
+
+#main-container{height:100%;padding:20px;padding-top:0;}
