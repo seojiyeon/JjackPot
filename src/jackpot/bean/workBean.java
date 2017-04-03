@@ -75,7 +75,7 @@ public class workBean {
 		DateFormat stringFormat = new SimpleDateFormat(dateFormatStr); 
 		
 		try{
-			LocalTime lateTime = LocalTime.parse("09:30:59"); 
+			LocalTime lateTime = LocalTime.parse("09:31:00"); 
 			calendar.setTime(lateTime);
 			long lt = calendar.getTimeInMillis(); 
 			Date work_on = ladto.getWork_on();  //work_on을 불러온다.
