@@ -13,7 +13,7 @@
    <sqlMap resource="/sql/calendarSQL.xml"/>
 
 	<!-- test -->
-	<sqlMap resource="/sql/formSQL.xml"/>
-	
+   <sqlMap resource="/sql/formSQL.xml"/>
+   <sqlMap resource="/sql/communitySQL.xml"/>	
 </sqlMapConfig>
 

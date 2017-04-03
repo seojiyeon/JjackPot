@@ -9,5 +9,11 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
 
 #leftmenu{position:fixed;top:0;width:210px;height:100%;}
+.leftmenu-top{height:10%;width:210px;background: #363636;text-align:center;display:inline-block;}
+.leftmenu-top a{color:white;text-decoration:none;}
 
-#main-container{height:100%;padding:20px;padding-top:0;}
+#leftmenuarea{position:relative;height:100%;display: inline-block;width: 210px;}
+.boardmenu a{cursor:pointer;}
+.boardmenu .hide{display:none;}
+
+#main-container{height:100%;padding:20px;padding-top:0;} 

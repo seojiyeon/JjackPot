@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="community">      
+
+  <typeAlias alias="cdto" type="jackpot.DTO.calendarDTO"/>
+
+       <insert id="insertCalendar" parameterClass="cdto">
+       </insert>
+
+        <select id="maxnum" resultClass="int">
+        </select>  
+        
+        <select id="calendarList" resultClass="cdto">
+        </select>
+        
+       
+        <select id="userCheck" resultClass="int" parameterClass="cdto">
+        </select>
+        
+        <delete id="deletePro" parameterClass="cdto">
+        
+        </delete>
+        
+</sqlMap>

@@ -15,16 +15,14 @@
 jQuery(document).ready(function() {
 	
     jQuery("#calendar").fullCalendar({
-    	  height: 650
-    	, contentHeight: 150
+    	  height: $(window).height()*0.25
         , defaultDate : "2017-03-23"
         , locale: 'ko'
         , eventLimit : true
 		, header: {}
         , defaultView: 'month'
         , editable : true
-		
-        , navLinks: true // can click day/week names to navigate views
+
 		, weekNumbers: true
 		, weekNumbersWithinDays: true
 		, weekNumberCalculation: 'ISO'
@@ -74,7 +72,6 @@ function realtimeClock() {
 	  }
 	  return zero + n;
 	}
-
 </script>
 
 
