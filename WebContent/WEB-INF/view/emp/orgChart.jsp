@@ -7,9 +7,10 @@
 <script type="text/javascript">
 
 function fav(){
+
 	
 	 if(confirm("즐겨찾기에 추가하시겠습니까?")==true){
-		 document.orgchart.action="/JackPot/addfav.jp";
+		 document.orgchart.action="/JackPot/orgChartPro.jp";
 		 document.orgchart.submit();
 	 }else{
 	 return ;
@@ -72,7 +73,8 @@ function fav(){
       <td>
       <font size="2.9">
        
-       &nbsp;&nbsp;<input type="checkbox" name="emp_num" value="${article.emp_num}"><strong><input type="hidden" name="emp_name" value="${article.emp_name}">${article.emp_name} <input type="hidden" name="position" value="${article.position}">${article.position} </strong> (${article.emp_num})<br /> 
+       &nbsp;&nbsp;<input type="checkbox" name="emp_num" value="${article.emp_num}"><strong><input type="hidden" name="emp_name" value="${article.emp_name}">${article.emp_name}
+        <input type="hidden" name="position" value="${article.position}">${article.position} </strong> (${article.emp_num})<br /> 
        </font><br/>
        <font size="2">
        &nbsp;${article.phone} <input type="hidden" name="phone" value="${article.phone}"><br />
@@ -94,7 +96,7 @@ function fav(){
      
  <tr>
 
-<input type="submit" value="즐겨찾기 추가"  onclick="fav(document.orgChart)">
+<input type="button" value="즐겨찾기 추가"  onclick="fav()">
 
 </tr>
 

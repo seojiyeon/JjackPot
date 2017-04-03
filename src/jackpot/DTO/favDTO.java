@@ -6,6 +6,8 @@ public class favDTO {
  private String favorite;
  private String empfav;
  
+
+
 public int getFav_num() {
 	return fav_num;
 }

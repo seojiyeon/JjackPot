@@ -27,15 +27,22 @@
       
       
      <insert id="insertfav"  parameterClass="favdto">
-        insert into fav values(fav_sequence.nextval,#emp_num#,1)
+        insert into fav values(fav_sequence.nextval,#emp_num#,1,#empfav#)
            
      </insert>  
       
       
 
-      <select id="fav" resultClass="favdto" parameterClass="String">
-     select e.emp_num,f.favorite,f.emp_num empfav from emp e,fav f where  e.emp_num=#emp_num#
+      <select id="fav" resultClass="odto" parameterClass="String">
+      select e.emp_num ,e.emp_name,e.phone,e.address,f.favorite,f.empfav from emp e,fav f where e.emp_num=f.emp_num and f.empfav=#empfav#
       </select>
+      
+      
+      <select id="favcheck" resultClass="int" parameterClass="favdto">
+         select count(*)from fav where empfav=#empfav# and emp_num=#emp_num#
+      </select>
+      
+      
       
       
 </sqlMap>

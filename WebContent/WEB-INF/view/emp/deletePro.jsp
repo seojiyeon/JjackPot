@@ -8,7 +8,7 @@
 
 <c:if test="${check==1 }">
 
-<form method="post" action="main.do" name="userinput" >
+<form method="post" action="main.jp" name="userinput" >
 <table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
   
     <td height="39" align="center">

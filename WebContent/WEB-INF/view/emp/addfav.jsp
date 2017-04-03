@@ -5,19 +5,11 @@
 <script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>   
 
    <body>
-  <table border="1" width="900"  cellpadding="0" cellspacing="0" align="center">
+  <table border="0" width="900"  cellpadding="0" cellspacing="0" align="center">
    
-   
-    <c:forEach var="article" items="${favList}" varStatus="status">
-  
-   ${article.empfav}
-   
-
-
-   
-   </c:forEach>
-   
-   
+   <h2> 추가 되었습니다.</h2>
+   <input type="submit" value="확인" onclick="window.location='orgChart.jp'">
+ 
    
    
  

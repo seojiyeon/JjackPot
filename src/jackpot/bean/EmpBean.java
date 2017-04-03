@@ -220,18 +220,54 @@ public class EmpBean {
 	
 	@RequestMapping("orgChart.jp")
 	public String orgChart(orgDTO dto,Model model,HttpSession session){
-		String emp_num=(String) session.getAttribute("memId");
-		System.out.println(emp_num);
-	   int department = (int)sqlMap.queryForObject("org.emp_department", emp_num);
-		System.out.println(department);
-		List articleList = null;
 
-		articleList = sqlMap.queryForList("org.member2",department);
-		model.addAttribute("articleList", articleList);
+			String emp_num=(String) session.getAttribute("memId");
+			System.out.println(emp_num);
+			int department = (int)sqlMap.queryForObject("org.emp_department", emp_num);
+			System.out.println(department);
+			
+			List articleList = null;
+			
+			articleList = sqlMap.queryForList("org.member2",department);
+			model.addAttribute("articleList", articleList);
+			
 		
 		return "/emp/orgChart";
 	}
 	
+	@RequestMapping("orgChartPro.jp")
+	public String orgChartPro(favDTO dto,Model model,HttpSession session,HttpServletRequest request){
+
+		String empfav = (String)session.getAttribute("memId");
+		String [] emp_num = request.getParameterValues("emp_num");
+//					1,2
+		System.out.println(emp_num);
+		System.out.println(empfav);
+		
+		for(String en : emp_num){
+			dto.setEmp_num(en);
+			dto.setEmpfav(empfav);
+	
+			int check =(Integer)sqlMap.queryForObject("org.favcheck", dto);
+			System.out.println("count="+check);
+	        if(check==0){
+	        	sqlMap.insert("org.insertfav",dto);
+			}
+	        model.addAttribute("check",new Integer(check));
+		}
+          
+           
+		return "/emp/orgChartPro";
+	}
+	
+	
+	@RequestMapping("addfav.jp")
+	public String addfav(HttpServletRequest request,HttpSession session,Model model){
+
+
+		return "/emp/addfav";
+		
+	}
 	
 	@RequestMapping("searchORG.jp")
 	public String searchORG(Model model,HttpServletRequest request){
@@ -257,24 +293,6 @@ public class EmpBean {
 	}
 	
 	
-	@RequestMapping("addfav.jp")
-	public String addfav(HttpServletRequest request,HttpSession session,Model model,favDTO dto){
-		
-		String emp_num=request.getParameter("emp_num");
-		 System.out.println(emp_num);
-		 		 	 
-		 sqlMap.insert("org.insertfav",dto);
-		 
-		 List favList = null;
-
-		    favList = sqlMap.queryForList("org.fav",emp_num);
-			model.addAttribute("favList", favList);
-		 
-		
-
-		return "/emp/addfav";
-		
-	}
 
 	
 }
