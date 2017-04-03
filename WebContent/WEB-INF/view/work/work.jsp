@@ -128,16 +128,12 @@
 					<td width="10" align="center">${i.emp_num}</td>
 					<td width="10"align="center">${sys.format(i.work_on)}</td>
 					<td width="10"align="center">${sys.format(i.work_off)}</td>
-					<c:if test="${i.work_off == null}">
-						<td width="10"align="center">${i.work_time}</td>
-					</c:if>
-					<c:if test="${i.work_off != null }">
-					<td width="10"align="center">${i.work_time}</td>
-					</c:if>
+					<td width="10"align="center">
+					${i.work_time}</td>
 					<td width="10"align="center">${i.h_work}</td>
 					<td width="10"align="center">${i.workOut}</td>
 					<td width="10"align="center">${i.lateNess}</td>
-					<td width="10"align="center">${i.early)}</td>
+					<td width="10"align="center">${i.early}</td>
 					<td width="10"align="center">${i.ip}</td>
 				</tr>
 			
