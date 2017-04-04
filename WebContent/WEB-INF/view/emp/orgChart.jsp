@@ -5,9 +5,21 @@
 <script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>   
 
 <script type="text/javascript">
+		
 
-function fav(){
-
+function fav(frm){
+	   var sum=0;
+       var count=frm.emp_num.length;
+       for(var i=0;i<count;i++){
+    	   if(from.emp_num[i].checked == true){
+    		   sum +=1;
+    	   }
+       }
+      if(sum <=0){
+    	  alert("선택해 주세요.");
+    	  return false;
+      }
+      
 	 if(confirm("즐겨찾기에 추가하시겠습니까?")==true){
 		 document.orgchart.action="/JackPot/orgChartPro.jp";
 		 document.orgchart.submit();
