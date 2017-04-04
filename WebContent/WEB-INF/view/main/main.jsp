@@ -130,7 +130,8 @@ function realtimeClock() {
 		<div class="main-basic-info">
 		
 		
-		<h2>즐겨찾기</h2>
+		<h2>즐겨찾기 <input type="button" value="즐겨찾기 수정" onclick="window.location='orgChart.jp'">
+		</h2> 
 		
 		<c:forEach var="article" items="${favList}" varStatus="status">
 		<ul style="list-style:none">
