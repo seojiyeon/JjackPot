@@ -13,7 +13,7 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function() {
-	
+	 
     jQuery("#calendar").fullCalendar({
     	  height: 650
     	, contentHeight: 150
