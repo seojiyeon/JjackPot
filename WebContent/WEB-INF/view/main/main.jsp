@@ -138,7 +138,7 @@ function realtimeClock() {
   
   <li>
     <div align="center" width="300" >
-  <img src="/JackPot/save/star.jpg" width="25" height="25"> &nbsp; <img src="/JackPot/save/${article.profilephoto}" width="50" height="55" > ${article.emp_name}(${article.emp_num}) <br/>
+  <img src="/JackPot/save/star.jpg" width="20" height="20"> &nbsp; <img src="/JackPot/save/${article.profilephoto}" width="50" height="55" > ${article.emp_name}(${article.emp_num}) <br/>
  
    ${article.address}<br/>
    ${article.phone}<br/>
