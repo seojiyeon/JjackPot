@@ -15,4 +15,10 @@ public class CommunityBean {
 	public String community(){
 		return "/community/community";
 	}
+
+	@RequestMapping("/boardinsert.jp.jp")
+	public String insert(){
+		return "/community/community";
+	}
+	
 }
