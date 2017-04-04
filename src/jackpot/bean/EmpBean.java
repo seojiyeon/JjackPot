@@ -219,53 +219,57 @@ public class EmpBean {
 	
 	
 	@RequestMapping("orgChart.jp")
-	public String orgChart(orgDTO dto,Model model,HttpSession session){
-
-			String emp_num=(String) session.getAttribute("memId");
-			System.out.println(emp_num);
-			int department = (int)sqlMap.queryForObject("org.emp_department", emp_num);
-			System.out.println(department);
+	public String orgChart(orgDTO dto,Model model,HttpSession session,HttpServletRequest request){
+           
+			String empfav=(String) session.getAttribute("memId");
+			
+			
+			System.out.println(empfav);			
+			int department = (int)sqlMap.queryForObject("org.emp_department", empfav);
+			
 			
 			List articleList = null;
-			
 			articleList = sqlMap.queryForList("org.member2",department);
 			model.addAttribute("articleList", articleList);
 			
-		
+			List list=null;
+			
+			list=sqlMap.queryForList("org.favlike", empfav);
+			model.addAttribute("list",list);
+			
+			
+			
+			
 		return "/emp/orgChart";
 	}
 	
 	@RequestMapping("orgChartPro.jp")
 	public String orgChartPro(favDTO dto,Model model,HttpSession session,HttpServletRequest request){
 
-		String IdCheck = (String)sqlMap.queryForObject("org.comfirmCheck", dto);
-         boolean check2;
-		
-		    if(IdCheck != null){
-			      check2=true;
-		    }else{
-			     
-		    }
-
 		String empfav = (String)session.getAttribute("memId");
 		String [] emp_num = request.getParameterValues("emp_num");
 //					1,2
-		System.out.println(emp_num);
-		System.out.println(empfav);
-		
+
+
 		for(String en : emp_num){
 			dto.setEmp_num(en);
 			dto.setEmpfav(empfav);
-	
+			
+			if(empfav.equals(en)){
+				model.addAttribute("check",new Integer(2));
+				continue;
+			}
+			
 			int check =(Integer)sqlMap.queryForObject("org.favcheck", dto);
 			System.out.println("count="+check);
+			
 	        if(check==0){
 	        	sqlMap.insert("org.insertfav",dto);
 			}
 	        model.addAttribute("check",new Integer(check));
+	       
 		}
-          
-           
+                    
 		return "/emp/orgChartPro";
 	}
 	
@@ -292,16 +296,29 @@ public class EmpBean {
 		map.put("searchValue", searchValue);
 		
 		List list = sqlMap.queryForList("org.search", map);
-		
-		
+			
 		model.addAttribute("list", list);
-		
-		
+				
 		return "/emp/searchORG";
 		
 	}
 	
 	
+	@RequestMapping("orgChartDEL.jp")
+	public String orgChartDEL(favDTO dto,HttpSession session,HttpServletRequest request){
+		String empfav=(String) session.getAttribute("memId");
+		String [] emp_num = request.getParameterValues("emp_num");
+		
+       for(String en : emp_num){
+    		dto.setEmp_num(en);
+			dto.setEmpfav(empfav);
+			  sqlMap.delete("org.favdelete", dto);
+       }
+          
+           
+		return "/emp/orgChartDEL";
+		
+	}
 
 	
 }

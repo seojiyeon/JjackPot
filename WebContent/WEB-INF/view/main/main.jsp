@@ -128,23 +128,32 @@ function realtimeClock() {
 		<div class="schedule"><div id="calendar"></div></div>
 		<br/>
 		<div class="main-basic-info">
+		
+		
 		<h2>즐겨찾기</h2>
+		
 		<c:forEach var="article" items="${favList}" varStatus="status">
+		<ul style="list-style:none">
   
   <li>
     <div align="center"  width="100" >
-   ${article.emp_num} <br/>
-   ${article.emp_name} <br/>
+  <img src="/JackPot/save/star.jpg" width="20" height="20">  ${article.emp_name}(${article.emp_num}) <br/>
+ 
    ${article.address}<br/>
    ${article.phone}<br/>
    </div>
  </li>
+   </ul>
    
    </c:forEach>
 		</div>
 		<div class="main-coworker"></div>
 	</div>
 
+
+  
+	
+   
 
   
 	

@@ -42,11 +42,15 @@
          select count(*)from fav where empfav=#empfav# and emp_num=#emp_num#
       </select>
       
-        <select id="comfirmCheck" resultClass="String" parameterClass="favdto">
-            select emp_num from emp where emp_num=#emp_num# 
+       <select id="favlike" resultClass="favdto" parameterClass="String">    
+          select emp_num from fav where empfav=#empfav#
+       </select>
+       
+         <delete id="favdelete" parameterClass="favdto">
+        delete from fav where emp_num=#emp_num# and empfav=#empfav#
         
-        </select>
-      
+        </delete>
+        
       
 </sqlMap>
 
