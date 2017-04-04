@@ -34,7 +34,7 @@
       
 
       <select id="fav" resultClass="odto" parameterClass="String">
-      select e.emp_num ,e.emp_name,e.phone,e.address,f.favorite,f.empfav from emp e,fav f where e.emp_num=f.emp_num and f.empfav=#empfav#
+      select e.emp_num,e.PROFILEPHOTO,e.emp_name,e.phone,e.address,f.favorite,f.empfav from emp e,fav f where e.emp_num=f.emp_num and f.empfav=#empfav#
       </select>
       
       
