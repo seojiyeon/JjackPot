@@ -8,23 +8,27 @@
 	
 	
 	<select id="getWork" parameterClass="wdto" resultClass="wdto">
+	
 	<![CDATA[
 		select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,r 
 		from (select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,rownum r
 		from work where emp_num=#emp_num# order by num desc) where rownum <= 1
 	]]>
+	
 	</select>
 	
 	
 	<select id="getItem" parameterClass="wdto" resultClass="wdto">
+		
 		select num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip
 		from work where emp_num= #emp_num# order by num desc  
+
 	</select>
 	
 	
 	<insert id="insertWork" parameterClass="wdto">
 	
-		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip) values(
+		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip,work_date) values(
 			work_seq.nextval,
 			#emp_num#,
 			sysdate,
@@ -35,35 +39,54 @@
 			'00:00',
 			'00:00',
 			#division#,
-			#ip# 
+			#ip#,
+			#work_date#
 		)
 		
 	</insert>	
 	
+	
 	<update id="updateLateNess" parameterClass="wdto">
+	
 		update work set 
 			lateNess=#lateNess#
 			where num=#num#
 		
 	</update>	
 
+
 	<update id="updateWork" parameterClass="wdto">
+	
 		update work set 
 			work_off=sysdate
 			where num=#num#
 		
 	</update>	
 	
-		<update id="updateWorkTime" parameterClass="wdto">
+	
+	<update id="updateWorkTime" parameterClass="wdto">
+			
 			update work set 
 				work_time=#work_time# where num=#num#
 		
 	</update>	
 
-		<update id="updateEarly" parameterClass="wdto">
+
+	<update id="updateEarly" parameterClass="wdto">
+
 			update work set 
 				early=#early# where num=#num#
+
 	</update>	
+		
+
+	<update id="updateWorkOut" parameterClass="wdto">
+			
+		update work set 		
+			workOut=#workOut# where num=#num#
+	
+	</update>	
+	
 
 </sqlMap>
 

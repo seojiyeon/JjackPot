@@ -2,9 +2,9 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 
-<sqlMap namespace="work">   
+<sqlMap namespace="work_year">   
 
-	<typeAlias alias="wdto" type="jackpot.DTO.workDTO"/>
+	<typeAlias alias="ydto" type="jackpot.DTO.work_yDTO"/>
 	
 	
 	<select id="getWork" parameterClass="wdto" resultClass="wdto">
@@ -24,7 +24,7 @@
 	
 	<insert id="insertWork" parameterClass="ydto">
 	
-		insert into work(num,emp_num,y_day,y_start,y_end,y_basic,y_use,y_remain) values(
+		insert into work(num,emp_num,y_day,y_start,y_end,y_basic,y_use,y_remain,y_kind) values(
 			ywork_seq.nextval,
 			#emp_num#,
 			#y_day#,
@@ -32,7 +32,8 @@
 			#y_end#,
 			#y_basic#,
 			#y_use#,
-			#y_remain# 
+			#y_remain#, 
+			#y_kind#
 		)
 		
 	</insert>	

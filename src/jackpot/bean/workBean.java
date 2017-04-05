@@ -1,5 +1,6 @@
 package jackpot.bean;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -8,7 +9,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ParseException;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,38 +59,34 @@ public class workBean {
 		wdto.setIp(ip);
 		sqlMap.insert("work.insertWork", wdto); //출근시간 구하기
 		
-	/*	//지각 시간 구하기
-		workDTO ladto = (workDTO)sqlMap.queryForObject("work.getWork", wdto); //지각시간계산의위해 리스트불러오기
-		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd HH:mm:ss"; // string을 date로 하기위한 것
-		Calendar calendar = Calendar.getInstance();   //캘린더를 date로 변환
-		DateFormat stringFormat = new SimpleDateFormat(dateFormatStr); 
-		
-		try{
-			LocalTime lateTime = LocalTime.parse("09:31:00");
-			long nano = lateTime.toNanoOfDay()*1000000;
-			nano= nano *1000000 = nano.getTimeInMillis(); 
-			System.out.println("nano==>>"+nano);
-			
-			Date work_on = ladto.getWork_on();  //work_on을 불러온다.
-			calendar.setTime(work_on);     //work_off를 캘린더시간에 넣어준다.
-			long won = calendar.getTimeInMillis();  //work_off 시간을 초단위로 바꿔준다.
-			
+	/*========================================================================================================================*/
 
-					long late_time1 = nano - won;    //lateTime-work_on을 하여 1000초를 기준으로 초를 구해준다.
-					long hour_late_time = late_time1;  // 시간으로 지정
-					long minute_late_time = late_time1;		//분으로 지정
-					hour_late_time = (late_time1/1000)/60/60;    // 각각의 시간을 구해준다
-					minute_late_time = (late_time1 / 1000)/60;   //각각의 분을 구해준다.
-					System.out.println(hour_late_time);
-					System.out.println(minute_late_time);
-					String lateNess = minute_late_time+":"+minute_late_time;  //work_time으로 타입을 맞게 변경되어 구한값을 넣어준다.
-					ladto.setLateNess(lateNess);  //구한값을 넣어준다.
-					System.out.println(lateNess);
-					sqlMap.update("work.updateLateNess", ladto);  
-					
-		}catch(ParseException e){
-			e.printStackTrace();
-		}	*/
+		//지각시간구하기 
+		workDTO ladto = (workDTO)sqlMap.queryForObject("work.getWork", wdto);
+		Timestamp wo = ladto.getWork_on();
+		Date d = new Date();    //시간날짜불러오기
+		d.setHours(9);			//지각 시간 지정
+		d.setMinutes(31);		//지각 분지정
+		d.setSeconds(0);		//시각 초지정
+		
+		long late =(wo.getTime() - d.getTime());    //출근시간 - 지각지정시간
+		long hourlatework_time = late;  // 지각 시간으로 지정
+		long minutelatework_time = late;		//지각 분으로 지정
+		hourlatework_time  = (late/1000)/60/60;    // 각각의 시간을 구해준다
+		minutelatework_time = (late/ 1000)/60;   //각각의 분을 구해준다.
+		System.out.println((int)minutelatework_time);
+		
+		while((int)minutelatework_time > 59)
+		{
+			System.out.println(minutelatework_time);
+			minutelatework_time = minutelatework_time - 60 ;
+			
+		}  //분이 59보다 크면 자동으로 60을 지켜준다.
+		
+		String lateNess = hourlatework_time+":"+minutelatework_time;  //lateNess으로 타입을 맞게 변경되어 구한값을 넣어준다.
+		ladto.setLateNess(lateNess);  //구한값을 넣어준다.
+		sqlMap.update("work.updateLateNess", ladto);  //lateNess SQL에 넣어준다.
+		 
 		return "/work/work_on";
 	}
 	
@@ -103,63 +99,112 @@ public class workBean {
 		workDTO rdto = (workDTO)sqlMap.queryForObject("work.getWork", wdto);
 		sqlMap.update("work.updateWork", rdto);    //퇴근시간 update
 	
-		
+	/*========================================================================================================================*/	
+	
 		//근무시간 구하기
 		rdto = (workDTO)sqlMap.queryForObject("work.getWork", wdto);   //근무시간계산을 위해 다시 리스트를 불러온다.
 		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd HH:mm:ss"; // string을 date로 하기위한 것
 		Calendar calendar = Calendar.getInstance();   //캘린더를 date로 변환
 		DateFormat stringFormat = new SimpleDateFormat(dateFormatStr); 
-		
-		try{
-			Date work_on = rdto.getWork_on();  //work_on을 불러온다.
-			Date work_off = rdto.getWork_off();   //work_off를 불러온다.
-			
-			calendar.setTime(work_off);     //work_off를 캘린더시간에 넣어준다.
-			long woff = calendar.getTimeInMillis();  //work_off 시간을 초단위로 바꿔준다.
 
-			calendar.setTime(work_on);			//work_on를 캘린더시간에 넣어준다.
-			long won = calendar.getTimeInMillis();     //work_on 시간을 초단위로 바꿔준다.
+		Date work_on = rdto.getWork_on();  //work_on을 불러온다.
+		Date work_off = rdto.getWork_off();   //work_off를 불러온다.
+		calendar.setTime(work_off);     //work_off를 캘린더시간에 넣어준다.
+		long woff = calendar.getTimeInMillis();  //work_off 시간을 초단위로 바꿔준다.
+		calendar.setTime(work_on);			//work_on를 캘린더시간에 넣어준다.
+		long won = calendar.getTimeInMillis();     //work_on 시간을 초단위로 바꿔준다.
+		long work_time1 = woff - won;    //work_off-work_on을 하여 1000초를 기준으로 초를 구해준다.
+		long hourwork_time = work_time1;  // 시간으로 지정
+		long minutework_time = work_time1;		//분으로 지정
+		hourwork_time = (work_time1/1000)/60/60;    // 각각의 시간을 구해준다
+		minutework_time = (work_time1 / 1000)/60;   //각각의 분을 구해준다.
 				
-			long work_time1 = woff - won;    //work_off-work_on을 하여 1000초를 기준으로 초를 구해준다.
+		while((int)minutework_time > 59)
+		{
+			System.out.println(minutework_time);
+			minutework_time = minutework_time - 60 ;
+		} //분이 59보다 크면 자동으로 60을 지켜준다.
 			
+		String work_time = hourwork_time+":"+minutework_time;  //work_time으로 타입을 맞게 변경되어 구한값을 넣어준다.
+		rdto.setWork_time(work_time);  //구한값을 넣어준다.
+		sqlMap.update("work.updateWorkTime", rdto);  
+		
+    /*========================================================================================================================*/
+		
+		//조퇴시간구하기 
+//		
+		workDTO eadto = (workDTO)sqlMap.queryForObject("work.getWork", wdto);
+		Date wof = eadto.getWork_off();
+		Date d = new Date();    //시간날짜불러오기
+		d.setHours(17);			//지각 시간 지정
+		d.setMinutes(30);		//지각 분지정
+		d.setSeconds(0);		//시각 초지정
+		
+		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd HH:mm:ss"; // string을 date로 하기위한 것
+		Calendar cal = Calendar.getInstance();   //캘린더를 date로 변환
+		DateFormat stringForma = new SimpleDateFormat(dateFormatStr); 
+		calendar.setTime(wof);     //work_off를 캘린더시간에 넣어준다.
+		long wofff = calendar.getTimeInMillis();  //work_off 시간을 초단위로 바꿔준다.
+		calendar.setTime(d);
+		long dd = calendar.getTimeInMillis(); 
+		
+		
+		if(wofff < dd ){
+		long EarlyTime =(d.getTime() - wof.getTime());    //퇴근시간 - 조퇴지정시간
+		long hourEarlywork_time = EarlyTime;  // 지각 시간으로 지정
+		long minuteEarlywork_time = EarlyTime;		//조퇴 분으로 지정
+		hourEarlywork_time  = (EarlyTime/1000)/60/60;    // 각각의 시간을 구해준다
+		minuteEarlywork_time = (EarlyTime/ 1000)/60;   //각각의 분을 구해준다.
+		System.out.println((int)minuteEarlywork_time);
+		
+		while((int)minuteEarlywork_time > 59)
+		{
+			System.out.println(minuteEarlywork_time);
+			minuteEarlywork_time = minuteEarlywork_time - 60 ;
 			
+		}  //분이 59보다 크면 자동으로 60을 지켜준다.
+		
+		String early = hourEarlywork_time+":"+minuteEarlywork_time;  //early으로 타입을 맞게 변경되어 구한값을 넣어준다.
+		eadto.setEarly(early);  //구한값을 넣어준다.
+		sqlMap.update("work.updateEarly", eadto);  //early SQL에 넣어준다.
+		}
+	
+	/*========================================================================================================================*/
+		
+		//연장근무시간구하기
+		else if(wofff > dd){
+		long outTime =(work_off.getTime() - d.getTime());    //퇴근시간 - 퇴근지정시간
+		long houroutTime = outTime;  // 퇴근 시간으로 지정
+		long minuteoutTime = outTime;		//퇴근 분으로 지정
+		houroutTime  = (outTime/1000)/60/60;    // 각각의 시간을 구해준다
+		minuteoutTime = (outTime/ 1000)/60;   //각각의 분을 구해준다.
+		System.out.println((int)minuteoutTime);
+		
+		while((int)minuteoutTime > 59)
+		{
+			System.out.println(minuteoutTime);
+			minuteoutTime = minuteoutTime - 60 ;
 			
-			long hourwork_time = work_time1;  // 시간으로 지정
-			long minutework_time = work_time1;		//분으로 지정
-			hourwork_time = (work_time1/1000)/60/60;    // 각각의 시간을 구해준다
-			minutework_time = (work_time1 / 1000)/60;   //각각의 분을 구해준다.
-			System.out.println((int)minutework_time);
+		}  //분이 59보다 크면 자동으로 60을 지켜준다.
+		
+		String workOut = houroutTime+":"+minuteoutTime;  //workOut으로 타입을 맞게 변경되어 구한값을 넣어준다.
+		eadto.setWorkOut(workOut);  //구한값을 넣어준다.
+		sqlMap.update("work.updateWorkOut", eadto);  //workOut SQL에 넣어준다.
+		}
 			
-			while((int)minutework_time > 59)
-			{
-				System.out.println(minutework_time);
-				minutework_time = minutework_time - 60 ;
-				
-			}
-			
-			System.out.println("hourwork_time="+hourwork_time);
-			System.out.println("minutework_time="+minutework_time);
-			String work_time = hourwork_time+":"+minutework_time;  //work_time으로 타입을 맞게 변경되어 구한값을 넣어준다.
-			
-			rdto.setWork_time(work_time);  //구한값을 넣어준다.
-			sqlMap.update("work.updateWorkTime", rdto);  
-			
-			
-		}catch(ParseException e){
-			e.printStackTrace();
-		}	
+
 		
 	
-		//휴일근무 
+	/*	//휴일근무 
 		rdto = (workDTO)sqlMap.queryForObject("work.getWork", wdto);
 		private static String[] solarArr = new String[]{"0101", "0301", "0505", "0606", "0815", "1225"};
 	    private static String[] lunarArr = new String[]{"0101", "0102", "0408", "0814", "0815", "0816"};
 	    
-	    /**
+	    *//**
 	     * 해당일자가 법정공휴일, 대체공휴일, 토요일, 일요일인지 확인
 	     * @param date 양력날짜 (yyyyMMdd)
 	     * @return 법정공휴일, 대체공휴일, 일요일이면 true, 오류시 false
-	     */
+	     *//*
 	    public static boolean isHoliday(String date) {
 	        try {
 	            return isHolidaySolar(date) || isHolidayLunar(date) || isHolidayAlternate(date) || isWeekend(date);
@@ -169,12 +214,12 @@ public class workBean {
 	        }
 	    }
 	 
-	    /**
+	    *//**
 	     * 토요일 또는 일요일이면 true를 리턴한다.
 	     * @param date 양력날짜 (yyyyMMdd)
 	     * @return 일요일인지 여부
 	     * @throws ParseException
-	     */
+	     *//*
 	    private static boolean isWeekend(String date) throws ParseException {
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	        Calendar cal = Calendar.getInstance();
@@ -182,11 +227,11 @@ public class workBean {
 	        return cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY;
 	    }
 	    
-	    /**
+	    *//**
 	     * 해당일자가 대체공휴일에 해당하는 지 확인
 	     * @param 양력날짜 (yyyyMMdd)
 	     * @return 대체 공휴일이면 true
-	     */
+	     *//*
 	    private static boolean isHolidayAlternate(String date) {
 	        
 	        String[] altHoliday = new String[] {
@@ -196,7 +241,7 @@ public class workBean {
 	                "20270209", "20290924", "20290507"}; 
 	        
 	        return Arrays.asList(altHoliday).contains(date); 
-	        
+	        */
 	        /*
 	        int year = Integer.parseInt(date.substring(0, 4));
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -256,15 +301,15 @@ public class workBean {
 	        }
 	        
 	        return altHolyday.contains(date); 
-	        */
+	        
 	    }
-	 
+	 */
 	 
 	    /**
 	     * 해당일자가 음력 법정공휴일에 해당하는 지 확인
 	     * @param 양력날짜 (yyyyMMdd)
 	     * @return 음력 공휴일이면 true
-	     */
+	     *//*
 	    private static boolean isHolidayLunar(String date) {
 	        try {
 	            Calendar cal = Calendar.getInstance();
@@ -301,11 +346,11 @@ public class workBean {
 	    }
 	 
 	 
-	    /**
+	    *//**
 	     * 해당일자가 양력 법정공휴일에 해당하는 지 확인
 	     * @param date 양력날짜 (yyyyMMdd)
 	     * @return 양력 공휴일이면 true
-	     */
+	     *//*
 	    private static boolean isHolidaySolar(String date) {
 	        try {
 	            // 공휴일에 포함 여부 리턴 
@@ -317,11 +362,11 @@ public class workBean {
 	    }
 	    
 	    
-	    /**
+	    *//**
 	     * 음력날짜를 양력날짜로 변환
 	     * @param 음력날짜 (yyyyMMdd)
 	     * @return 양력날짜 (yyyyMMdd)
-	     */
+	     *//*
 	    private static String convertLunarToSolar(String yyyymmdd) {
 	        ChineseCalendar cc = new ChineseCalendar();
 	        Calendar cal = Calendar.getInstance();
@@ -359,11 +404,11 @@ public class workBean {
 	        return ret.toString();
 	    }
 	    
-	    /**
+	    *//**
 	     * 양력날짜의 요일을 리턴
 	     * @param 양력날짜 (yyyyMMdd)
 	     * @return 요일(int)
-	     */
+	     *//*
 	    private static int getDayOfWeek(String day) {
 	        int y = Integer.parseInt(day.substring(0, 4));
 	        int m = Integer.parseInt(day.substring(4, 6)) - 1;
@@ -383,7 +428,7 @@ public class workBean {
 	        System.out.println("20151225 (양력) : " + HolidayUtil.isHoliday("20151225")); // 크리스마스
 	        System.out.println("20151226        : " + HolidayUtil.isHoliday("20151226"));
 	        System.out.println("20150929 (대체) : " + HolidayUtil.isHoliday("20150929")); // 대체 휴일
-	    }   
+	    }   */
 		return "/work/work_off";
 	}
 }

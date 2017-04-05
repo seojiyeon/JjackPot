@@ -34,6 +34,7 @@
 						changeMonth: true, 
 						dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
 						monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+						
 					});
         	      });
        
@@ -69,7 +70,7 @@
     <table  width="600" border="1">
     	<tr>
     		<td>*근무일자 
-    			<input type="text" id="work_date" name="schdate"  style="width:100px;height:25px; margin: 10px 0px 0px 0px;" value="<fmt:formatDate value="${now}" type="both" pattern="yyyyMMdd"/>"/>
+    			<input type="text" id="work_date" name="work_date"  style="width:100px;height:25px; margin: 10px 0px 0px 0px;" value="<fmt:formatDate value="${wdto.work_date}" type="both" pattern="yyyyMMdd"/>"/>
     			<!-- <img src="/images/calender.png" width="20" height="20" onclick="fnPopUpCalendar(startDate,startDate,'yyyymmdd');" style="vertical-align: middle; margin: 10px 235px 0px 0px;"> -->
     		
     		
