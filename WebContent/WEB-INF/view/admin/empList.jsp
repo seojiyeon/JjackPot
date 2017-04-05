@@ -54,7 +54,7 @@ background-color: #e6e6e6;
     font-size : 12px;
 }
 
-tr:hover{background-color: #ffe6ff}
+.employee tr:hover{background-color: #ffe6ff}
 
 
 .form-group th{
@@ -325,7 +325,7 @@ $(function(){
       <th align="center"  width="50" ><b>이메일</b></th>
     </tr>
 
-<div id="pink">
+
  <c:forEach var="article" items="${articleList}" varStatus="st">
    <tr height="30" id="emp${st.count}">
     <td align="center"  width="50" >
@@ -794,6 +794,39 @@ $(function(){
 					</div>
 				</div>
 			</div>
+			
+			<div id="tab3" class="tab_content" style="display:none;">
+				<!-- 학력정보관리 -->
+				<div class="subtitle">
+					
+					<div class="fright">
+						
+							<button type="button" id="addAcadmyInfo" onclick="spro.acadmyInfoMngInstance.addAcadmyInfoMng();" class="btn btn-color7 br">
+								행추가
+							</button>
+						
+						
+							<button type="button" id="removeAcadmyInfo" onclick="spro.acadmyInfoMngInstance.removeAcadmyInfoMng();" class="btn btn-color7 br">
+								행삭제
+							</button>
+						
+					</div>
+				</div>
+				<div class="content-list bdr-t">
+					<div id="acadmyInfoMngGrid" style="width: 100%; height: 169px;"></div>
+					<!-- //게시물 목록 -->
+					<!-- 게시물 하단 버튼 -->
+					<div class="btn-wrap">
+						
+							<button type="button" id="btnSaveAcadmyInfo" onclick="spro.acadmyInfoMngInstance.saveAcadmyInfoMng();" class="btn btn-color5 br">
+								저장
+							</button>
+						
+					</div>
+				</div>
+			</div>
+			
+			
 			</div>
 			
 			

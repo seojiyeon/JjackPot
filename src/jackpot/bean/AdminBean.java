@@ -23,13 +23,21 @@ public class AdminBean {
 	public String empList(empDTO dto, HttpSession session, Model model){
 		
 		List articleList = null;
-		articleList = sqlMap.queryForList("employee.memberAll", articleList);
-		
-		model.addAttribute("articleList", articleList);
-		
-		
+		articleList = sqlMap.queryForList("employee.memberAll", articleList);		
+		model.addAttribute("articleList", articleList);		
 		
 		return "/admin/empList";
 	}	
+	
+	@RequestMapping("/wage.jp")
+	public String wage(empDTO dto, HttpSession session, Model model){
+		
+		List articleList = null;
+		articleList = sqlMap.queryForList("employee.memberAll", articleList);		
+		model.addAttribute("articleList", articleList);		
+		
+		return "/admin/wage";
+	}
+	
 	
 }

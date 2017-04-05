@@ -108,7 +108,9 @@ function realtimeClock() {
     		<div class="topetc" style="list-style:none;">
     		<ul style="height:40px;width:350px;float:right;padding:0px;margin:0px;">
     		<li style="text-align:center;">
+    		
     			<div class="Search">
+    			<input type="button" value="로그인폼가긔" onclick="window.location='loginform.jp'" />
     			<form>
        			<select><option>통합검색</option><option>직원검색</option></select>
   				<input type="text" name=""/>

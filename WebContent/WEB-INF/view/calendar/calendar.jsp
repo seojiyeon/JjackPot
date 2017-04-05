@@ -30,9 +30,7 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function() {
-	for(var i=0;i<3;i++){
-		 alert(i);
-	};
+
     jQuery("#calendar").fullCalendar({
           defaultDate : "2017-03-23"
         , locale: 'ko'
