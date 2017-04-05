@@ -7,11 +7,11 @@
 <script type="text/javascript">
 		
 
-function fav(frm){
+function fav(){
 	   var sum=0;
-       var count=frm.emp_num.length;
+       var count=document.orgchart.emp_num.length;
        for(var i=0;i<count;i++){
-    	   if(from.emp_num[i].checked == true){
+    	   if(document.orgchart.emp_num[i].checked == true){
     		   sum +=1;
     	   }
        }
@@ -75,7 +75,8 @@ function favd(){
 <table border="1" width="900"  cellpadding="0" cellspacing="0" align="center"> 
     			
 <form method="post"  actione="addfav.jp" name="orgchart" >
-
+ 
+ 
 <c:if test="${memId!=null}">
 
 
@@ -124,7 +125,10 @@ function favd(){
     <tr>
      <Td align="center" >
         <input type="button" value="즐겨찾기 추가"  onclick="fav()">
-        <input type="button" value="즐겨찾기 해제"  onclick="favd()">
+        <input type="button" value="즐겨찾기 해제"  onclick="favd()">&nbsp;&nbsp;&nbsp;
+        <input type="button" value="전체구성원 보기" onclick="window.location='Allorg.jp'">&nbsp;&nbsp;
+        <input type="button" value="메인" onclick="window.location='main.jp'">
+ 
     </Td>
    </tr>
   </table>

@@ -320,5 +320,49 @@ public class EmpBean {
 		
 	}
 
+	@RequestMapping("Allorg.jp")
+	public String Allorg(orgDTO dto,Model model,HttpSession session,HttpServletRequest request){
+
+			String empfav=(String) session.getAttribute("memId");
+			String [] emp_num = request.getParameterValues("emp_num");
+
+			System.out.println(empfav);		
+		
+			int department = (int)sqlMap.queryForObject("org.emp_department",empfav);
+			
+			System.out.println(emp_num);		
+			
+			List articleList = null;
+			articleList = sqlMap.queryForList("org.allorg",department);
+			
+			List list=null;
+			list=sqlMap.queryForList("org.allorg2",department);
+			
+			List list2=null;
+			list2=sqlMap.queryForList("org.allorg3",department);
+			
+			List list3=null;
+			list3=sqlMap.queryForList("org.allorg4",department);
+			
+			List list4=null;
+			list4=sqlMap.queryForList("org.allorg5",department);
+			
+			List list5=null;
+			list5=sqlMap.queryForList("org.allorg6",department);
+			
+			
+			
+			model.addAttribute("articleList", articleList);
+			model.addAttribute("list", list);
+			model.addAttribute("list2", list2);
+			model.addAttribute("list3", list3);
+			model.addAttribute("list4", list4);
+			model.addAttribute("list5", list5);
+			
+			
+
+			
+		return "/emp/Allorg";
+	}
 	
 }
