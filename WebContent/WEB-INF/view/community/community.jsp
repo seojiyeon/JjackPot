@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/JackPot/css/sub.css?ver=6" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/sub.css?ver=1" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <html>
@@ -276,40 +276,47 @@ function layer_open2(e2){
 									<div class="pop-conts">
 										<a href="#" class="btn-example2" onclick="layer_open2('layer2');return false;">자유게시판</a>
 											<div id="layer2" class="pop-layer2">
+										<div class="contents">	
 								  			<div class="pop-top2">
-											자유게시판 <a href="#" class="cbtn2"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
+											게시판 <a href="#" class="cbtn2"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
 											</div>
 											<div class="pop-board">
 												<div class="pop-info2">
-												등록 시 제목의 체크박스에 체크하면 목록의 상단에 위치하며 업무포탈 상단의 NOTICE에 노출됩니다.
+												<font size="2">등록 시 제목의 체크박스에 체크하면 목록의 상단에 위치하며 업무포탈 상단의 NOTICE에 노출됩니다.</font>
 												</div>
 												<div class="pop-container2">
 												<div class="pop-conts2">
-													<ul>
-														<li style="width:20%;">게시판 명</li><li style="width:80%;">자유게시판</li>
-													</ul>
-													<ul>
-														<li style="width:20%;">*제목</li><li style="width:80%;"><input type="text"></li>
-													</ul>
-													<ul>
-														<li style="width:20%;">작성자</li><li style="width:80%;">안진영님</li>
-													</ul>
-													<ul>
-														<li><textarea class="ckeditor" cols="1" id="editor1" name="editor1" rows="15"></textarea></li>
-													</ul>
-											<div class="btn-r2">
-												<a href="#" class="cbtn2">닫기</a>
+													<div>
+														<ul>
+															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li><li style="width:80%;">자유게시판</li>
+														</ul>
+														<ul>
+															<li style="width:20%;background-color:#f5f5f5;">*제목</li><li style="width:80%;"><input type="text"></li>
+														</ul>
+														<ul>
+															<li style="width:20%;background-color:#f5f5f5;">작성자</li><li style="width:80%;">안진영님</li>
+														</ul>
+														<ul>
+															<li><textarea class="ckeditor" cols="1" id="editor1" name="editor1" rows="15"></textarea></li>
+														</ul>
+													</div>
+													<div class="pop2boardfileuplord">
+														<ul>
+															<li></li>
+														</ul>
+													</div>
+												</div>
 											</div>
-											</div>
+										<div class="btn-r2">
+											<a href="#" class="cbtn2">닫기</a>
+										</div>
+									</div>
+									</div>
 								</div>
 							</div>
-									<div class="btn-r">
-										<a href="#" class="cbtn">닫기</a>
-									</div>
-									<!--// content-->
-									</div>
-								</div>
-							</div>
+						<div class="btn-r">
+						<a href="#" class="cbtn">닫기</a>
+						</div>
 						</div>
 					</li>
 					<li style="text-align:center;height:40px;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
