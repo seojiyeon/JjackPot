@@ -49,6 +49,8 @@
 </style>
 
 <script>
+
+	/* 행추가 버튼 클릭시 동적으로 행추가 */
 	var oTable;
 	
 	function insBigRow() {
@@ -108,6 +110,7 @@
 		oCell3.innerHTML = frmTag3;
 	}
 	
+	/* 저장버튼 클릭시 내용이 비어있는 경우에 발생하는 이벤트 */
 	function bigFrmCheck() {
 		var frm = document.bigForm;
 		
@@ -171,14 +174,46 @@
 		}
 	}
 	
-	$(document).ready(function() {
-		$("#modify").dblclick(function() {
-			$(this).change(function() {
-				$(this).text
+	/* 선택시 색상 변경 */
+	var orgBgColor = '#ffffff';
+	var orgTblColor = '#000000';
+	
+	function HighlightTR(target, backColor, textColor) {
+		var tBody = target.parentNode;
+		var trs = tBody.getElementsByTagName('tr');
+		var check = document.forms.big;
+		
+		for(var i = 0; i < trs.length; i++) {
+			if(trs[i] != target) {
+				trs[i].style.backgroundColor = orgBgColor;
+				trs[i].style.color = orgTblColor;
+			} else {
+				trs[i].style.backgroundColor = backColor;
+				trs[i].style.color = textColor;
 				
-			});
+				if(targer == "big") {
+					check.middle.style.display="";
+				}
+			}
+		}
+	}
+	
+	/* 더블클릭시 input type="text" 나타남 */
+	$(document).ready(function() {
+		$(".modifyName").dblclick(function() {
+			var con = this.innerHTML;
+			this.innerHTML="<input type=text name='big_name' value="+con+">";
+		});
+		
+		$(".modifyUse").dblclick(function() {
+			var conUse = this.innerHTML;
+			this.innerHTML ="<select name='big_use'>"
+			 + "<option value='사용'>사용</option>"
+			 + "<option value='미사용'>미사용</option>"
+			 + "</select>";
 		});
 	});
+	
 </script>
 
 <body>
@@ -214,14 +249,14 @@
 				</tr>
 				
 				<c:forEach var="bigCate" items="${bigCateList}">
-				<tr>
+				<tr onClick="HighlightTR(this, '#FFA7A7','#BB2929');" class="big">
 					<td>
 						${bigCate.getBig_cate()}
 					</td>
-					<td id="modify">
+					<td class="modifyName">
 						${bigCate.getBig_name()}
 					</td>
-					<td id="change">
+					<td class="modifyUse">
 						${bigCate.getBig_use()}
 					</td>
 				</tr>		
@@ -251,6 +286,9 @@
 					<td>코드</td>
 					<td>명칭</td>
 					<td>사용여부</td>
+				</tr>
+				<tr onClick="HighlightTR(this, '#FFA7A7','#BB2929');" class="middle" style="display: ;">
+					<td>asdf</td>
 				</tr>
 			</table>
 			<table>
