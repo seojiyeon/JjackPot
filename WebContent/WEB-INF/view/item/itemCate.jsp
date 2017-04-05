@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
 <title>재고관리</title>
 </head>
 
@@ -58,9 +61,12 @@
 		
 		var frmTag1 = "<input type=text name=big_cate style=width:100px; height:20px;> ";
 		oCell1.innerHTML = frmTag1;
-		var frmTag2 = "<input type=text name=big_name style=width:20px; height:20px;> ";
+		var frmTag2 = "<input type=text name=big_name style=width:40px; height:20px;> ";
 		oCell2.innerHTML = frmTag2;
-		var frmTag3 = "<input type=text name=big_use style=width:20px; height:20px;> ";
+		var frmTag3 = "<select name='big_use'>";
+		frmTag3 += "<option value='사용'>사용</option>";
+		frmTag3 += "<option value='미사용'>미사용</option>";
+		frmTag3 += "</select>";
 		oCell3.innerHTML = frmTag3;
 	}
 	
@@ -74,9 +80,12 @@
 		
 		var frmTag1 = "<input type=text name=middle_cate style=width:100px; height:20px;> ";
 		oCell1.innerHTML = frmTag1;
-		var frmTag2 = "<input type=text name=middle_name style=width:20px; height:20px;> ";
+		var frmTag2 = "<input type=text name=middle_name style=width:40px; height:20px;> ";
 		oCell2.innerHTML = frmTag2;
-		var frmTag3 = "<input type=text name=middle_use style=width:20px; height:20px;> ";
+		var frmTag3 = "<select name='middle_use'>";
+		frmTag3 += "<option value='사용'>사용</option>";
+		frmTag3 += "<option value='미사용'>미사용</option>";
+		frmTag3 += "</select>";
 		oCell3.innerHTML = frmTag3;
 	}
 	
@@ -90,15 +99,86 @@
 		
 		var frmTag1 = "<input type=text name=small_cate style=width:100px; height:20px;> ";
 		oCell1.innerHTML = frmTag1;
-		var frmTag2 = "<input type=text name=small_name style=width:20px; height:20px;> ";
+		var frmTag2 = "<input type=text name=small_name style=width:40px; height:20px;> ";
 		oCell2.innerHTML = frmTag2;
-		var frmTag3 = "<input type=text name=small_use style=width:20px; height:20px;> ";
+		var frmTag3 = "<select name='small_use'>";
+		frmTag3 += "<option value='사용'>사용</option>";
+		frmTag3 += "<option value='미사용'>미사용</option>";
+		frmTag3 += "</select>";
 		oCell3.innerHTML = frmTag3;
 	}
 	
-	function deleteRow() {
+	function bigFrmCheck() {
+		var frm = document.bigForm;
 		
+		for(var i = 0; i <= frm.elements.length-1; i++) {
+			if(frm.elements[i].name == "big_cate") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+			if(frm.elements[i].name == "big_name") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+		}
 	}
+	
+	function middleFrmCheck() {
+		var frm = document.middleForm;
+		
+		for(var i = 0; i <= frm.elements.length-1; i++) {
+			if(frm.elements[i].name == "middle_cate") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+			if(frm.elements[i].name == "middle_name") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+		}
+	}
+	
+	function smallFrmCheck() {
+		var frm = document.smallForm;
+		
+		for(var i = 0; i <= frm.elements.length-1; i++) {
+			if(frm.elements[i].name == "small_cate") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+			if(frm.elements[i].name == "small_name") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+		}
+	}
+	
+	$(document).ready(function() {
+		$("#modify").dblclick(function() {
+			$(this).change(function() {
+				$(this).text
+				
+			});
+		});
+	});
 </script>
 
 <body>
@@ -108,9 +188,9 @@
 				<tr>
 					<td>사용여부
 						<select name="use">
-							<option value="use">사용</option>
-							<option value="unuse">미사용</option>
-							<option value="use_unuse">전체</option>
+							<option value="사용">사용</option>
+							<option value="미사용">미사용</option>
+							<option value="전체">전체</option>
 						</select>
 					</td>
 					<td>
@@ -118,7 +198,7 @@
 			</table>
 		</div>
 		<div class="bigCate">
-		<form name="bigForm">
+		<form method="post" action="bigCatePro.jp" name="bigForm" onSubmit="return bigFrmCheck()">
 			<table border="1" id="itemBigCate">
 				<tr>
 					<td><h2>대분류 숫자</h2></td>
@@ -132,11 +212,23 @@
 					<td>명칭</td>
 					<td>사용여부</td>
 				</tr>
+				
+				<c:forEach var="bigCate" items="${bigCateList}">
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+					<td>
+						${bigCate.getBig_cate()}
+					</td>
+					<td id="modify">
+						${bigCate.getBig_name()}
+					</td>
+					<td id="change">
+						${bigCate.getBig_use()}
+					</td>
+				</tr>		
+				</c:forEach>
+				
+			</table>
+			<table>
 				<tr>
 					<td colspan="3">
 						<input type="submit" value="저장" />
@@ -146,24 +238,19 @@
 		</form>
 		</div>
 		<div class="middleCate">
-		<form>
+		<form method="post" action="middleCatePro.jp" name="middleForm" onSubmit="middleFrmCheck()">
 			<table border="1" id="itemMiddleCate">
 				<tr>
 					<td><h2>중분류 숫자</h2></td>
 					<td colspan="2">
 						<input type="button" value="행추가" onclick="insMiddleRow();"/>
-						<input type="button" value="행삭제" onclick="" />
+						<input type="button" value="행삭제" onclick="frmCheck();" />
 					</td>
 				</tr>
 				<tr>
 					<td>코드</td>
 					<td>명칭</td>
 					<td>사용여부</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 			</table>
 			<table>
@@ -176,7 +263,7 @@
 		</form>
 		</div>
 		<div class="smallCate">
-		<form>
+		<form method="post" action="smallCatePro.jp" name="smallForm" onSubmit="smallFrmCheck()">
 			<table border="1" id="itemSmallCate">
 				<tr>
 					<td><h2>소분류 숫자</h2></td>
@@ -190,11 +277,8 @@
 					<td>명칭</td>
 					<td>사용여부</td>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+			</table>
+			<table>
 				<tr>
 					<td colspan="3">
 						<input type="submit" value="저장" />

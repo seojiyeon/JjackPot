@@ -11,6 +11,8 @@
    <sqlMap resource="/sql/orgSQL.xml"/>
 
    <sqlMap resource="/sql/calendarSQL.xml"/>
+   
+   <sqlMap resource="/sql/itemSQL.xml" />
 
 	<!-- test -->
    <sqlMap resource="/sql/formSQL.xml"/>

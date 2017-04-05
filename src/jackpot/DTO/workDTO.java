@@ -81,10 +81,5 @@ public class workDTO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	
-	
-	
-	
-
-	
 }
+	

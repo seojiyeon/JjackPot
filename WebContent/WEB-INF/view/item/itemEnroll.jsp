@@ -62,10 +62,10 @@ border-style:solid;
 			<td>품목구분</td>
 			<td>
 				<select name="item_division" id="search1">
-					<option value="whole">전체</option>
-					<option value="product">상품</option>
-					<option value="subsidiary">원자재</option>
-					<option value="raw">부자재</option>
+					<option value="전체">전체</option>
+					<option value="상품">상품</option>
+					<option value="원자재">원자재</option>
+					<option value="부자재">부자재</option>
 				</select>
 			</td>
 			<td>분류</td>
@@ -91,9 +91,9 @@ border-style:solid;
 			<td>사용여부</td>
 			<td>
 				<select name="use" id="search4">
-					<option value="use">사용</option>
-					<option value="unuse">미사용</option>
-					<option value="whole">전체</option>
+					<option value="사용">사용</option>
+					<option value="미사용">미사용</option>
+					<option value="전체">전체</option>
 				</select>
 			</td>
 			<td rowspan="2">
@@ -175,17 +175,17 @@ border-style:solid;
 				<td>품목구분</td>
 				<td>
 					<select name="item_division">
-						<option value="whole">전체</option>
-						<option value="product">상품</option>
-						<option value="subsidiary">원자재</option>
-						<option value="raw">부자재</option>
+						<option value="전체">전체</option>
+						<option value="상품">상품</option>
+						<option value="원자재">원자재</option>
+						<option value="부자재">부자재</option>
 					</select>
 				</td>
 				<td>과세유형</td>
 				<td>
 					<select name="tax">
-						<option value="extra">부가세별도</option>
-						<option value="include">부가세포함</option>
+						<option value="부가세별도">부가세별도</option>
+						<option value="부가세포함">부가세포함</option>
 					</select>
 				</td>
 			</tr>
@@ -203,8 +203,8 @@ border-style:solid;
 				<td>사용여부</td>
 				<td colspan="3">
 					<select name="use">
-						<option value="use">사용</option>
-						<option value="unuse">미사용</option>
+						<option value="사용">사용</option>
+						<option value="미사용">미사용</option>
 					</select>
 				</td>
 			</tr>

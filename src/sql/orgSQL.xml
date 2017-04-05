@@ -6,10 +6,13 @@
   <typeAlias alias="favdto" type="jackpot.DTO.favDTO"/>
    
         
-          <select id="emp_department" resultClass="int" parameterClass="String">
+        <select id="emp_department" resultClass="int" parameterClass="String">
         	select department from emp where emp_num=#emp_num#
         </select>
-        
+      
+       <select id="org_department" resultClass="odto" parameterClass="String" >
+        	 select department,emp_num from emp where emp_num=#emp_num#
+        </select>  
         
         <select id="member2" resultClass="odto" parameterClass="int" >
          select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
@@ -17,13 +20,49 @@
      
         </select>
       
+         <select id="allorg" resultClass="odto" parameterClass="int">
+      select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
+     from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=1 order by e.position desc
+        </select>
       
+        <select id="allorg2" resultClass="odto" parameterClass="int">
+      select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
+     from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=2 order by e.position desc
+        </select>
+      
+       
+        <select id="allorg3" resultClass="odto" parameterClass="int">
+      select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
+     from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=3 order by e.position desc
+        </select>
+        
+        <select id="allorg4" resultClass="odto" parameterClass="int">
+      select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
+     from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=4 order by e.position desc
+        </select>
+         
+         <select id="allorg5" resultClass="odto" parameterClass="int">
+      select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
+     from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=5 order by e.position desc
+        </select>
+        
+         <select id="allorg6" resultClass="odto" parameterClass="int">
+      select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
+     from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=6 order by e.position desc
+        </select>
+        
+         
+        
+        
+        
       <select id="search" resultClass="odto" parameterClass="java.util.HashMap">
      <![CDATA[ 
      select emp_num,emp_name,address,phone from(select emp_num,emp_name,address,phone
      	from(select * from emp where $searchName$ like '%'||#searchValue#||'%' ))       
      ]]>
       </select>
+      
+      
       
       
      <insert id="insertfav"  parameterClass="favdto">
@@ -51,6 +90,7 @@
         
         </delete>
         
+     
       
 </sqlMap>
 
