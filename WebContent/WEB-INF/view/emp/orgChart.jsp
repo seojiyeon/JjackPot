@@ -16,7 +16,7 @@ function fav(){
     	   }
        }
       if(sum <=0){
-    	  alert("선택해 주세요.");
+    	  alert("하나 이상 선택해 주세요.");
     	  return false;
       }
       
