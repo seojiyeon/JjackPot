@@ -6,12 +6,14 @@ public class workDTO {
 	
 	private int num;
 	private String emp_num;
-	private Timestamp y_day;
-	private Timestamp y_start;
-	private Timestamp y_end;
-	private int y_basic;
-	private int y_use;
-	private int y_remain;
+	private Timestamp work_on;
+	private Timestamp work_off;
+	private String work_time;
+	private String h_work;
+	private String workOut;
+	private String lateNess;
+	private String early;
+	private int division;
 	private String ip;
 	public int getNum() {
 		return num;
@@ -25,41 +27,53 @@ public class workDTO {
 	public void setEmp_num(String emp_num) {
 		this.emp_num = emp_num;
 	}
-	public Timestamp getY_day() {
-		return y_day;
+	public Timestamp getWork_on() {
+		return work_on;
 	}
-	public void setY_day(Timestamp y_day) {
-		this.y_day = y_day;
+	public void setWork_on(Timestamp work_on) {
+		this.work_on = work_on;
 	}
-	public Timestamp getY_start() {
-		return y_start;
+	public Timestamp getWork_off() {
+		return work_off;
 	}
-	public void setY_start(Timestamp y_start) {
-		this.y_start = y_start;
+	public void setWork_off(Timestamp work_off) {
+		this.work_off = work_off;
 	}
-	public Timestamp getY_end() {
-		return y_end;
+	public String getWork_time() {
+		return work_time;
 	}
-	public void setY_end(Timestamp y_end) {
-		this.y_end = y_end;
+	public void setWork_time(String work_time) {
+		this.work_time = work_time;
 	}
-	public int getY_basic() {
-		return y_basic;
+	public String getH_work() {
+		return h_work;
 	}
-	public void setY_basic(int y_basic) {
-		this.y_basic = y_basic;
+	public void setH_work(String h_work) {
+		this.h_work = h_work;
 	}
-	public int getY_use() {
-		return y_use;
+	public String getWorkOut() {
+		return workOut;
 	}
-	public void setY_use(int y_use) {
-		this.y_use = y_use;
+	public void setWorkOut(String workOut) {
+		this.workOut = workOut;
 	}
-	public int getY_remain() {
-		return y_remain;
+	public String getLateNess() {
+		return lateNess;
 	}
-	public void setY_remain(int y_remain) {
-		this.y_remain = y_remain;
+	public void setLateNess(String lateNess) {
+		this.lateNess = lateNess;
+	}
+	public String getEarly() {
+		return early;
+	}
+	public void setEarly(String early) {
+		this.early = early;
+	}
+	public int getDivision() {
+		return division;
+	}
+	public void setDivision(int division) {
+		this.division = division;
 	}
 	public String getIp() {
 		return ip;
@@ -67,10 +81,5 @@ public class workDTO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-
-	
-	
-	
-
-	
 }
+	

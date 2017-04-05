@@ -16,54 +16,27 @@
 	</select>
 	
 	
-	<select id="getItem" parameterClass="wdto" resultClass="wdto">
-		select num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip
-		from work where emp_num= #emp_num# order by num desc  
+	<select id="getYear" parameterClass="ydto" resultClass="ydto">
+		select num,emp_num,y_day,y_start,y_end,y_basic,y_use,y_remain,y_remain,ip
+		from work_year where emp_num= #emp_num# order by num desc  
 	</select>
 	
 	
-	<insert id="insertWork" parameterClass="wdto">
+	<insert id="insertWork" parameterClass="ydto">
 	
-		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip) values(
-			work_seq.nextval,
+		insert into work(num,emp_num,y_day,y_start,y_end,y_basic,y_use,y_remain) values(
+			ywork_seq.nextval,
 			#emp_num#,
-			sysdate,
-			sysdate,
-			'00:00',
-			'00:00',
-			'00:00',
-			'00:00',
-			'00:00',
-			#division#,
-			#ip# 
+			#y_day#,
+			#y_start#,
+			#y_end#,
+			#y_basic#,
+			#y_use#,
+			#y_remain# 
 		)
 		
 	</insert>	
 	
-	<update id="updateLateNess" parameterClass="wdto">
-		update work set 
-			lateNess=#lateNess#
-			where num=#num#
-		
-	</update>	
-
-	<update id="updateWork" parameterClass="wdto">
-		update work set 
-			work_off=sysdate
-			where num=#num#
-		
-	</update>	
-	
-		<update id="updateWorkTime" parameterClass="wdto">
-			update work set 
-				work_time=#work_time# where num=#num#
-		
-	</update>	
-
-		<update id="updateEarly" parameterClass="wdto">
-			update work set 
-				early=#early# where num=#num#
-	</update>	
 
 </sqlMap>
 

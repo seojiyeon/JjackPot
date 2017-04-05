@@ -39,39 +39,41 @@
            
 	</script>
 
-<head>
-<h2>휴가신청</h2>
-<hr style="border: solid 0.5px rightgray;">
-<table>
-<td>사업장 루크</td>  
-<td> 
-휴가년월 
-<input type="text" id="work_date" name="schdate"  style="width:100px;height:25px; margin: 10px 0px 0px 0px;" value="<fmt:formatDate value="${now}" type="both" pattern="yyyyMMdd"/>"/> </td>
-<td>
-전자결재상태
-<select>
-<option selected>전체</option> 
-<option>작성 </option> 
-<option>결재요청</option> 
-<option>완료</option> 
-<option>자동승인 </option> 
-<option>반료 </option> 
-</select>
-<td align="right">
-				<input type= "button" id="work_on" value="검" >
-			</td>
-</table>
-
-<table>
-<td>사원번호</td>
-<td>
-	<textbox text=""></textbox>
+	<head>
+		<h2>휴가신청</h2>
+		<hr style="border: solid 0.5px rightgray;">
+	<table>
+		<td>사업장 루크</td>  
+		<td> 
+		휴가년월 
+		<input type="text" id="work_date" name="schdate"  style="width:100px;height:25px; margin: 10px 0px 0px 0px;" value="<fmt:formatDate value="${now}" type="both" pattern="yyyyMMdd"/>"/> 
+		</td>
+		<td>
+			전자결재상태
+			<select>
+				<option selecte>전체</option> 
+				<option>작성 </option> 
+				<option>결재요청</option> 
+				<option>완료</option> 
+				<option>자동승인 </option> 
+				<option>반료 </option> 
+			</select>
+		</td>
+		<td align="right">
+			<input type= "button" id="work_on" value="검" >
+		</td>
+	</table>
 	
-</td>
+	<table>
+		<td>사원번호</td>
+		<td>
+		<textbox text=""></textbox>
+	
+		</td>
  
 
-</table>
+	</table>
 
 
-</td>
-</form>
+		
+	</form>
