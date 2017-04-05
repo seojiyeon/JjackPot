@@ -19,7 +19,7 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 #main-container{height:100%;padding:20px;padding-top:0;} 
 #main-contents{position:fixed;left:270px;top:0;width:85%;height:100%;}
 
-
+.menulist a {text-decoration:none;}
 
 .pop-layer {display:none; position:fixed; top: 50%; left: 50%; width: 280px; height:350px;  background-color:#fff; border: 1px solid black; z-index: 10;}	
 .pop-top{border-bottom:1px solid black;background: #555154;font-color:;}
@@ -43,7 +43,7 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 .btn-r2 .a.cbtn2 {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
 .btn-r2 .a.cbtn2:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 .pop-board{}
-.pop2boardfileuplord{height:1000px;}
+.pop2boardfileuplord{}
 
 
 
