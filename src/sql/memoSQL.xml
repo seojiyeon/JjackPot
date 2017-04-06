@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+
+<sqlMap namespace="memo">
+	<typeAlias alias="mdto" type="jackpot.DTO.memoDTO"/>
+	
+	<select id="memoCate" parameterClass="String" resultClass="mdto">
+		select * from memo_cate where emp_num=#emp_num#
+	</select>
+</sqlMap>
+
