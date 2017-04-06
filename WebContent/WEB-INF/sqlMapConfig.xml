@@ -11,7 +11,7 @@
    <sqlMap resource="/sql/orgSQL.xml"/>
 
    <sqlMap resource="/sql/calendarSQL.xml"/>
-   
+   <sqlMap resource="/sql/voteSQL.xml"/>
    <sqlMap resource="/sql/itemSQL.xml" />
    <sqlMap resource="/sql/msgSQL.xml" />
 

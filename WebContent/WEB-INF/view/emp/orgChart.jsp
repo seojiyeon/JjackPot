@@ -16,7 +16,7 @@ function fav(){
     	   }
        }
       if(sum <=0){
-    	  alert("선택해 주세요.");
+    	  alert("하나 이상 선택해 주세요.");
     	  return false;
       }
       
@@ -31,6 +31,18 @@ function fav(){
 
 function favd(){
 	
+	 var sum=0;
+     var count=document.orgchart.emp_num.length;
+     for(var i=0;i<count;i++){
+  	   if(document.orgchart.emp_num[i].checked == true){
+  		   sum +=1;
+  	   }
+     }
+    if(sum <=0){
+  	  alert("하나 이상 선택해 주세요.");
+  	  return false;
+    }
+    
 	 if(confirm("즐겨찾기를 해제하겠습니까?")==true){
 		 document.orgchart.action="/JackPot/orgChartDEL.jp";
 		 document.orgchart.submit();

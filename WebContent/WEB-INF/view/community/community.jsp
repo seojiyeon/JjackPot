@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/JackPot/css/sub.css?ver=1" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=1" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 
 <html>
 <title> 커뮤니티 </title>
@@ -247,6 +249,27 @@ function layer_open2(e2){
 
 }
 
+Dropzone.options.myDropzone = {
+
+		  // Prevents Dropzone from uploading dropped files immediately
+		  autoProcessQueue: false,
+
+		  init: function() {
+		    var submitButton = document.querySelector("#submit-all")
+		        myDropzone = this; // closure
+
+		    submitButton.addEventListener("click", function() {
+		      myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+		    });
+
+		    // You might want to show the submit button only when 
+		    // files are dropped here:
+		    this.on("addedfile", function() {
+		      // Show submit button here and/or inform user to click it.
+		    });
+
+		  }
+		};
 
 </script>
 </head>
@@ -302,7 +325,14 @@ function layer_open2(e2){
 													</div>
 													<div class="pop2boardfileuplord">
 														<ul>
-															<li></li>
+															<li>
+															<form action="/JackPot/boardfile-upload.jp"
+     															  class="dropzone"
+     															  id="my-dropzone"></form>
+															</li>
+														</ul>
+														<ul>
+														<li><button id="submit-all">업로드</button></li>
 														</ul>
 													</div>
 												</div>
@@ -317,7 +347,8 @@ function layer_open2(e2){
 						<div class="btn-r">
 						<a href="#" class="cbtn">닫기</a>
 						</div>
-						</div>
+					</div>
+				</div>
 					</li>
 					<li style="text-align:center;height:40px;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
 					<a href="/JackPot/community.jp" style="text-decoration:none;">최근게시글</a></li>
