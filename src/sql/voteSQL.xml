@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="org">      
+
+  <typeAlias alias="vdto" type="jackpot.DTO.voteDTO"/>
+
+   
+        
+        <select id="emp_department" resultClass="int" parameterClass="String">
+        	select department from emp where emp_num=#emp_num#
+        </select>
+      
+       <select id="org_department" resultClass="odto" parameterClass="String" >
+        	 select department,emp_num from emp where emp_num=#emp_num#
+        </select>  
+        
+      
+      
+</sqlMap>
+
+
+
