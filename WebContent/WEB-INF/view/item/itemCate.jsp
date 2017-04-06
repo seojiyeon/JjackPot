@@ -6,7 +6,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 <title>재고관리</title>
-</head>
 
 <style type="text/css">
 	#WholeBox { width : 600px; }
@@ -47,6 +46,8 @@
 		display: block;
 	}
 </style>
+
+</head>
 
 <script>
 

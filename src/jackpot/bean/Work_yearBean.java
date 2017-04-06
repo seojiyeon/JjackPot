@@ -26,9 +26,9 @@ public class Work_yearBean {
 		map.put("searchName", searchName);
 		map.put("searchValue", searchValue);
 		
-		List list = sqlMap.queryForList("org.search", map);
+	//	List list = sqlMap.queryForList("org.search", map);
 			
-		model.addAttribute("list", list);
+	//	model.addAttribute("list", list);
 				
 		return "/emp/searchORG";
 		
