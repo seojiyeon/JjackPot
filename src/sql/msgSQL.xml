@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="msg">      
+
+  <typeAlias alias="dto" type="jackpot.DTO.empDTO"/>
+	
+       <insert id="insertMember" parameterClass="dto">
+        insert into emp values(#emp_num#,#pw#,#emp_name#,#address#,#phone#,#mail#,
+   #birthday#,#signimg#,to_date(#hiredate#, 'YYYYMMDD'),sysdate,#profilephoto#,#emp_point#,#department#,#rank#,#branch#,#position#)
+           
+        </insert>
+      
+        <select id="maxnum" resultClass="int">
+             select max(emp_num) from employee
+        </select>  
+        
+        
+        <select id="member" resultClass="dto" parameterClass="String">
+            select * from emp where emp_num=#emp_num# 
+        
+        </select>
+        
+        <select id="memberAll" resultClass="dto" >
+            select * from emp        
+        </select>
+        
+        
+         <update id="updateMember" parameterClass="dto">
+        
+           update emp set
+           pw=#pw# , 
+           address=#address#, 
+           phone=#phone#, 
+           mail=#mail#,
+           birthday=#birthday#,
+           signimg=#signimg#,
+           profilephoto=#profilephoto#
+         
+           where emp_num=#emp_num#
+        </update>
+        
+       
+        <select id="userCheck" resultClass="int" parameterClass="dto">
+            select count(*)from emp where emp_num=#emp_num# and pw=#pw#
+        
+        </select>
+        
+        <delete id="deletePro" parameterClass="dto">
+        delete from emp where emp_num=#emp_num#
+        
+        </delete>
+        
+         <select id="comfirmCheck" resultClass="String" parameterClass="dto">
+            select emp_num from emp where emp_num=#emp_num# 
+        
+        </select>
+        
+       
+      
+</sqlMap>
+
+
+
