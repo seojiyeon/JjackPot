@@ -15,7 +15,16 @@
 		)
 	</insert>
 	
+	<select id="itemListCount" resultClass="int">
+		select count(*) from item
+	</select>
+	
+	<select id="itemList" resultClass="idto">
+		select * from item
+	</select>
+	
 	<!-- 카테고리 관련 -->
+	<!-- 대분류 -->
 	<insert id="bigCateInsert" parameterClass="icdto">
 		insert into big_cate values(
 			big_cate_seq.NEXTVAL, #big_cate#, #big_use#, #big_name#
@@ -25,6 +34,19 @@
 	<select id="bigItemList" resultClass="icdto">
 		select * from big_cate
 	</select> 
+	
+	<select id="bigItemListCount" resultClass="int">
+		select count(*) from big_cate
+	</select>
+	
+	<!-- 중분류 -->
+	<select id="middleItemList" resultClass="icdto">
+		select * from middle_cate
+	</select>
+	
+	<select id="middleItemListCount" resultClass="int">
+		select count(*) from middle_cate
+	</select>
 
 </sqlMap>
 

@@ -181,7 +181,8 @@
 	function HighlightTR(target, backColor, textColor) {
 		var tBody = target.parentNode;
 		var trs = tBody.getElementsByTagName('tr');
-		var check = document.forms.big;
+	//	var check = document.forms.middleForm;
+	//	var check1 = check.tr.middle;
 		
 		for(var i = 0; i < trs.length; i++) {
 			if(trs[i] != target) {
@@ -191,8 +192,8 @@
 				trs[i].style.backgroundColor = backColor;
 				trs[i].style.color = textColor;
 				
-				if(targer == "big") {
-					check.middle.style.display="";
+				if(target == 'tr.big') {
+					tr.middle = "";
 				}
 			}
 		}
@@ -236,7 +237,7 @@
 		<form method="post" action="bigCatePro.jp" name="bigForm" onSubmit="return bigFrmCheck()">
 			<table border="1" id="itemBigCate">
 				<tr>
-					<td><h2>대분류 숫자</h2></td>
+					<td><h2>대분류 ${bigCateCount}</h2></td>
 					<td colspan="2">
 						<input type="button" value="행추가" onclick="insBigRow();" />
 						<input type="button" value="행삭제" onclick="deleteRow();" />
@@ -249,7 +250,7 @@
 				</tr>
 				
 				<c:forEach var="bigCate" items="${bigCateList}">
-				<tr onClick="HighlightTR(this, '#FFA7A7','#BB2929');" class="big">
+				<tr onClick="HighlightTR(this, '#FFA7A7','#BB2929');" class="big" style="display: ;">
 					<td>
 						${bigCate.getBig_cate()}
 					</td>
@@ -276,7 +277,7 @@
 		<form method="post" action="middleCatePro.jp" name="middleForm" onSubmit="middleFrmCheck()">
 			<table border="1" id="itemMiddleCate">
 				<tr>
-					<td><h2>중분류 숫자</h2></td>
+					<td><h2>중분류 ${middleCateCount}</h2></td>
 					<td colspan="2">
 						<input type="button" value="행추가" onclick="insMiddleRow();"/>
 						<input type="button" value="행삭제" onclick="frmCheck();" />
@@ -287,9 +288,20 @@
 					<td>명칭</td>
 					<td>사용여부</td>
 				</tr>
+				
+				<c:forEach var="middleCate" items="${middleCateList}">
 				<tr onClick="HighlightTR(this, '#FFA7A7','#BB2929');" class="middle" style="display: ;">
-					<td>asdf</td>
+					<td>
+						${middleCate.getMiddle_cate()}
+					</td>
+					<td>
+						${middleCate.getMiddle_name()}
+					</td>
+					<td>
+						${middleCate.getMiddle_use()}
+					</td>		
 				</tr>
+				</c:forEach>
 			</table>
 			<table>
 				<tr>

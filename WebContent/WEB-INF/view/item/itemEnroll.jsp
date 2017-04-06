@@ -103,34 +103,34 @@ border-style:solid;
 	</table>
 </form>
 
-<form action="itemErollPro.jp" method="post" name="itemEnroll">
+<form action="itemEnrollPro.jp" method="post" name="itemEnroll">
 <DIV id="Bigbox">
 	<div id="box1">
 		<table border="1">
 			<tr>
-				<td colspan="4"><h2>품목목록 숫자</h2></td>
+				<td colspan="3"><h2>품목목록 ${itemCount}</h2></td>
 			</tr>
 			<tr>
-				<td>
-					<input type="checkbox" />
-				</td>
 				<td>품목코드</td>
 				<td>품목명</td>
 				<td>규격</td>
 			</tr>
+			<c:if test="${itemCount == 0}">
 			<tr>
-				<td>
-					<input type="checkbox" name="check" />
+				<td colspan="3">
+					데이터가 없습니다.
 				</td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>			
-		</table>
-		<table>
-			<tr>
-				<td>데이터가 없습니다.</td>
 			</tr>
+			</c:if>
+			<c:if test="${itemCount > 0}">
+			<c:forEach var="itemList" items="${itemList}">
+			<tr>
+				<td>${itemList.getPro_code()}</td>
+				<td>${itemList.getPro_name()}</td>
+				<td>${itemList.getStand()}</td>
+			</tr>			
+			</c:forEach>
+			</c:if>
 		</table>
 	</div>	
 	

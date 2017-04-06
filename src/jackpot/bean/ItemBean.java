@@ -19,7 +19,13 @@ public class ItemBean {
 	SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("/itemEnroll.jp")
-	public String itemEroll(ItemDTO dto) {
+	public String itemEroll(ItemDTO dto, Model model) {
+		List itemList = sqlMap.queryForList("item.itemList", null);
+		int itemCount = (int) sqlMap.queryForObject("item.itemListCount", null);
+		
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("itemCount", itemCount);
+		
 		return "/item/itemEnroll";
 	}
 	
@@ -32,8 +38,16 @@ public class ItemBean {
 	@RequestMapping("/itemCate.jp")
 	public String itemCate(Model model) {
 		List bigCateList = sqlMap.queryForList("item.bigItemList", null);
+		int bigCateCount = (int) sqlMap.queryForObject("item.bigItemListCount", null);
+		
+		List middleCateList = sqlMap.queryForList("item.middleItemList", null);
+		int middleCateCount = (int) sqlMap.queryForObject("item.middleItemListCount", null);
 		
 		model.addAttribute("bigCateList", bigCateList);
+		model.addAttribute("bigCateCount", bigCateCount);
+		model.addAttribute("middleCateList", middleCateList);
+		model.addAttribute("middleCateCount", middleCateCount);
+		
 		return "/item/itemCate";
 	}
 	
@@ -50,31 +64,6 @@ public class ItemBean {
 			dto.setBig_use(big_use[i]);
 			sqlMap.insert("item.bigCateInsert", dto);
 		}
-		
 		return "/item/bigCatePro";
 	}
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
