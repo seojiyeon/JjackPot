@@ -28,7 +28,56 @@ public class workBean {
 	private SqlMapClientTemplate sqlMap;
 
 	@RequestMapping("/work.jp")
-	public String work(HttpServletRequest request,workDTO wdto,Model model,HttpSession session){
+	public String work(HttpServletRequest request,workDTO wdto,Model model,HttpSession session,String dateFormatStr ){
+		
+		String emp_num =(String)session.getAttribute("memId");
+		wdto.setEmp_num(emp_num);
+		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String work_date = request.getParameter("work_date");
+		String ip = req.getHeader("X-FORWARDED-FOR");//ip불러오기
+		List items = null;
+		Date date = new Date();
+		
+		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
+		Calendar cal = Calendar.getInstance();   //캘린더를 date로 변환
+		DateFormat stringForma = new SimpleDateFormat(dateFormatStr); 
+		cal.setTime(date);     //work_on를 캘린더시간에 넣어준다.
+
+		if (ip == null) {
+			ip = req.getRemoteAddr();
+		}
+		wdto.setWork_date(work_date);
+		//items = sqlMap.queryForList("work.getItem", wdto);
+
+		wdto = (workDTO)sqlMap.queryForObject("work.getDay", null);   //해당날짜만 불러오기
+		model.addAttribute("wdto",wdto);
+		
+		
+		model.addAttribute("ip",ip);
+		model.addAttribute("sys",sys);//시간 불러오기
+		//model.addAttribute("item",items);//list불러오기
+		model.addAttribute("date", date);
+
+
+		return"/work/work";
+		
+	 }
+	
+	@RequestMapping("/workday.jp")
+	public String workday(String day , Model model){
+		day = day.replace("-", "/");
+		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+		workDTO wdto = (workDTO)sqlMap.queryForObject("work.getDayChagne", day);  //해당날짜만 불러오기
+		model.addAttribute("sys",sys);//시간 불러오기
+		model.addAttribute("wdto",wdto);
+		return "/work/workday";
+	}
+	
+	
+	
+	/*@RequestMapping("/work_date.jp")
+	public String work(HttpSession session,HttpServletRequest request,Model model,workDTO wdto){
 		
 		String emp_num =(String)session.getAttribute("memId");
 		wdto.setEmp_num(emp_num);
@@ -48,7 +97,8 @@ public class workBean {
 
 		return"/work/work";
 		
-	 }
+	 }*/
+	
 	
 	@RequestMapping("/work_on.jp")
 	public String work_on(HttpSession session,HttpServletRequest request,String dateFormatStr) {
@@ -66,9 +116,20 @@ public class workBean {
 		Timestamp wo = ladto.getWork_on();
 		Date d = new Date();    //시간날짜불러오기
 		d.setHours(9);			//지각 시간 지정
-		d.setMinutes(31);		//지각 분지정
+		d.setMinutes(30);		//지각 분지정
 		d.setSeconds(0);		//시각 초지정
 		
+		
+		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd HH:mm:ss"; // string을 date로 하기위한 것
+		Calendar cal = Calendar.getInstance();   //캘린더를 date로 변환
+		DateFormat stringForma = new SimpleDateFormat(dateFormatStr); 
+		cal.setTime(wo);     //work_on를 캘린더시간에 넣어준다.
+		long won = cal.getTimeInMillis();  //work_on 시간을 초단위로 바꿔준다.
+		cal.setTime(d);
+		long dd = cal.getTimeInMillis(); 
+		
+		
+		if( won > dd ){
 		long late =(wo.getTime() - d.getTime());    //출근시간 - 지각지정시간
 		long hourlatework_time = late;  // 지각 시간으로 지정
 		long minutelatework_time = late;		//지각 분으로 지정
@@ -86,7 +147,7 @@ public class workBean {
 		String lateNess = hourlatework_time+":"+minutelatework_time;  //lateNess으로 타입을 맞게 변경되어 구한값을 넣어준다.
 		ladto.setLateNess(lateNess);  //구한값을 넣어준다.
 		sqlMap.update("work.updateLateNess", ladto);  //lateNess SQL에 넣어준다.
-		 
+		}
 		return "/work/work_on";
 	}
 	

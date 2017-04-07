@@ -10,8 +10,8 @@
 	<select id="getWork" parameterClass="wdto" resultClass="wdto">
 	
 	<![CDATA[
-		select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,r 
-		from (select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,rownum r
+		select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip, r 
+		from (select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip, rownum r
 		from work where emp_num=#emp_num# order by num desc) where rownum <= 1
 	]]>
 	
@@ -25,10 +25,24 @@
 
 	</select>
 	
+	<select id="getDay" resultClass="wdto">
+		<![CDATA[
+			select * from work  where to_char(work_on,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
+		]]>
+	</select> 
 	
+	<select id="getDayChagne" resultClass="wdto" parameterClass="String">
+		<![CDATA[
+			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd')
+		]]>
+	</select> 
+	
+	
+	 
+	 
 	<insert id="insertWork" parameterClass="wdto">
 	
-		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip,work_date) values(
+		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip) values(
 			work_seq.nextval,
 			#emp_num#,
 			sysdate,
@@ -40,7 +54,6 @@
 			'00:00',
 			#division#,
 			#ip#,
-			#work_date#
 		)
 		
 	</insert>	
