@@ -219,7 +219,7 @@ public class EmpBean {
 	
 	
 	@RequestMapping("orgChart.jp")
-	public String orgChart(orgDTO dto,Model model,HttpSession session,HttpServletRequest request){
+	public String orgChart(Model model,HttpSession session,HttpServletRequest request){
            
 			String empfav=(String) session.getAttribute("memId");
 			
@@ -321,7 +321,7 @@ public class EmpBean {
 	}
 
 	@RequestMapping("Allorg.jp")
-	public String Allorg(orgDTO dto,Model model,HttpSession session,HttpServletRequest request){
+	public String Allorg(Model model,HttpSession session,HttpServletRequest request){
 
 			String empfav=(String) session.getAttribute("memId");
 			String [] emp_num = request.getParameterValues("emp_num");

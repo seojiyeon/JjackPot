@@ -10,9 +10,22 @@
             values(vote_seq.nextval,#jilmoon#,sysdate,#emp_num#,#up_img#,#up_img2#,#monhang#,#monhang2#)
     </insert>
         
+        
+      <select id="voteSelect" resultClass="vdto" parameterClass="String">
+        select * from vote where  emp_num=#emp_num#
+      </select>
+      
+      
+      <update id="Vupdate" parameterClass="int">
+      
+      update vote set v_start=sysdate,notice=0 where v_num=#v_num#
+      
+      </update>
+      
       
       
 </sqlMap>
+
 
 
 
