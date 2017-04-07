@@ -7,7 +7,7 @@
     <script type="text/javascript">
     
     $(document).ready(function(){
-    	$('#sucess').click(function(){
+    	$('#success').click(function(){
     			
    		});    	
    });
@@ -49,7 +49,7 @@
     </tr>
        <tr><td></td></tr>
          <tr><td  align="center">
-<input type="button" id="sucess"  value="투표오픈" onclick="test('${article.v_num}');" >
+<input type="button" id="success"  value="투표오픈" onclick="test('${article.v_num}');" >
 <input type="button" value="삭제" onclick="">
 <input type="button" value="수정" onclick="">
         </td>  </tr>
