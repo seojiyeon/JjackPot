@@ -1,5 +1,7 @@
 package jackpot.DTO;
 
+import java.sql.Timestamp;
+
 public class memoDTO {
 	/* 메모 */
 	private int memo_num;
@@ -8,6 +10,8 @@ public class memoDTO {
 	private String memo_content;
 	private int memo_state;
 	private String emp_num;
+	private Timestamp memo_enroll;
+	private Timestamp memo_modi;
 	
 	public int getMemo_num() {
 		return memo_num;
@@ -45,6 +49,18 @@ public class memoDTO {
 	public void setEmp_num(String emp_num) {
 		this.emp_num = emp_num;
 	}
+	public Timestamp getMemo_enroll() {
+		return memo_enroll;
+	}
+	public void setMemo_enroll(Timestamp memo_enroll) {
+		this.memo_enroll = memo_enroll;
+	}
+	public Timestamp getMemo_modi() {
+		return memo_modi;
+	}
+	public void setMemo_modi(Timestamp memo_modi) {
+		this.memo_modi = memo_modi;
+	}
 	
 	/* 메모 카테고리 */
 	private int cate_num;
@@ -61,5 +77,53 @@ public class memoDTO {
 	}
 	public void setCate_title(String cate_title) {
 		this.cate_title = cate_title;
+	}
+	
+	/* 메모 이미지 */
+	private int img_num;
+	private String org_img;
+	private String sys_img;
+
+	public int getImg_num() {
+		return img_num;
+	}
+	public void setImg_num(int img_num) {
+		this.img_num = img_num;
+	}
+	public String getOrg_img() {
+		return org_img;
+	}
+	public void setOrg_img(String org_img) {
+		this.org_img = org_img;
+	}
+	public String getSys_img() {
+		return sys_img;
+	}
+	public void setSys_img(String sys_img) {
+		this.sys_img = sys_img;
+	}
+	
+	/* 메모 파일 */
+	private int file_num;
+	private String org_file;
+	private String sys_file;
+
+	public int getFile_num() {
+		return file_num;
+	}
+	public void setFile_num(int file_num) {
+		this.file_num = file_num;
+	}
+	public String getOrg_file() {
+		return org_file;
+	}
+	public void setOrg_file(String org_file) {
+		this.org_file = org_file;
+	}
+	public String getSys_file() {
+		return sys_file;
+	}
+	public void setSys_file(String sys_file) {
+		this.sys_file = sys_file;
 	}
 }

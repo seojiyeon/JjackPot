@@ -5,8 +5,26 @@
 <sqlMap namespace="memo">
 	<typeAlias alias="mdto" type="jackpot.DTO.memoDTO"/>
 	
+	<!-- 메모 카테고리 -->
 	<select id="memoCate" parameterClass="String" resultClass="mdto">
 		select * from memo_cate where emp_num=#emp_num#
 	</select>
+	
+	<!-- 메모 -->
+	<insert id="memoInsert" parameterClass="mdto">
+		insert into memo values(
+			memo_seq.NEXTVAL,
+			#memo_cate#,
+			#memo_title#,
+			#memo_content#,
+			#memo_state#,
+			#emp_num#,
+			sysdate,
+			sysdate
+		)
+	</insert>
+	
+	<select id="memoSh" parameterClass="String" resultClass="mdto">
+		select * from memo where emp_num=#emp_num#
+	</select>
 </sqlMap>
-
