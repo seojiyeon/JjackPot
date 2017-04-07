@@ -15,8 +15,23 @@ public class voteDTO {
 	private String result_set;
 	private String up_img;
 	private String up_img2;
+	private String monhang;
+	private String monhang2;
 	
 	
+	
+	public String getMonhang() {
+		return monhang;
+	}
+	public void setMonhang(String monhang) {
+		this.monhang = monhang;
+	}
+	public String getMonhang2() {
+		return monhang2;
+	}
+	public void setMonhang2(String monhang2) {
+		this.monhang2 = monhang2;
+	}
 	public int getV_num() {
 		return v_num;
 	}

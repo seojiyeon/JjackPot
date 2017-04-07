@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-<sqlMap namespace="org">      
+<sqlMap namespace="vote">      
 
   <typeAlias alias="vdto" type="jackpot.DTO.voteDTO"/>
 
-   
-        
-        <select id="emp_department" resultClass="int" parameterClass="String">
-        	select department from emp where emp_num=#emp_num#
-        </select>
+    <insert id="insertVote" parameterClass="vdto">
       
-       <select id="org_department" resultClass="odto" parameterClass="String" >
-        	 select department,emp_num from emp where emp_num=#emp_num#
-        </select>  
+            insert into vote(v_num,jilmoon,v_start,emp_num,up_img,up_img2,monhang,monhang2) 
+            values(vote_seq.nextval,#jilmoon#,sysdate,#emp_num#,#up_img#,#up_img2#,#monhang#,#monhang2#)
+    </insert>
         
       
       
