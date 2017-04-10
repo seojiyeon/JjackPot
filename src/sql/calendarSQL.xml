@@ -14,7 +14,7 @@
         </select>  
         
         <select id="calendarList" resultClass="cdto">
-        select * from calendar
+        select * from calendar 
         </select>
         
        

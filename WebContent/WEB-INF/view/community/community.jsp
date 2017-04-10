@@ -253,7 +253,14 @@ Dropzone.options.myDropzone = {
 
 		  // Prevents Dropzone from uploading dropped files immediately
 		  autoProcessQueue: false,
-
+		  addRemoveLinks: true,
+		  maxFilesize:100.0,
+		  maxFiles: 10,
+		  uploadMultiple:true,
+		  parallelUploads:10,
+		  paramName: "files", 
+		  method: 'post',
+		  
 		  init: function() {
 		    var submitButton = document.querySelector("#submit-all")
 		        myDropzone = this; // closure
@@ -267,7 +274,15 @@ Dropzone.options.myDropzone = {
 		    this.on("addedfile", function() {
 		      // Show submit button here and/or inform user to click it.
 		    });
-
+		        
+		    this.on("maxfilesexceeded", function (data) {
+                alert('최대 업로드 파일 수는 10개 입니다.');
+            });
+/* 			this.on('sendingmultiple',function(data, xhr, formData){
+			$("form").find("input").each(function(){
+				formData.append($(this.attr("name"),$(this).val()));
+			});	
+			}); */
 		  }
 		};
 
@@ -310,11 +325,12 @@ Dropzone.options.myDropzone = {
 												<div class="pop-container2">
 												<div class="pop-conts2">
 													<div>
+														<form>
 														<ul>
 															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li><li style="width:80%;">자유게시판</li>
 														</ul>
 														<ul>
-															<li style="width:20%;background-color:#f5f5f5;">*제목</li><li style="width:80%;"><input type="text"></li>
+															<li style="width:20%;background-color:#f5f5f5;">*제목</li><li style="width:80%;"><input type="text" name="subject"></li>
 														</ul>
 														<ul>
 															<li style="width:20%;background-color:#f5f5f5;">작성자</li><li style="width:80%;">안진영님</li>
@@ -322,13 +338,15 @@ Dropzone.options.myDropzone = {
 														<ul>
 															<li><textarea class="ckeditor" cols="1" id="editor1" name="editor1" rows="15"></textarea></li>
 														</ul>
+														</form>
 													</div>
 													<div class="pop2boardfileuplord">
 														<ul>
 															<li>
-															<form action="/JackPot/boardfile-upload.jp"
+															<form action="/JackPot/boardinsert.jp"
      															  class="dropzone"
-     															  id="my-dropzone"></form>
+     															  id="my-dropzone"
+     															  style="width:762px;border: 1px solid rgba(0, 0, 0, 0.3);"></form>
 															</li>
 														</ul>
 														<ul>
