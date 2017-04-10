@@ -17,15 +17,35 @@
     		alert(v_num);
     		window.location='VoteSuc.jp?v_num='+v_num;	
     	}
+    	
+    	function test2(v_num)
+    	{
+    		alert(v_num);
+    		window.location='voteDel.jp?v_num='+v_num;	
+    	}
+    	
+    	function test3(v_num)
+    	{
+    		alert(v_num);
+    		window.location='EndVote.jp?v_num='+v_num;	
+    	}
+    	
+    	
     </script>
     
     
     
     
     <h2> 나의 투표 목록 </h2>
+   
+    <input type="button" value="투표참여" onclick="window.location='UpVote.jp'"> 
+   
+   
   <table border="0" width="900"  cellpadding="0" cellspacing="0" align="center"> 
     			
     <form method="post"  action="VoteSuc.jp" name="vote" >    
+
+    
 
     
     <c:forEach var="article" items="${articleList}" varStatus="status">
@@ -37,21 +57,33 @@
     <td>
     <img src="/JackPot/save/vote2.png" width="50" height="50"> 
     ${article.jilmoon} </td>
-    
+      <tr></tr>
     <tr>
-       <td width="100" align="center">(1)&nbsp;${article.monhang} 
-       <img src="/JackPot/save/${article.up_img}" id="up_img"  width=150px, height=150px />
+       <td width="100" align="center"><br/>(1)&nbsp;${article.monhang} <br/>
+       <img src="/JackPot/save/${article.up_img}" id="up_img"  width=200px, height=200px />
     </tr>  
+     
          <tr>
-       <td width="100" align="center">(2)&nbsp;${article.monhang2} 
-         <img src="/JackPot/save/${article.up_img2}" id="up_img2"  width=150px, height=150px />
+       <td width="100" align="center"><br/>(2)&nbsp;${article.monhang2} <br/>
+         <img src="/JackPot/save/${article.up_img2}" id="up_img2"  width=200px, height=200px />
     </td>
     </tr>
-       <tr><td></td></tr>
-         <tr><td  align="center">
+    
+        <tr><td  align="center">
+<c:if test="${article.notice==0}"> <br/>         
 <input type="button" id="success"  value="투표오픈" onclick="test('${article.v_num}');" >
-<input type="button" value="삭제" onclick="">
-<input type="button" value="수정" onclick="">
+<input type="button" value="삭제" onclick="test2('${article.v_num}');">
+</c:if>
+
+<c:if test="${article.notice==1}"> <br/>        
+<input type="button" value="마감" onclick="test3('${article.v_num}');">
+<input type="button" value="삭제" onclick="test2('${article.v_num}');">
+</c:if>
+
+<c:if test="${article.notice==2}">         
+   <h1>투표마감</h1>
+</c:if>
+
         </td>  </tr>
     </c:forEach>
     <br/>

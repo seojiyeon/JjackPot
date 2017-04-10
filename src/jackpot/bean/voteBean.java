@@ -83,11 +83,12 @@ public class voteBean {
 	public String BeforeSuc(HttpSession session,Model model,voteDTO dto,HttpServletRequest request){
 		
 		 String emp_num = (String)session.getAttribute("memId");
-		
+
 		 
 		 List articleList = null;
 		articleList=sqlMap.queryForList("vote.voteSelect", emp_num);
 
+		
 		     model.addAttribute("articleList", articleList);
 	
 
@@ -96,19 +97,61 @@ public class voteBean {
 	
 	
 	@RequestMapping("/VoteSuc.jp")
-	public String VoteSuc(HttpSession session,HttpServletRequest request,voteDTO dto){
+	public String VoteSuc(HttpSession session,HttpServletRequest request){
 		String emp_num = (String)session.getAttribute("memId");
+
 	    int v_num=Integer.parseInt(request.getParameter("v_num"));
 	    System.out.println(v_num);
-		
+	   
+	    
 	    sqlMap.update("vote.Vupdate", v_num);
 	    
+	 
 		return "/vote/VoteSuc";
 	}
 	
 	
+	@RequestMapping("/voteDel.jp")
+	public String voteDel(HttpSession session,HttpServletRequest request){
+		   int v_num=Integer.parseInt(request.getParameter("v_num"));
+		   
+		   sqlMap.delete("vote.Vdel", v_num);
+		
+		return "/vote/voteDel";
+	
+	}
 	
 	
+	@RequestMapping("/EndVote.jp")
+	public String EndVote(HttpSession session,HttpServletRequest request){
+		int v_num=Integer.parseInt(request.getParameter("v_num"));
+		 sqlMap.update("vote.EndVote", v_num);
+		return "/vote/EndVote";
+		
+	}
+	
+	@RequestMapping("/UpVote.jp")
+	public String UpVote(HttpSession session,voteDTO dto,Model model,HttpServletRequest request){
+			
+		List articleList=null;
+		articleList=sqlMap.queryForList("vote.UpVote", dto);
+	 
+		 model.addAttribute("articleList", articleList);
+	
+		 return "/vote/UpVote";
+		
+	}
+	
+	@RequestMapping("/UpVotePro.jp")
+	public String UpVotePro(HttpSession session,Model model,HttpServletRequest request){
+		int v_num=Integer.parseInt(request.getParameter("v_num"));
+		
+		voteDTO dto=(voteDTO)sqlMap.queryForObject("vote.UpVotePro", v_num);
+		
+		 model.addAttribute("dto",dto);
+		 
+		 return "/vote/UpVotePro";
+	}
 	
 	
 }  //end
