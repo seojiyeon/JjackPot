@@ -34,30 +34,28 @@ public class workBean {
 		wdto.setEmp_num(emp_num);
 		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
 		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
-		String work_date = request.getParameter("work_date");
 		String ip = req.getHeader("X-FORWARDED-FOR");//ip불러오기
-		List items = null;
+		
+//		List items = null;
 		Date date = new Date();
 		
 		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
 		Calendar cal = Calendar.getInstance();   //캘린더를 date로 변환
 		DateFormat stringForma = new SimpleDateFormat(dateFormatStr); 
-		cal.setTime(date);     //work_on를 캘린더시간에 넣어준다.
+		cal.setTime(date);     //date를 캘린더시간에 넣어준다.
 
 		if (ip == null) {
 			ip = req.getRemoteAddr();
 		}
-		wdto.setWork_date(work_date);
 		//items = sqlMap.queryForList("work.getItem", wdto);
 
 		wdto = (workDTO)sqlMap.queryForObject("work.getDay", null);   //해당날짜만 불러오기
-		model.addAttribute("wdto",wdto);
 		
-		
-		model.addAttribute("ip",ip);
 		model.addAttribute("sys",sys);//시간 불러오기
-		//model.addAttribute("item",items);//list불러오기
+		model.addAttribute("wdto",wdto);
 		model.addAttribute("date", date);
+		model.addAttribute("ip",ip);
+
 
 
 		return"/work/work";
@@ -65,15 +63,31 @@ public class workBean {
 	 }
 	
 	@RequestMapping("/workday.jp")
-	public String workday(String day , Model model){
+	public String workday(String day, Model model,String dateFormatStr){
+
 		day = day.replace("-", "/");
 		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
 		workDTO wdto = (workDTO)sqlMap.queryForObject("work.getDayChagne", day);  //해당날짜만 불러오기
 		model.addAttribute("sys",sys);//시간 불러오기
 		model.addAttribute("wdto",wdto);
 		return "/work/workday";
 	}
 	
+	@RequestMapping("/work_all.jp")
+	public String workday(workDTO wdto, Model model,String dateFormatStr,HttpSession session){
+		String emp_num =(String)session.getAttribute("memId");
+		wdto.setEmp_num(emp_num);
+		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
+		List items = null;
+		items = sqlMap.queryForList("work.getItem", wdto);
+		model.addAttribute("sys",sys);//시간 불러오기
+		model.addAttribute("wdto",wdto);
+		model.addAttribute("item",items);//list불러오기
+		
+		return "/work/work_all";
+	}
 	
 	
 	/*@RequestMapping("/work_date.jp")
@@ -114,6 +128,7 @@ public class workBean {
 		//지각시간구하기 
 		workDTO ladto = (workDTO)sqlMap.queryForObject("work.getWork", wdto);
 		Timestamp wo = ladto.getWork_on();
+		System.out.println(ladto.getWork_on());
 		Date d = new Date();    //시간날짜불러오기
 		d.setHours(9);			//지각 시간 지정
 		d.setMinutes(30);		//지각 분지정
@@ -193,7 +208,6 @@ public class workBean {
     /*========================================================================================================================*/
 		
 		//조퇴시간구하기 
-//		
 		workDTO eadto = (workDTO)sqlMap.queryForObject("work.getWork", wdto);
 		Date wof = eadto.getWork_off();
 		Date d = new Date();    //시간날짜불러오기

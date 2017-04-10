@@ -55,33 +55,10 @@
     	   
 	</script>
 	
-	
-	<script>
-		$(document).ready(function(){
-			$("#work_on").click(function(){
-				var result = confirm('출근처리하시겠습니까');
-				window.location="/JackPot/work_on.jp";
-				});
-			});
-		</script>
-		
-		<script>	
-			$(document).ready(function(){
-				$("#work_off").click(function(){
-					var result = confirm('퇴근처리하시겠습니까');
-					window.location="/JackPot/work_off.jp";
-				});
-			});
-
-	</script>
-	
-	
-
-	
 	<form method="post" name="work" >
 	
 	
-  	<title>일일근태등록</title>
+  	<title>나의 근태관리</title>
     <table  width="600" border="1">
     	<tr>
     		<td>
@@ -91,7 +68,7 @@
     </table>
     
  	<div class="subtitle">
-		<h3>일일근태등록</h3>
+		<h3>나의 근태관리</h3>
     </div>
     <ul class="nav nav-tabs6 push" data-toggle="tabs">
        	<li class="active"><a href="#tabs-1"> 사원개인 </a></li>
@@ -101,15 +78,9 @@
 		<i class="fa fa-exclamation-circle"></i>&nbsp;퇴근시각 입력 후에는 반드시 근태확정 버튼을 누르시기 바랍니다.<br>
 		<i class="fa fa-exclamation-circle"></i>&nbsp;근무시간,휴일,연장,야간,지각,조퇴시간이 계산되지 않는 경우 담당에게 문의하세요.<br>
 	</div>
-    <div class="date fleft mb5">
-		<i class="fa fa-clock-o"></i><span id="clock"></span>
-			<span>&nbsp;&nbsp;&nbsp;&nbsp; 접속IP : ${ip}</span>
-	</div>
 
-	<div class="btn-wrap">
-		<button type="button" id="work_on" class="btn btn-color7 br" style="display: inline-block;"> 출근 </button>
-		<button type="button" id="work_off" class="btn btn-color7 br"> 퇴근 </button>
-	</div>
+
+
 	
 	<div class="tab-content">
 		<div id="tabs-1" class="tab-pane active">
@@ -146,13 +117,6 @@
 						<label for="onedayGolvwkMngPersForm_clientIP">PC IP</label></th>
 					</tr>
 					
-					<c:if test="${wdto.work_on == null }">
-					<tr>
-						<th style="text-align:center;"><label>출근기록이 없습니다</label>
-						</th>
-						</c:if>
-					
-					<c:if test="${wdto.work_on != null }">
 					<tr id="workday">										
 						<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
 						<td style="text-align:center;height: 30px;"><label id="onedayGolvwkMngPersForm_work_on" id="work_on">${sys.format(wdto.work_on)}</label></td>
@@ -164,7 +128,7 @@
 						<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_early" id="early">${wdto.early}</label></td>
 						<td id="onedayGolvwkMngPersForm_ip" style="text-align:center;"><label id="ip">${wdto.ip}</label></td>
 					</tr>
-					</c:if>
+			
 				
 				</tbody>
 			</table>
