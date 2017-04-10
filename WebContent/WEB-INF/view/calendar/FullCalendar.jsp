@@ -38,7 +38,7 @@ jQuery(document).ready(function() {
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay'
 		}
-        , defaultView: 'agendaWeek'
+        , defaultView: 'month'
         , editable : true
 		
         , navLinks: true // can click day/week names to navigate views
@@ -58,7 +58,8 @@ jQuery(document).ready(function() {
                         events.push({
                            title: $(this).attr('title'),
                             start: $(this).attr('start'),
-                            end: $(this).attr('end')
+                            end: $(this).attr('end'),
+                            color: $(this).attr('color')
                         });
                     });
                     callback(events);

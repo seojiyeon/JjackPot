@@ -48,22 +48,26 @@ public class CalendarBean {
 	      String title = "";
 	      String start = "";
 	      String end = "";
+	      String color = "";
 	      result2 = sqlMap.queryForList("calendar.calendarList", null);
-	      System.out.println(result2);
 	         for(int i=0; i<result2.size(); i++){   
 	            Map<String, Object> map = new HashMap<String, Object>();
 	            title = ((calendarDTO) result2.get(i)).getCl_title();
 	            start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 	            end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-	            System.out.println(((calendarDTO) result2.get(i)).getCl_title());
-	            System.out.println(((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime());
-	            System.out.println(((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime());
+	            System.out.println(title);
+	            if(title.equals("회사일정")){color="#F78088";}
+	            if(title.equals("지점일정")){color="#FFAE28";}
+	            if(title.equals("부서일정")){color="#60AFC7";}
+	            if(title.equals("개인업무")){color="#6BB8A8";}
+	            if(title.equals("출장")){color="#ff69b4";}
+	            if(title.equals("연차")){color="#2278EA";}
 	            map.put("title", title);
 	            map.put("start", start);
 	            map.put("end", end);
+	            map.put("color", color);
 	            result.add(map);
 	         	}
-	         System.out.println(result);
 		return result;
 	}
 
@@ -83,19 +87,20 @@ public class CalendarBean {
 		  calendarDTO cdto = new calendarDTO();
 		  int max = (Integer)sqlMap.queryForObject("calendar.maxnum", null);
 		  MultipartFile mf = multi.getFile("file");
-		  String path=multi.getRealPath("save");
-		  String org=mf.getOriginalFilename();
-		  String ext = org.substring(org.lastIndexOf("."));
-		  String sys ="file_"+max+ext;
-		  File f = new File(path+"//"+sys);
-		  try{
-			  mf.transferTo(f);
-		  }catch(Exception e){
-			  e.printStackTrace();
-		  }
-		  cdto.setCl_sys(sys);
-		  cdto.setCl_org(mf.getOriginalFilename());
-	
+		  if(!mf.equals(null)){
+			  String path=multi.getRealPath("save");
+			  String org=mf.getOriginalFilename();
+			  String ext = org.substring(org.lastIndexOf("."));
+			  String sys ="file_"+max+ext;
+			  File f = new File(path+"//"+sys);
+			  try{
+				  mf.transferTo(f);
+			  }catch(Exception e){
+				  e.printStackTrace();
+			  }
+			  cdto.setCl_sys(sys);
+			  cdto.setCl_org(mf.getOriginalFilename());
+		  	  }
 		String emp_num = (String)session.getAttribute("memId");
 		empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
 
