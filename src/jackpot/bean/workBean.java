@@ -1,5 +1,7 @@
 package jackpot.bean;
 
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -74,27 +76,32 @@ public class workBean {
 		return "/work/workday";
 	}
 	
-	@RequestMapping("/work_all.jp")
-	public String workday(workDTO wdto, Model model,String dateFormatStr,HttpSession session){
+/*	@RequestMapping("/work_all.jp")
+	public String workday(Model model,String dateFormatStr,HttpSession session,HttpServletRequest request){
+
+		workDTO wdto= new workDTO();
 		String emp_num =(String)session.getAttribute("memId");
 		wdto.setEmp_num(emp_num);
 		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
-		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
-		List items = null;
-		items = sqlMap.queryForList("work.getItem", wdto);
+		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String ip = req.getHeader("X-FORWARDED-FOR");//ip불러오기
+		List<workDTO> items = null;
+		items = (List<workDTO>) sqlMap.queryForObject("work.getItem", items);
 		model.addAttribute("sys",sys);//시간 불러오기
 		model.addAttribute("wdto",wdto);
-		model.addAttribute("item",items);//list불러오기
+		model.addAttribute("items",wdto);//list불러오기
+		System.out.println(wdto.getWork_on());
 		
 		return "/work/work_all";
 	}
+	*/
 	
-	
-	/*@RequestMapping("/work_date.jp")
+	@RequestMapping("/work_all.jp")
 	public String work(HttpSession session,HttpServletRequest request,Model model,workDTO wdto){
 		
 		String emp_num =(String)session.getAttribute("memId");
 		wdto.setEmp_num(emp_num);
+		Timestamp wo = wdto.getWork_on();
 		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
 		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		String ip = req.getHeader("X-FORWARDED-FOR");//ip불러오기
@@ -105,13 +112,14 @@ public class workBean {
 		}
 		items = sqlMap.queryForList("work.getItem", wdto);
 		
+		
 		model.addAttribute("ip",ip);
 		model.addAttribute("sys",sys);//시간 불러오기
 		model.addAttribute("item",items);//list불러오기
 
-		return"/work/work";
+		return"/work/work_all";
 		
-	 }*/
+	 }
 	
 	
 	@RequestMapping("/work_on.jp")

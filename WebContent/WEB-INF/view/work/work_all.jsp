@@ -15,57 +15,12 @@
 	<link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
 <head>
 
-	<script type="text/javascript">
-	
 
-    	   $(function() {
-        	      $( "#work_date").datepicker({
-        	    	    showOn: "both", 
-                        buttonImage:"/JackPot/images/calendar (1).png",
-                        buttonImageOnly: true ,
-                        buttonImageSize : "vertical-align: middle; margin: 10px 10px 10px 10px",
-        	    	 	dateFormat:'yy-mm-dd', 
-						showButtonPanel: true,
-						changeMonth: true, 
-						changeYear: true,
-						nextText: '다음 달',
-						prevText: '이전 달',
-						currentText:'오늘 날짜',
-						closeText: '닫기',
-						changeMonth: true, 
-						dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
-						monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-						maxDate : 'd',
-					});
-        	      
-        	  
-    	   });
-           
-    	   function test(test){
-    		   $.ajax({
-   	  	        type: "post",
-   	  	        url : "/JackPot/workday.jp",
-   	  	        data : {day : test},
-   	  	        success: function(data){
-   	  	        	$("#workday").html(data);
-   	  	        }	
-   	      	  });
-    	   }
-    	   
-    	   
-	</script>
-	
-	<form method="post" name="work" >
+	<form method="post" name="workA" >
 	
 	
   	<title>나의 근태관리</title>
-    <table  width="600" border="1">
-    	<tr>
-    		<td>
-				<input type="text" id="work_date" value=${date } onchange="test(this.value)">
-    		</td>
-    	</tr>
-    </table>
+
     
  	<div class="subtitle">
 		<h3>나의 근태관리</h3>
@@ -117,7 +72,7 @@
 						<label for="onedayGolvwkMngPersForm_clientIP">PC IP</label></th>
 					</tr>
 					
-					<tr id="workday">										
+					<tr >										
 						<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
 						<td style="text-align:center;height: 30px;"><label id="onedayGolvwkMngPersForm_work_on" id="work_on">${sys.format(wdto.work_on)}</label></td>
 						<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_work_off" id="work_off">${sys.format(wdto.work_off)}</label></td>
