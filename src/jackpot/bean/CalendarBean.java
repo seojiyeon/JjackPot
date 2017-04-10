@@ -2,16 +2,23 @@ package jackpot.bean;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -25,13 +32,41 @@ public class CalendarBean {
 	private SqlMapClientTemplate sqlMap;   
 
 	@RequestMapping("/calendar.jp")
-	public String main(Model model){
-		List cl_list = sqlMap.queryForList("calendar.calendarList", null);
-		model.addAttribute("cl_list", cl_list);
-		System.out.println(cl_list);
+	public String main(){
 		return "/calendar/calendar";
 	}
 	
+	@RequestMapping("/fullcalendar.jp")
+	public String fullcalendar(){
+		return "/calendar/FullCalendar";
+	}
+	@RequestMapping("/getfullcalendar.jp")
+	public @ResponseBody List<Map<String, Object>> calendar(calendarDTO cdto, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session){
+
+	      List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+	      List result2 = new ArrayList();
+	      String title = "";
+	      String start = "";
+	      String end = "";
+	      result2 = sqlMap.queryForList("calendar.calendarList", null);
+	      System.out.println(result2);
+	         for(int i=0; i<result2.size(); i++){   
+	            Map<String, Object> map = new HashMap<String, Object>();
+	            title = ((calendarDTO) result2.get(i)).getCl_title();
+	            start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
+	            end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
+	            System.out.println(((calendarDTO) result2.get(i)).getCl_title());
+	            System.out.println(((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime());
+	            System.out.println(((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime());
+	            map.put("title", title);
+	            map.put("start", start);
+	            map.put("end", end);
+	            result.add(map);
+	         	}
+	         System.out.println(result);
+		return result;
+	}
+
 	@RequestMapping("/calendarcontents.jp")
 	public String contents(){
 		return "/calendar/calendarcontents";
