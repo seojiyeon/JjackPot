@@ -15,12 +15,24 @@
 	  left:0;
 	  top:0;
 	}
-	.window{
+	.window {
 	  display: none;
 	  position:absolute;  
 	  left:100px;
 	  top:100px;
 	  z-index:10000;
+	}
+	
+	.memoNote {
+		margin: 12px 0 6px;
+    	line-height: 18px;
+    	max-height: 52px;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	-webkit-line-clamp: 3;
+    	-webkit-box-orient: vertical;
+    	display: -webkit-box;
+    	word-wrap: break-word;
 	}
 </style>
 </head>
@@ -71,7 +83,7 @@
 </script>
 
 <body>
-<a href="#" class="chMemoCate">메모 등록</a>
+<input type="button" class="chMemoCate" value="메모 등록" />
 
 <div id="header">
 <h2>모든 메모</h2>
@@ -84,14 +96,23 @@
 		<tr>
 			<td>등록할 메모폴더를 선택해 주세요.</td>
 		</tr>
+		<c:if test="${memoCateCount == 0}">
+		<tr>
+			<td>등록된 폴더가 없습니다.<br>
+				폴더를 생성 해주시기 바랍니다.	
+			</td>
+		</tr>
+		</c:if>
 		
+		<c:if test="${memoCateCount > 0}">
 		<c:forEach var="memoCate" items="${memoCateList}">
 		<tr>
 			<td>
 				<a href="memoInsert.jp?memo_cate=${memoCate.getCate_num()}">${memoCate.getCate_title()}</a>
 			</td>
-		</tr>			
+		</tr>	
 		</c:forEach>
+		</c:if>
 		
 		<tr>
 			<td>
@@ -105,7 +126,7 @@
 <table>
 	<tr>
 		<td>
-			<select>
+			<select name="pageSize">
 				<option>10</option>
 				<option>20</option>
 				<option>30</option>
@@ -113,7 +134,7 @@
 				<option>50</option>
 			</selecT>
 			&nbsp;
-			전체 숫자
+			전체 ${count}
 			&nbsp;
 			<select>
 				<option>등록일(최신순)</option>
@@ -128,24 +149,51 @@
 			<select name="">
 				<option>제목</option>
 			</select>
-			<input type="text" value="" />
+			<input type="text" name="" />
 			<input type="button"  value="검색" onClick="" />
 </table>
 </div>
 <form>
 <div>
 <table>
+<c:if test="${count == 0}">
+	<tr>
+		<td>등록된 메모가 없습니다.</td>
+	</tr>
+</c:if>
+<c:if test="${count > 0}">
 	<c:forEach var="memoCont" items="${memoCont}">
 		<tr>
 			<td>
 				중요여부 체크
-				<font size="3"><a href="#">${memoCont.getMemo_title()}</a></font>
+				<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}">${memoCont.getMemo_title()}</a></font>
 			</td>
 		</tr>
 		<tr>
-			<td><pre>${memoCont.getMemo_content()}</pre></td>
+			<td>
+				<div class="memoNote">
+				<pre>${memoCont.getMemo_content()}</pre>
+				</div>
+			</td>
+		</tr>
+		<tr>	
+			<td> ${memoCont.getCate_title()} | 등록:${sdf.format(memoCont.getMemo_enroll())} | 수정:${sdf.format(memoCont.getMemo_modi())}</td>
 		</tr>
 	</c:forEach>
+</c:if>
+</table>
+<table>
+	<c:if test="${count > 0}">
+		<c:if test="${startPage > 10}">
+			<a href="memoList.jp?pageNum=${startPage-10}">[이전]</a>
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+			<a href="memoList.jp?pageNum=${i}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${endPage < pageCount}">
+			<a href="memoList.jp?pageNum=${startPage+10}">[다음]</a>
+		</c:if>
+	</c:if>
 </table>
 </div>
 </form>

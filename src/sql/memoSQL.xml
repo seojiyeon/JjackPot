@@ -10,6 +10,10 @@
 		select * from memo_cate where emp_num=#emp_num#
 	</select>
 	
+	<select id="memoCateCount" parameterClass="String" resultClass="int">
+		select count(*) from memo_cate where emp_num=#emp_num#
+	</select>
+	
 	<!-- 메모 -->
 	<insert id="memoInsert" parameterClass="mdto">
 		insert into memo values(
@@ -25,6 +29,14 @@
 	</insert>
 	
 	<select id="memoSh" parameterClass="String" resultClass="mdto">
-		select * from memo where emp_num=#emp_num#
+		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_cate=mc.cate_num
+	</select>
+	
+	<select id="memoCount" parameterClass="String" resultClass="int">
+		select count(*) from memo where emp_num=#emp_num#
+	</select>
+	
+	<select id="memoContent" parameterClass="mdto" resultClass="mdto">
+		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_num=#memo_num# and memo_cate=cate_num
 	</select>
 </sqlMap>
