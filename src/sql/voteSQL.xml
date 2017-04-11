@@ -3,7 +3,9 @@
 <sqlMap namespace="vote">      
 
   <typeAlias alias="vdto" type="jackpot.DTO.voteDTO"/>
-
+  <typeAlias alias="sdto" type="jackpot.DTO.voteProDTO"/>
+  
+  
     <insert id="insertVote" parameterClass="vdto">
       
             insert into vote(v_num,jilmoon,v_start,emp_num,notice,up_img,up_img2,monhang,monhang2) 
@@ -40,6 +42,28 @@
         select * from vote where v_num=#v_num#
       </select>
       
+      <insert id="success" parameterClass="sdto">
+        insert into votePro values(#v_num#,#emp_num#,#monhang#,#monhang2#,#vote_num#)
+      </insert>
+      
+      <select id="VoteSelect" resultClass="int" parameterClass="sdto">
+         select count(*)from votePro where v_num=#v_num# and vote_num=#vote_num#
+      </select>
+      
+      
+      <select id="v_num" resultClass="sdto" parameterClass="int">
+              select s.v_num,v.jilmoon,v.notice,v.emp_num,v.monhang mm,v.monhang2 m2,v.up_img,v.up_img2,s.vote_num,s.monhang,s.monhang2
+     from vote v,votePro s where  v.v_num=s.v_num and s.v_num=#v_num#
+      </select>
+
+
+      <select id="Result" resultClass="int" parameterClass="sdto">
+       select count(*)from votePro where v_num=#v_num# and monhang=#monhang#
+      </select>
+      
+       <select id="Result2" resultClass="int" parameterClass="sdto">
+       select count(*)from votePro where v_num=#v_num# and monhang2=#monhang2#
+      </select>
       
       
 </sqlMap>

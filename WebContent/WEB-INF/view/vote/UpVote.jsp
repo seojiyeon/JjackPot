@@ -8,10 +8,17 @@
     
   	function test(v_num)
     	{
-    		alert(v_num);
+    		
     		window.location='UpVotePro.jp?v_num='+v_num;	
     		
     	}
+  	
+	function test2(v_num)
+	{
+		
+		window.location='VoteResult.jp?v_num='+v_num;	
+		
+	}
     </script>	     
     
  <h2> 투표 참여  </h2>
@@ -42,12 +49,16 @@
     </tr>
     
         <tr><td  align="center"> <br/>
+        
+
     <input type="button" id="success"  value="투표하기" onclick="test('${article.v_num}');" >
+    <input type="button" value="결과보기" onclick="test2('${article.v_num}');">
+    
         </td>
         </tr>
+        
+        
         </c:forEach>
-   
-   
    
    </form>
   </table>

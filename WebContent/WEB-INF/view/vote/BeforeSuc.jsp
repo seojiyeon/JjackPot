@@ -14,19 +14,19 @@
     	
     	function test(v_num)
     	{
-    		alert(v_num);
+    		
     		window.location='VoteSuc.jp?v_num='+v_num;	
     	}
     	
     	function test2(v_num)
     	{
-    		alert(v_num);
+    		
     		window.location='voteDel.jp?v_num='+v_num;	
     	}
     	
     	function test3(v_num)
     	{
-    		alert(v_num);
+    		
     		window.location='EndVote.jp?v_num='+v_num;	
     	}
     	
