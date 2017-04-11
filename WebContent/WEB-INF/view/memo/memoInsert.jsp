@@ -93,7 +93,8 @@
 		<tr>
 			<td>
 				<br/>
-				<input type="button" class="close" value="닫기" />
+				<button type="button" id="btnSend" >전송</button>
+				<button type="button" id="btnCancel" class="close">취소</button>
 			</td>
 		</tr>
 	</table>

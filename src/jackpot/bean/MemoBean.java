@@ -93,4 +93,9 @@ public class MemoBean {
 		
 		return "/memo/memoContent";
 	}
+	
+	@RequestMapping("memoModify.jp")
+	public String memoModify() {
+		return "/memo/memoModify";
+	}
 }

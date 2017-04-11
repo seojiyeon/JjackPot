@@ -14,7 +14,7 @@
 </div>
 
 <div>
-<form action="" method="post">
+<form action="memoModify.jp" method="post" enctype="multipart/form-data">
 	<table border="1">
 		<tr>
 			<td>
