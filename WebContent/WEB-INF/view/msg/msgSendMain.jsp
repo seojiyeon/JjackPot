@@ -18,7 +18,7 @@ width:100%;
 height:65px;
 background-color:gray;
 text-align:center;
-vertical-align: middle;
+vertical-align: bottom;
 
 }
 
@@ -79,10 +79,11 @@ ul{
 
 
 
-
 li {
-margin: 5px 15px;
+margin: 5px 10px;
 }
+
+
 
 
 a:link {
@@ -193,6 +194,11 @@ a:hover{
   margin: 0;
   font-size: 1rem;
 }
+
+
+
+
+
 
 
 
