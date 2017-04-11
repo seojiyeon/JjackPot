@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<script src="jquery-3.1.1.min.js"></script> 
-	<script type="text/javascript" src="/js/calendar.js"></script>
     <!--  jQuery UI CSS파일 --> 
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 	<!-- // jQuery 기본 js파일 -->
@@ -20,9 +18,10 @@
 
     	   $(function() {
         	      $( "#work_date").datepicker({
-        	    	    showOn: "both", 
+        	    	    showOn: "button", 
                         buttonImage:"/JackPot/images/calendar (1).png",
                         buttonImageOnly: true ,
+                        buttonText: "Select date",
                         buttonImageSize : "vertical-align: middle; margin: 10px 10px 10px 10px",
         	    	 	dateFormat:'yy-mm-dd', 
 						showButtonPanel: true,
@@ -75,9 +74,6 @@
 
 	</script>
 	
-	
-
-	
 	<form method="post" name="work" >
 	
 	
@@ -107,7 +103,7 @@
 	</div>
 
 	<div class="btn-wrap">
-		<button type="button" id="work_on" class="btn btn-color7 br" style="display: inline-block;"> 출근 </button>
+   		<button type="button" id="work_on" class="btn btn-color7 br" style="display: inline-block;"> 출근 </button>
 		<button type="button" id="work_off" class="btn btn-color7 br"> 퇴근 </button>
 	</div>
 	
@@ -147,13 +143,13 @@
 					</tr>
 					
 					<c:if test="${wdto.work_on == null }">
-					<tr>
+					<tr id="workday">		
 						<th style="text-align:center;"><label>출근기록이 없습니다</label>
 						</th>
 						</c:if>
 					
 					<c:if test="${wdto.work_on != null }">
-					<tr id="workday">										
+					<tr id="workday"  >										
 						<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
 						<td style="text-align:center;height: 30px;"><label id="onedayGolvwkMngPersForm_work_on" id="work_on">${sys.format(wdto.work_on)}</label></td>
 						<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_work_off" id="work_off">${sys.format(wdto.work_off)}</label></td>

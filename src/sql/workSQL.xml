@@ -39,6 +39,20 @@
 		]]>
 	</select> 
 		 
+		 
+	<select id="getMonthChagne" resultClass="wdto" parameterClass="String">
+		<![CDATA[
+			select * from work  where to_char(work_on,'yyyy-mm') = to_char(to_date(#month#),'yyyy-mm')
+		]]>
+	</select> 
+		 
+		 
+	<select id="getMonth" resultClass="wdto" parameterClass="String">
+		<![CDATA[
+			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#month#),'yyyymmdd')
+		]]>
+	</select> 	 
+		 
 	 
 	<insert id="insertWork" parameterClass="wdto">
 	
