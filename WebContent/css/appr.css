@@ -225,5 +225,32 @@ ul.tabs li.active {
 
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box }
 #content-jp{position:relative; width:100%; background-color:#FFF; padding-top:10px; min-width:830px; padding-top: 10px}
-
+	
+	.mask {  
+	  position:absolute;  
+	  z-index:9000;  
+	  background-color:#000;  
+	  display:none;  
+	  left:0;
+	  top:0;
+	}
+	.window {
+	  display: none;
+	  position:absolute;  
+	  left:100px;
+	  top:100px;
+	  z-index:10000;
+	}
+	
+	.memoNote {
+		margin: 12px 0 6px;
+    	line-height: 18px;
+    	max-height: 52px;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	-webkit-line-clamp: 3;
+    	-webkit-box-orient: vertical;
+    	display: -webkit-box;
+    	word-wrap: break-word;
+	}
 

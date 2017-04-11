@@ -13,15 +13,12 @@
         </select>  
         
         <select id="position" resultClass="String" parameterClass="int">
-        select * from position where num=#emp_position#
+        select position from position where num=#emp_position#
         </select>
         
+        <select id="department" resultClass="String" parameterClass="int">
+        select department from department where num=#emp_department#
+        </select>
        
-        <select id="userCheck" resultClass="int" parameterClass="cdto">
-        </select>
-        
-        <delete id="deletePro" parameterClass="cdto">
-        
-        </delete>
         
 </sqlMap>

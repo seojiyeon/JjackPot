@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 
-    
+<jsp:useBean id="toDay" class="java.util.Date" />
+<fmt:formatDate value="${toDay}" pattern="yyyy.MM.dd" var="tdate"/>
+
+<link href="/JackPot/css/appr.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/basic.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/theme.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/common.css?ver=1" rel="stylesheet" type="text/css">
@@ -15,40 +16,53 @@
 <html>
 
 <head>
-	
+	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="resource/ckeditor.js"></script>
 	<script type="text/javascript">
-	function layer_open(el){
+	function wrapWindowByMask(){
+		//화면의 높이와 너비를 구한다.
+		var maskHeight = $(document).height();  
+		var maskWidth = $(window).width();  
 
-		var temp = $('#' + el);		//레이어의 id를 temp변수에 저장
-		var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
+		//마스크의 높이와 너비를 화면의 높이와 너비로 설정한다.
+		$('.mask').css({'width':maskWidth,'height':maskHeight});  
 
-		if(bg){
-			$('.layer').fadeIn();
-		}else{
-			temp.fadeIn();	//bg 클래스가 없으면 일반레이어로 실행한다.
-		}
+		//애니메이션 효과
+		$('.mask').fadeTo("slow",0.5);   
+		
+		// 레이어 팝업을 가운데로 띄운다.
+		var left = ($(window).scrollLeft() + ($(window).width() - $('.window').width())/2);
+		var top = ($(window).scrollTop() + ($(window).height() - $('.window').height())/2);
+		
+		// css 스타일 변경
+		$('.window').css({'left':left, 'top':top, 'position':'absolute'});
 
-		// 화면의 중앙에 레이어를 띄운다.
-		if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
-		else temp.css('top', '0px');
-		if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
-		else temp.css('left', '0px');
-
-		temp.find('a.cbtn').click(function(e){
-			if(bg){
-				$('.layer').fadeOut();
-			}else{
-				temp.fadeOut();		//'닫기'버튼을 클릭하면 레이어가 사라진다.
-			}
-			e.preventDefault();
-		});
-
-		$('.layer .bg').click(function(e){
-			$('.layer').fadeOut();
-			e.preventDefault();
-		});
+		// 레이어 팝업 띄운다.
+		$('.window').show();
 	}
+
+	$(document).ready(function(){
+		//검은 마스크 배경과 레이어 팝업 띄운다.
+		$('.chMemoCate').click(function(e){
+			e.preventDefault();
+			wrapWindowByMask();
+		});
+
+		//닫기 버튼을 눌렀을 때
+		$('.window .close').click(function (e) {  
+		    //링크 기본동작은 작동하지 않도록 한다.
+		    e.preventDefault();  
+		    $('.mask, .window').hide();  
+		});       
+
+		//검은 마스크을 눌렀을 때
+		$('.mask').click(function () {  
+		    $(this).hide();  
+		    $('.window').hide();  
+		});      
+	});
+	
+	
 	</script>		
 </head>
 
@@ -130,9 +144,9 @@
 											
 												         
 										</th>
-									<th class="apprLine last">부서장</th></tr>
+									<th class="apprLine last">기 안</th></tr>
 									<tr id="apprLine0BTr">									
-									<td height="60" class="last"></td></tr>
+									<td height="60" class="last">${emp_name}</td></tr>
 								</tbody>
 								
 							</table>							
@@ -173,21 +187,13 @@
 								<th>문서번호</th>
 								<td>자동채번</td>
 								<th>기안일자</th>
-								<td>${now}</td>
+								<td>${tdate}</td>
 							</tr>
 							<tr>
 								<th>기안자</th>
 								<td>${emp_name}&nbsp;${emp_position}</td>
 								<th>기안부서</th>
-								<td>
-									
-									    
-					                        <input type="hidden" name="apprGroupId" value="G102863">
-					                    
-					                    루크
-					                
-					                 
-								</td>
+								<td><input type="hidden" name="apprGroupId" value="G102863">${emp_department}</td>
 							</tr>
 							
 							<tr>
