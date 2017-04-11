@@ -1,13 +1,15 @@
 package jackpot.bean;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-
-import jackpot.DTO.approDTO;
+import jackpot.DTO.empDTO;
 
 @Controller
 public class ApproBean {
@@ -16,29 +18,19 @@ public class ApproBean {
 	private SqlMapClientTemplate sqlMap;
 
 	@RequestMapping("/listApproDoc.jp")
-	public String listApproDoc(MultipartHttpServletRequest multi){
-		approDTO dto = new approDTO();
-		dto.setDoc_num(multi.getParameter("doc_num"));
-		dto.setDoc_date(multi.getParameter("doc_date"));
-		dto.setDoc_finish(multi.getParameter("doc_finish"));
-		dto.setEmp_num(multi.getParameter("emp_num"));
-		dto.setEmp_name(multi.getParameter("emp_name"));
-		dto.setDoc_title(multi.getParameter("doc_title"));
-		dto.setDoc_content(multi.getParameter("doc_content"));
-		dto.setStyle_num(multi.getParameter("style_num"));
-		dto.setDoc_division(multi.getParameter("doc_division"));
-		dto.setStart_work(multi.getParameter("start_work"));
-		dto.setEnd_work(multi.getParameter("end_work"));
-		dto.setDoc_state(multi.getParameter("doc_state"));
-		dto.setDoc_count(multi.getParameter("doc_count"));
-		dto.setDoc_step(multi.getParameter("doc_step"));
-		dto.setBranch(Integer.parseInt(multi.getParameter("branch")));
-		dto.setDepartment(Integer.parseInt(multi.getParameter("department")));
-		dto.setPosition(Integer.parseInt(multi.getParameter("position")));
-		
-		sqlMap.insert("approval.insertApproForm", dto);
+	public String listApproDoc(HttpSession session, Model m){
+		long emp_num = (Long) session.getAttribute("id");
+		empDTO edto = (empDTO) sqlMap.queryForObject("emp.select_emp", emp_num);
+		List<empDTO> emp_name = sqlMap.queryForList("emp.emp_name", null);
+		m.addAttribute("nameList",emp_name);
+		m.addAttribute("edto", edto);		
 		
 		return "/appro/work/listApproDoc";
+	}
+	@RequestMapping("/listApproDocPro.jp")
+	public String listApproDocPro(HttpSession session, Model m){
+		
+		return "/appro/work/listApproDocPro";
 	}
 	
 	@RequestMapping("/listApproMyRequest.jp")
