@@ -9,6 +9,7 @@
    <sqlMap resource="/sql/employeeSQL.xml"/>
    <sqlMap resource="/sql/workSQL.xml"/>
    <sqlMap resource="/sql/orgSQL.xml"/>
+   <sqlMap resource="/sql/approSQL.xml"/>
 
    <sqlMap resource="/sql/calendarSQL.xml"/>
    <sqlMap resource="/sql/voteSQL.xml"/>

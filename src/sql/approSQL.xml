@@ -12,8 +12,8 @@
              select max(cl_num) from calendar
         </select>  
         
-        <select id="calendarList" resultClass="cdto">
-        select * from calendar
+        <select id="position" resultClass="String" parameterClass="int">
+        select * from position where num=#emp_position#
         </select>
         
        

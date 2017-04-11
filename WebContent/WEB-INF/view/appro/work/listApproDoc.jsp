@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ 
+
     
 <link href="/JackPot/css/basic.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/theme.css?ver=1" rel="stylesheet" type="text/css">
@@ -173,7 +177,7 @@
 							</tr>
 							<tr>
 								<th>기안자</th>
-								<td>유준상</td>
+								<td>${emp_name}&nbsp;${emp_position}</td>
 								<th>기안부서</th>
 								<td>
 									

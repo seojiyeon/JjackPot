@@ -1,7 +1,5 @@
 package jackpot.bean;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +7,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import jackpot.DTO.empDTO;
 
 @Controller
@@ -18,17 +17,24 @@ public class ApproBean {
 	private SqlMapClientTemplate sqlMap;
 
 	@RequestMapping("/listApproDoc.jp")
-	public String listApproDoc(HttpSession session, Model m){
-		long emp_num = (Long) session.getAttribute("id");
-		empDTO edto = (empDTO) sqlMap.queryForObject("emp.select_emp", emp_num);
-		List<empDTO> emp_name = sqlMap.queryForList("emp.emp_name", null);
-		m.addAttribute("nameList",emp_name);
-		m.addAttribute("edto", edto);		
+	public String listApproDoc(HttpSession session, Model model){
+		String emp_num = (String) session.getAttribute("memId"); //session에서 Id 값을 받아와서 emp_num에 저장. 
+		empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
+		int emp_position = edto.getPosition();
+		String position = (String) sqlMap.queryForObject("approval.position", emp_position);
+		String emp_name = edto.getEmp_name();
+		
+		System.out.println(emp_name);
+		System.out.println(position);
+		model.addAttribute("emp_name",emp_name);
+		model.addAttribute("emp_position",position);
+	
 		
 		return "/appro/work/listApproDoc";
 	}
 	@RequestMapping("/listApproDocPro.jp")
 	public String listApproDocPro(HttpSession session, Model m){
+	
 		
 		return "/appro/work/listApproDocPro";
 	}
