@@ -2,60 +2,33 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="msg">      
 
-  <typeAlias alias="dto" type="jackpot.DTO.empDTO"/>
+  <typeAlias alias="msgDTO" type="jackpot.DTO.msgDTO"/>
 	
-       <insert id="insertMember" parameterClass="dto">
-        insert into emp values(#emp_num#,#pw#,#emp_name#,#address#,#phone#,#mail#,
-   #birthday#,#signimg#,to_date(#hiredate#, 'YYYYMMDD'),sysdate,#profilephoto#,#emp_point#,#department#,#rank#,#branch#,#position#)
+       <insert id="sendmsg" parameterClass="msgDTO">
+        insert into message values(message_seq.NEXTVAL,#emp_num#,#msg_cate#,#msg_send#,#msg_receive#,#msg_title#,
+   #msg_content#,sysdate,#msg_group#,#msg_state#,#ref#,#re_step#,#re_level#,sysdate,#msg_rid#)
            
         </insert>
+        
+        
+        <select id="msgAll" resultClass="msgDTO" parameterClass="String">
+            select * from message where msg_rid=#id# order by msg_num desc        
+        </select>
+        
+         <select id="msgSend" resultClass="msgDTO" parameterClass="String">
+            select * from message where emp_num=#id# order by msg_num desc        
+        </select>
+        
+        <select id="msgCont" resultClass="msgDTO" parameterClass="int">
+            select * from message where msg_num=#msg_num#     
+        </select>
+        
+        <select id="msgMem" resultClass="String" parameterClass="String">
+            select emp_name from emp where emp_num=#emp_num#     
+        </select>
+        
+        
       
-        <select id="maxnum" resultClass="int">
-             select max(emp_num) from employee
-        </select>  
-        
-        
-        <select id="member" resultClass="dto" parameterClass="String">
-            select * from emp where emp_num=#emp_num# 
-        
-        </select>
-        
-        <select id="memberAll" resultClass="dto" >
-            select * from emp        
-        </select>
-        
-        
-         <update id="updateMember" parameterClass="dto">
-        
-           update emp set
-           pw=#pw# , 
-           address=#address#, 
-           phone=#phone#, 
-           mail=#mail#,
-           birthday=#birthday#,
-           signimg=#signimg#,
-           profilephoto=#profilephoto#
-         
-           where emp_num=#emp_num#
-        </update>
-        
-       
-        <select id="userCheck" resultClass="int" parameterClass="dto">
-            select count(*)from emp where emp_num=#emp_num# and pw=#pw#
-        
-        </select>
-        
-        <delete id="deletePro" parameterClass="dto">
-        delete from emp where emp_num=#emp_num#
-        
-        </delete>
-        
-         <select id="comfirmCheck" resultClass="String" parameterClass="dto">
-            select emp_num from emp where emp_num=#emp_num# 
-        
-        </select>
-        
-       
       
 </sqlMap>
 

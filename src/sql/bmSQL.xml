@@ -3,8 +3,51 @@
 
 
 <sqlMap namespace="bm">   
+	<typeAlias alias="bmdto"  type="jackpot.DTO.bmDTO"/>
 
+	<!--  모든업무불러오기  -->
+		<select id="getBusiness" parameterClass="bmdto" resultClass="bmdto">
 	
+			<![CDATA[
+				select bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, r 
+				from (select bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, rownum r
+				from business_manage where bm_num=#bm_num# order by bm_num desc) where rownum <= 1	
+			]]>
+	
+		</select>
+		
+	<!--  나의 업무불러오기  -->
+		<select id="getMyBusiness" parameterClass="bmdto" resultClass="bmdto">
+	
+			<![CDATA[
+				select bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, r 
+				from (select bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, rownum r
+				from business_manage where emp_num=#emp_num# order by bm_num desc) where rownum <= 1
+			]]>
+	
+		</select>
+	
+	<!--  업무입력  -->
+		<insert id="insertBusiness" parameterClass="bmdto">
+	
+				insert into business_manage(bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
+					bm_seq.nextval,
+					#bm_tiltie#,
+					#bm_content#,
+					#bm_form#,
+					#bm_start#,
+					#bm_end#,
+					#enrollment#,
+					#reg_notice#,
+					#cmp_notice#,
+					#related_bns#,
+					#bns_box#,
+					#important#,
+					#bm_state#,
+					#emp_num#
+				)
+		
+		</insert>	
 	
 
 </sqlMap>

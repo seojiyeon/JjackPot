@@ -44,20 +44,20 @@ $(document).ready(function(){
 <table>
 <tr>
 <td>
-<label><input type="radio" name="cate" value="일반" checked="checked" />일반</label>
-<label><input type="radio" name="cate" value="공지" />공지</label>
-<label><input type="radio" name="cate" value="중요" />중요</label>
-<label><input type="radio" name="cate" value="배포" />배포</label>
+<label><input type="radio" name="msg_cate" value="일반" checked="checked" />일반</label>
+<label><input type="radio" name="msg_cate" value="공지" />공지</label>
+<label><input type="radio" name="msg_cate" value="중요" />중요</label>
+<label><input type="radio" name="msg_cate" value="배포" />배포</label>
 </td>
 </tr> 
 <tr>
 <td>
-제목 <input class="input2" type="text" name="title" placeholder="제목을 입력하세요." />
+제목 <input class="input2" type="text" name="msg_title" placeholder="제목을 입력하세요." />
 </td>
 </tr>
 <tr>
 <td>
-받는사람 <input class="input2"  type="text" name="receiver" placeholder="받을실분의 성함을 입력하세요." />
+받는사람 <input class="input2"  type="text" name="msg_receive" placeholder="받을실분의 성함을 입력하세요." />
 </td>
 </tr>
 <tr>

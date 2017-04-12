@@ -1,5 +1,6 @@
 package jackpot.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,15 +19,44 @@ public class MemoBean {
 	SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("/memoList.jp")
-	public String memoList(Model model, HttpSession session) {
+	public String memoList(Model model, HttpSession session, String pageNum) {
 		String emp_num = (String)session.getAttribute("memId");
+		int pageSize = 10;
+		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
 		
 		List memoCateList = sqlMap.queryForList("memo.memoCate", emp_num);
 		List memoCont = sqlMap.queryForList("memo.memoSh", emp_num);
+		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", emp_num);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		model.addAttribute("memoCateList", memoCateList);
 		model.addAttribute("memoCont", memoCont);
-
+		model.addAttribute("count", count);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("sdf", sdf);
+		model.addAttribute("memoCateCount", memoCateCount);
+		
 		System.out.println(emp_num);
 		return "/memo/memoList";
 	}
@@ -52,5 +82,20 @@ public class MemoBean {
 		sqlMap.insert("memo.memoInsert", dto);
 		
 		return "/memo/memoInsertPro";
+	}
+	
+	@RequestMapping("/memoContent.jp")
+	public String memoContent(memoDTO dto, Model model, String pageNum){
+		dto = (memoDTO) sqlMap.queryForObject("memo.memoContent", dto);
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "/memo/memoContent";
+	}
+	
+	@RequestMapping("memoModify.jp")
+	public String memoModify() {
+		return "/memo/memoModify";
 	}
 }

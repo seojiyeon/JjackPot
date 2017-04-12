@@ -204,13 +204,13 @@ function realtimeClock() {
     <div class="contents">
     <ul>
     	<li><a href=""><br/><br/>메일 <br><img src="/JackPot/mainsave/메일.png"></a></li>
-    	<li><a href=""><br/><br/>전자결재<br><img src="/JackPot/mainsave/전자결재.png"></a></li>
+    	<li><a href="/JackPot/listApproTodo.jp"><br/><br/>전자결재<br><img src="/JackPot/mainsave/전자결재.png"></a></li>
     	<li><a href="/JackPot/community.jp"><br/><br/>게시판<br><img src="/JackPot/mainsave/게시판.png"></a></li>
     	<li><a href="/JackPot/calendar.jp"><br/><br/>일정<br><img src="/JackPot/mainsave/업무관리.png"></a></li>
     	<li><a href=""><br/><br/>SNS<br><img src="/JackPot/mainsave/SNS.png"></a></li>
     	<li><a href="/JackPot/msgmain.jp"><br/><br/>쪽지<br><img src="/JackPot/mainsave/쪽지.png"></a></li>
     	<li><a href=""><br/><br/>거래처<br><img src="/JackPot/mainsave/거래처.png"></a></li>
-    	<li><a href=""><br/><br/>주소록<br><img src="/JackPot/mainsave/주소록.png"></a></li>
+    	<li><a href="/JackPot/orgChart.jp"><br/><br/>주소록<br><img src="/JackPot/mainsave/주소록.png"></a></li>
     	<li><a href=""><br/><br/>메모<br><img src="/JackPot/mainsave/메모.png"></a></li>
     	<li><a href=""><br/><br/>온라인투표<br><img src="/JackPot/mainsave/온라인투표.png"></a></li>
     	<li><a href=""><br/><br/>메신저<br><img src="/JackPot/mainsave/메신저.png"></a></li>

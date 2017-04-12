@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-    
-	<c:redirect  url="/work.jp">
-	</c:redirect>
+<head>
+<title>메모</title>
+</head>
+
+<body>
+
+</body>

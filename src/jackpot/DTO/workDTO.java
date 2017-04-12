@@ -15,7 +15,7 @@ public class workDTO {
 	private String early;
 	private int division;
 	private String ip;
-	private String work_date;
+	
 	public int getNum() {
 		return num;
 	}
@@ -82,12 +82,7 @@ public class workDTO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	public String getWork_date() {
-		return work_date;
-	}
-	public void setWork_date(String work_date) {
-		this.work_date = work_date;
-	}
+
 	
 }
 	

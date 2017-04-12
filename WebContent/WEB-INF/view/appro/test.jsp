@@ -210,7 +210,6 @@
 										<th rowspan="2">
 											
 												결<br><br class="last">재
-											
 												         
 										</th>
 									<th class="apprLine last">부서장</th></tr>
@@ -295,12 +294,8 @@
 									
 									            
 					    			        <input type="text" title="문서제목" name="apprTitle" value="" class="inputbox w100p" maxlength="65" placeholder="문서제목을 입력하세요. ">
-					    			    
-					    			        
-				    			    
 								</td>
 							</tr>
-														
 						</tbody>
 					</table>
 				</div>
@@ -319,6 +314,7 @@
 
 		</div>
 	</div>
+</div>
 </div>
 </div>
 </body>

@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jackpot.DTO.empDTO;
 import jackpot.DTO.voteDTO;
+import jackpot.DTO.voteProDTO;
 
 @Controller
 public class voteBean {
@@ -83,11 +84,12 @@ public class voteBean {
 	public String BeforeSuc(HttpSession session,Model model,voteDTO dto,HttpServletRequest request){
 		
 		 String emp_num = (String)session.getAttribute("memId");
-		
+
 		 
 		 List articleList = null;
 		articleList=sqlMap.queryForList("vote.voteSelect", emp_num);
 
+		
 		     model.addAttribute("articleList", articleList);
 	
 
@@ -96,18 +98,109 @@ public class voteBean {
 	
 	
 	@RequestMapping("/VoteSuc.jp")
-	public String VoteSuc(HttpSession session,HttpServletRequest request,voteDTO dto){
+	public String VoteSuc(HttpSession session,HttpServletRequest request){
 		String emp_num = (String)session.getAttribute("memId");
+
 	    int v_num=Integer.parseInt(request.getParameter("v_num"));
-	    System.out.println(v_num);
-		
+	    
+	   
+	    
 	    sqlMap.update("vote.Vupdate", v_num);
 	    
+	 
 		return "/vote/VoteSuc";
 	}
 	
 	
+	@RequestMapping("/voteDel.jp")
+	public String voteDel(HttpSession session,HttpServletRequest request){
+		   int v_num=Integer.parseInt(request.getParameter("v_num"));
+		   
+		   sqlMap.delete("vote.Vdel", v_num);
+		
+		return "/vote/voteDel";
 	
+	}
+	
+	
+	@RequestMapping("/EndVote.jp")
+	public String EndVote(HttpSession session,HttpServletRequest request){
+		int v_num=Integer.parseInt(request.getParameter("v_num"));
+		 sqlMap.update("vote.EndVote", v_num);
+		return "/vote/EndVote";
+		
+	}
+	
+	@RequestMapping("/UpVote.jp")
+	public String UpVote(HttpSession session,voteDTO dto,Model model,HttpServletRequest request){
+			
+		List articleList=null;
+		articleList=sqlMap.queryForList("vote.UpVote", dto);
+	 
+		 model.addAttribute("articleList", articleList);
+		 
+		 return "/vote/UpVote";
+		
+	}
+	
+	@RequestMapping("/UpVotePro.jp")
+	public String UpVotePro(HttpSession session,Model model,HttpServletRequest request){
+		String vote_num = (String)session.getAttribute("memId");
+		int v_num=Integer.parseInt(request.getParameter("v_num"));
+
+		voteDTO dto=(voteDTO)sqlMap.queryForObject("vote.UpVotePro", v_num);
+		
+		 model.addAttribute("dto",dto);
+		 
+		 return "/vote/UpVotePro";
+	}
+	
+	@RequestMapping("/Success.jp")
+	public String Success(HttpSession session,Model model,HttpServletRequest request,voteProDTO dto){
+		String vote_num = (String)session.getAttribute("memId");
+
+		int v_num=Integer.parseInt(request.getParameter("v_num"));
+		String emp_num=request.getParameter("emp_num");
+		
+		dto.setV_num(v_num);
+		dto.setVote_num(vote_num);
+		
+		int check =(Integer)sqlMap.queryForObject("vote.VoteSelect", dto);
+		
+		if(check==0){
+		dto.setVote_num(vote_num);
+		sqlMap.insert("vote.success", dto);
+		
+		}
+		
+	       model.addAttribute("check",new Integer(check));
+		
+		return "/vote/Success";
+	}
+	
+	
+	@RequestMapping("/VoteResult.jp")
+	public String VoteResult(HttpServletRequest request,voteProDTO dto,Model model){
+		int v_num=Integer.parseInt(request.getParameter("v_num"));
+
+		dto.setV_num(v_num);
+	
+		  List list=null;
+		list=sqlMap.queryForList("vote.v_num", v_num);
+		
+		model.addAttribute("list",list);
+		
+		
+		
+		int result =(Integer)sqlMap.queryForObject("vote.Result", dto);
+		int result2 =(Integer)sqlMap.queryForObject("vote.Result2", dto);
+		
+		System.out.println(result);
+		 model.addAttribute("result",new Integer(result));
+		 model.addAttribute("result2",new Integer(result2));
+	
+		return "/vote/VoteResult";
+	}
 	
 	
 	

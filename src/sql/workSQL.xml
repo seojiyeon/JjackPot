@@ -25,20 +25,34 @@
 
 	</select>
 	
+	
 	<select id="getDay" resultClass="wdto">
-		<![CDATA[
+
 			select * from work  where to_char(work_on,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
-		]]>
+
 	</select> 
+	
 	
 	<select id="getDayChagne" resultClass="wdto" parameterClass="String">
 		<![CDATA[
 			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd')
 		]]>
 	</select> 
-	
-	
-	 
+		 
+		 
+	<select id="getMonthChagne" resultClass="wdto" parameterClass="String">
+		<![CDATA[
+			select * from work  where to_char(work_on,'yyyy-mm') = to_char(to_date(#month#),'yyyy-mm')
+		]]>
+	</select> 
+		 
+		 
+	<select id="getMonth" resultClass="wdto" parameterClass="String">
+		<![CDATA[
+			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#month#),'yyyymmdd')
+		]]>
+	</select> 	 
+		 
 	 
 	<insert id="insertWork" parameterClass="wdto">
 	
@@ -53,7 +67,7 @@
 			'00:00',
 			'00:00',
 			#division#,
-			#ip#,
+			#ip#
 		)
 		
 	</insert>	
