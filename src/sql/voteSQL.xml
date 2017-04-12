@@ -66,6 +66,9 @@
        <select id="Result2" resultClass="int" parameterClass="int">
        select count(*) from votePro where v_num=#v_num# and monhang2 is not null
       </select>
+   
+   
+   
       
       
 </sqlMap>
