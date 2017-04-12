@@ -13,13 +13,14 @@ height:800px;
 }
 
 .top{
-color:white;
-width:100%;
-height:65px;
-background-color:gray;
-text-align:center;
-vertical-align: bottom;
-
+    color: white;
+    font-size: 17px;
+    width: 1210px;
+    height: 65px;
+    background-color: gray;
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .menu{
@@ -79,11 +80,10 @@ ul{
 
 
 
+
 li {
-margin: 5px 10px;
+margin: 5px 15px;
 }
-
-
 
 
 a:link {
@@ -91,7 +91,7 @@ a:link {
     
 }
 
-a:hover{
+.menu a:hover{
   -webkit-transform: translateY(-5px);
           transform: translateY(-5px);
   -webkit-transition: all 100ms ease-in;
@@ -114,6 +114,7 @@ a:hover{
   border: 2px solid #333333;
   background: #f1f1f1;
   padding: 9px 9px;
+  margin: 10px;
   font-size: 0.8rem;
   text-transform: uppercase;
   display: block;
@@ -197,11 +198,6 @@ a:hover{
 
 
 
-
-
-
-
-
     
 </style>
 
@@ -255,15 +251,21 @@ $(function() {
 });
 
 
-
-
-
 </script>
 
+<c:if test="${memId==null}" >
 
+로그인 후 이용해 주시기 바랍니다.
+
+<input type="button" onClick="window.location='main.jp'" value="돌아가기"/>
+
+</c:if>
+
+
+<c:if test="${memId!=null}">
 
 <div class="root">
-<div class="top">쪽지</div>
+<div class="top"><b>보낸 쪽지</b></div>
 <div class="menu">
 <ul>
 
@@ -296,8 +298,8 @@ $(function() {
     
     <th align="center"  width="20"  > <b><input type="checkbox" /></b></th>
     <td align="center">${article.msg_cate} </td>
-	<td align="center">${article.msg_title}</td>	
-    <td align="center"  width="50">${article.msg_send}</td>
+	<td align="center"><a href="/JackPot/msgcont.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
+    <td align="center"  width="50">${article.msg_send} (${article.emp_num})</td>
     <td align="center"  width="100"> ${article.msg_read} </td>
   </tr>
   </c:forEach>
@@ -365,7 +367,7 @@ $(function() {
   </p>
   
 </div>  
-
+</c:if>
 
 
 

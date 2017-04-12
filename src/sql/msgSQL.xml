@@ -6,13 +6,25 @@
 	
        <insert id="sendmsg" parameterClass="msgDTO">
         insert into message values(message_seq.NEXTVAL,#emp_num#,#msg_cate#,#msg_send#,#msg_receive#,#msg_title#,
-   #msg_content#,sysdate,#msg_group#,#msg_state#,#ref#,#re_step#,#re_level#,sysdate)
+   #msg_content#,sysdate,#msg_group#,#msg_state#,#ref#,#re_step#,#re_level#,sysdate,#msg_rid#)
            
         </insert>
         
         
-        <select id="msgAll" resultClass="msgDTO" >
-            select * from message order by msg_num desc        
+        <select id="msgAll" resultClass="msgDTO" parameterClass="String">
+            select * from message where msg_rid=#id# order by msg_num desc        
+        </select>
+        
+         <select id="msgSend" resultClass="msgDTO" parameterClass="String">
+            select * from message where emp_num=#id# order by msg_num desc        
+        </select>
+        
+        <select id="msgCont" resultClass="msgDTO" parameterClass="int">
+            select * from message where msg_num=#msg_num#     
+        </select>
+        
+        <select id="msgMem" resultClass="String" parameterClass="String">
+            select emp_name from emp where emp_num=#emp_num#     
         </select>
         
         

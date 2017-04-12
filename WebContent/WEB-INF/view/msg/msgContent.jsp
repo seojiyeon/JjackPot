@@ -13,14 +13,13 @@ height:800px;
 }
 
 .top{
-    color: white;
-    font-size: 17px;
-    width: 1210px;
-    height: 65px;
-    background-color: gray;
-    padding: 20px;
-    text-align: center;
-    vertical-align: middle;
+color:white;
+width:1210px;
+height:65px;
+background-color:gray;
+text-align:center;
+vertical-align: middle;
+
 }
 
 .menu{
@@ -52,12 +51,32 @@ background-color:green;
 text-align:center;
 }
 
-.employee th, td {
+.employee th {
     padding: 8px;
     text-align: center;
     border-bottom: 1px solid #ddd;
     font-size : 12px;
+    background-color: #d1e0e0;
 }
+
+.employee td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size : 12px;
+    background-color: #d1e0e0;
+}
+
+.cont {
+background-color: #f2f2f2;
+    height: 300px;
+    text-align: initial;
+    font-size: 14px;
+    margin: auto;
+    padding: 20px;
+
+}
+
 
 .employee {
 	width: 1000px;
@@ -72,7 +91,7 @@ th, td {
     font-size : 12px;
 }
 
-.employee tr:hover{background-color: #ffe6ff}
+
 
 ul{
    list-style:none;
@@ -91,7 +110,7 @@ a:link {
     
 }
 
-.menu a:hover{
+a:hover{
   -webkit-transform: translateY(-5px);
           transform: translateY(-5px);
   -webkit-transition: all 100ms ease-in;
@@ -197,7 +216,9 @@ a:link {
 }
 
 
-
+.tn {
+background-color: #669900;
+}
     
 </style>
 
@@ -265,7 +286,7 @@ $(function() {
 <c:if test="${memId!=null}">
 
 <div class="root">
-<div class="top"><b>받은 쪽지</b></div>
+<div class="top">쪽지</div>
 <div class="menu">
 <ul>
 
@@ -281,30 +302,38 @@ $(function() {
 <div class="con">
 
 <div class="employee">
-<%-- <c:if test="${count > 0}"> --%>
-<table width="100%" cellpadding="0" cellspacing="0" align="center"> 
+
+<table  cellpadding="0" cellspacing="0"> 
     <tr height="30"  > 
-     <th align="center"  width="20"  > <b><input type="checkbox" /></b></th>
-     <th align="center"  width="50"  > <b>분류</b></th> 
-      <th align="center"  width="100" ><b>제목</b></th> 
-      <th align="center"  width="50" ><b>보낸사람</b></th>
-      <th align="center"  width="100" ><b>일시</b></th>
-      
+     <th align="center"  width="50"  > <b>제목</b></th> 
+     <td align="left"  width="950" ><span class="tn">${cDTO.msg_title}</span></th>
     </tr>
-
-
- <c:forEach var="article" items="${articleList}" >
-   
     
-    <th align="center"  width="20"  > <b><input type="checkbox" /></b></th>
-    <td align="center">${article.msg_cate} </td>
-	<td align="center"><a href="/JackPot/msgcont.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
-    <td align="center"  width="50">${article.msg_send} (${article.emp_num})</td>
-    <td align="center"  width="100"> ${article.msg_read} </td>
-  </tr>
-  </c:forEach>
-</table>
+    <tr height="30"  >
+    <th align="center"  width="50"  > <b>분류</b></th> 
+     <td align="left"  width="100" ><b>${cDTO.msg_cate}</b></th>
+    </tr>
+    
+    <tr height="30"  > 
+    <th align="center"  width="50"  > <b>보낸사람</b></th> 
+     <td align="left"  width="100" ><b>${cDTO.msg_send}</b></th>
+    </tr>
+    
+    <tr height="30"  > 
+    <th align="center"  width="50"  > <b>받는사람</b></th> 
+     <td align="left"  width="100" ><b>${cDTO.msg_receive}</b></th>
+    </tr> 
+
+     
+      
+    
+   
+    </table>
+<div class="cont">
+ ${cDTO.msg_content} 
+</div>
 <center>
+
 <button class="dialog__trigger">쪽지 쓰기</button>
 </center>
 </div>

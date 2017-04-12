@@ -23,8 +23,11 @@ public class MsgBean {
 	@RequestMapping("/msgmain.jp")
 	public String msgmain(msgDTO dto, HttpSession session, Model model){
 		
+		String id = (String) session.getAttribute("memId");
+		
+		
 		List articleList = null;
-		articleList = sqlMap.queryForList("msg.msgAll", articleList);		
+		articleList = sqlMap.queryForList("msg.msgAll", id);		
 		model.addAttribute("articleList", articleList);		
 		
 		return "/msg/msgMain";
@@ -34,28 +37,46 @@ public class MsgBean {
 	@RequestMapping("/msgsmain.jp")
 	public String msgsmain(msgDTO dto, HttpSession session, Model model){
 		
+		String id = (String) session.getAttribute("memId");
+		
 		List articleList = null;
-		articleList = sqlMap.queryForList("msg.msgAll", articleList);		
+		articleList = sqlMap.queryForList("msg.msgSend", id);		
 		model.addAttribute("articleList", articleList);		
 		
 		return "/msg/msgSendMain";
 	}	
 	
 	
-	
-	
-	
-
-	
 	@RequestMapping("/msgWritePro.jp")
 	public String msgWritePro(msgDTO dto, HttpSession session, Model model){
-		
-		
+		String id = (String) session.getAttribute("memId");
+		String name = (String) sqlMap.queryForObject("msg.msgMem", id);
+		dto.setMsg_send(name);
+		dto.setEmp_num(id);
 		sqlMap.insert("msg.sendmsg", dto);		
 				
 		
 		return "/msg/msgWritePro";
 	}	
+	
+	
+	@RequestMapping("/msgcont.jp")
+	public String msgcont(msgDTO dto, HttpSession session, Model model){
+		
+		int num = dto.getMsg_num();		
+		System.out.println(num);
+		
+		
+		dto = (msgDTO) sqlMap.queryForObject("msg.msgCont", num);		
+		model.addAttribute("cDTO", dto);		
+		
+		return "/msg/msgContent";
+	}	
+	
+	
+	
+	
+	
 	
 	@RequestMapping("/msgTest.jp")
 	public String msgTest(msgDTO dto, HttpSession session, Model model){
