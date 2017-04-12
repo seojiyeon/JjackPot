@@ -19,8 +19,15 @@ public class msgDTO {
 	private int ref;
 	private int re_step;
 	private int re_level;
+	private String msg_rid;
 	
 	
+	public String getMsg_rid() {
+		return msg_rid;
+	}
+	public void setMsg_rid(String msg_rid) {
+		this.msg_rid = msg_rid;
+	}
 	public int getMsg_num() {
 		return msg_num;
 	}
