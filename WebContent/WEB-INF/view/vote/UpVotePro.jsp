@@ -3,11 +3,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 
+<script language="JavaScript">
+
+
+
+function checkIt(){
+
+	var mon1 = document.UPvote.monhang.checked;
+	var mon2 = document.UPvote.monhang2.checked;
+	
+
+	if(mon1 == false && mon2 == false){
+		alert("투표할 사람을 고르시오");
+		return false;
+	}
+
+	if(mon1 == true && mon2 == true){
+		alert("한사람만 고르시오");
+		return false;
+	}
+	
+}
+</script>
 
  <h2> 온라인 투표  </h2>
-<table border="0" width="900"  cellpadding="0" cellspacing="0" align="center"> 
+<table border="0" width="900"  cellpadding="0" cellspacing="0" align="center" > 
     			
-    <form method="post"  action="Success.jp" name="UPvote" >    
+    <form method="post"  action="Success.jp" name="UPvote" onSubmit="return checkIt()">    
 
 
   

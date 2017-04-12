@@ -20,6 +20,7 @@
       <td width="100"><font color="red">*</font>작성자</td>
         <td width="400" >${dto.emp_name}(${dto.emp_num })</td>     
           <input type="hidden" name="emp_num" value="${dto.emp_num}">
+          <input type="hidden" name="emp_name" value="${dto.emp_name}">
     </tr>
     
     
