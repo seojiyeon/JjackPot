@@ -12,6 +12,10 @@
         
         
         <select id="msgAll" resultClass="msgDTO" parameterClass="String">
+            select * from message        
+        </select>
+        
+        <select id="msgReceive" resultClass="msgDTO" parameterClass="String">
             select * from message where msg_rid=#id# order by msg_num desc        
         </select>
         
@@ -25,6 +29,10 @@
         
         <select id="msgMem" resultClass="String" parameterClass="String">
             select emp_name from emp where emp_num=#emp_num#     
+        </select>
+        
+        <select id="msgMem2" resultClass="String" parameterClass="String">
+            select emp_num from emp where emp_name=#emp_name#     
         </select>
         
         

@@ -51,6 +51,14 @@ public class MsgBean {
 	public String msgWritePro(msgDTO dto, HttpSession session, Model model){
 		String id = (String) session.getAttribute("memId");
 		String name = (String) sqlMap.queryForObject("msg.msgMem", id);
+		System.out.println(name);
+		
+		String receive = dto.getMsg_receive();
+		System.out.println(receive);
+		
+		String rid = (String) sqlMap.queryForObject("msg.msgMem2", receive);
+				
+		dto.setMsg_rid(rid);
 		dto.setMsg_send(name);
 		dto.setEmp_num(id);
 		sqlMap.insert("msg.sendmsg", dto);		
