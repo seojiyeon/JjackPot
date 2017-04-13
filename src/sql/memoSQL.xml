@@ -34,7 +34,7 @@
 	</insert>
 	
 	<select id="memoSh" parameterClass="String" resultClass="mdto">
-		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_cate=mc.cate_num order by memo_enroll desc
+		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_cate=mc.cate_num and m.memo_state>0 order by memo_enroll desc
 	</select>
 	
 	<select id="memoCount" parameterClass="String" resultClass="int">
@@ -44,4 +44,12 @@
 	<select id="memoContent" parameterClass="mdto" resultClass="mdto">
 		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_num=#memo_num# and memo_cate=cate_num
 	</select>
+	
+	<select id="memoImg" parameterClass="mdto" resultClass="mdto">
+		select * from memo_img where memo_num=#memo_num#
+	</select>
+	
+	<update id="memoDel" parameterClass="int">
+		update memo set memo_state=0 where memo_num=#memo_num#
+	</update>
 </sqlMap>

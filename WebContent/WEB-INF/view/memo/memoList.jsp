@@ -84,6 +84,8 @@
 
 <body>
 <input type="button" class="chMemoCate" value="메모 등록" />
+<a href="memoCate.jp">폴더 관리</a>
+<a href="memoRemoveList.jp">휴지통</a>
 
 <div id="header">
 <h2>모든 메모</h2>
