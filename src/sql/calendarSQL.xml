@@ -17,6 +17,9 @@
         select * from calendar 
         </select>
         
+        <select id="getcontents" resultClass="cdto" parameterClass="String">
+        select * from calendar where cl_num=#id#
+        </select>
        
         <select id="userCheck" resultClass="int" parameterClass="cdto">
         </select>

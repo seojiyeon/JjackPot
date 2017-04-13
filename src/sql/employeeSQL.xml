@@ -17,7 +17,6 @@
         
         <select id="member" resultClass="dto" parameterClass="String">
             select * from emp where emp_num=#emp_num# 
-        
         </select>
         
         <select id="memberAll" resultClass="dto" >
