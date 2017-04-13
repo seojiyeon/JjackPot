@@ -2,22 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <!--  jQuery UI CSS파일 --> 
+<!--  jQuery UI CSS파일 --> 
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-	<!-- // jQuery 기본 js파일 -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-	<!-- // jQuery UI 라이브러리 js파일 -->
-	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
-	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" /> 
 	<link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
-<script type="text/javascript" async="" src="http://www.google-analytics.com/plugins/ua/linkid.js"></script>
-<script type="text/javascript" defer="" async="" src="http://piwik.pdset.com//piwik.js"></script>
-<script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-8023728802418443.js"></script>
-<script async="" src="//www.google-analytics.com/analytics.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	
+<!-- // jQuery 기본 js파일 -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- // jQuery UI 라이브러리 js파일 -->
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" async="" src="http://www.google-analytics.com/plugins/ua/linkid.js"></script>
+	<script type="text/javascript" defer="" async="" src="http://piwik.pdset.com//piwik.js"></script>
+	<script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-8023728802418443.js"></script>
+	<script async="" src="//www.google-analytics.com/analytics.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 <head>
 
@@ -113,10 +114,10 @@ table.ui-datepicker-calendar { display:none; }
 		<h3>나의 근태관리</h3>
     </div>
 
-		<table  width="600" border="1"> 
+		<table  width="600" border="0"> 
     	<tr>
     		<td>
-				<input type="text" id="work_date" value=${date } onchange="ttt()" />
+				<input type="text" id="work_date" value=${date} onchange="ttt()" />
    		</td>
     	</tr>
     </table>
@@ -129,14 +130,12 @@ table.ui-datepicker-calendar { display:none; }
 		<i class="fa fa-exclamation-circle"></i>&nbsp;퇴근시각 입력 후에는 반드시 근태확정 버튼을 누르시기 바랍니다.<br>
 		<i class="fa fa-exclamation-circle"></i>&nbsp;근무시간,휴일,연장,야간,지각,조퇴시간이 계산되지 않는 경우 담당에게 문의하세요.<br>
 	</div>
+	
 	<div class="tab-content">
 		<div id="tabs-1" class="tab-pane active">
 			<div class="content-write mb10">
-			
 				<table class="table border-top separate">
-				
 					<colgroup>
-						<col width="80">
 						<col width="80">
 						<col width="80">
 						<col width="80">
@@ -149,40 +148,38 @@ table.ui-datepicker-calendar { display:none; }
 						<col width="80">
 						<col width="110">
 					</colgroup>
-					
+				
 				<tbody>
 					<tr>
 						<th style="text-align:center;"><label>날짜</label></th>
 						<th style="text-align:center;"><label>사원번호</label></th>
-						<th style="text-align:center;"><label>
+						<th  style="text-align:center;"><label>
 						<span class="text-point-b" title="필수입력항목">*</span>출근시각</label>
 						</th>
 						<th style="text-align:center;"><label >퇴근시각</label>
 						</th>
-						<th style="text-align:center;"><label>근무시간</label></th>
+						<th  style="text-align:center;"><label>근무시간</label></th>
 						<th style="text-align:center;"><label>휴일근로</label></th>
 						<th style="text-align:center;"><label>연장근로</label></th>
-						<th style="text-align:center;"><label>지각시간</label></th>
-						<th style="text-align:center;"><label>조퇴시간</label></th>
-						<th style="text-align:center;width: 100px;">
+						<th  style="text-align:center;"><label>지각시간</label></th>
+						<th  style="text-align:center;"><label>조퇴시간</label></th>
+						<th  style="text-align:center;width: 100px;">
 						<label for="onedayGolvwkMngPersForm_clientIP">PC IP</label></th>
 					</tr>
-					
-				
-					<tr>
+
 						<tr id="workMonth" >
 							<c:if test="${count == 0 }">
 								<th style="text-align:center;"><label>출근기록이 없습니다</label></th>
 							</c:if>
 					
-							<c:if test="${count > 0 }">
-								<c:forEach var="wdto" items="${monthsh}" >	
+						<tr id="workMonth" >
+							<c:if test="${count > 0 }">			
+							<c:forEach var="wdto" items="${monthsh}" >	
 								
-							<tr id="workMonth" >
 								<td style="text-align:center;height: 30px;"><label >${month.format(wdto.work_on)}</label></td>								
-								<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
-								<td style="text-align:center;height: 30px;"><label>${sys.format(wdto.work_on)}</label></td>
-								<td style="text-align:center;"><label>${sys.format(wdto.work_off)}</label></td>
+								<td  style="text-align:center;">${wdto.emp_num}</td>
+								<td  style="text-align:center;height: 30px;"><label>${sys.format(wdto.work_on)}</label></td>
+								<td  style="text-align:center;"><label>${sys.format(wdto.work_off)}</label></td>
 								<td style="text-align:center;"><label >${wdto.work_time}</label></td>
 								<td style="text-align:center;"><label >${wdto.h_work}</label></td>
 								<td style="text-align:center;"><label >${wdto.workOut}</label></td>
@@ -190,9 +187,9 @@ table.ui-datepicker-calendar { display:none; }
 								<td style="text-align:center;"><label >${wdto.early}</label></td>
 								<td style="text-align:center;"><label >${wdto.ip}</label></td>
 					
-							</tr>
 						</c:forEach>
 						</c:if>
+					</tr>
 					
 
 				</tbody>

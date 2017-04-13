@@ -61,16 +61,23 @@ public class workBean {
 	 }
 	
 	@RequestMapping("/workday.jp")
-	public String workday(String day, Model model,String dateFormatStr){
-
+	public String workday(String day, HttpSession session, Model model,String dateFormatStr){
+		workDTO wdto = new workDTO();
+		String emp_num =(String)session.getAttribute("memId");
+		wdto.setEmp_num(emp_num);
 		day = day.replace("-", "/");
+		wdto.setDay(day);
+
 		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
-		workDTO wdto = null;
-		wdto = (workDTO)sqlMap.queryForObject("work.getDayChagne", day);  //해당날짜만 불러오기
+		int count = (int) sqlMap.queryForObject("work.dayCount",wdto );
+		wdto = (workDTO)sqlMap.queryForObject("work.getDayChagne", wdto);  //해당날짜만 불러오기
+	
+		model.addAttribute("count", count);
+		model.addAttribute("date",date);
 		model.addAttribute("wdto",wdto);
 		model.addAttribute("sys",sys);//시간 불러오기
-	
 		return "/work/workday";
 		
 	}
@@ -110,7 +117,7 @@ public class workBean {
 		return"/work/work_all";
 	 }
 	
-	@RequestMapping("/workMonth.jp")
+	@RequestMapping("/workMonth.jp")//해당달의 근태관리불러오기 
 	public String workMonth(HttpSession session, String day, Model model,String dateFormatStr){
 		
 		workDTO wdto = new workDTO();
@@ -119,12 +126,10 @@ public class workBean {
 		day = day.replace("-", "/");
 		wdto.setDay(day);
 		
-		
 		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat month = new SimpleDateFormat("yyyy-MM-dd");
 		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
 	
-//		wdto = (workDTO)sqlMap.queryForObject("work.getMonthChagne", day); 
 		int count = (int) sqlMap.queryForObject("work.monthCount",wdto );
 		List monthsh = sqlMap.queryForList("work.getMonthChagne",wdto);  //해당월만 불러오기
 		model.addAttribute("count", count);
@@ -144,9 +149,15 @@ public class workBean {
 		workDTO wdto = new workDTO();
 		String emp_num =(String)session.getAttribute("memId");
 		String ip = request.getRemoteAddr();// ip주소 가져오기
-		wdto.setEmp_num(emp_num);
-		wdto.setIp(ip);
-		sqlMap.insert("work.insertWork", wdto); //출근시간 구하기
+		int count = (int) sqlMap.queryForObject("work.dayCount",wdto );
+		request.setAttribute("emp_num", emp_num);
+		if(count == 0){
+			wdto.setEmp_num(emp_num);
+			wdto.setIp(ip);
+			sqlMap.insert("work.insertWork", wdto); //출근시간 구하기
+		}else if(count >0){
+			return "/work/work_onPro";
+		}
 		
 	/*========================================================================================================================*/
 

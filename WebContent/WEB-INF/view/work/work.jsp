@@ -60,8 +60,8 @@
 			$("#work_on").click(function(){
 				var result = confirm('출근처리하시겠습니까');
 				window.location="/JackPot/work_on.jp";
-				});
 			});
+		});
 		</script>
 		
 		<script>	
@@ -74,10 +74,10 @@
 
 	</script>
 	
+  	<title>일일근태등록</title>
+	
 	<form method="post" name="work" >
 	
-	
-  	<title>일일근태등록</title>
     <table  width="600" border="1">
     	<tr>
     		<td>
@@ -143,26 +143,26 @@
 					</tr>
 					
 					
-					<c:if test="${wdto.work_on == null }">
-					<tr id="workday">		
-						<th style="text-align:center;"><label>출근기록이 없습니다</label></th>
-					</c:if>
 					
-					
-					
-					<c:if test="${wdto.work_on != null }">
-					<tr id="workday"  >										
+			<tr id="workday">		
+				<c:if test="${wdto.work_on == null}">
+							<th style="text-align:center;"><label>출근기록이 없습니다</label></th>
+				</c:if>
+			
+				<c:if test="${wdto.work_on != null}">		
 						<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
 						<td style="text-align:center;height: 30px;"><label>${sys.format(wdto.work_on)}</label></td>
-						<td style="text-align:center;"><label >${sys.format(wdto.work_off)}</label></td>
+						<td style="text-align:center;">
+						<c:if test="${wdto.work_off == null }"><label >00:00</label></c:if>
+						<c:if test="${wdto.work_off != null }"><label >${sys.format(wdto.work_off)}</label></c:if></td>
 						<td style="text-align:center;"><label >${wdto.work_time}</label></td>
 						<td style="text-align:center;"><label >${wdto.h_work}</label></td>
 						<td style="text-align:center;"><label >${wdto.workOut}</label></td>
 						<td style="text-align:center;"><label>${wdto.lateNess}</label></td>
 						<td style="text-align:center;"><label>${wdto.early}</label></td>
 						<td id="onedayGolvwkMngPersForm_ip" style="text-align:center;"><label>${wdto.ip}</label></td>
-					</tr>
 					</c:if>
+				</tr>
 
 				</tbody>
 			</table>

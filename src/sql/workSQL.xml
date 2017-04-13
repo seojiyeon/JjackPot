@@ -33,11 +33,17 @@
 	</select>       
 	
 	
-	<select id="getDayChagne" resultClass="wdto" parameterClass="String">
+	<select id="getDayChagne" resultClass="wdto" parameterClass="wdto">
 		<![CDATA[
 			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd') and emp_num=#emp_num#
 		]]>
 	</select> 
+	
+	<select id="dayCount" parameterClass="wdto" resultClass="int">
+	
+		select count(*) from work where to_char(work_on,'yyyyMMdd') = to_char(to_date(#day#),'yyyyMMdd') and emp_num=#emp_num#
+	
+	</select>
 	
 	<select id="getMonth" parameterClass="wdto" resultClass="wdto">
     	select * from work  where to_char(work_on,'yyyymm') = to_char(sysdate,'yyyymm') and emp_num=#emp_num#
