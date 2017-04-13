@@ -182,10 +182,11 @@ public class voteBean {
 	
 	
 	@RequestMapping("/VoteResult.jp")
-	public String VoteResult(HttpServletRequest request,Model model){
+	public String VoteResult(HttpServletRequest request,Model model,voteDTO dto){
 		int v_num=Integer.parseInt(request.getParameter("v_num"));
-
-		voteDTO dto=(voteDTO)sqlMap.queryForObject("vote.v_num", v_num);
+		dto.setV_num(v_num);
+		
+		 dto=(voteDTO)sqlMap.queryForObject("vote.v_num", v_num);
 		
 		model.addAttribute("dto",dto);
 		
@@ -198,9 +199,38 @@ public class voteBean {
 		   model.addAttribute("check2",new Integer(check2));
 		   model.addAttribute("check3",new Integer(check3));
 		
+		   
+		int ref=Integer.parseInt(request.getParameter("v_num"));
+		List articleList=null;
+		  articleList=sqlMap.queryForList("vote.commetList", ref);
+		  
+		  model.addAttribute("articleList",articleList);
+				
+		   
 		return "/vote/VoteResult";
 	}
 	
-	
+	@RequestMapping("/reply.jp")
+	public String reply(voteDTO dto,HttpServletRequest request,Model model){
+		int v_num=Integer.parseInt(request.getParameter("v_num"));
+		String emp_num=(String)request.getParameter("emp_num");
+		String content=(String)request.getParameter("content");
+		String emp_name=(String)request.getParameter("emp_name");
+		
+		System.out.println(v_num);
+		System.out.println(emp_num);
+		System.out.println(content);
+		
+		dto.setEmp_num(emp_num);
+		dto.setRef(v_num);
+		dto.setContent(content);
+		dto.setEmp_name(emp_name);
+		
+		model.addAttribute("v_num", v_num);
+		
+		 sqlMap.insert("vote.comment", dto);
+		 
+		return "/vote/reply";
+	}
 	
 }  //end
