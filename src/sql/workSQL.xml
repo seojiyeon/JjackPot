@@ -38,7 +38,7 @@
 			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd')
 		]]>
 	</select> 
-	
+<!-- 	
 	
 	<select id="getMonthChagne" resultClass="wdto" parameterClass="wdto">
 		<![CDATA[
@@ -50,7 +50,7 @@
 	<select id="getMonth" resultClass="wdto">
     	select * from work  where to_char(work_on,'yyyymm') = to_char(sysdate,'yyyymm')
 	</select>    
-	 
+	  -->
 	 
 	<insert id="insertWork" parameterClass="wdto">
 	<![CDATA[
