@@ -31,11 +31,20 @@
 				<pre>${dto.getMemo_content()}</pre>
 			</td>
 		</tr>
+		
+		<c:forEach var="img" items="${img}">
+		<tr>
+			<td>
+				<img src="/JackPot/save/${img.sys_img}" name="sys_img"  width=200px, height=200px />
+			</td>
+		</tr>
+		</c:forEach>
+		
 		<tr>
 			<td colspan="2">
 				<input type="submit" value="수정" />
 				<input type="button" value="이동" />
-				<input type="button" value="삭제" onclick="window.location=''" />
+				<input type="button" value="삭제" onclick="window.location='memoDeletePro.jp?pageNum=${pageNum}&memo_num=${dto.getMemo_num()}'" />
 				<input type="button" value="목록" onclick="window.location='memoList.jp?pageNum=${pageNum}'" />
 			</td>
 		</tr>

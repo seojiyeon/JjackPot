@@ -83,11 +83,13 @@ public class MemoBean {
 		dto.setMemo_title(request.getParameter("memo_title"));
 		dto.setMemo_content(request.getParameter("memo_content"));
 		dto.setEmp_num((String)session.getAttribute("memId"));
-		dto.setMemo_state(Integer.parseInt(request.getParameter("memo_state")));
-		
-		int memoState = request.getParameter(Integer.parseInt(""))
-		if(dto.getMemo_state())
-		
+		String memoState = request.getParameter("memo_state");
+
+		if(memoState == null) {
+			dto.setMemo_state(1);
+		} else if(memoState != null){
+			dto.setMemo_state(2);
+		}
 		
 		
 		/* 이미지 업로드 */
@@ -121,9 +123,11 @@ public class MemoBean {
 	@RequestMapping("/memoContent.jp")
 	public String memoContent(memoDTO dto, Model model, String pageNum){
 		dto = (memoDTO) sqlMap.queryForObject("memo.memoContent", dto);
+		List img = sqlMap.queryForList("memo.memoImg", dto);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		model.addAttribute("dto", dto);
+		model.addAttribute("img", img);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("sdf", sdf);
 		
@@ -133,5 +137,19 @@ public class MemoBean {
 	@RequestMapping("memoModify.jp")
 	public String memoModify() {
 		return "/memo/memoModify";
+	}
+	
+	@RequestMapping("memoDeletePro.jp")
+	public String memoDeletePro(int memo_num, String pageNum, Model model) {
+		sqlMap.update("memo.memoDel", memo_num);
+		
+		model.addAttribute("pageNum", pageNum);
+		
+		return "/memo/memoDeletePro";
+	}
+	
+	@RequestMapping("memoRemoveList.jp")
+	public String memoRemoveList() {
+		return "/memo/memoRemoveList";
 	}
 }
