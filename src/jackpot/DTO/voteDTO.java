@@ -9,6 +9,7 @@ public class voteDTO {
 	private Timestamp v_start;
 	private Timestamp v_end;
 	private String emp_num;
+	private String emp_name;
 	private String join_set;
 	private String result_chart;
 	private String notice;
@@ -61,6 +62,13 @@ public class voteDTO {
 	}
 	public void setEmp_num(String emp_num) {
 		this.emp_num = emp_num;
+	}
+	
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 	public String getJoin_set() {
 		return join_set;

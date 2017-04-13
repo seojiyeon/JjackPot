@@ -8,8 +8,8 @@
   
     <insert id="insertVote" parameterClass="vdto">
       
-            insert into vote(v_num,jilmoon,v_start,emp_num,notice,up_img,up_img2,monhang,monhang2) 
-            values(vote_seq.nextval,#jilmoon#,sysdate,#emp_num#,0,#up_img#,#up_img2#,#monhang#,#monhang2#)
+            insert into vote(v_num,jilmoon,v_start,emp_num,notice,up_img,up_img2,monhang,monhang2,emp_name) 
+            values(vote_seq.nextval,#jilmoon#,sysdate,#emp_num#,0,#up_img#,#up_img2#,#monhang#,#monhang2#,#emp_name#)
     </insert>
         
         
@@ -35,7 +35,7 @@
       </update>
       
       <select id="UpVote" resultClass="vdto" parameterClass="vdto">
-        select * from vote where notice=1 
+        select * from vote where notice=1
       </select>
   
       <select id="UpVotePro" resultClass="vdto" parameterClass="int">
@@ -51,19 +51,24 @@
       </select>
       
       
-      <select id="v_num" resultClass="sdto" parameterClass="int">
-              select s.v_num,v.jilmoon,v.notice,v.emp_num,v.monhang mm,v.monhang2 m2,v.up_img,v.up_img2,s.vote_num,s.monhang,s.monhang2
-     from vote v,votePro s where  v.v_num=s.v_num and s.v_num=#v_num#
+      <select id="v_num" resultClass="vdto" parameterClass="int">
+               select * from vote  where v_num=#v_num#
       </select>
 
-
-      <select id="Result" resultClass="int" parameterClass="sdto">
-       select count(*)from votePro where v_num=#v_num# and monhang=#monhang#
+     <select id="Allresult" resultClass="int" parameterClass="int">
+     select count(*) from votePro where v_num=#v_num# 
+     </select>
+     
+      <select id="Result" resultClass="int" parameterClass="int">
+       select count(*) from votePro where v_num=#v_num# and monhang is not null
       </select>
       
-       <select id="Result2" resultClass="int" parameterClass="sdto">
-       select count(*)from votePro where v_num=#v_num# and monhang2=#monhang2#
+       <select id="Result2" resultClass="int" parameterClass="int">
+       select count(*) from votePro where v_num=#v_num# and monhang2 is not null
       </select>
+   
+   
+   
       
       
 </sqlMap>

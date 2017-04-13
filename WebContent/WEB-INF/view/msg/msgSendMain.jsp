@@ -287,7 +287,7 @@ $(function() {
      <th align="center"  width="20"  > <b><input type="checkbox" /></b></th>
      <th align="center"  width="50"  > <b>분류</b></th> 
       <th align="center"  width="100" ><b>제목</b></th> 
-      <th align="center"  width="50" ><b>보낸사람</b></th>
+      <th align="center"  width="50" ><b>받는사람</b></th>
       <th align="center"  width="100" ><b>일시</b></th>
       
     </tr>
@@ -299,7 +299,7 @@ $(function() {
     <th align="center"  width="20"  > <b><input type="checkbox" /></b></th>
     <td align="center">${article.msg_cate} </td>
 	<td align="center"><a href="/JackPot/msgcont.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
-    <td align="center"  width="50">${article.msg_send} (${article.emp_num})</td>
+    <td align="center"  width="50">${article.msg_receive} (${article.msg_rid})</td>
     <td align="center"  width="100"> ${article.msg_read} </td>
   </tr>
   </c:forEach>

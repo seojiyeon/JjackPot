@@ -25,7 +25,7 @@
 <table border="0" width="900"  cellpadding="0" cellspacing="0" align="center"> 
     			
     <form method="post" name="UPvote" >    
-
+<input type="button" value="나의 투표 목록" onclick="window.location='BeforeSuc.jp'">
 
     <c:forEach var="article" items="${articleList}" varStatus="status">
   

@@ -45,6 +45,7 @@ public class voteBean {
 		dto.setMonhang(multi.getParameter("monhang"));
 		dto.setMonhang2(multi.getParameter("monhang2"));
 		dto.setEmp_num(multi.getParameter("emp_num"));
+		dto.setEmp_name(multi.getParameter("emp_name"));
 		
 		String path=multi.getRealPath("save");
 		MultipartFile mf=multi.getFile("up_img");
@@ -139,6 +140,7 @@ public class voteBean {
 	 
 		 model.addAttribute("articleList", articleList);
 		 
+		 
 		 return "/vote/UpVote";
 		
 	}
@@ -180,25 +182,22 @@ public class voteBean {
 	
 	
 	@RequestMapping("/VoteResult.jp")
-	public String VoteResult(HttpServletRequest request,voteProDTO dto,Model model){
+	public String VoteResult(HttpServletRequest request,Model model){
 		int v_num=Integer.parseInt(request.getParameter("v_num"));
 
-		dto.setV_num(v_num);
-	
-		  List list=null;
-		list=sqlMap.queryForList("vote.v_num", v_num);
+		voteDTO dto=(voteDTO)sqlMap.queryForObject("vote.v_num", v_num);
 		
-		model.addAttribute("list",list);
+		model.addAttribute("dto",dto);
 		
 		
+		int check =(Integer)sqlMap.queryForObject("vote.Result", v_num);
+		int check2 =(Integer)sqlMap.queryForObject("vote.Result2", v_num);
+		int check3 =(Integer)sqlMap.queryForObject("vote.Allresult", v_num);
 		
-		int result =(Integer)sqlMap.queryForObject("vote.Result", dto);
-		int result2 =(Integer)sqlMap.queryForObject("vote.Result2", dto);
+		   model.addAttribute("check",new Integer(check));
+		   model.addAttribute("check2",new Integer(check2));
+		   model.addAttribute("check3",new Integer(check3));
 		
-		System.out.println(result);
-		 model.addAttribute("result",new Integer(result));
-		 model.addAttribute("result2",new Integer(result2));
-	
 		return "/vote/VoteResult";
 	}
 	
