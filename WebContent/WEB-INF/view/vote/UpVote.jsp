@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-  	
+ 
   	 <script type="text/javascript" src="/JackPot/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
     
@@ -24,8 +24,24 @@
  <h2> 투표 참여  </h2>
 <table border="0" width="900"  cellpadding="0" cellspacing="0" align="center"> 
     			
-    <form method="post" name="UPvote" >    
-<input type="button" value="나의 투표 목록" onclick="window.location='BeforeSuc.jp'">
+    <form method="post" name="UPvote" >   
+     
+<div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" style="max-height: none;" tabindex="0">
+<div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+           
+            <ul class="menulist">
+                <li data-submenu="poll" id="poll" class="current">
+                    <a href="/JackPot/UpVote.jp" >투표참여</a>
+                </li>
+                <li data-submenu="myPoll" id="myPoll">
+                    <a href="/JackPot/BeforeSuc.jp" >나의 투표목록</a>
+                </li>
+                
+            </ul>
+        </div></div>
+
+        
+    
 
     <c:forEach var="article" items="${articleList}" varStatus="status">
   
@@ -62,4 +78,5 @@
    
    </form>
   </table>
+  
   

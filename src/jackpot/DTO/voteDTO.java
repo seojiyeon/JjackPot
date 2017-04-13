@@ -18,6 +18,10 @@ public class voteDTO {
 	private String up_img2;
 	private String monhang;
 	private String monhang2;
+	private int comm_num;
+	private String content;
+	private Timestamp reg;
+	private int ref;
 	
 	
 	
@@ -105,6 +109,30 @@ public class voteDTO {
 	}
 	public void setUp_img2(String up_img2) {
 		this.up_img2 = up_img2;
+	}
+	public int getComm_num() {
+		return comm_num;
+	}
+	public void setComm_num(int comm_num) {
+		this.comm_num = comm_num;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public Timestamp getReg() {
+		return reg;
+	}
+	public void setReg(Timestamp reg) {
+		this.reg = reg;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
 	}
 	
 	

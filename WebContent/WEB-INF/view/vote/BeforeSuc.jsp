@@ -30,6 +30,11 @@
     		window.location='EndVote.jp?v_num='+v_num;	
     	}
     	
+    	function test4(v_num)
+    	{
+    		
+    		window.location='VoteResult.jp?v_num='+v_num;	
+    	}
     	
     </script>
     
@@ -82,6 +87,7 @@
 
 <c:if test="${article.notice==2}">         
    <h1>투표마감</h1>
+   <input type="button" value="결과" onclick="test4('${article.v_num}');">
 </c:if>
 
         </td>  </tr>

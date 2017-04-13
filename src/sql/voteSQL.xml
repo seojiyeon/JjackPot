@@ -24,27 +24,33 @@
       
       </update>
       
+      
        <delete id="Vdel" >
           delete from vote where v_num=#v_num#
        </delete>
+    
       
        <update id="EndVote" parameterClass="int">
       
       	update vote set notice=2,v_end=sysdate where v_num=#v_num#
       
       </update>
+     
       
       <select id="UpVote" resultClass="vdto" parameterClass="vdto">
         select * from vote where notice=1
       </select>
   
+  
       <select id="UpVotePro" resultClass="vdto" parameterClass="int">
         select * from vote where v_num=#v_num#
       </select>
       
+      
       <insert id="success" parameterClass="sdto">
         insert into votePro values(#v_num#,#emp_num#,#monhang#,#monhang2#,#vote_num#)
       </insert>
+     
       
       <select id="VoteSelect" resultClass="int" parameterClass="sdto">
          select count(*)from votePro where v_num=#v_num# and vote_num=#vote_num#
@@ -55,20 +61,30 @@
                select * from vote  where v_num=#v_num#
       </select>
 
+
      <select id="Allresult" resultClass="int" parameterClass="int">
      select count(*) from votePro where v_num=#v_num# 
      </select>
      
+     
       <select id="Result" resultClass="int" parameterClass="int">
        select count(*) from votePro where v_num=#v_num# and monhang is not null
       </select>
+     
       
        <select id="Result2" resultClass="int" parameterClass="int">
        select count(*) from votePro where v_num=#v_num# and monhang2 is not null
       </select>
    
    
+        <insert id="comment"  parameterClass="vdto">
+        insert into comm(comm_num,emp_num,content,reg,ref,emp_name) 
+            values(comm_seq.nextval,#emp_num#,#content#,sysdate,#ref#,#emp_name#)  
+        </insert>
    
+      <select id="commetList" resultClass="vdto" parameterClass="int">
+         select * from comm where ref=#ref# order by reg desc
+      </select>
       
       
 </sqlMap>

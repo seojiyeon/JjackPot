@@ -41,7 +41,6 @@
     	<optgroup label="개인일정">
     	<option value="출장">출장</option>
     	<option value="연차">연차</option>
-    	<option value="월차">월차</option>
     	</optgroup>
     </select>
     </li></ul>

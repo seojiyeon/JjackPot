@@ -14,7 +14,7 @@
         font-size : 14px;
     }
     #calendar {
-        max-width : 900px;
+        max-width : 1400px;
         margin : 0 auto;
     }
 </style>
@@ -30,17 +30,20 @@
 jQuery(document).ready(function() {
 	
     jQuery("#calendar").fullCalendar({
-          defaultDate : "2017-03-23"
+          aspectRatio: 1.7
         , locale: 'ko'
         , eventLimit : true
 		, header: {
 			left: 'prev,next today',
 			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
+			right: 'month,agendaWeek,agendaDay,listWeek'
 		}
-        , defaultView: 'agendaWeek'
+        , defaultView: 'month'
         , editable : true
 		
+        ,minTime: "07:00:00"
+        ,maxTime: "23:00:00"
+        
         , navLinks: true // can click day/week names to navigate views
 		, weekNumbers: true
 		, weekNumbersWithinDays: true
@@ -58,13 +61,16 @@ jQuery(document).ready(function() {
                         events.push({
                            title: $(this).attr('title'),
                             start: $(this).attr('start'),
-                            end: $(this).attr('end')
+                            end: $(this).attr('end'),
+                            color: $(this).attr('color'),
+                            id: $(this).attr('id'),
+                            allDay: $(this).attr('allDay')
                         });
                     });
                     callback(events);
                 },
                 error : function(){
-                   alert("aaaa");
+                   alert("error");
                 }
             });
         }
@@ -79,12 +85,13 @@ jQuery(document).ready(function() {
         }
     
         ,   eventClick: function(event, element) { // 이벤트 제목 클릭
-			window.open("http://localhost:8080/JackPot/calendarcontents.jp",'contents','top=200px,left=500px,height=550px,width=430px')
+			window.open("http://localhost:8080/JackPot/calendarcontents.jp?id="+event.id,'contents','top=200px,left=500px,height=350px,width=450px')
         }
         
         ,	dayClick: function() { // 일 클릭
-        	window.open("http://localhost:8080/JackPot/calendarinsert.jp",'insert','top=200px,left=500px,height=550px,width=430px ')
-		}
+        	/* window.open("http://localhost:8080/JackPot/calendarinsert.jp",'insert','top=200px,left=500px,height=550px,width=430px ') */
+        	layer_open('layer1');
+        }
     });
 });
 </script>

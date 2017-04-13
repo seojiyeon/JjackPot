@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
+html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px; scrolling:no;}
 
 #page-container{position: relative;min-height: 100%; min-width: 1200px; background:#fff;}
 
@@ -17,33 +17,25 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 .boardmenu .hide{display:none;}
 
 #main-container{position:fixed;left:270px;top:0;width:85%;height:100%;} 
-#main-contents{position:fixed;left:270px;top:0;width:85%;height:100%;}
-
+#main-constop{position:fixed;height:60px;top:0px;width:85%;}
+#main-contents{position:fixed;left:270px;top:60px;width:85%;height:100%;}
 .menulist a {text-decoration:none;}
 
-.pop-layer {display:none; position:fixed; top: 50%; left: 50%; width: 280px; height:350px;  background-color:#fff; border: 1px solid black; z-index: 10;}	
-.pop-top{border-bottom:1px solid black;background: #555154;font-color:;}
-.pop-top font {color:white;}
-.pop-info{background: #fafafa;border: 1px solid #f5f5f5;height: 35px;margin:10 10 10;}
-.pop-layer .pop-container {padding: 20px 25px;}
-.pop-layer p.ctxt {color: #666; line-height: 25px;}
-.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
-.btn-r .a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
-.btn-r .a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
+.contents{}
+.contentsTop{border-bottom:1px solid black;line-height:35px;background:#555154;color:white;text-align:center;}
+.contentsbody{margin:0 10 10 10;display:inline-grid;width:95%;}
+.contentsbody ul {list-style:none;}
+.contents-date{}
+.contents-subject{border-top:1px solid gray;}
+.contents-info{border-top:1px solid gray;}
+.contents-writer li{display:inline-block;padding-right:35px;}
+.contents-conts{border-top:1px solid gray;}
+.btn{}
+.btn ul{display:inline-block;float:right;}
 
-.pop-layer2 {overflow: auto;display:none; position:fixed; top: 50%; left: 50%; width: 800px; height:600px;background-color:#fff; border: 1px solid black; z-index: 10;}	
-.pop-top2{border-bottom:1px solid black;line-height:35px;background: #555154;color:white;}
-.pop-info2{background: #fafafa;border: 1px solid #f5f5f5;line-height: 35px;margin:10 10 0;}
-.pop-layer2 .pop-container2 {padding: 0px 10px;}
-.pop-conts2 ul{list-style:none;-webkit-padding-start:0;display:-webkit-box;border-top: 1px solid lightgrey;line-height: 30px;}
-.pop-conts2 li{}
-.pop-conts2 input {width:610px;height:25px;border:1px solid lightgrey;padding-top:4px;}
-.pop-layer2 p.ctxt2 {color: #666; line-height: 25px;}
-.pop-layer2 .btn-r2 {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
-.btn-r2 .a.cbtn2 {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
-.btn-r2 .a.cbtn2:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
-.pop-board{}
-.pop2boardfileuplord{}
+.calendarform {}
+.calendarform ul {list-style:none;}
+.calendarform li {list-style:none;display: inline-block}
+.calendarform ul li {}
 
-
-
+#layer1 {position:fixed;left:50%;top:10%;background:pink;display:none;}
