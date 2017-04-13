@@ -12,13 +12,9 @@
         
         
         <select id="msgAll" resultClass="msgDTO" parameterClass="String">
-            select * from message        
+            select * from message where msg_rid=#msg_rid#
         </select>
-        
-        <select id="msgReceive" resultClass="msgDTO" parameterClass="String">
-            select * from message where msg_rid=#id# order by msg_num desc        
-        </select>
-        
+                
          <select id="msgSend" resultClass="msgDTO" parameterClass="String">
             select * from message where emp_num=#id# order by msg_num desc        
         </select>
@@ -35,6 +31,13 @@
             select emp_num from emp where emp_name=#emp_name#     
         </select>
         
+        <delete id="msgDel" parameterClass="int" >
+            delete from message where msg_num=#msg_num#
+        </delete>
+        
+        <update id="msgChk" parameterClass="int">
+        update message set ref=1 where msg_num=#msg_num#
+        </update>
         
       
       

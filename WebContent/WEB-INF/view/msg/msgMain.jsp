@@ -203,16 +203,34 @@ a:link {
 
 <script type="text/javascript">
 
+
+function allChk(obj){
+    var chkObj = document.getElementsByName("RowCheck");
+    var rowCnt = chkObj.length - 1;
+    var check = obj.checked;
+    if (check) {﻿
+        for (var i=0; i<=rowCnt; i++){
+         if(chkObj[i].type == "checkbox")
+             chkObj[i].checked = true; 
+        }
+    } else {
+        for (var i=0; i<=rowCnt; i++) {
+         if(chkObj[i].type == "checkbox"){
+             chkObj[i].checked = false; 
+         }
+        }
+    }
+} 
+
+
+
+
 $(document).ready(function(){
     $(".write").click(function(){
         window.open("/JackPot/msgwrite.jp","쪽지보내기","width=500, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
     });
     
 });
-
-
-
-
 
 function dialog() {
 
@@ -281,10 +299,12 @@ $(function() {
 <div class="con">
 
 <div class="employee">
-<%-- <c:if test="${count > 0}"> --%>
+
+<form action="msgDel.jp" method="post" >
+
 <table width="100%" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30"  > 
-     <th align="center"  width="20"  > <b><input type="checkbox" /></b></th>
+     <th align="center"  width="20"  > <b><input id="allCheck" type="checkbox" onclick="allChk(this);"/></b></th>
      <th align="center"  width="50"  > <b>분류</b></th> 
       <th align="center"  width="100" ><b>제목</b></th> 
       <th align="center"  width="50" ><b>보낸사람</b></th>
@@ -295,8 +315,9 @@ $(function() {
 
  <c:forEach var="article" items="${articleList}" >
    
+    <tr>
     
-    <th align="center"  width="20"  > <b><input type="checkbox" /></b></th>
+    <th align="center"  width="20"  > <b><input type="checkbox" name="RowCheck" value="${article.msg_num}" /></b></th>
     <td align="center">${article.msg_cate} </td>
 	<td align="center"><a href="/JackPot/msgcont.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
     <td align="center"  width="50">${article.msg_send} (${article.emp_num})</td>
@@ -304,10 +325,15 @@ $(function() {
   </tr>
   </c:forEach>
 </table>
+<input type="submit" value="선택 삭제" />
+</form>
 <center>
 <button class="dialog__trigger">쪽지 쓰기</button>
+
 </center>
 </div>
+
+
 
 
 
