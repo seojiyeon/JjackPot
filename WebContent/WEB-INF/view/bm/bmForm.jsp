@@ -44,8 +44,8 @@ selectTodoViewPopup = function(){
 	
 
 
-<div class="form-block">
-	<table class="table">
+<div >
+	<table >
 		<tbody>
 			<tr>
 				<th scope="row"><span class="text-point-b">*</span>제목</th>
@@ -57,13 +57,13 @@ selectTodoViewPopup = function(){
 				</tr>
 				
 				<tr>
-					<th scope="row"><span class="text-point-b">*</span>업무형태</th>
+					<th scope="row"><span >*</span>업무형태</th>
 						<td>
-							<div class="label-group">
-								<label class="radio-inline"><input type="radio" class="fnone" id="type0" name="taskType" title="나의 할 일" value="0"> 나의 할 일</label>
-								<label class="radio-inline"><input type="radio" class="fnone" id="type1" checked="checked" name="taskType" title="업무 요청" value="1"> 업무 요청</label>
-                                <label class="radio-inline"><input type="radio" class="fnone" id="type2" name="taskType" title="업무 보고" value="2"> 업무 보고</label>
-                                <label class="radio-inline"><input type="radio" class="fnone" id="type3" name="taskType" title="업무 일지" value="3"> 업무 일지</label>
+							<div >
+								<label ><input type="radio" class="fnone" id="type0" name="taskType" title="나의 할 일" value="0"> 나의 할 일</label>
+								<label ><input type="radio" class="fnone" id="type1" checked="checked" name="taskType" title="업무 요청" value="1"> 업무 요청</label>
+                                <label ><input type="radio" class="fnone" id="type2" name="taskType" title="업무 보고" value="2"> 업무 보고</label>
+                                <label ><input type="radio" class="fnone" id="type3" name="taskType" title="업무 일지" value="3"> 업무 일지</label>
                              </div>
                         </td>
                     </tr>
@@ -71,7 +71,7 @@ selectTodoViewPopup = function(){
                     <tr id="isTermlessTR">
                     	<th scope="row"><span class="text-point-b">*</span>업무기한</th>
 							<td>
-								<input type="text" title="업무기한" id="dueDateCalendar" name="dueDateCalendar" value="2017.04.11" readonly="readonly" class="input-datepicker w100" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd">
+								<input type="text" title="업무기한" id="dueDateCalendar" name="dueDateCalendar" value="${date} " readonly="readonly" class="input-datepicker w100" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd">
                                 <button type="button" id="dueDateCalendarBtn" class="btn btn-color7 br tbl-inner"><i class="icon calendar"></i></button>
                                 <div class="timepicker-wrap blind">
                                 <div class="input-group bootstrap-timepicker"><div class="bootstrap-timepicker-widget dropdown-menu"><table><tbody><tr><td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a></td><td class="separator">&nbsp;</td><td><a href="#" data-action="incrementMinute"><i class="fa fa-chevron-up"></i></a></td></tr><tr><td><input type="text" class="form-control bootstrap-timepicker-hour" maxlength="2"></td> <td class="separator">:</td><td><input type="text" class="form-control bootstrap-timepicker-minute" maxlength="2"></td> </tr><tr><td><a href="#" data-action="decrementHour"><i class="fa fa-chevron-down"></i></a></td><td class="separator"></td><td><a href="#" data-action="decrementMinute"><i class="fa fa-chevron-down"></i></a></td></tr></tbody></table></div>
@@ -119,7 +119,7 @@ selectTodoViewPopup = function(){
                         <tr id="folderTR">
                             <th scope="row"><label for="folderId">업무 보관함</label></th>
                             <td>
-                               <c:forEach>
+                               <c:forEach var="wdto" items="${monthsh}" >	
                             	<select name="folderId" id="folderId" class="w400" style="">
 									<option value="" selected="selected">선택안함</option>
                                     <option value="7902402">프로젝트</option>
