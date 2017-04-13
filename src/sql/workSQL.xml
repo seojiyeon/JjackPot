@@ -28,29 +28,43 @@
 	
 	<select id="getDay" resultClass="wdto">
                       
-			select * from work  where to_char(work_on,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
+		select * from work  where to_char(work_on,'yyyymmdd') = to_char(sysdate,'yyyymmdd') and emp_num=#emp_num#
 
 	</select>       
 	
 	
 	<select id="getDayChagne" resultClass="wdto" parameterClass="String">
 		<![CDATA[
-			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd')
+			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd') and emp_num=#emp_num#
 		]]>
 	</select> 
-<!-- 	
+	
+	<select id="getMonth" parameterClass="wdto" resultClass="wdto">
+    	select * from work  where to_char(work_on,'yyyymm') = to_char(sysdate,'yyyymm') and emp_num=#emp_num#
+	</select>    
+	
 	
 	<select id="getMonthChagne" resultClass="wdto" parameterClass="wdto">
+	
 		<![CDATA[
-			select * from work  where to_char(work_on,'yyyymm') = to_char(to_date(#day#),'yyyymm')
+			select * from work where to_char(work_on,'yyyyMM') = to_char(to_date(#day#),'yyyyMM') and emp_num=#emp_num#
 		]]>
+	
 	</select> 
 			
+	<select id="shDate" parameterClass="wdto" resultClass="int">
+		select count(*) from work  where to_char(work_on,'yyyymm') = to_char(sysdate,'yyyymm') and emp_num=#emp_num#
+	</select>
+
+	
+	
+	<select id="monthCount" parameterClass="wdto" resultClass="int">
+	
+		select count(*) from work where to_char(work_on,'yyyyMM') = to_char(to_date(#day#),'yyyyMM') and emp_num=#emp_num#
+	
+	</select>
 	 
-	<select id="getMonth" resultClass="wdto">
-    	select * from work  where to_char(work_on,'yyyymm') = to_char(sysdate,'yyyymm')
-	</select>    
-	  -->
+
 	 
 	<insert id="insertWork" parameterClass="wdto">
 	<![CDATA[
@@ -75,7 +89,7 @@
 	
 		update work set 
 			lateNess=#lateNess#
-			where num=#num#
+			where num=#num# 
 		
 	</update>	
 
@@ -84,7 +98,7 @@
 	
 		update work set 
 			work_off=sysdate
-			where num=#num#
+			where num=#num# 
 		
 	</update>	
 	
@@ -92,7 +106,7 @@
 	<update id="updateWorkTime" parameterClass="wdto">
 			
 			update work set 
-				work_time=#work_time# where num=#num#
+				work_time=#work_time# where num=#num# 
 		
 	</update>	
 
@@ -100,7 +114,7 @@
 	<update id="updateEarly" parameterClass="wdto">
 
 			update work set 
-				early=#early# where num=#num#
+				early=#early# where num=#num# 
 
 	</update>	
 		
@@ -108,9 +122,10 @@
 	<update id="updateWorkOut" parameterClass="wdto">
 			
 		update work set 		
-			workOut=#workOut# where num=#num#
+			workOut=#workOut# where num=#num# 
 	
 	</update>	
+	
 	
 
 </sqlMap>

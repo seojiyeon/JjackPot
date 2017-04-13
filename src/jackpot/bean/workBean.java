@@ -21,6 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 import jackpot.DTO.workDTO;
+import oracle.sql.DATE;
 
 
 @Controller
@@ -69,22 +70,23 @@ public class workBean {
 		wdto = (workDTO)sqlMap.queryForObject("work.getDayChagne", day);  //해당날짜만 불러오기
 		model.addAttribute("wdto",wdto);
 		model.addAttribute("sys",sys);//시간 불러오기
-		System.out.println(day);
 	
 		return "/work/workday";
 		
 	}
 	
-	/*나의 전체근태현황보기*/
+	/*나의 전체근태현황보기(월별)*/
 	@RequestMapping("/work_all.jp")
 	public String work(HttpSession session,HttpServletRequest request,Model model,workDTO wdto,String dateFormatStr){
 		
 		String emp_num =(String)session.getAttribute("memId");
 		wdto.setEmp_num(emp_num);
+		
 		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat month = new SimpleDateFormat("yyyy-MM-dd");
 		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		String ip = req.getHeader("X-FORWARDED-FOR");//ip불러오기
-
+		List monthsh = null;
 		Date date = new Date();
 		
 		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
@@ -95,24 +97,41 @@ public class workBean {
 		if (ip == null) {
 			ip = req.getRemoteAddr();
 		}
-
-		wdto = (workDTO)sqlMap.queryForList("work.getMonth", null);   //해당날짜만 불러오기
+/*		 
+		monthsh = sqlMap.queryForList("work.getMonth", wdto);   //해당날짜만 불러오기
 		model.addAttribute("sys",sys);//시간 불러오기
+		model.addAttribute("month",month);
+		model.addAttribute("monthsh",monthsh);*/
 		model.addAttribute("wdto",wdto);
 		model.addAttribute("date", date);
 		model.addAttribute("ip",ip);
+
 		
 		return"/work/work_all";
 	 }
 	
 	@RequestMapping("/workMonth.jp")
-	public String workMonth(String day, Model model,String dateFormatStr){
-
+	public String workMonth(HttpSession session, String day, Model model,String dateFormatStr){
+		
+		workDTO wdto = new workDTO();
+		String emp_num =(String)session.getAttribute("memId");
+		wdto.setEmp_num(emp_num);
 		day = day.replace("-", "/");
+		wdto.setDay(day);
+		
+		
 		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat month = new SimpleDateFormat("yyyy-MM-dd");
 		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
-		workDTO wdto = null;
-		wdto = (workDTO)sqlMap.queryForObject("work.getDayChagne", day);  //해당날짜만 불러오기
+	
+//		wdto = (workDTO)sqlMap.queryForObject("work.getMonthChagne", day); 
+		int count = (int) sqlMap.queryForObject("work.monthCount",wdto );
+		List monthsh = sqlMap.queryForList("work.getMonthChagne",wdto);  //해당월만 불러오기
+		model.addAttribute("count", count);
+		model.addAttribute("monthsh",monthsh);
+		System.out.println(count);
+		System.out.println();
+		model.addAttribute("month",month);
 		model.addAttribute("wdto",wdto);
 		model.addAttribute("sys",sys);//시간 불러오기
 		

@@ -15,7 +15,14 @@ public class workDTO {
 	private String early;
 	private int division;
 	private String ip;
+	private	String day;
 	
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
 	public int getNum() {
 		return num;
 	}

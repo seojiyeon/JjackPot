@@ -71,6 +71,16 @@
         var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
         $(this).datepicker( "option", "defaultDate", new Date(year, month, 1) );
         $(this).datepicker('setDate', new Date(year, month, 1));
+        
+        var test = year+"-0"+(parseInt(month)+1)+"-01";
+        $.ajax({
+	  	        type: "post",
+	  	        url : "/JackPot/workMonth.jp",
+	  	        data : {day : test},
+	  	        success: function(data){
+	  	        	$("#workMonth").html(data);
+	  	        }	
+	   });
     }
  
     datepicker_default.beforeShow = function () {
@@ -78,23 +88,16 @@
         var year = Number(selectDate[0]);
         var month = Number(selectDate[1]) - 1;
         $(this).datepicker( "option", "defaultDate", new Date(year, month, 1) );
+        
     }
- 
+
     $("#work_date").datepicker(datepicker_default);
+
 }); 
-	   
-	function test(test){
-		   $.ajax({
-	  	        type: "post",
-	  	        url : "/JackPot/workMonth.jp",
-	  	        data : {month : test},
-	  	        success: function(data){
-	  	        	$("#workMonth").html(data);
-	  	        }	
-	      	  });
-	   }
-	   
+	
 </script>
+
+
 
 <style type="text/css">
 table.ui-datepicker-calendar { display:none; }
@@ -113,7 +116,7 @@ table.ui-datepicker-calendar { display:none; }
 		<table  width="600" border="1"> 
     	<tr>
     		<td>
-				<input type="text" id="work_date" value=${date } onchange="test(this.value)"/>
+				<input type="text" id="work_date" value=${date } onchange="ttt()" />
    		</td>
     	</tr>
     </table>
@@ -151,10 +154,10 @@ table.ui-datepicker-calendar { display:none; }
 					<tr>
 						<th style="text-align:center;"><label>날짜</label></th>
 						<th style="text-align:center;"><label>사원번호</label></th>
-						<th style="text-align:center;"><label for="onedayGolvwkMngPersForm_onedayGolvwkMngPersForm_work_on">
+						<th style="text-align:center;"><label>
 						<span class="text-point-b" title="필수입력항목">*</span>출근시각</label>
 						</th>
-						<th style="text-align:center;"><label for="onedayGolvwkMngPersForm_work_off">퇴근시각</label>
+						<th style="text-align:center;"><label >퇴근시각</label>
 						</th>
 						<th style="text-align:center;"><label>근무시간</label></th>
 						<th style="text-align:center;"><label>휴일근로</label></th>
@@ -168,26 +171,26 @@ table.ui-datepicker-calendar { display:none; }
 				
 					<tr>
 						<tr id="workMonth" >
-							<c:if test="${wdto.work_on == null }">
+							<c:if test="${count == 0 }">
 								<th style="text-align:center;"><label>출근기록이 없습니다</label></th>
 							</c:if>
 					
-							<c:if test="${wdto.work_on != null }">
-				
-						<c:forEach var="wdto" items="${items}" >	
-						<tr id="workMonth" >
-							<td style="text-align:center;height: 30px;"><label id="onedayGolvwkMngPersForm_work_on" id="work_on">${month.format(wdto.work_on)}</label></td>								
-							<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
-							<td style="text-align:center;height: 30px;"><label id="onedayGolvwkMngPersForm_work_on" id="work_on">${sys.format(wdto.work_on)}</label></td>
-							<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_work_off" id="work_off">${sys.format(wdto.work_off)}</label></td>
-							<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_work_time" id="work_time">${wdto.work_time}</label></td>
-							<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_h_work" id="h_work">${wdto.h_work}</label></td>
-							<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_workOut" id="workOut">${wdto.workOut}</label></td>
-							<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_lateNess" id="lateNess">${wdto.lateNess}</label></td>
-							<td style="text-align:center;"><label id="onedayGolvwkMngPersForm_early" id="early">${wdto.early}</label></td>
-							<td id="onedayGolvwkMngPersForm_ip" style="text-align:center;"><label id="ip">${wdto.ip}</label></td>
+							<c:if test="${count > 0 }">
+								<c:forEach var="wdto" items="${monthsh}" >	
+								
+							<tr id="workMonth" >
+								<td style="text-align:center;height: 30px;"><label >${month.format(wdto.work_on)}</label></td>								
+								<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
+								<td style="text-align:center;height: 30px;"><label>${sys.format(wdto.work_on)}</label></td>
+								<td style="text-align:center;"><label>${sys.format(wdto.work_off)}</label></td>
+								<td style="text-align:center;"><label >${wdto.work_time}</label></td>
+								<td style="text-align:center;"><label >${wdto.h_work}</label></td>
+								<td style="text-align:center;"><label >${wdto.workOut}</label></td>
+								<td style="text-align:center;"><label >${wdto.lateNess}</label></td>
+								<td style="text-align:center;"><label >${wdto.early}</label></td>
+								<td style="text-align:center;"><label >${wdto.ip}</label></td>
 					
-						</tr>
+							</tr>
 						</c:forEach>
 						</c:if>
 					
