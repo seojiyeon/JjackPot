@@ -27,10 +27,10 @@
 	
 	
 	<select id="getDay" resultClass="wdto">
-
+                      
 			select * from work  where to_char(work_on,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
 
-	</select> 
+	</select>       
 	
 	
 	<select id="getDayChagne" resultClass="wdto" parameterClass="String">
@@ -38,24 +38,22 @@
 			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd')
 		]]>
 	</select> 
-		 
-		 
-	<select id="getMonthChagne" resultClass="wdto" parameterClass="String">
+	
+	
+	<select id="getMonthChagne" resultClass="wdto" parameterClass="wdto">
 		<![CDATA[
-			select * from work  where to_char(work_on,'yyyy-mm') = to_char(to_date(#month#),'yyyy-mm')
+			select * from work  where to_char(work_on,'yyyymm') = to_char(to_date(#day#),'yyyymm')
 		]]>
 	</select> 
-		 
-		 
-	<select id="getMonth" resultClass="wdto" parameterClass="String">
-		<![CDATA[
-			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#month#),'yyyymmdd')
-		]]>
-	</select> 	 
-		 
+			
+	 
+	<select id="getMonth" resultClass="wdto">
+    	select * from work  where to_char(work_on,'yyyymm') = to_char(sysdate,'yyyymm')
+	</select>    
+	 
 	 
 	<insert id="insertWork" parameterClass="wdto">
-	
+	<![CDATA[
 		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip) values(
 			work_seq.nextval,
 			#emp_num#,
@@ -69,7 +67,7 @@
 			#division#,
 			#ip#
 		)
-		
+	]]>
 	</insert>	
 	
 	

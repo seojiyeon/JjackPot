@@ -149,6 +149,7 @@
 						</c:if>
 					
 					<c:if test="${wdto.work_on != null }">
+					
 					<tr id="workday"  >										
 						<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
 						<td style="text-align:center;height: 30px;"><label id="onedayGolvwkMngPersForm_work_on" id="work_on">${sys.format(wdto.work_on)}</label></td>
@@ -161,7 +162,7 @@
 						<td id="onedayGolvwkMngPersForm_ip" style="text-align:center;"><label id="ip">${wdto.ip}</label></td>
 					</tr>
 					</c:if>
-				
+
 				</tbody>
 			</table>
 			
