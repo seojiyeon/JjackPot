@@ -23,12 +23,12 @@
 				${dto.getMemo_title()}
 			</td>
 			<td>
-				${dto.getCate_title()} | 등록:${dto.getMemo_enroll()}
+				${dto.getCate_title()} | 등록:${sdf.format(dto.getMemo_enroll())}
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				${dto.getMemo_content()}
+				<pre>${dto.getMemo_content()}</pre>
 			</td>
 		</tr>
 		<tr>

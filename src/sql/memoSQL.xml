@@ -16,20 +16,25 @@
 	
 	<!-- 메모 -->
 	<insert id="memoInsert" parameterClass="mdto">
-		insert into memo values(
-			memo_seq.NEXTVAL,
-			#memo_cate#,
-			#memo_title#,
-			#memo_content#,
-			#memo_state#,
-			#emp_num#,
-			sysdate,
-			sysdate
-		)
+		insert all into memo values (
+    		memo_seq.NEXTVAL,
+    		#memo_cate#,
+    		#memo_title#,
+    		#memo_content#,
+    		#memo_state#,
+    		#emp_num#,
+    		sysdate,
+    		sysdate
+		) into memo_img values (
+    		memo_seq.NEXTVAL,
+    		memo_img_seq.NEXTVAL,
+    		#org_img#,
+    		#sys_img#
+		) select * from dual
 	</insert>
 	
 	<select id="memoSh" parameterClass="String" resultClass="mdto">
-		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_cate=mc.cate_num
+		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_cate=mc.cate_num order by memo_enroll desc
 	</select>
 	
 	<select id="memoCount" parameterClass="String" resultClass="int">

@@ -1,6 +1,8 @@
 package jackpot.bean;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,8 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jackpot.DTO.memoDTO;
 
@@ -73,11 +77,41 @@ public class MemoBean {
 	}
 	
 	@RequestMapping("/memoInsertPro.jp")
-	public String memoInsertPro(memoDTO dto, HttpSession session) {
+	public String memoInsertPro(HttpSession session, MultipartHttpServletRequest request) {
+		memoDTO dto = new memoDTO();
+		dto.setMemo_cate(Integer.parseInt(request.getParameter("memo_cate")));
+		dto.setMemo_title(request.getParameter("memo_title"));
+		dto.setMemo_content(request.getParameter("memo_content"));
 		dto.setEmp_num((String)session.getAttribute("memId"));
-		if(dto.getMemo_state() == 0) {
-			dto.setMemo_state(1);
+		dto.setMemo_state(Integer.parseInt(request.getParameter("memo_state")));
+		
+		int memoState = request.getParameter(Integer.parseInt(""))
+		if(dto.getMemo_state())
+		
+		
+		
+		/* 이미지 업로드 */
+		String pathImg = request.getRealPath("save"); // 업로드 경로
+		System.out.println(pathImg);
+		MultipartFile mf = request.getFile("org_img"); // 업로드 원본 파일
+		String fileName = mf.getOriginalFilename();
+		dto.setOrg_img(fileName);
+		int extImg = fileName.lastIndexOf(".");
+		System.out.println(extImg);
+		fileName = fileName.substring(extImg+1);
+		Date day = new Date();
+		String fmImg = dto.getEmp_num()+"_"+day+"."+fileName;
+		
+		fmImg = fmImg.replace(" ", "");
+		fmImg = fmImg.replace(":", "");
+		File f = new File(pathImg+"//"+fmImg);
+		
+		try {
+			mf.transferTo(f);
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
+		dto.setSys_img(fmImg);
 		
 		sqlMap.insert("memo.memoInsert", dto);
 		
@@ -87,9 +121,11 @@ public class MemoBean {
 	@RequestMapping("/memoContent.jp")
 	public String memoContent(memoDTO dto, Model model, String pageNum){
 		dto = (memoDTO) sqlMap.queryForObject("memo.memoContent", dto);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("sdf", sdf);
 		
 		return "/memo/memoContent";
 	}

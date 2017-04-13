@@ -11,25 +11,14 @@
 </head>
 
 <script>
-	$(document).ready(function() {
-		$('#memoIns input[name=sys_img]').MultiFile ({
-			max: 5,
-			accept: 'jpg|png|gif',
-			maxfile: 1024,
-			maxsize: 3024,
-			
-			STRING: {
-				remove : "제거",
-				duplicate : "$file 은 이미 선택된 파일입니다.",
-				denied : "$ext 는(은) 업로드 할 수 없는 파일확장자입니다.",
-				selected : "$file 을 선택했습니다.",
-				toomuch : "업로드할 수 있는 최대 크기를 초과하였습니다. ($size)",
-				toomany : "업로드할 수 있는 최대 갯수는 $max개 입니다.",
-				toobig : "$file 은 크기가 매우 큽니다. (max $size)"
-			},
-			list : "#aimg-list"
-		});
-	});
+	function checkIt() {
+		var memoIns = eval("document.forms.memoIns");
+		
+		if(!memoIns.memo_title.value) {
+			alert("제목을 입력하시요.");
+			return false;
+		}
+	}
 </script>
 
 <body>
@@ -38,7 +27,7 @@
 <div id="navText" class="line"></div>
 </div>
 
-<form name="memoIns" method="post" action="memoInsertPro.jp" enctype="multipart/form-data" >
+<form name="memoIns" method="post" action="memoInsertPro.jp" enctype="multipart/form-data"  onSubmit="return checkIt();">
 <table>
 	<tr>
 		<td>
@@ -50,8 +39,8 @@
 		</td>
 		<td>
 			<input type="reset" value="새메모" />
- 			<input type="file" name="sys_img" value="이미지 첨부" />  
-			<input type="file" name="sys_file" value="파일 첨부" />
+ 			<input type="file" name="org_img" value="이미지 첨부" />  
+		 	<input type="file" name="sys_file" value="파일 첨부" />  
 	</tr>
 </table>
 <br/>
@@ -65,11 +54,6 @@
 	<tr>
 		<td>
 			<textarea name="memo_content" rows="20" cols="100"></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td>
-		<div id="aimg-list" style="border:2px solid #c9c9c9;min-height:50px"></div>
 		</td>
 	</tr>
 	<tr>
