@@ -211,8 +211,8 @@ function realtimeClock() {
     	<li><a href="/JackPot/msgmain.jp"><br/><br/>쪽지<br><img src="/JackPot/mainsave/쪽지.png"></a></li>
     	<li><a href=""><br/><br/>거래처<br><img src="/JackPot/mainsave/거래처.png"></a></li>
     	<li><a href="/JackPot/orgChart.jp"><br/><br/>주소록<br><img src="/JackPot/mainsave/주소록.png"></a></li>
-    	<li><a href=""><br/><br/>메모<br><img src="/JackPot/mainsave/메모.png"></a></li>
-    	<li><a href=""><br/><br/>온라인투표<br><img src="/JackPot/mainsave/온라인투표.png"></a></li>
+    	<li><a href="/JackPot/memoList.jp"><br/><br/>메모<br><img src="/JackPot/mainsave/메모.png"></a></li>
+    	<li><a href="/JackPot/UpVote.jp"><br/><br/>온라인투표<br><img src="/JackPot/mainsave/온라인투표.png"></a></li>
     	<li><a href=""><br/><br/>메신저<br><img src="/JackPot/mainsave/메신저.png"></a></li>
     	<li><a href=""><br/><br/>웹팩스<br><img src="/JackPot/mainsave/웹팩스.png"></a></li>
     	<li><a href="/JackPot/work.jp"><br/>인사관리폴더<br><img src="/JackPot/mainsave/인사관리폴더.png"></a></li>

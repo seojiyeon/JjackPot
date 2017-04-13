@@ -18,18 +18,28 @@
 <title>온라인 투표</title>
 
  <h2> 온라인 투표  </h2>
-<table border="0" width="900"  cellpadding="0" cellspacing="0" align="center"> 
+<table border="0" width="500"  cellpadding="0" cellspacing="0" align="center"> 
     			
     <form method="post" name="result" >
  <tr>
     <td>
     <br/>
         <img src="/JackPot/save/vote2.png" width="50" height="50">${dto.jilmoon} </td>
+    
+    
+  <c:if test="${dto.notice==1}"> <br/>    
     <tr >
-        <td>&nbsp;&nbsp;&nbsp;<font size="2">진행자 : ${dto.emp_name} / 투표시작일 : ${dto.v_start} / 참여자 : ${check3 }</font>
+        <td>&nbsp;&nbsp;&nbsp;<font size="2.8"  color="gray">진행자 : ${dto.emp_name}&nbsp; / 투표시작일 : ${dto.v_start}&nbsp; / 참여자 : ${check3 }명</font>
          </td>
     </tr>
-      
+    </c:if>  
+    
+    <c:if test="${dto.notice==2}"> <br/>    
+    <tr >
+        <td>&nbsp;&nbsp;&nbsp;<font size="2.8" color="gray">진행자 : ${dto.emp_name}&nbsp; / 투표일 : ${dto.v_start} ~ ${dto.v_end}&nbsp; / 참여자 : ${check3 }명</font>
+         </td>
+    </tr>
+    </c:if> 
      
         <tr>
         <td width="100" align="center"> <br/><br/>
@@ -56,12 +66,10 @@
 
     </form>
     </table>
+
  
-   <br/>
-   <br/>
    
-   
-    <table width="700" border="3" align="center" bordercolor="gray">
+    <table width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">
       <form action="reply.jp">
       
     <tr height="20" >
@@ -79,12 +87,11 @@
 				<input name="itemId" type="hidden" value="8501850">
 				<textarea title="textarea" id="8501850_contents" name="content" rows="2" class="form-control original" placeholder="댓글을 입력하세요."></textarea>
   
-      <input type="submit" value="댓글 달기">  
-     
+      <input type="submit" value="댓글 달기">     
      </Td>    
-      </tr>
-      
-     <tr>
+      </tr>   
+        
+     <tr >
      <td>
      
       <c:forEach var="article" items="${articleList}" varStatus="status">
