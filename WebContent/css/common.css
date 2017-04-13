@@ -717,7 +717,7 @@ btn
 .btn-wrap02 { position:absolute; top:-15px; right:0; padding:8px 0px 8px 0; }
 .btn-wrap-leftMenu { padding:11px 10px; }
 .splitter-panel .btn-wrap { position:absolute; bottom:0; right:0; }
-.btn-wrap > div { display:inline-block; position:relative; }
+.btn-wrap > div { display:inline-block; position: fixed; }
 .btn-wrap > div .dropdown-menu { bottom:30px; top:auto; text-align:left; padding-top:4px; padding-bottom:4px; }
 .btn-wrap .btn {min-width:63px; padding:5px 11px; /*box-shadow:0 3px 5px #e3e3e3*/}
 .btn-wrap .btn.s2 {padding:3px 6px}

@@ -5,73 +5,73 @@
 <jsp:useBean id="toDay" class="java.util.Date" />
 <fmt:formatDate value="${toDay}" pattern="yyyy.MM.dd" var="tdate"/>
 
-<link href="/JackPot/css/appr.css?ver=1" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/appr.css?ver=2" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/basic.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/theme.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/common.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/quick.css?ver=1" rel="stylesheet" type="text/css">
-<link href="/JackPot/css/sub.css?ver=1" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
 <html>
 
 <head>
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="resource/ckeditor.js"></script>
+	<script src="/JackPot/js/jquery-3.1.1.min.js"></script>
+ 	<script src="/JackPot/js/jquery.bpopup.min.js"></script>
+ 	<script src="//code.jquery.com/jquery.min.js"></script>
+ 	
 	<script type="text/javascript">
-	function wrapWindowByMask(){
-		//화면의 높이와 너비를 구한다.
-		var maskHeight = $(document).height();  
-		var maskWidth = $(window).width();  
+	function layer_open(el){
 
-		//마스크의 높이와 너비를 화면의 높이와 너비로 설정한다.
-		$('.mask').css({'width':maskWidth,'height':maskHeight});  
+		var temp = $('#' + el);		//레이어의 id를 temp변수에 저장
+		var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
 
-		//애니메이션 효과
-		$('.mask').fadeTo("slow",0.5);   
-		
-		// 레이어 팝업을 가운데로 띄운다.
-		var left = ($(window).scrollLeft() + ($(window).width() - $('.window').width())/2);
-		var top = ($(window).scrollTop() + ($(window).height() - $('.window').height())/2);
-		
-		// css 스타일 변경
-		$('.window').css({'left':left, 'top':top, 'position':'absolute'});
+		if(bg){
+			$('.layer').fadeIn();
+		}else{
+			temp.fadeIn();	//bg 클래스가 없으면 일반레이어로 실행한다.
+		}
 
-		// 레이어 팝업 띄운다.
-		$('.window').show();
-	}
-
-	$(document).ready(function(){
-		//검은 마스크 배경과 레이어 팝업 띄운다.
-		$('.chMemoCate').click(function(e){
+		temp.find('a.cbtn').click(function(e){
+			if(bg){
+				$('.layer').fadeOut();
+			}else{
+				temp.fadeOut();		//'닫기'버튼을 클릭하면 레이어가 사라진다.
+			}
 			e.preventDefault();
-			wrapWindowByMask();
 		});
 
-		//닫기 버튼을 눌렀을 때
-		$('.window .close').click(function (e) {  
-		    //링크 기본동작은 작동하지 않도록 한다.
-		    e.preventDefault();  
-		    $('.mask, .window').hide();  
-		});       
+		$('.layer .bg').click(function(e){
+			$('.layer').fadeOut();
+			e.preventDefault();
+		});
 
-		//검은 마스크을 눌렀을 때
-		$('.mask').click(function () {  
-		    $(this).hide();  
-		    $('.window').hide();  
-		});      
+	}
+	
+	$(function() {
+	    $("#btn-show-checked").click(function() {
+	      var emp_choose = ( $("input[name=emp_inf]:checked").val() );
+	      $("#emp_choose").val(emp_choose);
+	    });
 	});
 	
+    $(function() {
+        $("#tree").treeview({
+            collapsed: true,
+            animated: "medium",
+            control:"#sidetreecontrol",
+            persist: "location"
+        });
+    })
 	
 	</script>		
 </head>
 
 <title>JackPot 전자결재_양식목록</title>
 
-
 <body>
 <div id="page-container">
-	<div id="sidebar">
+	<div id="sidebar-a">
 	<span style="color:white">
 	(사이드바)
 	</span>
@@ -80,6 +80,8 @@
 		<div id="leftmenu">
 		전자결재
 		(중간사이드)
+		
+		 
 			<table>
 				<tr>
 					<td>
@@ -112,7 +114,7 @@
 		</div>
 	</div>
 	<div id="main-container">
-		<div id="main-contents" style="position: fixed;left: 300px;top: 0;width: 84%;height: 100%;" >
+		<div id="main-contents">
 			<div class="con-header">
 				<h2>
 					기안문 작성
@@ -121,12 +123,16 @@
 			</div>
 			
     <div id="formButtonDiv" class="btn-wrap pt10">
+    	<a href="#" onclick="layer_open('layer1');return false;">팝업띄우기</a>
 	    <button id="addApprLineButton" 				type="button" class="btn btn-color5 br">결재선</button>
 	    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재요청</button>
 	    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">기결재첨부</button>
 	    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
 	    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
     </div>
+    
+
+	
     <div class="content-wrap approval responsive">
     <div class="content-write">
     <form id="apprDocForm" name="apprDocForm" method="post" action="/groupware/approval/work/apprWorkDoc/createApprDoc.do?OWASP_CSRFTOKEN=ZVYQ-0QVM-UKZ0-ENWZ-M9UY-HVY9-A9F5-V5BE" novalidate="novalidate">
@@ -242,9 +248,42 @@
 	    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
 	    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
     </div>
-
-		</div>
 	</div>
+		</div>
 </div>
+	<div id="layer1" class="pop-layer">
+		<div class="modal-header">
+				<h2 class="modal-title">
+					결재선지정				
+				</h2>
+		</div>
+		<div>
+		<input type="checkbox" name="emp_inf" value="신성무 사장(부서장)" />신성무 사장(부서장)<br/>
+		<input type="checkbox" name="emp_inf" value="서지연 전무" />서지연 전무<br/>
+		<input type="checkbox" name="emp_inf" value="유준상 부서장" />유준상 부서장<br/>
+		<input type="checkbox" name="emp_inf" value="김민영 대리" />김민영 대리<br/>
+		<input type="checkbox" name="emp_inf" value="박혜진 대리" />박혜진 대리<br/>
+		<input type="checkbox" name="emp_inf" value="안진영 대리" />안진영 대리<br/>
+		</div>
+		<hr>
+		<div>
+		<input type="radio" name="appr_method" value="결재" checked="checked" />결재
+		<input type="radio" name="appr_method" value="합의" />합의
+		</div>
+		<div>
+		
+		<input id='btn-show-checked' type="button" name="add" value=">"><br/>
+		<input type="button" name="remove" value="<"><br/>
+		</div>
+		<div>
+		<input id="emp_choose" type="text" name="emp_choose"><br/>
+		
+		</div>
+		<div class="btn-r">
+			<a href="#" class="cbtn">닫기</a>
+		</div>
+		</div>
+				
+
 </body>
 </html>

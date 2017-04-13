@@ -10,7 +10,8 @@
 	<link href="/JackPot/css/appr.css?ver=1" rel="stylesheet" type="text/css">
 	<link href="/JackPot/css/basic.css?ver=1" rel="stylesheet" type="text/css">
 	<link href="/JackPot/css/common.css?ver=1" rel="stylesheet" type="text/css">
-	<link href="/JackPot/css/theme.css?ver=1" rel="stylesheet" type="text/css">
+	<link href="/JackPot/css/sub.css?ver=1" rel="stylesheet" type="text/css">
+	
 </head>
 
 	<body>
