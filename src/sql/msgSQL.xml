@@ -3,6 +3,7 @@
 <sqlMap namespace="msg">      
 
   <typeAlias alias="msgDTO" type="jackpot.DTO.msgDTO"/>
+  <typeAlias alias="empDTO" type="jackpot.DTO.empDTO"/>
 	
        <insert id="sendmsg" parameterClass="msgDTO">
         insert into message values(message_seq.NEXTVAL,#emp_num#,#msg_cate#,#msg_send#,#msg_receive#,#msg_title#,
@@ -10,13 +11,25 @@
            
         </insert>
         
+        <select id="msgCnt" resultClass="int" parameterClass="String">
+            select count(*) from message where ref=0 and msg_rid=#msg_rid#
+        </select>
+        
+        <select id="msgFind" resultClass="empDTO" parameterClass="String">
+            select * from emp where emp_name=#emp_name#
+        </select>
+        
+        <select id="msgFindCnt" resultClass="int" parameterClass="String">
+            select count(*) from emp where emp_name=#emp_name#
+        </select>
+        
         
         <select id="msgAll" resultClass="msgDTO" parameterClass="String">
-            select * from message where msg_rid=#msg_rid#
+            select * from message where msg_rid=#msg_rid# and msg_RD='no' order by msg_num desc
         </select>
                 
          <select id="msgSend" resultClass="msgDTO" parameterClass="String">
-            select * from message where emp_num=#id# order by msg_num desc        
+            select * from message where emp_num=#id# and msg_SD='no' order by msg_num desc        
         </select>
         
         <select id="msgCont" resultClass="msgDTO" parameterClass="int">
@@ -31,12 +44,20 @@
             select emp_num from emp where emp_name=#emp_name#     
         </select>
         
-        <delete id="msgDel" parameterClass="int" >
-            delete from message where msg_num=#msg_num#
+        <delete id="msgDel">
+            delete from message where msg_sd='yes' and msg_rd='yes'
         </delete>
         
         <update id="msgChk" parameterClass="int">
         update message set ref=1 where msg_num=#msg_num#
+        </update>
+        
+        <update id="msgRD" parameterClass="int">
+        update message set msg_rd='yes' where msg_num=#msg_num#
+        </update>
+        
+        <update id="msgSD" parameterClass="int">
+        update message set msg_sd='yes' where msg_num=#msg_num#
         </update>
         
       

@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-<sqlMap namespace="community">      
+<sqlMap namespace="comm">      
 
-  <typeAlias alias="cdto" type="jackpot.DTO.calendarDTO"/>
+  <typeAlias alias="codto" type="jackpot.DTO.communityDTO"/>
 
-       <insert id="insertCalendar" parameterClass="cdto">
+
+      <select id="commList" resultClass="codto">
+            select com_num,title,content,writer,reg_date,readcount,recommend,ref,re_step,re_level from community
+      </select>
+
+
+       <insert id="insertComm" parameterClass="codto">
+     insert into community(com_num,title,content,writer,readcount,recommend,btype,emp_num) 
+            values(community_seq.nextval,#title#,#content#,#writer#,0,0,1,#emp_num#)
        </insert>
 
-        <select id="maxnum" resultClass="int">
-        </select>  
-        
-        <select id="calendarList" resultClass="cdto">
-        </select>
-        
-       
-        <select id="userCheck" resultClass="int" parameterClass="cdto">
-        </select>
-        
-        <delete id="deletePro" parameterClass="cdto">
-        
-        </delete>
         
 </sqlMap>

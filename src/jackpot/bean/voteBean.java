@@ -1,6 +1,7 @@
 package jackpot.bean;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -183,6 +184,8 @@ public class voteBean {
 	
 	@RequestMapping("/VoteResult.jp")
 	public String VoteResult(HttpServletRequest request,Model model,voteDTO dto){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		
 		int v_num=Integer.parseInt(request.getParameter("v_num"));
 		dto.setV_num(v_num);
 		
@@ -205,7 +208,7 @@ public class voteBean {
 		  articleList=sqlMap.queryForList("vote.commetList", ref);
 		  
 		  model.addAttribute("articleList",articleList);
-				
+	      request.setAttribute("sdf", sdf);			
 		   
 		return "/vote/VoteResult";
 	}
