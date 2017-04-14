@@ -102,7 +102,7 @@ img { border:0; vertical-align:middle; }
 .textcolor8 { color:#fff !important; }
 .textcolor9 { color:#f1f1f1 !important; }
 .text-point, a.text-point { color:#f05050 !important; }
-.text-point-b {padding-right:3px; color:#f05050 !important; font-weight:bold; }
+.text-point-b {padding-right:1px; color:#f05050 !important; font-weight:bold; }
 
 .per1 {display:inline-block; margin-right:5px; vertical-align:middle; width:33px; height:33px; background-size:cover; background-image:url(../images/placeholders/avatars/avatar33.png); border-radius:50%;}
 .per1 img { width:33px; height:33px;border-radius:50%; }
@@ -388,6 +388,8 @@ fieldset { padding: 0; margin: 0; border: 0; min-width: 0 }
 legend { display: block; width: 100%; padding: 0; margin-bottom: 20px; font-size: 21px; line-height: inherit; color: #333; border: 0; border-bottom: 1px solid #e5e5e5 }
 
 .form-control { display:inline-block; width:100%; border:1px solid #c3c6c9; border-radius:2px; font-size:12px; color:#555; line-height:1.42857; }
+.form-control li {width:50;}
+
 .input-group { position: relative; display: table; border-collapse: separate }
 .input-group .form-control { position: relative; z-index: 2; float: left; width: 100%; margin-bottom: 0; }
 .input-group .form-control:last-child, .input-group .form-control:first-child {border-radius: 2px; border-bottom-left-radius: 0; border-top-left-radius: 0 }

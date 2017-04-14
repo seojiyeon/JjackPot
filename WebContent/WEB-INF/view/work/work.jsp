@@ -58,7 +58,7 @@
 	<script>
 		$(document).ready(function(){
 			$("#work_on").click(function(){
-				var result = confirm('출근처리하시겠습니까');
+				var  result = confirm('출근처리하시겠습니까');
 				window.location="/JackPot/work_on.jp";
 			});
 		});
@@ -81,7 +81,8 @@
     <table  width="600" border="1">
     	<tr>
     		<td>
-				<input type="text" id="work_date" value=${date } onchange="test(this.value)">
+    			<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
+				<input type="text" id="work_date" value="${date }" onchange="test(this.value)">
     		</td>
     	</tr>
     </table>
