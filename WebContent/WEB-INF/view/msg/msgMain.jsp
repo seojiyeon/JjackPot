@@ -269,6 +269,35 @@ $(function() {
 });
 
 
+
+
+function checkIt(){
+	var userinput=eval("document.userinput");
+	
+	
+	if(!userinput.msg_title.value){
+		alert("제목을 입력하세요.");
+		return false;
+	}
+	
+	if(!userinput.msg_receive.value){
+		alert("받는사람을 입력하세요.");
+		return false;
+	}
+	
+	if(!userinput.msg_content.value){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	
+}
+
+
+function msgfind(){
+	 url="msgFind.jp?"
+	 open(url, "find" , "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, height=400, width=600");
+	}
+
 </script>
 
 <c:if test="${memId==null}" >
@@ -287,7 +316,10 @@ $(function() {
 <div class="menu">
 <ul>
 
-<li><a href="/JackPot/msgmain.jp">받은 쪽지함</a></li>
+<li><a href="/JackPot/msgmain.jp">받은 쪽지함</a>
+<c:if test="${count==0}"></c:if>
+<c:if test="${count!=0}">(${count})</c:if>
+</li>
 <li><a href="/JackPot/msgsmain.jp">보낸 쪽지함</a></li>
 <li>임시 보관함</li>
 </ul>
@@ -355,7 +387,7 @@ $(function() {
   <p class="dialog__content">
   
   
-  <form action="msgWritePro.jp" method="post">
+  <form action="msgWritePro.jp" method="post" name="userinput" onSubmit="return checkIt()">
 
 <table>
 <tr>
@@ -373,7 +405,8 @@ $(function() {
 </tr>
 <tr>
 <td>
-받는사람 <input class="input2"  type="text" name="msg_receive" placeholder="받을실분의 성함을 입력하세요." />
+받는사람 <input class="input2"  type="text" name="msg_receive" placeholder="검색행~" readonly />
+<input type="button" value="찾아보기" onClick="msgfind()"/>
 </td>
 </tr>
 <tr>

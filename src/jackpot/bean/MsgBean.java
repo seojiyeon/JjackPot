@@ -25,11 +25,11 @@ public class MsgBean {
 	public String msgmain(msgDTO dto, HttpSession session, Model model){
 		
 		String id = (String) session.getAttribute("memId");
-		
-		
+		int count = (int) sqlMap.queryForObject("msg.msgCnt", id);		
 		
 		List articleList = null;
-		articleList = sqlMap.queryForList("msg.msgAll", id);		
+		articleList = sqlMap.queryForList("msg.msgAll", id);
+		model.addAttribute("count", count);
 		model.addAttribute("articleList", articleList);		
 		
 		return "/msg/msgMain";
@@ -40,9 +40,11 @@ public class MsgBean {
 	public String msgsmain(msgDTO dto, HttpSession session, Model model){
 		
 		String id = (String) session.getAttribute("memId");
+		int count = (int) sqlMap.queryForObject("msg.msgCnt", id);	
 		
 		List articleList = null;
-		articleList = sqlMap.queryForList("msg.msgSend", id);		
+		articleList = sqlMap.queryForList("msg.msgSend", id);	
+		model.addAttribute("count", count);
 		model.addAttribute("articleList", articleList);		
 		
 		return "/msg/msgSendMain";
@@ -111,11 +113,50 @@ public class MsgBean {
 		for(int i = 0; i<RowCheck.length ; i++){
 			
 			int a= Integer.parseInt( RowCheck[i]);						
-			sqlMap.delete("msg.msgDel", a);
+			sqlMap.update("msg.msgRD", a);
 			
 		}
+		sqlMap.delete("msg.Del", null);
 		return "/msg/msgDelete";
 	}
+	
+	@RequestMapping("/msgDel2.jp")
+	public String msgDel2(msgDTO dto, HttpSession session, Model model, HttpServletRequest request){
+						
+		String[] RowCheck = request.getParameterValues("RowCheck");
+		for(int i = 0; i<RowCheck.length ; i++){
+			
+			int a= Integer.parseInt( RowCheck[i]);						
+			sqlMap.update("msg.msgSD", a);
+			
+		}
+		sqlMap.delete("msg.msgDel", null);
+		return "/msg/msgDelete";
+	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/msgFind.jp")
+	public String msgFind(HttpServletRequest request,msgDTO dto, HttpSession session, Model model){
+		
+		String id = request.getParameter("id");
+		int count = (int) sqlMap.queryForObject("msg.msgFindCnt", id);
+		
+		List articleList = null;
+		articleList = sqlMap.queryForList("msg.msgFind",id);
+		model.addAttribute("count", count);
+		model.addAttribute("articleList", articleList);		
+		
+		
+		return "/msg/msgFind";
+	}	
+	
+	
+	
+	
 	
 	
 	
