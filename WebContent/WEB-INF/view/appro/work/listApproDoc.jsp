@@ -33,12 +33,17 @@
 		}
 
 		temp.find('a.cbtn').click(function(e){
+			
 			if(bg){
 				$('.layer').fadeOut();
 			}else{
-				temp.fadeOut();		//'닫기'버튼을 클릭하면 레이어가 사라진다.
+				temp.fadeOut(); //'닫기'버튼을 클릭하면 레이어가 사라진다.
 			}
+			var value = $('#emp_choose').val();
+			alert(value);
+			$('#apprTitle').val(value);
 			e.preventDefault();
+			document.getElementById("approForm").reset();
 		});
 
 		$('.layer .bg').click(function(e){
@@ -54,15 +59,7 @@
 	      $("#emp_choose").val(emp_choose);
 	    });
 	});
-	
-    $(function() {
-        $("#tree").treeview({
-            collapsed: true,
-            animated: "medium",
-            control:"#sidetreecontrol",
-            persist: "location"
-        });
-    })
+
 	
 	</script>		
 </head>
@@ -150,10 +147,15 @@
 											
 												         
 										</th>
-									<th class="apprLine last">기 안</th></tr>
+										<th class="apprLine">기 안</th>
+										<th class="apprLine last">전 무</th>
+									</tr>
 									<tr id="apprLine0BTr">									
-									<td height="60" class="last">${emp_name}</td></tr>
+									<td height="60">${emp_name}</td>
+									<td height="60" class="last">서지연</td>
+									</tr>
 								</tbody>
+								
 								
 							</table>							
 						</div>						
@@ -223,7 +225,7 @@
 								<td colspan="3">
 									
 									            
-					    			        <input type="text" title="문서제목" name="apprTitle" value="" class="inputbox w100p" maxlength="65" placeholder="문서제목을 입력하세요. ">
+					    			        <input id="apprTitle" type="text" title="문서제목" name="apprTitle" value="" class="inputbox w100p" maxlength="65" placeholder="문서제목을 입력하세요. ">
 								</td>
 							</tr>
 														
@@ -252,33 +254,35 @@
 		</div>
 </div>
 	<div id="layer1" class="pop-layer">
-		<div class="modal-header">
-				<h2 class="modal-title">
-					결재선지정				
-				</h2>
-		</div>
-		<div>
-		<input type="checkbox" name="emp_inf" value="신성무 사장(부서장)" />신성무 사장(부서장)<br/>
-		<input type="checkbox" name="emp_inf" value="서지연 전무" />서지연 전무<br/>
-		<input type="checkbox" name="emp_inf" value="유준상 부서장" />유준상 부서장<br/>
-		<input type="checkbox" name="emp_inf" value="김민영 대리" />김민영 대리<br/>
-		<input type="checkbox" name="emp_inf" value="박혜진 대리" />박혜진 대리<br/>
-		<input type="checkbox" name="emp_inf" value="안진영 대리" />안진영 대리<br/>
-		</div>
-		<hr>
-		<div>
-		<input type="radio" name="appr_method" value="결재" checked="checked" />결재
-		<input type="radio" name="appr_method" value="합의" />합의
-		</div>
-		<div>
-		
-		<input id='btn-show-checked' type="button" name="add" value=">"><br/>
-		<input type="button" name="remove" value="<"><br/>
-		</div>
-		<div>
-		<input id="emp_choose" type="text" name="emp_choose"><br/>
-		
-		</div>
+		<form id="approForm" action="*" method="post">
+			<div class="modal-header">
+					<h2 class="modal-title">결재선지정</h2>
+			</div>
+			<div>
+				<input type="checkbox" name="emp_inf" value="신성무 사장(부서장)" />신성무 사장(부서장)<br/>
+				<input type="checkbox" name="emp_inf" value="서지연 전무" />서지연 전무<br/>
+				<input type="checkbox" name="emp_inf" value="유준상 부서장" />유준상 부서장<br/>
+				<input type="checkbox" name="emp_inf" value="김민영 대리" />김민영 대리<br/>
+				<input type="checkbox" name="emp_inf" value="박혜진 대리" />박혜진 대리<br/>
+				<input type="checkbox" name="emp_inf" value="안진영 대리" />안진영 대리<br/>
+			</div>
+			
+			<hr>
+			<div>
+				<input type="radio" name="appr_method" value="결재" checked="checked" />결재
+				<input type="radio" name="appr_method" value="합의" />합의
+			</div>
+			
+			<div>
+				<input id='btn-show-checked' type="button" name="add" value=">"><br/>
+				<input type="button" name="remove" value="<"><br/>
+			</div>
+			
+			<div>
+				<input id="emp_choose" type="text" name="emp_choose"><br/>
+			</div>
+			<a href="#" class="cbtn"><input type="button" id="#" class="cbtn" value="적용"></a>
+		</form>
 		<div class="btn-r">
 			<a href="#" class="cbtn">닫기</a>
 		</div>
