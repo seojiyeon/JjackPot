@@ -4,7 +4,7 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <title> 커뮤니티 </title>
 <head>
@@ -13,7 +13,8 @@
 			<script type="text/javascript" >
 
 			// image-upload plugin에서 사용되는 변수
-			var ckeditorMaxFileSize = Number("") || 0,
+			var ckeditorMaxFileSize = Number
+			("") || 0,
 				ckeditorMaxImageWidth = Number("800") || 0;
 			var	ckeditorMakeThumbYn = ("" == "2" || "" == "Y") ? "Y" : "N",
 				ckeditorThumbWidth= "";
@@ -312,7 +313,7 @@ Dropzone.options.myDropzone = {
 									</div>
 								<div class="pop-container">
 									<div class="pop-conts">
-										<a href="#" class="btn-example2" onclick="layer_open2('layer2');return false;">자유게시판</a>
+										<a href="#" class="btn-example2" onclick="layer_open2('layer2');return false;">게시판</a>
 											<div id="layer2" class="pop-layer2">
 										<div class="contents">	
 								  			<div class="pop-top2">
@@ -325,19 +326,21 @@ Dropzone.options.myDropzone = {
 												<div class="pop-container2">
 												<div class="pop-conts2">
 													<div>
-														<form>
+														<form action="commInsert.jp" name="insert" method="post">
 														<ul>
-															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li><li style="width:80%;">자유게시판</li>
+															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li><li style="width:80%;">자유게시판<input type="hidden" name="btype"></li>
 														</ul>
 														<ul>
-															<li style="width:20%;background-color:#f5f5f5;">*제목</li><li style="width:80%;"><input type="text" name="subject"></li>
+															<li style="width:20%;background-color:#f5f5f5;">*제목</li><li style="width:80%;"><input type="text" name="title" ></li>
 														</ul>
 														<ul>
-															<li style="width:20%;background-color:#f5f5f5;">작성자</li><li style="width:80%;">안진영님</li>
+															<li style="width:20%;background-color:#f5f5f5;">작성자</li><li style="width:80%;"><input type="text" name=writer></li>
 														</ul>
 														<ul>
-															<li><textarea class="ckeditor" cols="1" id="editor1" name="editor1" rows="15"></textarea></li>
+															<li><textarea class="ckeditor" cols="1" id="editor1" name="content" rows="15"></textarea></li>
 														</ul>
+														
+														 <input type="submit" value="제출">
 														</form>
 													</div>
 													<div class="pop2boardfileuplord">
@@ -384,9 +387,23 @@ Dropzone.options.myDropzone = {
 			</div>
 		</div>
 	</div>
-	<div id="main-container">
-	<h2>최근게시글</h2>
+
+	<div id="main-container" style="position: fixed;top: 0;left: 500; width:800px;">
+	<c:forEach var="article" items="${list}" varStatus="status">
+	<ul style="list-style:none;display:inline-block;">
+	<li>
+	${article.title }  
 	
+	
+	${article.writer }
+
+	${article.content}
+	</li>
+	</ul>
+	<br />
+	</c:forEach>
+	
+	</div>
 	</div>
 </div>
 </body>

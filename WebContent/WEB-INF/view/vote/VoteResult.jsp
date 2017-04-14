@@ -29,14 +29,14 @@
     
   <c:if test="${dto.notice==1}"> <br/>    
     <tr >
-        <td>&nbsp;&nbsp;&nbsp;<font size="2.8"  color="gray">진행자 : ${dto.emp_name}&nbsp; / 투표시작일 : ${dto.v_start}&nbsp; / 참여자 : ${check3 }명</font>
+        <td>&nbsp;&nbsp;&nbsp;<font size="2.8"  color="gray">진행자 : ${dto.emp_name}&nbsp; / 투표시작일 : ${sdf.format(dto.v_start)}&nbsp; / 참여자 : ${check3 }명</font>
          </td>
     </tr>
     </c:if>  
     
     <c:if test="${dto.notice==2}"> <br/>    
     <tr >
-        <td>&nbsp;&nbsp;&nbsp;<font size="2.8" color="gray">진행자 : ${dto.emp_name}&nbsp; / 투표일 : ${dto.v_start} ~ ${dto.v_end}&nbsp; / 참여자 : ${check3 }명</font>
+        <td>&nbsp;&nbsp;&nbsp;<font size="2.8" color="gray">진행자 : ${dto.emp_name}&nbsp; / 투표일 : ${sdf.format(dto.v_start)} ~ ${sdf.format(dto.v_end)}&nbsp; / 참여자 : ${check3 }명</font>
          </td>
     </tr>
     </c:if> 
