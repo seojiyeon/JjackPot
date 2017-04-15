@@ -24,11 +24,13 @@
 <div id="subarea">
 
 </div>
+<div class="content-wrap">
+    <div class="content-write">
+    <form id="orderForm" name="orderForm" method="post" action="?OWASP_CSRFTOKEN=QHDR-H7VC-5WSV-GTB0-HH98-R9UB-NB6U-I4RG" novalidate="novalidate">
 	<div id="main-container">
-		<div> 
+		<div id="bmtable "> 
 			<ul>
-				<li><span class="text-point-b">*</span>제목
-					<input type="text" title="제목" name="bm_title" class="form-control" placeholder="제목을 입력하세요.">
+				<li><span class="text-point-b">*</span>제목<input type="text" title="제목" name="bm_title" class="form-control" placeholder="제목을 입력하세요.">
                	</li>
 				
 				</tr>
@@ -111,6 +113,9 @@
                         </tr>
                    
               </ul>
+            </div>
+            </div>
+            </form>
             </div>
             </div>
             </body>

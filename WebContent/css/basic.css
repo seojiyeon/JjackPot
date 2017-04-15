@@ -6,12 +6,13 @@ layout
 /* layout */ 
 #page-container { position:relative; width:100%; padding:0; margin:0 auto; -webkit-transition: background-color 0.2s ease-out; transition:background-color 0.2s ease-out; background:#e6ebed; z-index:0; }
 #main-container { height:100%; /*margin-right:50px;*/ /*padding:5px 1px 8px 5px; background:#e6ebed;*/ padding:20px; padding-top:0; }
-
+	
 #fixed-board { display:none; }
 #page-container.main { height:100%; overflow:hidden; }
 #page-container.sub { position:relative; min-height:100%; min-width:1200px; background:#fff; }s
 
 /* submenu */
+.bmtable {box-sizing: border-box; table-layout: fixed;border-collapse: separate; border-spacing: 2px;  border-color: gray;}
 #submenu { position:absolute; top:0; width:190px; height:100%;  background:#fff; z-index:100; overflow:hidden; }
 .leftmenu-inner-scroll {background:#f7f7f7}
 .sidebar-mini #submenu { left:70px; }
@@ -89,11 +90,13 @@ layout
 .theme-topbottom .result-search li a:hover { color:#fff; }
 
 /* leftmenu */
+.leftmenu { /*position:absolute;left:0;*/position:fixed; top:0;  padding-bottom:56px; width:210px; height:100%; z-index:15;}
 .leftmenu { position:fixed; top:0; /* left:0; */ padding-bottom:56px; width:210px; height:100%; z-index:15;}
 .leftmenu-top { position:relative; height:65px; line-height:65px; text-align:center; background:#636363;}
 .leftmenu-top h2 { display:inline-block; color:#fff; font-size:20px; font-weight:600; vertical-align:middle; }
 .leftmenu-top h2 a {padding:0 10px; color:#fff; }
 .leftmenu-top h2 a:hover { text-decoration:none; }
+.leftmenu-inner-scroll {background:#e2e2e2}
 .leftmenu .leftmenu-inner-scroll > ul.menulist {margin-bottom:30px;}
 .leftmenu .leftmenu-inner-scroll ul ul.menulist li:last-child {border-bottom:none}
 .leftmenu ul.menulist { padding:0; }
