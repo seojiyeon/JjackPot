@@ -13,28 +13,103 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=3" type="text/css" />   
 <html>
+
 <head>
 <title> 업무관리</title>
 </head>    
  <body>
 
-<div id="sidebar">
-</div>
-<div id="subarea">
-
-</div>
+	<div id="page-container">
+		<div id="sidebar">
+			</div>
+			<div id="subarea">	
+				<div id="leftmenu-jp">
+					<div class="leftmenu-top">
+						<h2><a href="/JackPot/bmList.jp">업무관리 </a></h2>
+					</div>
+					
+					<div id="leftmenuarea">
+					<ul class="menulist" style="margin:0;padding:0;list-style:none;">
+						<li >
+							<a href="/JackPot/bmForm.jp">업무등록 </a><br>
+						</li>
+						<li><hr color=" lightgrey " size="1"></li>
+			
+						
+					
+						<li >
+							<a style="display:inline-block;height:20px;">To - Do</a>
+							   <ul style="-webkit-padding-start:0px;width:208px;">
+							   		<li style="text-align:center;"><a href="/JackPot/.jp">나의 할일 </a></li>
+							   		<li><hr color=" lightgrey " size="1"></li>
+							   	</ul>
+						</li>
+							  
+							
+						<li >
+							<a style="display:inline-block;height:20px;">업무요청 </a>
+							   <ul style="-webkit-padding-start:0px;width:208px;">
+								      <li><a href="/JackPot/.jp">내가 한 업무</a> </li>
+								      <li><a href="/JackPot/.jp">수신  업무 요청</a></li>
+								      <li><a href="/JackPot/.jp">참조  업무 요청</a></li>
+								      <li><hr color=" lightgrey " size="1"></li>
+								   </ul>
+						</li>
+						
+						<li>
+							<a style="display:inline-block;height:20px;">업무보고  </a>
+							   <ul style="-webkit-padding-start:0px;width:208px;">
+								      <li><a href="/JackPot/jp">내가 한 보고 </a> </li>
+								      <li><a href="/JackPot/.jp">수신  업무 보고 </a></li>
+								      <li><a href="/JackPot/.jp">참조  업무 보고 </a></li>
+								      <li><hr color=" lightgrey " size="1"></li>
+								   </ul>
+						</li>
+						
+						<li >
+							<a style="display:inline-block;height:20px;">업무일지  </a>
+							   <ul style="-webkit-padding-start:0px;width:208px;">
+								      <li><a href="/JackPot/.jp">내가 작성한 업무 일지  </a> </li>
+								      <li><a href="/JackPot/.jp">수신  업무 일지  </a></li>
+								      <li><a href="/JackPot/.jp">참조  업무 일지 </a></li>
+								      <li><hr color=" lightgrey " size="1"></li>
+								   </ul>
+						</li>
+						
+						<li>
+							<a >업무보관함   </a>
+						</li>
+						<li><hr color=" lightgrey " size="1"></li>
+						
+						<li>
+							<a >업무보관함 관리    </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			</div>
+			</div>
+			
+				
+<div id="main-contents">
 <div class="content-wrap">
-    <div class="content-write">
-    <form id="orderForm" name="orderForm" method="post" action="?OWASP_CSRFTOKEN=QHDR-H7VC-5WSV-GTB0-HH98-R9UB-NB6U-I4RG" novalidate="novalidate">
-	<div id="main-container">
-		<div id="bmtable "> 
-			<ul>
-				<li><span class="text-point-b">*</span>제목<input type="text" title="제목" name="bm_title" class="form-control" placeholder="제목을 입력하세요.">
-               	</li>
-				
-				</tr>
-				
+<div class="content-write">
+<div class="form-block">
+                <table class="table">
+                    <caption></caption>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><span class="text-point-b">*</span>제목</th>
+                            <td>
+                                <div>
+                                        <input type="text" title="제목" name="title" class="form-control" placeholder="제목을 입력하세요.">
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                        
 				<tr>
 					<td><span class="text-point-b" >*</span>업무형태</td>
 						<td>
@@ -111,12 +186,15 @@
                                 <div id="addTask"></div>
                             </td>
                         </tr>
-                   
-              </ul>
-            </div>
-            </div>
-            </form>
-            </div>
-            </div>
-            </body>
+              </tbody>
+              </table>
+		</div>           
+		</div>
+		</div>
+		<textarea rows="5" cols="30" name="contents"></textarea>
+
+</div>
+
+
+</body>
 </html>
