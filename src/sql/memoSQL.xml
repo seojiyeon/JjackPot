@@ -30,7 +30,12 @@
     		memo_img_seq.NEXTVAL,
     		#org_img#,
     		#sys_img#
-		) select * from dual
+		) into memo_file values(
+            memo_seq.NEXTVAL,
+            memo_file_seq.NEXTVAL,
+            #org_file#,
+            #sys_file#
+        ) select * from dual
 	</insert>
 	
 	<select id="memoSh" parameterClass="String" resultClass="mdto">

@@ -96,13 +96,13 @@ public class MemoBean {
 		String pathImg = request.getRealPath("save"); // 업로드 경로
 		System.out.println(pathImg);
 		MultipartFile mf = request.getFile("org_img"); // 업로드 원본 파일
-		String fileName = mf.getOriginalFilename();
-		dto.setOrg_img(fileName);
-		int extImg = fileName.lastIndexOf(".");
+		String imgName = mf.getOriginalFilename();
+		dto.setOrg_img(imgName);
+		int extImg = imgName.lastIndexOf(".");
 		System.out.println(extImg);
-		fileName = fileName.substring(extImg+1);
+		imgName = imgName.substring(extImg+1);
 		Date day = new Date();
-		String fmImg = dto.getEmp_num()+"_"+day+"."+fileName;
+		String fmImg = dto.getEmp_num()+"_"+day+"."+imgName;
 		
 		fmImg = fmImg.replace(" ", "");
 		fmImg = fmImg.replace(":", "");
@@ -114,6 +114,27 @@ public class MemoBean {
 			e.printStackTrace();
 		}
 		dto.setSys_img(fmImg);
+		
+		/* 파일 업로드 */
+		String pathFile = request.getRealPath("save");
+		System.out.println(pathFile);
+		MultipartFile fileMf = request.getFile("org_file");
+		String fileName = fileMf.getOriginalFilename();
+		dto.setOrg_file(fileName);
+		int extFile = fileName.lastIndexOf(".");
+		fileName = fileName.substring(extFile+1);
+		String fmFile = dto.getEmp_num()+"_"+day+"."+fileName;
+		
+		fmFile = fmFile.replace(" ", "");
+		fmFile = fmFile.replace(":", "");
+		File ff = new File(pathFile+"//"+fmFile);
+		
+		try {
+			fileMf.transferTo(ff);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		dto.setSys_file(fmFile);
 		
 		sqlMap.insert("memo.memoInsert", dto);
 		
