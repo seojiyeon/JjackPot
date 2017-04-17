@@ -70,7 +70,11 @@
 	
 	</select>
 	 
-
+	
+	<select id="h_work">
+		select work_on from work where to_char(work_on,'D') !=2 and to_char(work_on,'D') !=3 and to_char(work_on,'D') !=4 and to_char(work_on,'D') !=5 and to_char(work_on,'D') !=6
+		
+	</select>
 	 
 	<insert id="insertWork" parameterClass="wdto">
 	<![CDATA[

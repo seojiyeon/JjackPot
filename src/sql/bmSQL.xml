@@ -16,6 +16,13 @@
 	
 		</select>
 		
+		
+		<select id="getemp_name" parameterClass="string" resultClass="bmdto">
+		
+			select  e.emp_name from business_manage b,emp e where e.emp_num = b.emp_num 
+		
+		</select>
+		
 	<!--  나의 업무불러오기  -->
 		<select id="getMyBusiness" parameterClass="bmdto" resultClass="bmdto">
 	

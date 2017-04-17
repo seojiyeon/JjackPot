@@ -4,12 +4,14 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import jackpot.DTO.bmDTO;
 import oracle.sql.DATE;
 
+@Controller
 
 public class bmBean {
 	
@@ -39,15 +41,28 @@ public class bmBean {
 
 	}
 	
-	/*업무Form*/
 	@RequestMapping("/bmForm.jp")
-	public String bmForm(bmDTO bmdto, MultipartHttpServletRequest multi,HttpSession session,HttpSession request){
+	public String bmForm(bmDTO bmdto,Model model,HttpSession session){
+		String emp_num =(String)session.getAttribute("memId");
+		bmdto.setEmp_num(emp_num);
+		bmdto = (bmDTO)sqlMap.queryForObject("bm.getemp_name", null);		
+		model.addAttribute("bmdto",bmdto);
+		model.addAttribute("emp_num",emp_num);
+
+
+		return "/bm/bmForm";
+
+	}	
+	
+	/*업무FormPro*/
+	@RequestMapping("/bmFormPro.jp")
+	public String bmForm(bmDTO bmdto, MultipartHttpServletRequest multi,HttpSession session){
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
 
 		bmdto.setBm_tiltie(multi.getParameter("bm_tiltie"));
 		bmdto.setBm_content(multi.getParameter("bm_content"));
-		bmdto.setBm_form(multi.getParameter("bm_form"));
+		bmdto.setBm_form(Integer.parseInt(multi.getParameter("bm_form")));
 /*		bmdto.setBm_start(Timpstamp.(multi.getParameter("bm_start")));
 		bmdto.setBm_end(toTimestamp(multi.getParameter("bm_end")));
 		bmdto.setEnrollment(toTimestamp(multi.getParameter("enrollment")));*/
@@ -61,7 +76,7 @@ public class bmBean {
 	
 		sqlMap.insert("bm.insertBusiness", bmdto);
 
-		return "/bm/bmForm";
+		return "/bm/bmFormPro";
 
 	}
 	

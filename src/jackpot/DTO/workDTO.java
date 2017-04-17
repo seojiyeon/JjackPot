@@ -16,7 +16,8 @@ public class workDTO {
 	private int division;
 	private String ip;
 	private	String day;
-	
+
+
 	public String getDay() {
 		return day;
 	}

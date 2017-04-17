@@ -5,7 +5,7 @@ public class bmDTO {
 	private int bm_num;
 	private String bm_tiltie;
 	private String bm_content; 
-	private String bm_form;
+	private int bm_form;
 	private Timestamp bm_start;
 	private Timestamp bm_end;
 	private Timestamp enrollment;
@@ -35,10 +35,10 @@ public class bmDTO {
 	public void setBm_content(String bm_content) {
 		this.bm_content = bm_content;
 	}
-	public String getBm_form() {
+	public int getBm_form() {
 		return bm_form;
 	}
-	public void setBm_form(String bm_form) {
+	public void setBm_form(int bm_form) {
 		this.bm_form = bm_form;
 	}
 	public Timestamp getBm_start() {

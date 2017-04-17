@@ -16,7 +16,7 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 .boardmenu a{cursor:pointer;}
 .boardmenu .hide{display:none;}
 
-#main-container{height:100%;padding:20px;padding-top:0;} 
+#main-container{position: fixed;top:100; left: 270; height: 100%; padding: 20px; padding-top: 0;} 
 #main-contents{position:fixed;left:270px;top:0;width:85%;height:100%;}
 
 
