@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
+html,BODY { height:100%;overflow-x:hidden; margin:0px;}
 
 #page-container{position: relative;min-height: 100%; min-width: 1200px; background:#fff;}
 
@@ -69,17 +69,30 @@ li{
 
 .btn {
     display: inline-block;
-    padding: 3px 11px;
     line-height: 19px;
     font-size: 13px;
     font-weight: 600;
-    color: #fff;
     text-align: center;
     vertical-align: middle;
-    border: 1px solid transparent;
     border-radius: 2px;
     cursor: pointer;
     white-space: nowrap;
+    height: 30;
+    width: 60;
+}
+
+.btn2 {
+    display: inline-block;
+    line-height: 19px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 2px;
+    cursor: pointer;
+    white-space: nowrap;
+    height: 30;
+    width: 60;
 }
 
 button, input, optgroup, select, textarea {

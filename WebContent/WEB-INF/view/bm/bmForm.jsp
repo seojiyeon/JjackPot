@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=3" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=4" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
@@ -106,7 +106,7 @@
 				
 <div id="main-contents">
 <div class="content-wrap">
-<div class="content-write">
+<div class="content-write" style="width: 100%;">
 <div class="form-block">
                 <table class="table">
                     <caption></caption>
@@ -232,13 +232,14 @@
 					<div>
 						<textarea class="ckeditor" cols="1" id="bm_content" name="bm_content" rows="15"></textarea>
 						<script type="text/javascript">
-							CKEDITOR.replace('editor');
+							CKEDITOR.replace('editor')
+                            );
 						</script>
 						
 					</div>
-<div class="btn-wrap">
+<div class="btn-wrap" style="width: 90%;">
         <button type="button" class="btn btn-color5 br" id="saveButton">저장</button>
-        <button type="button" class="btn btn-color7 br" onclick="javascript:location.href='/groupware/todo/listTodoView.do?searchConditionString=';">취소</button>
+        <button type="button" class="btn2 btn-color7 br" onclick="javascript:location.href='/groupware/todo/listTodoView.do?searchConditionString=';">취소</button>
     </div>
 </div>
 
