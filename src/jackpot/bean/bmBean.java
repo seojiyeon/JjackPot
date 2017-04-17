@@ -59,21 +59,6 @@ public class bmBean {
 	public String bmForm(bmDTO bmdto, MultipartHttpServletRequest multi,HttpSession session){
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
-
-		bmdto.setBm_tiltie(multi.getParameter("bm_tiltie"));
-		bmdto.setBm_content(multi.getParameter("bm_content"));
-		bmdto.setBm_form(Integer.parseInt(multi.getParameter("bm_form")));
-/*		bmdto.setBm_start(Timpstamp.(multi.getParameter("bm_start")));
-		bmdto.setBm_end(toTimestamp(multi.getParameter("bm_end")));
-		bmdto.setEnrollment(toTimestamp(multi.getParameter("enrollment")));*/
-		bmdto.setReg_notice(multi.getParameter("reg_notice"));
-		bmdto.setCmp_notice(multi.getParameter("cmp_notice"));
-		bmdto.setRelated_bns(multi.getParameter("related_bns"));
-		bmdto.setBns_box(Integer.parseInt(multi.getParameter("bns_box")));
-		bmdto.setImportant(Integer.parseInt(multi.getParameter("important")));
-		bmdto.setBm_state(multi.getParameter("bm_state")); 
-		bmdto.setEmp_num(multi.getParameter("emp_num"));
-	
 		sqlMap.insert("bm.insertBusiness", bmdto);
 
 		return "/bm/bmFormPro";

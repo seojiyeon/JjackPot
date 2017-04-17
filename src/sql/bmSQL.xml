@@ -35,7 +35,7 @@
 		</select>
 	
 	<!--  업무입력  -->
-		<insert id="insertBusiness" parameterClass="bmdto">
+		<insert id="insertBusiness1" parameterClass="bmdto">
 	
 				insert into business_manage(bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
 					bm_seq.nextval,
@@ -53,9 +53,31 @@
 					#bm_state#,
 					#emp_num#
 				)
+				
 		
 		</insert>	
 	
+			<insert id="insertBusiness2" parameterClass="bmdto">
+	
+				insert into incharge(bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
+					bm_seq.nextval,
+					#bm_tiltie#,
+					#bm_content#,
+					#bm_form#,
+					#bm_start#,
+					#bm_end#,
+					#enrollment#,
+					#reg_notice#,
+					#cmp_notice#,
+					#related_bns#,
+					#bns_box#,
+					#important#,
+					#bm_state#,
+					#emp_num#
+				)
+				
+		
+		</insert>	
 
 </sqlMap>
 

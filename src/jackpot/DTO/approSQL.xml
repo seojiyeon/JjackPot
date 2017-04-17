@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="approval">      
+
+  <typeAlias alias="adto" type="jackpot.DTO.approDTO"/>
+
+       <insert id="insertApproForm" parameterClass="adto">
+        insert into appro values(appro_seq.NEXTVAL,#doc_num#,#doc_date#,#doc_finish#,#emp_num#,#emp_name#,#doc_title#,#doc_content#,#style_num#,#doc_division#,#start_work#,#end_work#,#doc_state#,#doc_count#,#doc_step#,#branch#,#department#,#position#) 
+       </insert>
+
+        <select id="maxnum" resultClass="int">
+             select max(cl_num) from calendar
+        </select>  
+        
+        <select id="position" resultClass="String" parameterClass="int">
+        select position from position where num=#emp_position#
+        </select>
+        
+        <select id="department" resultClass="String" parameterClass="int">
+        select department from department where num=#emp_department#
+        </select>
+       
+        
+</sqlMap>
