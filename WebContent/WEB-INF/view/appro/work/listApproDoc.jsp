@@ -21,6 +21,7 @@
  	<script src="//code.jquery.com/jquery.min.js"></script>
  	
 	<script type="text/javascript">
+
 	function layer_open(el){
 
 		var temp = $('#' + el);		//레이어의 id를 temp변수에 저장
@@ -42,6 +43,7 @@
 			var value = $('#emp_choose').val();
 			alert(value);
 			$('#apprTitle').val(value);
+			$('#test1').val(chkSplit[0]);
 			e.preventDefault();
 			document.getElementById("approForm").reset();
 		});
@@ -53,14 +55,17 @@
 
 	}
 	
-	$(function() {
-	    $("#btn-show-checked").click(function() {
-	      var emp_choose = ( $("input[name=emp_inf]:checked").val() );
-	      $("#emp_choose").val(emp_choose);
-	    });
-	});
-
-	
+	 $(document).ready (function () {                
+     	$("#btn-show-checked").on("click", function() { //적용 버튼을 클릭시 체크박스의 체크된 부분을 ','기준으로 다같이 받아오는 부분. 
+         	var chk = $("input[name='emp_inf']:checked").map(function() {
+         		return $(this).val();
+         	}).get().join(" , ");
+     		var chkSplit = chk.split(',');
+         	$("#emp_choose").val(chkSplit[0]+','+chkSplit[1]+','+chkSplit[2]);
+         });
+         
+     }); // end ready  
+     
 	</script>		
 </head>
 
@@ -139,7 +144,7 @@
 						<div class="fleft">	
 							<table class="appline-lst">
 								<caption></caption>
-								<tbody>	
+								<tbody>
 									<tr id="apprLine0TTr">
 										<th rowspan="2">
 											
@@ -148,18 +153,17 @@
 												         
 										</th>
 										<th class="apprLine">기 안</th>
-										<th class="apprLine last">전 무</th>
 									</tr>
 									<tr id="apprLine0BTr">									
 									<td height="60">${emp_name}</td>
-									<td height="60" class="last">서지연</td>
 									</tr>
 								</tbody>
-								
-								
-							</table>							
-						</div>						
+							</table>
+						</div>
+												
 					</div>
+					<br/>
+					<input id="test1" type="text"><br/><input id="test2" type="text"><br/><input id="test3" type="text">
 					<div class="clearfix">
 						<div class="fright" id="apprLine1Tr" style="display: none; width: 0px;">
 							<table class="appline-lst">
@@ -280,6 +284,7 @@
 			
 			<div>
 				<input id="emp_choose" type="text" name="emp_choose"><br/>
+			
 			</div>
 			<a href="#" class="cbtn"><input type="button" id="#" class="cbtn" value="적용"></a>
 		</form>

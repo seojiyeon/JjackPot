@@ -66,7 +66,19 @@ public class ApproBean {
 	}
 	
 	@RequestMapping("/test.jp")
-	public String test(){
+	public String test(HttpSession session, Model model){
+		String emp_num = (String) session.getAttribute("memId"); //session에서 Id 값을 받아와서 emp_num에 저장. 
+		empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
+		int emp_position = edto.getPosition();
+		int emp_department = edto.getDepartment();
+		String position = (String) sqlMap.queryForObject("approval.position", emp_position);
+		String department= (String) sqlMap.queryForObject("approval.department", emp_department);
+		String emp_name = edto.getEmp_name();
+		model.addAttribute("emp_name",emp_name);
+		model.addAttribute("emp_position",position);
+		model.addAttribute("emp_department",department);
+		System.out.println(department);
+	
 		return "/appro/test";
 	}
 	
