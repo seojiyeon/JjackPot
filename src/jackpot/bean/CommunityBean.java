@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jackpot.DTO.communityDTO;
+import jackpot.DTO.voteDTO;
 
 @Controller
 public class CommunityBean {
@@ -44,6 +45,24 @@ public class CommunityBean {
 		
 	
 		return "/community/commInsert";
+	}
+	
+	
+	@RequestMapping("/content.jp")
+	public String content(HttpServletRequest request,Model model){
+	     int com_num=Integer.parseInt(request.getParameter("com_num"));
+	     System.out.println(com_num);
+	     
+	     
+	    sqlMap.update("comm.readCount",com_num);
+	    
+	    communityDTO dto=(communityDTO)sqlMap.queryForObject("comm.content", com_num);
+	    
+		model.addAttribute("dto",dto);
+
+		 
+		return "/community/content";
+		
 	}
 	
 }
