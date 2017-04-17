@@ -22,6 +22,22 @@ public class msgDTO {
 	private String msg_rid;
 	
 	
+	public String getMsg_sd() {
+		return msg_sd;
+	}
+	public void setMsg_sd(String msg_sd) {
+		this.msg_sd = msg_sd;
+	}
+	public String getMsg_rd() {
+		return msg_rd;
+	}
+	public void setMsg_rd(String msg_rd) {
+		this.msg_rd = msg_rd;
+	}
+	private String msg_sd;
+	private String msg_rd;
+	
+	
 	public String getMsg_rid() {
 		return msg_rid;
 	}
