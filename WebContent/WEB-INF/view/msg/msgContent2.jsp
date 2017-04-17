@@ -13,14 +13,13 @@ height:800px;
 }
 
 .top{
-    color: white;
-    font-size: 17px;
-    width: 1210px;
-    height: 65px;
-    background-color: gray;
-    padding: 20px;
-    text-align: center;
-    vertical-align: middle;
+color:white;
+width:1210px;
+height:65px;
+background-color:gray;
+text-align:center;
+vertical-align: middle;
+
 }
 
 .menu{
@@ -52,12 +51,32 @@ background-color:green;
 text-align:center;
 }
 
-.employee th, td {
+.employee th {
     padding: 8px;
     text-align: center;
     border-bottom: 1px solid #ddd;
     font-size : 12px;
+    background-color: #d1e0e0;
 }
+
+.employee td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size : 12px;
+    background-color: #d1e0e0;
+}
+
+.cont {
+background-color: #f2f2f2;
+    height: 300px;
+    text-align: initial;
+    font-size: 14px;
+    margin: auto;
+    padding: 20px;
+
+}
+
 
 .employee {
 	width: 1000px;
@@ -72,7 +91,7 @@ th, td {
     font-size : 12px;
 }
 
-.employee tr:hover{background-color: #ffe6ff}
+
 
 ul{
    list-style:none;
@@ -91,7 +110,7 @@ a:link {
     
 }
 
-.menu a:hover{
+a:hover{
   -webkit-transform: translateY(-5px);
           transform: translateY(-5px);
   -webkit-transition: all 100ms ease-in;
@@ -99,7 +118,6 @@ a:link {
   box-shadow: 0 5px 10px rgba(51, 51, 51, 0.4);
   font-size: 16px;
 }
-
 
 
 
@@ -198,47 +216,13 @@ a:link {
 }
 
 
-
+.tn {
+background-color: #669900;
+}
     
 </style>
 
 <script type="text/javascript">
-
-function allChk(obj){
-    var chkObj = document.getElementsByName("RowCheck");
-    var rowCnt = chkObj.length - 1;
-    var check = obj.checked;
-    if (check) {﻿
-        for (var i=0; i<=rowCnt; i++){
-         if(chkObj[i].type == "checkbox")
-             chkObj[i].checked = true; 
-        }
-    } else {
-        for (var i=0; i<=rowCnt; i++) {
-         if(chkObj[i].type == "checkbox"){
-             chkObj[i].checked = false; 
-         }
-        }
-    }
-} 
-
-function checkSub(chk){
-	
-	var sum = 0;
-	var count = chk.RowCheck.length;
-	for(var i=0; i < count; i++){
-		  if(chk.RowCheck[i].checked == true){
-		    sum += 1;
-				}
-		  }
-	if(sum == 0){
-	 alert("삭제할 메세지를 선택하세요.");
-	 return false;
-	}
-}
-
-
-
 
 $(document).ready(function(){
     $(".write").click(function(){
@@ -246,6 +230,9 @@ $(document).ready(function(){
     });
     
 });
+
+
+
 
 
 function dialog() {
@@ -285,38 +272,6 @@ $(function() {
 });
 
 
-
-function checkIt(){
-	var userinput=eval("document.userinput");
-	
-	
-	if(!userinput.msg_title.value){
-		alert("제목을 입력하세요.");
-		return false;
-	}
-	
-	if(!userinput.msg_receive.value){
-		alert("받는사람을 입력하세요.");
-		return false;
-	}
-	
-	if(!userinput.msg_content.value){
-		alert("내용을 입력하세요.");
-		return false;
-	}
-	
-}
-
-
-function msgfind(){
-	 url="msgFind.jp?"
-	 open(url, "find" , "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, height=400, width=600");
-	}
-
-
-
-
-
 </script>
 
 <c:if test="${memId==null}" >
@@ -331,14 +286,11 @@ function msgfind(){
 <c:if test="${memId!=null}">
 
 <div class="root">
-<div class="top"><b>보낸 쪽지</b></div>
+<div class="top">쪽지</div>
 <div class="menu">
 <ul>
 
-<li><a href="/JackPot/msgmain.jp">받은 쪽지함</a>
-<c:if test="${count==0}"></c:if>
-<c:if test="${count!=0}">(${count})</c:if>
-</li>
+<li><a href="/JackPot/msgmain.jp">받은 쪽지함</a></li>
 <li><a href="/JackPot/msgsmain.jp">보낸 쪽지함</a></li>
 <li>임시 보관함</li>
 </ul>
@@ -351,52 +303,37 @@ function msgfind(){
 
 <div class="employee">
 
-<form action="msgDel2.jp" name="chk" method="post" onSubmit="return checkSub(document.chk)">
-
-<table width="100%" cellpadding="0" cellspacing="0" align="center"> 
+<table  cellpadding="0" cellspacing="0"> 
     <tr height="30"  > 
-     <th align="center"  width="20"  > <b><input id="allCheck" type="checkbox" onclick="allChk(this);"/></b></th>
-     <th align="center"  width="50"  > <b>분류</b></th> 
-      <th align="center"  width="100" ><b>제목</b></th> 
-      <th align="center"  width="50" ><b>받는사람</b></th>
-      <th align="center"  width="50" ><b>수신여부</b></th>
-      <th align="center"  width="100" ><b>일시</b></th>
-      
+     <th align="center"  width="50"  > <b>제목</b></th> 
+     <td align="left"  width="950" ><span class="tn">${cDTO.msg_title}</span></th>
     </tr>
-
-
- <c:forEach var="article" items="${articleList}" >
-   
     
-    <th align="center"  width="20"  > <b><input type="checkbox" name="RowCheck" value="${article.msg_num}" /></b></th>
-    <td align="center">${article.msg_cate} </td>
-	<td align="center"><a href="/JackPot/msgcont2.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
-    <td align="center"  width="50">${article.msg_receive} (${article.msg_rid})</td>
-    <td align="center"  width="50">
-         <c:if test="${article.ref == 0}">
-         읽지않음
-         </c:if>
-          
-         <c:if test="${article.ref == 1}">
-         읽음
-         </c:if>
-         
-         </td>
-    <td align="center"  width="100"> ${article.msg_read} </td>
-  </tr>
-  </c:forEach>
-</table>
-<input type="submit" value="선택 삭제" />
-</form>
-<center>
-<button class="dialog__trigger">쪽지 쓰기</button>
-</center>
+    <tr height="30"  >
+    <th align="center"  width="50"  > <b>분류</b></th> 
+     <td align="left"  width="100" ><b>${cDTO.msg_cate}</b></th>
+    </tr>
+    
+    <tr height="30"  > 
+    <th align="center"  width="50"  > <b>보낸사람</b></th> 
+     <td align="left"  width="100" ><b>${cDTO.msg_send}</b></th>
+    </tr>
+    
+    <tr height="30"  > 
+    <th align="center"  width="50"  > <b>받는사람</b></th> 
+     <td align="left"  width="100" ><b>${cDTO.msg_receive}</b></th>
+    </tr> 
+
+     
+      
+    
+   
+    </table>
+<div class="cont">
+ ${cDTO.msg_content} 
 </div>
-
-
-
-
-
+<input type="button" value="목록으로" onClick="window.location='msgsmain.jp'" />
+</div>
 
 </div>
 
@@ -407,51 +344,7 @@ function msgfind(){
 
 </div>
 
-<div class="dialog">
-  <span class="dialog__close">&#x2715;</span>
-  <h2 class="dialog__title">쪽지보내기</h2>
-  <p class="dialog__content">
-  
-  
-  <form action="msgWritePro.jp" name="userinput" method="post">
 
-<table>
-<tr>
-<td>
-<label><input type="radio" name="msg_cate" value="일반" checked="checked" />일반</label>
-<label><input type="radio" name="msg_cate" value="공지" />공지</label>
-<label><input type="radio" name="msg_cate" value="중요" />중요</label>
-<label><input type="radio" name="msg_cate" value="배포" />배포</label>
-</td>
-</tr> 
-<tr>
-<td>
-제목 <input class="input2" type="text" name="msg_title" placeholder="제목을 입력하세요." />
-</td>
-</tr>
-<tr>
-<td>
-받는사람 <input class="input2"  type="text" name="msg_receive" placeholder="검색행~" readonly />
-<input type="button" value="찾아보기" onClick="msgfind()"/>
-</td>
-</tr>
-<tr>
-<td>
-<textarea name="msg_content" style="width:450px; height:200px">
-</textarea>
-</td>
-</tr>
-</table>
-<center>
-<input type="submit" value="보내기" />
-
-</center>
-
-</form>
-  
-  </p>
-  
-</div>  
 </c:if>
 
 

@@ -97,7 +97,7 @@ public class MsgBean {
 					   
 		model.addAttribute("cDTO", dto);		
 		
-		return "/msg/msgContent";
+		return "/msg/msgContent2";
 	}	
 	
 	
@@ -116,7 +116,7 @@ public class MsgBean {
 			sqlMap.update("msg.msgRD", a);
 			
 		}
-		sqlMap.delete("msg.Del", null);
+		sqlMap.delete("msg.msgDel", null);
 		return "/msg/msgDelete";
 	}
 	
@@ -131,7 +131,7 @@ public class MsgBean {
 			
 		}
 		sqlMap.delete("msg.msgDel", null);
-		return "/msg/msgDelete";
+		return "/msg/msgDelete2";
 	}
 	
 	

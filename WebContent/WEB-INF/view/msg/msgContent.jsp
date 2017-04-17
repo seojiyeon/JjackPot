@@ -19,6 +19,7 @@ height:65px;
 background-color:gray;
 text-align:center;
 vertical-align: middle;
+padding: 20px;
 
 }
 
@@ -272,6 +273,37 @@ $(function() {
 });
 
 
+function msgfind(){
+	 url="msgFind.jp?"
+	 open(url, "find" , "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, height=400, width=600");
+	}
+	
+	
+
+function checkIt(){
+	var userinput=eval("document.userinput");
+	
+	
+	if(!userinput.msg_title.value){
+		alert("제목을 입력하세요.");
+		return false;
+	}
+	
+	if(!userinput.msg_receive.value){
+		alert("받는사람을 입력하세요.");
+		return false;
+	}
+	
+	if(!userinput.msg_content.value){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	
+}
+	
+	
+
+
 </script>
 
 <c:if test="${memId==null}" >
@@ -286,7 +318,7 @@ $(function() {
 <c:if test="${memId!=null}">
 
 <div class="root">
-<div class="top">쪽지</div>
+<div class="top"><b>받은 쪽지</b></div>
 <div class="menu">
 <ul>
 
@@ -333,8 +365,8 @@ $(function() {
  ${cDTO.msg_content} 
 </div>
 <center>
-
-<button class="dialog__trigger">쪽지 쓰기</button>
+<input type="button" value="목록으로" onClick="window.location='msgmain.jp'" />
+<button class="dialog__trigger">답장 하기</button>
 </center>
 </div>
 
@@ -358,7 +390,7 @@ $(function() {
   <p class="dialog__content">
   
   
-  <form action="msgWritePro.jp" method="post">
+  <form action="msgWritePro.jp" method="post" name="userinput" onSubmit="return checkIt()">
 
 <table>
 <tr>
@@ -376,7 +408,8 @@ $(function() {
 </tr>
 <tr>
 <td>
-받는사람 <input class="input2"  type="text" name="msg_receive" placeholder="받을실분의 성함을 입력하세요." />
+받는사람 <input class="input2"  type="text" name="msg_receive" value="${cDTO.msg_send}" readonly />
+
 </td>
 </tr>
 <tr>

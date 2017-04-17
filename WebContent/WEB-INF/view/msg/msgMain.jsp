@@ -297,6 +297,27 @@ function msgfind(){
 	 url="msgFind.jp?"
 	 open(url, "find" , "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, height=400, width=600");
 	}
+	
+	
+function checkSub(chk){	
+	var sum = 0;
+	var count = $("input:checkbox[name=RowCheck]:checked").length
+	/* var count = chk.RowCheck.length ; */
+	
+	
+	for(var i=0 ; i < count ; i++){
+		  if(chk.RowCheck[i].checked == true){
+		    sum += 1;
+				}
+		  }
+		  
+		  
+     if(sum == 0){
+	 alert("삭제할 메세지를 선택하세요.");
+	 return false;
+	}
+}
+	
 
 </script>
 
@@ -332,7 +353,7 @@ function msgfind(){
 
 <div class="employee">
 
-<form action="msgDel.jp" method="post" >
+<form action="msgDel.jp" name="chk" method="post" onSubmit="return checkSub(document.chk)">
 
 <table width="100%" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30"  > 
