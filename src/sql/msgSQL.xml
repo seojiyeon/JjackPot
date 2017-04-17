@@ -12,7 +12,7 @@
         </insert>
         
         <select id="msgCnt" resultClass="int" parameterClass="String">
-            select count(*) from message where ref=0 and msg_rid=#msg_rid#
+            select count(*) from message where ref=0 and msg_rid=#msg_rid# and msg_rd='no'
         </select>
         
         <select id="msgFind" resultClass="empDTO" parameterClass="String">
