@@ -6,7 +6,7 @@
 
 
       <select id="commList" resultClass="codto">
-            select com_num,title,content,writer,reg_date,readcount,recommend,ref,re_step,re_level from community
+            select com_num,title,content,writer,reg_date,readcount,recommend,ref,re_step,re_level from community order by com_num asc
       </select>
 
 
@@ -15,5 +15,14 @@
             values(community_seq.nextval,#title#,#content#,#writer#,0,0,1,#emp_num#)
        </insert>
 
+      <update id="readCount" parameterClass="int">
+      update community set readcount=readcount+1 where com_num =#com_num#
+      </update>
+    
+    <select id="content" resultClass="codto"  parameterClass="int">
+            select com_num,title,content,writer,reg_date,readcount,recommend,ref,re_step,re_level from community where com_num =#com_num#
+      </select>
+    
+    
         
 </sqlMap>

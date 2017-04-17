@@ -5,9 +5,7 @@
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<title> 커뮤니티 </title>
-<head>
+ <head>
 
 			<script src="resource/ckeditor.js"></script> 
 			<script type="text/javascript" >
@@ -387,123 +385,68 @@ Dropzone.options.myDropzone = {
 			</div>
 		</div>
 	</div>
-
-	<div id="main-container" style="position: fixed;top: 0;left: 500; width:800px;">
-	
-	<div class="con-header">
-	<h2>
-		최근게시글
-	</h2>
-	<div id="navText" class="breadcrumb-line"></div>
-</div>
-
-<div class="ins-box">
-	
-	  <li>
-	  </li>
-	  
-	
-</div>
-
-		
-	<div class="content-list">			
-		<table class="table table-striped">   
-		<caption></caption> 
-		<colgroup>
-		<col style="width: 50px;">
-		<col style="width: 200px;">
-		<col style="width: 120px;">
-		<col style="min-width:100px;">
-		<col style="width: 150px;">
-		<col style="width: 90px;">
-		<col style="width: 75px;">
-		<col style="width: 75px;">
-		</colgroup><thead>
-	
-	
-	
-	<thead>
-			<tr>
-				<th scope="col">
-					번호
-				</th>
-				
-				<th scope="col">
-			      제목						
-				</th>
-				
-				
-				<th scope="col">
-					등록자
-				</th>
-				<th scope="col">
-					등록일
-				</th>
-			<th scope="col">
-					조회
-				</th>
-			<th scope="col">
-				    추천
-				</th>
-				
-			</tr>
-			
-			<tr>
-		
-							
-	<ul style="list-style:none;">
-	<li>
-	<c:forEach var="article" items="${list}" varStatus="status">
-	
-	<tr class="boardItemLine" style="background: rgb(249, 249, 249);">
-						
-						<td align="center">
-					        ${article.com_num }  
-						</td>
-						
-						<td>
-							<a title="${article.title}" class="boardItem" href="/JackPot/content.jp?com_num=${article.com_num}">${article.title }</a>
-						</td>
-						
-						
-						<td align="center"> 
-					<div class="ellipsis">${article.writer} </div>
-							</td>	 
-							
-						</td>
-						<td align="center">
-						<div class="ellipsis">${article.reg_date}</div></td>
-						
-						<td align="center">
-								   ${article.readcount}
-														
-						</td>
-						<td align="center"><div class="ellipsis">
-									${article.recommend}
-								</div>							
-						</td>
-						
-					</tr>
-					
-				
-	</c:forEach>
-	</li>
-	</ul>
-		</th>
-			
-			</tr>
-		</thead> 
-		<tbody>
-		</tbody>
-			
-			    
-
-
-</thead>
-</table>
-	
-	</div>
-	</div>
 </div>
 </body>
-</html>
+
+<div id="main-contents">
+	
+	<div class="con-header bdr-b">
+	<h2>
+		자유게시판
+	</h2>
+	
+	<div class="board-header">
+	
+			<h3>	
+				<i class="icon nonimp">
+				   ${dto.content }
+				</i>
+					
+		
+			</h3>
+   
+<ul class="writer-info mt15">
+				<li>
+				<span class="ellipsis">${dto.writer}</span>
+					<span class="txt_bar"></span>
+				</li>
+<li>
+         <span class="num">${dto.reg_date }</span>
+</li>
+<li>
+           <a id="recommend" href="#a" class=""> 							
+					<p class="num"><span id="recommendCount">0+</span></p>							   
+					<p class="doc"><i class="fa fa-thumbs-o-up fa-fw"></i> 추천</p>
+				</a></li></ul>
+				
+</div>
+</div>
+
+
+</td>
+</tr>
+
+</div>
+
+
+
+    
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
