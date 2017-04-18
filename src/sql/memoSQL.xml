@@ -25,17 +25,25 @@
     		#emp_num#,
     		sysdate,
     		sysdate
-		) into memo_img values (
-    		memo_seq.NEXTVAL,
+		)
+	</insert>
+	
+	<insert id="memoInsImg" parameterClass="mdto">
+		insert into memo_img values(
+ 			#memo_num#,
     		memo_img_seq.NEXTVAL,
     		#org_img#,
     		#sys_img#
-		) into memo_file values(
-            memo_seq.NEXTVAL,
-            memo_file_seq.NEXTVAL,
-            #org_file#,
-            #sys_file#
-        ) select * from dual
+		)
+	</insert>
+	
+	<insert id="memoInsFile" parameterClass="mdto">
+		insert into memo_img values(
+    		#memo_num#,
+		    memo_file_seq.NEXTVAL,
+    		#org_file#,
+	    	#sys_file#
+		)
 	</insert>
 	
 	<select id="memoSh" parameterClass="String" resultClass="mdto">
@@ -57,4 +65,8 @@
 	<update id="memoDel" parameterClass="int">
 		update memo set memo_state=0 where memo_num=#memo_num#
 	</update>
+	
+	<select id="memoNumSelect" parameterClass="mdto" resultClass="mdto">
+		select max(memo_num) from memo where emp_num=#emp_num#
+	</select>
 </sqlMap>

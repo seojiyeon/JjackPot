@@ -91,52 +91,65 @@ public class MemoBean {
 			dto.setMemo_state(2);
 		}
 		
+		sqlMap.insert("memo.memoInsert", dto);
+		int memoNum = (int)sqlMap.queryForObject("memo.memoNumSelect", dto);
+		
+		Date day = new Date();
 		
 		/* 이미지 업로드 */
 		String pathImg = request.getRealPath("save"); // 업로드 경로
 		System.out.println(pathImg);
-		MultipartFile mf = request.getFile("org_img"); // 업로드 원본 파일
-		String imgName = mf.getOriginalFilename();
-		dto.setOrg_img(imgName);
-		int extImg = imgName.lastIndexOf(".");
-		System.out.println(extImg);
-		imgName = imgName.substring(extImg+1);
-		Date day = new Date();
-		String fmImg = dto.getEmp_num()+"_"+day+"."+imgName;
+		List<MultipartFile> mf = request.getFiles("org_img"); // 업로드 원본 파일
 		
-		fmImg = fmImg.replace(" ", "");
-		fmImg = fmImg.replace(":", "");
-		File f = new File(pathImg+"//"+fmImg);
-		
-		try {
-			mf.transferTo(f);
-		} catch(Exception e) {
-			e.printStackTrace();
+		for(MultipartFile multiImg : mf) {
+			String imgName = multiImg.getOriginalFilename();
+			dto.setOrg_img(imgName);
+			int extImg = imgName.lastIndexOf(".");
+			System.out.println(extImg);
+			imgName = imgName.substring(extImg+1);
+			
+			String fmImg = dto.getEmp_num()+"_"+day+"."+imgName;
+			
+			fmImg = fmImg.replace(" ", "");
+			fmImg = fmImg.replace(":", "");
+			File f = new File(pathImg+"//"+fmImg);
+			
+			try {
+				multiImg.transferTo(f);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			dto.setSys_img(fmImg);
+			
+			sqlMap.insert("memo.memoInsImg", dto);
 		}
-		dto.setSys_img(fmImg);
+		
 		
 		/* 파일 업로드 */
 		String pathFile = request.getRealPath("save");
 		System.out.println(pathFile);
-		MultipartFile fileMf = request.getFile("org_file");
-		String fileName = fileMf.getOriginalFilename();
-		dto.setOrg_file(fileName);
-		int extFile = fileName.lastIndexOf(".");
-		fileName = fileName.substring(extFile+1);
-		String fmFile = dto.getEmp_num()+"_"+day+"."+fileName;
+		List<MultipartFile> fileMf = request.getFiles("org_file");
 		
-		fmFile = fmFile.replace(" ", "");
-		fmFile = fmFile.replace(":", "");
-		File ff = new File(pathFile+"//"+fmFile);
+		for(MultipartFile multiFile : fileMf) {
+			String fileName = multiFile.getOriginalFilename();
+			dto.setOrg_file(fileName);
+			int extFile = fileName.lastIndexOf(".");
+			fileName = fileName.substring(extFile+1);
+			String fmFile = dto.getEmp_num()+"_"+day+"."+fileName;
+			
+			fmFile = fmFile.replace(" ", "");
+			fmFile = fmFile.replace(":", "");
+			File ff = new File(pathFile+"//"+fmFile);
 		
-		try {
-			fileMf.transferTo(ff);
-		} catch(Exception e) {
-			e.printStackTrace();
+			try {
+				multiFile.transferTo(ff);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			dto.setSys_file(fmFile);
+			
+			sqlMap.insert("memo.memoInsFile", dto);
 		}
-		dto.setSys_file(fmFile);
-		
-		sqlMap.insert("memo.memoInsert", dto);
 		
 		return "/memo/memoInsertPro";
 	}
