@@ -10,10 +10,36 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar.js"></script>
 <script type="text/javascript" src="js/locale-all.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 
-jQuery(document).ready(function() {
-	 
+
+$(document).ready(function(){
+	window.setInterval('callAjax()', 10000); //10초마다한번씩 함수를 실행한다..!! 
+
+});
+function callAjax(){
+	 $.ajax({
+	        type: "post",
+	        url : "alarm.jp",
+	        success: test,	// 페이지요청 성공시 실행 함수
+	        error: whenError	//페이지요청 실패시 실행함수
+  	});
+}
+function test(aaa){	// 요청성공한 페이지정보가 aaa 변수로 콜백된다. 
+    $("#ajaxReturn").html(aaa).fadeToggle(5000);	//id가 ajaxReturn인 부분에 넣어라
+    
+}
+function whenError(){    
+}
+
+$(document).ready(function(){
+    $("#ajaxReturn").click(function(){
+        open("/JackPot/msgmain.jp","쪽지보내기","width=1200, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+    });    
+});
+
+jQuery(document).ready(function() {	 
     jQuery("#calendar").fullCalendar({
     	  height: 650
     	, contentHeight: 150
@@ -93,6 +119,21 @@ function realtimeClock() {
 	}
 
 </script>
+
+ <style>
+
+ #ajaxReturn{
+    background-color: #2d5461;
+    width: 150px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 15;
+    font-size: 14px;
+    color: ghostwhite;      
+    
+ }
+ </style>
 
 
 <html>
@@ -221,4 +262,5 @@ function realtimeClock() {
     </ul>
     </div>
 </body>
+<div id="ajaxReturn" style="display:none;"></div>
 </html>    

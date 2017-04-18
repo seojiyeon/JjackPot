@@ -165,13 +165,24 @@ public class MsgBean {
 	@RequestMapping("/msgTest.jp")
 	public String msgTest(msgDTO dto, HttpSession session, Model model){
 						
-		return "/msg/msgTest";
+		return "/msg/main";
 	}
 	
-	@RequestMapping("/msgTest2.jp")
+	@RequestMapping("/alarm.jp")
 	public String msgTest2(msgDTO dto, HttpSession session, Model model){
-						
-		return "/msg/msgTest2";
+		String a = null;
+		String id = (String) session.getAttribute("memId");
+		int count = (int) sqlMap.queryForObject("msg.msgAcnt", id);		
+		System.out.println(count);
+		
+		if(count == 0){
+		a = "false";
+		}else{
+	    model.addAttribute("count", count);
+		a =  "/msg/msgAlarm";	
+		}		
+		return a;
+		
 	}	
 	
 	

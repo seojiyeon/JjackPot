@@ -342,7 +342,7 @@ function checkSub(chk){
 <c:if test="${count!=0}">(${count})</c:if>
 </li>
 <li><a href="/JackPot/msgsmain.jp">보낸 쪽지함</a></li>
-<li>임시 보관함</li>
+<li><a href="/JackPot/msgTest.jp">aJax 연습</a></li>
 </ul>
 
 
@@ -355,13 +355,14 @@ function checkSub(chk){
 
 <form action="msgDel.jp" name="chk" method="post" onSubmit="return checkSub(document.chk)">
 
-<table width="100%" cellpadding="0" cellspacing="0" align="center"> 
+<table width="1000" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30"  > 
-     <th align="center"  width="20"  > <b><input id="allCheck" type="checkbox" onclick="allChk(this);"/></b></th>
-     <th align="center"  width="50"  > <b>분류</b></th> 
-      <th align="center"  width="100" ><b>제목</b></th> 
+     <th align="center"  width="30"  > <b><input id="allCheck" type="checkbox" onclick="allChk(this);"/></b></th>
+     <th align="center"  width="40"  > <b>분류</b></th> 
+      <th align="center"  width="150" ><b>제목</b></th> 
       <th align="center"  width="50" ><b>보낸사람</b></th>
-      <th align="center"  width="100" ><b>일시</b></th>
+       <th align="center"  width="50" ><b>수신여부</b></th>
+      <th align="center"  width="120" ><b>일시</b></th>
       
     </tr>
 
@@ -370,11 +371,19 @@ function checkSub(chk){
    
     <tr>
     
-    <th align="center"  width="20"  > <b><input type="checkbox" name="RowCheck" value="${article.msg_num}" /></b></th>
-    <td align="center">${article.msg_cate} </td>
-	<td align="center"><a href="/JackPot/msgcont.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
+    <th align="center"  width="30"  > <b><input type="checkbox" name="RowCheck" value="${article.msg_num}" /></b></th>
+    <td align="center" width="40">${article.msg_cate} </td>
+	<td align="center" width="150"><a href="/JackPot/msgcont.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
     <td align="center"  width="50">${article.msg_send} (${article.emp_num})</td>
-    <td align="center"  width="100"> ${article.msg_read} </td>
+    <td align="center"  width="50">
+         <c:if test="${article.ref == 0}">
+           읽지않음
+         </c:if>          
+         <c:if test="${article.ref == 1}">
+         읽음
+         </c:if>         
+         </td>
+    <td align="center"  width="120"> ${article.msg_read} </td>
   </tr>
   </c:forEach>
 </table>

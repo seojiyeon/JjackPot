@@ -15,6 +15,12 @@
             select count(*) from message where ref=0 and msg_rid=#msg_rid# and msg_rd='no'
         </select>
         
+        <select id="msgAcnt" resultClass="int" parameterClass="String">
+            select count(*) from message where ref=0 and msg_rid=#msg_rid# and msg_rd='no'
+        </select>
+        
+        
+        
         <select id="msgFind" resultClass="empDTO" parameterClass="String">
             select * from emp where emp_name=#emp_name#
         </select>

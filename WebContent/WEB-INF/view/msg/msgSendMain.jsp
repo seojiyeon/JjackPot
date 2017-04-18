@@ -353,14 +353,14 @@ function msgfind(){
 
 <form action="msgDel2.jp" name="chk" method="post" onSubmit="return checkSub(document.chk)">
 
-<table width="100%" cellpadding="0" cellspacing="0" align="center"> 
+<table width="1000" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30"  > 
-     <th align="center"  width="20"  > <b><input id="allCheck" type="checkbox" onclick="allChk(this);"/></b></th>
-     <th align="center"  width="50"  > <b>분류</b></th> 
-      <th align="center"  width="100" ><b>제목</b></th> 
+     <th align="center"  width="30"  > <b><input id="allCheck" type="checkbox" onclick="allChk(this);"/></b></th>
+     <th align="center"  width="40"  > <b>분류</b></th> 
+      <th align="center"  width="150" ><b>제목</b></th> 
       <th align="center"  width="50" ><b>받는사람</b></th>
       <th align="center"  width="50" ><b>수신여부</b></th>
-      <th align="center"  width="100" ><b>일시</b></th>
+      <th align="center"  width="120" ><b>일시</b></th>
       
     </tr>
 
@@ -368,9 +368,9 @@ function msgfind(){
  <c:forEach var="article" items="${articleList}" >
    
     
-    <th align="center"  width="20"  > <b><input type="checkbox" name="RowCheck" value="${article.msg_num}" /></b></th>
-    <td align="center">${article.msg_cate} </td>
-	<td align="center"><a href="/JackPot/msgcont2.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
+    <th align="center"  width="30"  > <b><input type="checkbox" name="RowCheck" value="${article.msg_num}" /></b></th>
+    <td align="center" width="40">${article.msg_cate} </td>
+	<td align="center" width="150"><a href="/JackPot/msgcont2.jp?msg_num=${article.msg_num}">${article.msg_title}</a></td>	
     <td align="center"  width="50">${article.msg_receive} (${article.msg_rid})</td>
     <td align="center"  width="50">
          <c:if test="${article.ref == 0}">
@@ -382,7 +382,7 @@ function msgfind(){
          </c:if>
          
          </td>
-    <td align="center"  width="100"> ${article.msg_read} </td>
+    <td align="center"  width="120"> ${article.msg_read} </td>
   </tr>
   </c:forEach>
 </table>
