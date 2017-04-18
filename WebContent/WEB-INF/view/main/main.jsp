@@ -35,6 +35,7 @@ function whenError(){
 
 $(document).ready(function(){
     $("#ajaxReturn").click(function(){
+    	$("#ajaxReturn").hide();
         open("/JackPot/msgmain.jp","쪽지보내기","width=1200, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
     });    
 });
