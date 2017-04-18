@@ -1,41 +1,57 @@
 @CHARSET "UTF-8";
 
 html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px; scrolling:no;}
+select {border-radius: 3px;border-color: darkgray;height: 27px;}
+input {border-radius:3px;border:1px solid darkgray;height: 27px;padding-left: 5px;}
+form {display: inline-block;}
 
 #page-container{position: relative;min-height: 100%; min-width: 1200px; background:#fff;}
-
 #sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
-
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
 
 #leftmenu{position:fixed;top:0;width:210px;height:100%;}
-.leftmenu-top{height:10%;width:210px;background: #363636;text-align:center;display:inline-block;}
+.leftmenu-top{position: relative;height: 65px;line-height:65px;text-align: center;background:#363636;font-size:20;font-weight: 700;}
 .leftmenu-top a{color:white;text-decoration:none;}
+.leftmenu-menu{position:relative;width:210px;height:100%;}
+.leftmenu-menu-button{}
+.calendar-insert-bt{margin:10;padding:3 66 3 68;background: white;border: 1px solid darkgray;border-radius: 3px;}
+.leftmenu-department {border-bottom: 1px solid lightgray;}
+.leftmenu-department ul{padding:0;margin:0;}
+.leftmenu-department button{margin:2;line-height:20px;line-height:2px;}
 
 #leftmenuarea{position:relative;height:100%;display: inline-block;width: 210px;}
-.boardmenu a{cursor:pointer;}
-.boardmenu .hide{display:none;}
-
+.departmentmenu a{cursor:pointer;font-size:18;width:210px;height:35;display:inline-block;}
+.departmentmenu li button{border-radius:3px;border:1px solid darkgray;height:20px;background-color:white;width:190;}
+.branchmenu {margin: 5 0 0 0;}
+.branchmenu a{cursor:pointer;font-size:18;width:210px;height:35;display:inline-block;}
+.branchmenu li button{border-radius:3px;border:1px solid darkgray;height:20px;background-color:white;width:190;}
 #main-container{position:fixed;left:270px;top:0;width:85%;height:100%;} 
-#main-constop{position:fixed;height:60px;top:0px;width:85%;}
+#main-constop{position:fixed;height:60px;top:0px;width:85%;left:270px;}
 #main-contents{position:fixed;left:270px;top:60px;width:85%;height:100%;}
 .menulist a {text-decoration:none;}
 
+#layer1 {position:fixed;left:50%;top:10%;background:white;display:none;border:1px solid gray;width: 415;}
+#calendarform {display: inline-block;}
+.calendarformTop {line-height: 35px;background: #555154;color: white;text-align: center;}
+.calendarform {}
+.calendarform ul {list-style:none;-webkit-padding-start: 10px;display: inline-block;margin:7 0 0 0;}
+.calendarform li {list-style:none;display:inline-block;max-width:398px;}
+.calendarform ul li {}
+.btn{}
+.btn ul{list-style:none;float:right;width:100%;padding:0px;margin:0px;}
+.btn li{border:1px solid darkgray;padding:2;border-radius:4px;margin: 0 3 0 3;display: inline-block;float: right;}
+.btn li a{text-decoration:none;}
+#participants{border-radius:0px;border-top-left-radius:3px;border-bottom-left-radius:3px;width:363px;}
+#addparticipants{line-height:25px;width:35px;border:1px solid darkgray;border-left:none;border-top-right-radius:3px;border-bottom-right-radius:3px;}
+
+#layer2 {position:fixed;top:5%;left:20%;background:white;display:none;border:1px solid gray;}
 .contents{}
 .contentsTop{border-bottom:1px solid black;line-height:35px;background:#555154;color:white;text-align:center;}
 .contentsbody{margin:0 10 10 10;display:inline-grid;width:95%;}
 .contentsbody ul {list-style:none;}
 .contents-date{}
-.contents-subject{border-top:1px solid gray;}
-.contents-info{border-top:1px solid gray;}
-.contents-writer li{display:inline-block;padding-right:35px;}
-.contents-conts{border-top:1px solid gray;}
-.btn{}
-.btn ul{display:inline-block;float:right;}
+.contents-subject{border-top:1px solid lightgray;}
+.contents-info{border-top:1px solid lightgray;}
+.contents-writer li{display:inline-block;padding-right:35px;margin:0 0 5 0;}
+.contents-conts{border-top:1px solid lightgray;}
 
-.calendarform {}
-.calendarform ul {list-style:none;}
-.calendarform li {list-style:none;display: inline-block}
-.calendarform ul li {}
-
-#layer1 {position:fixed;left:50%;top:10%;background:pink;display:none;}

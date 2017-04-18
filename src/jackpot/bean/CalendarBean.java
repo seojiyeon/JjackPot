@@ -94,11 +94,10 @@ public class CalendarBean {
 	}
 
 	@RequestMapping("/calendarcontents.jp")
-	public String contents(HttpServletRequest request, Model model,calendarDTO cdto){
+	public @ResponseBody calendarDTO contents(HttpServletRequest request,HttpServletResponse response ,calendarDTO cdto){
 		String id = request.getParameter("id");
 		calendarDTO contents = (calendarDTO) sqlMap.queryForObject("calendar.getcontents", id);
-		model.addAttribute("contents",contents);	
-		return "/calendar/calendarcontents";
+		return contents;
 	}
 	
 	@RequestMapping("/calendarinsert.jp")

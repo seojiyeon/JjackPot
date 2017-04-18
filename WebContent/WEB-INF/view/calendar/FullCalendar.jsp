@@ -17,6 +17,21 @@
         max-width : 1400px;
         margin : 0 auto;
     }
+    
+.fc-day.fc-widget-content.fc-sat.fc-other-month.fc-past{background-color: #F2F2F2;}
+.fc-day.fc-widget-content.fc-sat.fc-past{background-color: #F2F2F2;}
+.fc-day.fc-widget-content.fc-sat.fc-future{background-color: #F2F2F2;}
+    
+.fc-day.fc-widget-content.fc-sun.fc-other-month.fc-past{background-color: #F2F2F2;}
+.fc-day.fc-widget-content.fc-sun.fc-past{background-color: #F2F2F2;}
+.fc-day.fc-widget-content.fc-sun.fc-future{background-color: #F2F2F2;}
+    
+.fc-day-top.fc-sat.fc-past { color:#0000FF; }
+.fc-day-top.fc-sat.fc-future { color:#0000FF; }
+.fc-day-top.fc-sun.fc-past { color:#E60012; } 
+.fc-day-top.fc-sun.fc-future { color:#E60012; }  
+
+.fc-day.fc-widget-content.fc-tue.fc-today.fc-state-highlight{background-color:#FFEDF7;}
 </style>
 
 <link href="css/fullcalendar.css" rel="stylesheet"/>
@@ -36,7 +51,7 @@ jQuery(document).ready(function() {
 		, header: {
 			left: 'prev,next today',
 			center: 'title',
-			right: 'month,agendaWeek,agendaDay,listWeek'
+			right: 'month,agendaWeek,agendaDay,listMonth'
 		}
         , defaultView: 'month'
         , editable : true
@@ -47,7 +62,7 @@ jQuery(document).ready(function() {
         , navLinks: true // can click day/week names to navigate views
 		, weekNumbers: true
 		, weekNumbersWithinDays: true
-		, weekNumberCalculation: 'ISO'
+		, weekNumberCalculation: '0'
         ,  
         events: function(start, end, timezone, callback) {          //DB에서 이벤트 불러오기
             $.ajax({
@@ -84,12 +99,29 @@ jQuery(document).ready(function() {
             } 
         }
     
-        ,   eventClick: function(event, element) { // 이벤트 제목 클릭
-			window.open("http://localhost:8080/JackPot/calendarcontents.jp?id="+event.id,'contents','top=200px,left=500px,height=350px,width=450px')
+        ,   eventClick: function(event, element) {
+			$.ajax({
+				type :"post",
+				url :"http://localhost:8080/JackPot/calendarcontents.jp",
+				data : {id:event.id},
+				success : function(contents){
+					if(contents.cl_edate == null){
+						$(".contents-date").html("<ul><li>"+contents.cl_sdate+" "+contents.cl_stime+"<li><ul>");
+					}else{$(".contents-date").html("<ul><li>"+contents.cl_sdate+" "+contents.cl_stime+" ~ "+contents.cl_edate+" "+contents.cl_etime+"<li><ul>");}
+					$(".contents-subject").html("<ul><li>["+contents.cl_title+"] "+contents.cl_subject+"<li><ul>");
+					$(".contents-writer").html("<li><font color="+"#f05050 !important;"+">[등록자] </font>"+contents.cl_writer+"</li><li>"+"등록일 : "+contents.cl_sdate+"</li>"+"<br/>"+"<font color="+"#f05050 !important;"+">[참여자] </font>"+contents.cl_participants);
+					$(".contents-conts").html("<ul><li>"+contents.cl_contents+"<li><ul>");
+				}, 
+				error : function(){
+					alert("error");
+				}
+				});
+			layer_open('layer2');
         }
         
-        ,	dayClick: function() { // 일 클릭
-        	/* window.open("http://localhost:8080/JackPot/calendarinsert.jp",'insert','top=200px,left=500px,height=550px,width=430px ') */
+        ,	dayClick: function(date) {
+        	var date = (moment(date).format('YYYY-MM-DD'));
+        	document.getElementById("sdate").value=date;
         	layer_open('layer1');
         }
     });
