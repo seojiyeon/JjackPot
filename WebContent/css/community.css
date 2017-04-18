@@ -16,12 +16,18 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 .boardmenu a{cursor:pointer;}
 .boardmenu .hide{display:none;}
 
-#main-container{height:100%;padding:20px;padding-top:0;} 
-table {
-    display: table;
-    border-collapse: separate;
-    border-spacing: 2px;
-    border-color: grey;
+#main-container{height:100%;padding:20px;padding-top:0; width:1000px;} 
+
+
+table { border-spacing: 0; width:100%; max-width:100%; table-layout:fixed; border-collapse:collapse; background-color:#fff; }
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th { background-color: #f9f9f9 }
+.table-striped.striped02 > tbody > tr > td {/* background-color: #f9f9f9 */ border-top:1px #eee solid;}
+.table-striped.striped02 > tbody > tr:nth-child(1) > td { background-color: #f9f9f9 }
+.table-striped.striped02 > tbody > tr:nth-child(4n-1) > td { background-color: #fff }
+
+
+tbody{
+	text-decoration-line: initial;
 }
 
 body {
@@ -38,7 +44,7 @@ thead {
     border-color: inherit;
 }
 #main-contents{position:fixed;left:270px;top:0;width:85%;height:100%;}
-th {display: table-cell; width:45px;   vertical-align: inherit;}
+th {display: table-cell; width:200px;   vertical-align: inherit;}
 .menulist a {text-decoration:none;}
 .table-header { position:relative; height:50px; /*margin:0 20px;*/ border-bottom:2px solid #e5a1a1; background:#fff; }
 .pop-layer {display:none; position:fixed; top: 50%; left: 50%; width: 280px; height:350px;  background-color:#fff; border: 1px solid black; z-index: 10;}	
@@ -83,9 +89,20 @@ th {display: table-cell; width:45px;   vertical-align: inherit;}
 }
 
 .content-list {
+	font-family: "Nanum Gothic", NanumGothic, 나눔고딕, NanumGothic, ng, 돋움, Dotum, Helvetica, "Apple SD Gothic Neo", sans-serif;
+    color: rgb(17, 17, 17);
+    font-size: 1.2em;
+    font-weight: normal;
     border-top: 1px solid #d1d1d1;
     /* margin: 0 20px; */
     margin-top: -1px;
+}
+.content-list .table > tbody > tr > td {
+    padding: 3px 5px;
+    height: 34px;
+    line-height: 18px;
+    color: #333;
+    text-align: center;
 }
 .ellipsis {
     text-overflow: ellipsis;
@@ -104,6 +121,7 @@ th {display: table-cell; width:45px;   vertical-align: inherit;}
     border-collapse: collapse;
     background-color: #fff;
 }
+
 
 .body {
     font-family: "Nanum Gothic", NanumGothic, 나눔고딕, NanumGothic, ng, 돋움, Dotum, Helvetica, "Apple SD Gothic Neo", sans-serif;
@@ -124,7 +142,14 @@ th {display: table-cell; width:45px;   vertical-align: inherit;}
     right: 0;
     top: 11px;
 }
-.content-view .board-header {
+.board-header {
+    background: #f5f5f5;
+    padding: 16px 100px 18px 26px;
+    overflow: hidden;
+    clear: both;
+    border-bottom: 1px solid #e5e5e5;
+}
+.content-view  {
     background: #f5f5f5;
     padding: 16px 100px 18px 26px;
     overflow: hidden;
@@ -141,6 +166,12 @@ th {display: table-cell; width:45px;   vertical-align: inherit;}
 .content-view .board-header h3 i {
     position: relative;
     margin-right: 6px;
+}
+.content-view {
+    position: relative;
+    width: auto;
+    vertical-align: top;
+    background-color: #fff;
 }
 
 i.icon.nonimp {
@@ -193,8 +224,49 @@ i.icon.nonimp {
 .con-header {
     position: relative;
     height: 65px;
-    /* margin: 0 20px; */
+    margin: 0 20px;
     padding: 25px 0 0 0;
     border-bottom: 1px solid #d1d1d1;
     background: #fff;
 }
+div {
+    display: block;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+caption {
+    display: table-caption;
+    text-align: -webkit-center;
+}
+h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+.content-view .board-header .recommend {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background-color: #fff;
+}
+.content-view .message-body {
+    line-height: 22px;
+    min-height: 300px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+

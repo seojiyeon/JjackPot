@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/JackPot/css/community.css?ver=1" rel="stylesheet" type="text/css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="/JackPot/css/community.css?ver=10" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
-<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<title> 커뮤니티 </title>
+
+
+<html lang="ko">
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>게시판</title>
 
 			<script src="resource/ckeditor.js"></script> 
 			<script type="text/javascript" >
@@ -388,41 +392,68 @@ Dropzone.options.myDropzone = {
 		</div>
 	</div>
 
-	<div id="main-container" style="position: fixed;top: 0;left: 500; width:800px;">
-	
+
+	<div id="main-container" style="position: fixed;top: 0;left: 500; width:1000px;">
+
+
+<form id="searchBoardItemForm" method="post" action="/groupware/board/boardItem/listAllBoardItemView.do?OWASP_CSRFTOKEN=F6OS-N4UJ-E4IX-UB6G-XT7A-DZ9R-2H1Z-CWSY">
+
+<input name="sortColumn" type="hidden" value="">
+ 		
+
+<input name="sortType" type="hidden" value="">
+ 
+
+<input name="boardId" type="hidden" value="">
+  
+
+<input name="layoutType" type="hidden" value="layoutNormal">
+   
+
+<input name="actionType" type="hidden" value="">
+      
+
+<input name="popupYn" type="hidden" value="false">
+
+
+<input name="boardRootId" type="hidden" value="0">
+
 	<div class="con-header">
 	<h2>
 		최근게시글
 	</h2>
+	
 	<div id="navText" class="breadcrumb-line"></div>
 </div>
 
 <div class="ins-box">
-	
-	  <li>
+	<ul >
+	  <li style="display: inline-block">
 	  </li>
-	  
+	   <li style="display: inline-block">
+	  </li>
+	 </ul> 
 	
 </div>
-
+<caption></caption>
 		
 	<div class="content-list">			
 		<table class="table table-striped">   
 		<caption></caption> 
 		<colgroup>
 		<col style="width: 50px;">
+		<col style="width: 300px;">
+		<col style="width: 160px;">
+		<col style="min-width:200px;">
 		<col style="width: 200px;">
-		<col style="width: 120px;">
-		<col style="min-width:100px;">
-		<col style="width: 150px;">
 		<col style="width: 90px;">
 		<col style="width: 75px;">
 		<col style="width: 75px;">
-		</colgroup><thead>
-	
+		</colgroup>
 	
 	
 	<thead>
+	
 			<tr>
 				<th scope="col">
 					번호
@@ -448,21 +479,21 @@ Dropzone.options.myDropzone = {
 				
 			</tr>
 			
-			<tr>
+			</thead>
 		
-							
-	<ul style="list-style:none;">
-	<li>
-	<c:forEach var="article" items="${list}" varStatus="status">
+		<tbody>				
+
 	
 	<tr class="boardItemLine" style="background: rgb(249, 249, 249);">
+	<c:forEach var="article" items="${list}" varStatus="status">
+	
 						
 						<td align="center">
 					        ${article.com_num }  
 						</td>
 						
 						<td>
-							<a title="${article.title}" class="boardItem" href="/JackPot/content.jp?com_num=${article.com_num}">${article.title }</a>
+							<a style="text-decoration-line: initial;" title="${article.title}" class="boardItem" href="/JackPot/content.jp?com_num=${article.com_num}">${article.title }</a>
 						</td>
 						
 						
@@ -487,20 +518,11 @@ Dropzone.options.myDropzone = {
 					
 				
 	</c:forEach>
-	</li>
-	</ul>
-		</th>
-			
-			</tr>
-		</thead> 
-		<tbody>
-		</tbody>
-			
-			    
-
-
-</thead>
-</table>
+	</tbody>
+	
+		</tr>
+		</table>
+	</form>	
 	
 	</div>
 	</div>

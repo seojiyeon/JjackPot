@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/JackPot/css/community.css?ver=1" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=10" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
-<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <head>
+ 
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>내용</title>
 
 			<script src="resource/ckeditor.js"></script> 
 			<script type="text/javascript" >
@@ -391,46 +396,79 @@ Dropzone.options.myDropzone = {
 <div id="main-contents">
 	
 	<div class="con-header bdr-b">
-	<h2>
+	<h3>
 		자유게시판
-	</h2>
+	</h3>
+	<div id="navText" class="breadcrumb-line"></div>
+	</div>
 	
-	<div class="board-header">
-	
-			<h3>	
-				<i class="icon nonimp">
-				   ${dto.content }
-				</i>
+
+      <div class="content-wrap">
+      
+      
+ <div class="board-header">
+	<h3>	
+						<i class="icon nonimp"></i>	
+				
+				 ${dto.title }
+
+
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">추천하기 </font>
+				<a id="recommend" href="/JackPot/like.jp?com_num=${dto.com_num}"> 	
+							
+				<img src="/JackPot/save/like (2).png" width="30" height="30">						   
 					
-		
+				</a>
 			</h3>
-   
+			
+
 <ul class="writer-info mt15">
-				<li>
-				<span class="ellipsis">${dto.writer}</span>
+			
+				
+				<li style="display:-webkit-inline-box;">
+					
+						<span class="ellipsis"> ${dto.writer }</span>
+						<span class="txt_bar"></span>
+					
+				</li>
+				<li style="display:-webkit-inline-box;">
+					<span class="num"> ${dto.reg_date}</span>
 					<span class="txt_bar"></span>
 				</li>
-<li>
-         <span class="num">${dto.reg_date }</span>
-</li>
-<li>
-           <a id="recommend" href="#a" class=""> 							
-					<p class="num"><span id="recommendCount">0+</span></p>							   
-					<p class="doc"><i class="fa fa-thumbs-o-up fa-fw"></i> 추천</p>
-				</a></li></ul>
-				
-</div>
-</div>
+				<li style="display:-webkit-inline-box;">
+					
+						<span class="ellipsis"> 추천수 : ${dto.recommend }</span>
+						<span class="txt_bar"></span>
+						</li>
+				<li style="display:-webkit-inline-box;">
+					
+						<span class="ellipsis"> 조회수 : ${dto.readcount }</span>
+			   </li>		
+			</ul>		
+	
+		</div>
 
+<div class="panel-body message-body">
+		 
+	    <div id="boardItemContent" class="contentsBody">
+          
+			
+		 ${dto.content}
 
-</td>
-</tr>
-
-</div>
-
-
-
+			 
+           
+        </div>
+        <br>
+        
+            
+        
+	</div>
+	
     
+</div>
+</div>
+</div>
+</html>
 
 
 

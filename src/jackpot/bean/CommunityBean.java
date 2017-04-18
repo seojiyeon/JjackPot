@@ -57,7 +57,7 @@ public class CommunityBean {
 	    sqlMap.update("comm.readCount",com_num);
 	    
 	    communityDTO dto=(communityDTO)sqlMap.queryForObject("comm.content", com_num);
-	    
+	    dto.setCom_num(com_num);	    
 		model.addAttribute("dto",dto);
 
 		 
@@ -65,4 +65,16 @@ public class CommunityBean {
 		
 	}
 	
+	@RequestMapping("/like.jp")
+	public String like(Model model, HttpServletRequest request){
+	     int com_num=Integer.parseInt(request.getParameter("com_num"));
+	     System.out.println(com_num);
+	     
+	     sqlMap.update("comm.recommend",com_num);
+	     
+	     model.addAttribute("com_num",com_num);
+
+		 
+		return "/community/like";
+       }
 }

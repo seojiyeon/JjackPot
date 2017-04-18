@@ -23,6 +23,9 @@
             select com_num,title,content,writer,reg_date,readcount,recommend,ref,re_step,re_level from community where com_num =#com_num#
       </select>
     
+      <update id="recommend" parameterClass="int">
+      update community set recommend=recommend+1 where com_num =#com_num#
+      </update>
     
         
 </sqlMap>
