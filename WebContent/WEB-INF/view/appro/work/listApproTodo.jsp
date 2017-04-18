@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<title>JackPotware_전자결재</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link href="/JackPot/css/appr.css?ver=1" rel="stylesheet" type="text/css">
+	<link href="/JackPot/css/appro.css?ver=1" rel="stylesheet" type="text/css">
 	<link href="/JackPot/css/basic.css?ver=1" rel="stylesheet" type="text/css">
 	<link href="/JackPot/css/common.css?ver=1" rel="stylesheet" type="text/css">
 	<link href="/JackPot/css/sub.css?ver=1" rel="stylesheet" type="text/css">

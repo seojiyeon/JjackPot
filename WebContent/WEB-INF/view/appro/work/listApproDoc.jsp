@@ -4,15 +4,12 @@
 
 <jsp:useBean id="toDay" class="java.util.Date" />
 <fmt:formatDate value="${toDay}" pattern="yyyy.MM.dd" var="tdate"/>
-
-<link href="/JackPot/css/appr.css?ver=2" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/appro.css?ver=2" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/basic.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/theme.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/common.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/quick.css?ver=1" rel="stylesheet" type="text/css">
-
 <html>
-
 <head>
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="resource/ckeditor.js"></script>
@@ -20,7 +17,7 @@
  	<script src="/JackPot/js/jquery.bpopup.min.js"></script>
  	<script src="//code.jquery.com/jquery.min.js"></script>
  	
-	<script type="text/javascript">
+<script type="text/javascript">
 
 	function layer_open(el){
 
@@ -82,8 +79,6 @@
 		<div id="leftmenu">
 		전자결재
 		(중간사이드)
-		
-		 
 			<table>
 				<tr>
 					<td>
@@ -123,22 +118,19 @@
 				</h2>
 				<div id="navText" class="breadcrumb-line"></div>
 			</div>
-			
-    <div id="formButtonDiv" class="btn-wrap pt10">
-    	<a href="#" onclick="layer_open('layer1');return false;">팝업띄우기</a>
-	    <button id="addApprLineButton" 				type="button" class="btn btn-color5 br">결재선</button>
+	
+    <div class="content-wrap approval responsive">
+    <div class="content-write">
+    <form id="apprDocForm" name="apprDocForm" method="post" action="/JackPot/listApproDocPro.jp" enctype="multipart/form-data">
+		<h2>기안용지</h2>
+				
+		<div id="formButtonDiv" class="btn-wrap pt10">
+    	<a href="#" onclick="layer_open('layer1');return false;"><button id="addApprLineButton" type="button" class="btn btn-color5 br">결재선</button></a>
 	    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재요청</button>
 	    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">기결재첨부</button>
 	    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
 	    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
-    </div>
-    
-
-	
-    <div class="content-wrap approval responsive">
-    <div class="content-write">
-    <form id="apprDocForm" name="apprDocForm" method="post" action="/groupware/approval/work/apprWorkDoc/createApprDoc.do?OWASP_CSRFTOKEN=ZVYQ-0QVM-UKZ0-ENWZ-M9UY-HVY9-A9F5-V5BE" novalidate="novalidate">
-				<h2>기안용지</h2>
+    	</div>
 				<div class="appline-wrap">
 					<div class="fright" id="apprLine0Tr" style="display: block;">
 						<div class="fleft">	
@@ -163,7 +155,7 @@
 												
 					</div>
 					<br/>
-					<input id="test1" type="text"><br/><input id="test2" type="text"><br/><input id="test3" type="text">
+
 					<div class="clearfix">
 						<div class="fright" id="apprLine1Tr" style="display: none; width: 0px;">
 							<table class="appline-lst">
@@ -244,18 +236,20 @@
 						
 					</div>
 				</div>
-			</form>
-	</div>
-			</div>
-	<div id="formButtonDiv" class="btn-wrap pt10">
+					<div id="formButtonDiv" class="btn-wrap pt10">
 	    <button id="addApprLineButton" 				type="button" class="btn btn-color5 br">결재선</button>
 	    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재요청</button>
 	    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">기결재첨부</button>
 	    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
 	    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
     </div>
+     </form>
 	</div>
-		</div>
+			</div>
+
+   
+	</div>
+</div>
 </div>
 	<div id="layer1" class="pop-layer">
 		<form id="approForm" action="*" method="post">

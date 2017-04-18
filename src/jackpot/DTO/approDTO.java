@@ -1,24 +1,35 @@
 package jackpot.DTO;
 
+import java.sql.Timestamp;
+
 public class approDTO {
 
-	private String doc_num;
-	private String doc_date;
-	private String doc_finish;
-	private String emp_num;
-	private String emp_name;
-	private String doc_title;
-	private String doc_content;
-	private String style_num;
-	private String doc_division;
-	private String start_work;
-	private String end_work;
-	private String doc_state;
-	private String doc_count;
-	private String doc_step;
-	private int branch;
-	private int department;
-	private int position;
+	private String doc_num; 		//문서번호
+	private String doc_date;		//기안일자(상신날짜)
+	private String doc_finish;		//결재완료일(마감날짜)
+	private String emp_num;			//기안사원번호(상신자의사원코드)
+	private String emp_name;		//기안자(작성자)이름(상신자의 사원이름)
+	private String doc_title;		//문서제목(상신문서 제목)
+	private String doc_content;		//문서내용(상신문서 내용)
+	private String style_num;		//양식번호
+	private String doc_division;	//문서종류
+	private String start_work;		//근태시작일
+	private String end_work;		//근태종료일
+	private String doc_state;		//결재상태
+	private String doc_count;		//결재받을 사람 수(결재권자 수)
+	private String doc_step;		//결재단계
+	private int branch;				//기안자소속지점
+	private int department;			//기안자소속부서(상신자의부서이름)
+	private int position;			//기안자직급(상신자의 직급)
+	
+	private String dec_num;			//번호
+	private String dec_name;		//결재권자 이름(결재자의 이름)
+	private String dec_branch;		//결재권자 지점
+	private String dec_depart;		//결재권자 부서(결재자의 부서이름)
+	private String dec_position;	//결재권자 직급(결재자의 직급)
+	private String sign_img;		//결재권자 서명(결재자의 서명)
+	private String dec_empnum;		//결재권자 사원번호(결재자의 시원코드)
+	private Timestamp sign_date;	//결재권자 승인날짜(결재날짜)
 	
 	
 	public String getDoc_num() {
@@ -123,5 +134,54 @@ public class approDTO {
 	public void setPosition(int position) {
 		this.position = position;
 	}
+	public String getDec_num() {
+		return dec_num;
+	}
+	public void setDec_num(String dec_num) {
+		this.dec_num = dec_num;
+	}
+	public String getDec_name() {
+		return dec_name;
+	}
+	public void setDec_name(String dec_name) {
+		this.dec_name = dec_name;
+	}
+	public String getDec_branch() {
+		return dec_branch;
+	}
+	public void setDec_branch(String dec_branch) {
+		this.dec_branch = dec_branch;
+	}
+	public String getDec_depart() {
+		return dec_depart;
+	}
+	public void setDec_depart(String dec_depart) {
+		this.dec_depart = dec_depart;
+	}
+	public String getDec_position() {
+		return dec_position;
+	}
+	public void setDec_position(String dec_position) {
+		this.dec_position = dec_position;
+	}
+	public String getSign_img() {
+		return sign_img;
+	}
+	public void setSign_img(String sign_img) {
+		this.sign_img = sign_img;
+	}
+	public String getDec_empnum() {
+		return dec_empnum;
+	}
+	public void setDec_empnum(String dec_empnum) {
+		this.dec_empnum = dec_empnum;
+	}
+	public Timestamp getSign_date() {
+		return sign_date;
+	}
+	public void setSign_date(Timestamp sign_date) {
+		this.sign_date = sign_date;
+	}
+	
 	
 }

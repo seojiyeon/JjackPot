@@ -19,6 +19,10 @@
         <select id="department" resultClass="String" parameterClass="int">
         select department from department where num=#emp_department#
         </select>
+        
+        <select id="docu_content" resultClass="jackpot.DTO.apDocDTO" parameterClass="int">
+			select * from document where no = #no#
+		</select>
        
         
 </sqlMap>
