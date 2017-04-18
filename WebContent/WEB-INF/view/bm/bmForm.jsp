@@ -7,27 +7,32 @@
 <!-- // jQuery 기본 js파일 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <!-- // jQuery UI 라이브러리 js파일 -->
+<script type="text/javascript" charset="UTF-8" src="/comon/ETC/js/jquery.leanModal.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=4" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
 
+<script>
+     function openInchar(userEnroll) {
+      url = "/JackPot/incharPop.jp"
+      
+      open(url, "inchar", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
+   }  
+   
 
 
-   <script type="text/javascript">
-		CKEDITOR.replace('editor',
-			{
-				width : '700px',  // 입력창의 넓이, 넓이는 config.js 에서 % 로 제어
-				height : '200px',  // 입력창의 높이
-                startupFocus : false
-			}
-        );
-   </script>
+   
+</script>
+
+
+
+
 <title> 업무관리</title>
 </head>    
  <body>
@@ -103,7 +108,7 @@
 			</div>
 			</div>
 			
-				
+
 <div id="main-contents">
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
@@ -168,28 +173,36 @@
                                 </span>
                             </td>
                         </tr>
-                        <tr id="workerTR">
+                        <tr>
                             <th id="inchar_name" scope="row">
                             	<span class="text-point-b">*</span>담당자</th>
                             <th id="rec_name" scope="row" style="display:none;">
-                            	<span >*</span>수신자</th>
+                            	<span >*</span>수신자
+                            </th>
+                            	
                             <td>
-                                <div id="selectUser1" class="input-group organization">
+                                <div  class="input-group organization">
                                 <div id="selectUser1_div" class="tagsinput">
-                                	<input type="text" title="사용자" id="selectUser1_input" placeholder="사용자" style="box-shadow:none;">
-                                </div>
-                                   	<a href="#a" title="사용자" class="btn input-group-addon btn-color5 br"><i class="icon man-plus"></i>
-                                		<span class="none">사용자</span>
-                                	</a>
-                                </div>
+                                 
+                                 <input type="text" title="사용자" name="inchar_name" placeholder="사용자" style="box-shadow:none;"></div>
+                                 <a href="#a" title="사용자" class="btn input-group-addon btn-color5 br">
+                                 <i class="icon man-plus"></i><span class="none">사용자</span></a></div>
+
+                             
+                                
                             </td>
                         </tr>
+                        
                         <tr id="worker2TR">
                             <th scope="row">참조자</th>
                             <td>
-                                <div id="selectUser2" class="input-group organization"><div id="selectUser2_div" class="tagsinput"><input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;"></div><a href="#a" title="사용자" class="btn input-group-addon btn-color5 br"><i class="icon man-plus"></i><span class="none">사용자</span></a></div>
+                                <div id="selectUser2" class="input-group organization"><div id="selectUser2_div" class="tagsinput">
+                                <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;"></div>
+                                <a href="#a" title="사용자" class="btn input-group-addon btn-color5 br">
+                                <i class="icon man-plus"></i><span class="none">사용자</span></a></div>
                             </td>
                         </tr>
+                        
                         <tr id="alarmTR">
                             <th scope="row">등록 알림</th>
                             <td>
@@ -197,6 +210,7 @@
                                 <input name="reg_notice" type="checkbox" title="푸시 발송 " value="3"> 푸시 발송 &nbsp;&nbsp;
                             </td>
                         </tr>
+                        
                         <tr id="rAlarmTR">
                             <th scope="row">완료 알림</th>
                             <td>
@@ -219,7 +233,7 @@
                         <tr id="categoryTR3">
                             <th scope="row"><label for="related_bns">관련업무</label></th>
                             <td>
-                                <button type="button" class="btn btn-color7 br" onclick="javascript:selectTodoViewPopup();">관련업무 추가</button>
+                                <button type="button" class="btn btn-color8 br" onclick="javascript:selectTodoViewPopup();">관련업무 추가</button>
                                 <div id="addTask"></div>
                             </td>
                         </tr>
@@ -232,8 +246,8 @@
 					<div>
 						<textarea class="ckeditor" cols="1" id="bm_content" name="bm_content" rows="15"></textarea>
 						<script type="text/javascript">
-							CKEDITOR.replace('editor')
-                            );
+							CKEDITOR.replace('editor2')
+                            
 						</script>
 						
 					</div>

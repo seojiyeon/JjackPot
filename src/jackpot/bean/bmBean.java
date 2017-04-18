@@ -1,5 +1,5 @@
 package jackpot.bean;
-import java.sql.Timestamp;
+
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import jackpot.DTO.bmDTO;
-import oracle.sql.DATE;
+import jackpot.DTO.orgDTO;
+
 
 @Controller
 
@@ -64,6 +65,19 @@ public class bmBean {
 		return "/bm/bmFormPro";
 
 	}
+	
+	/*´ã´çÀÚuserPop*/
+	
+	@RequestMapping("/incharPop.jp")
+	public String incharPop(orgDTO odto,Model model,HttpSession session){
+		
+		List emp_d = sqlMap.queryForList("org.bm_org_department",null);
+		System.out.println(emp_d);
+		model.addAttribute("emp_d",emp_d);
+		return "/bm/incharPop";
+
+	}
+	
 	
 	
 }
