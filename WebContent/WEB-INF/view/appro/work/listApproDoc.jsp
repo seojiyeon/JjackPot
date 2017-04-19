@@ -286,7 +286,7 @@
 			<a href="#" class="cbtn">닫기</a>
 		</div>
 		</div>
-				
+		<input type="hidden" value="${temp_num}" name="temp_num" class="temp_num" />
 
 </body>
 </html>

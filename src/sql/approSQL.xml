@@ -17,12 +17,63 @@
         </select>
         
         <select id="department" resultClass="String" parameterClass="int">
-        select department from department where num=#emp_department#
+        	select department from department where num=#emp_department#
         </select>
         
-        <select id="docu_content" resultClass="jackpot.DTO.apDocDTO" parameterClass="int">
-			select * from document where no = #no#
+        <select id="docu_content" resultClass="jackpot.DTO.approDTO" parameterClass="int">
+			select * from document where doc_num = #doc_num#
+		</select>
+		
+		<select id="workInfo" resultClass="jackpot.DTO.workDTO" parameterClass="jackpot.DTO.workDTO">
+			select * from work where emp_num=#emp_num#
+		</select>
+		
+		<delete id="comment_delete" parameterClass="jackpot.DTO.approDTO">
+			delete com_article where doc_num=#doc_num#
+		</delete>
+		
+		<delete id="return_delete" parameterClass="jackpot.DTO.approDTO">
+			delete appro_file where doc_num=#doc_num#
+		</delete>	
+		
+		<select id="temp_check" resultClass="int" parameterClass="jackpot.DTO.approDTO">
+			select count(*) from appro where temp_num=#temp_num#
 		</select>
        
+       <delete id="temp_delete" parameterClass="jackpot.DTO.approDTO">
+			delete appro where temp_num=#temp_num#
+		</delete>
+		
+		<select id="seqNum" resultClass="String">
+			select appro_seq.NEXTVAL seq_num FROM dual
+		</select>
+		
+		<!-- <insert id="approInsert" parameterClass="jackpot.DTO.approDTO">
+		insert into ap_article(ap_num,ap_date,reportEnd,categorize,formName,
+		workPlace,dName,sawonCode,sawonName,docuSubject,ir1,re_sCwP,re_codeTable,point_check,
+		ap_wPsC1,ap_dName1,ap_rankName1,ap_sawonName1,ap_sign1,ap_signdate1,
+		ap_wPsC2,ap_dName2,ap_rankName2,ap_sawonName2,ap_sign2,ap_signdate2,
+		ap_wPsC3,ap_dName3,ap_rankName3,ap_sawonName3,ap_sign3,ap_signdate3,
+		ap_wPsC4,ap_dName4,ap_rankName4,ap_sawonName4,ap_sign4,ap_signdate4,
+		ap_wPsC5,ap_dName5,ap_rankName5,ap_sawonName5,ap_sign5,ap_signdate5,
+		step,ap_time)
+		
+		values(#ap_num#,#ap_date#,#reportEnd#,#categorize#,#formName#,
+		#workPlace#,#dName#,#sawonCode#,#sawonName#,#docuSubject#,#ir1#,#re_sCwP#,#re_codeTable#,#point_check#,
+		#ap_wPsC1#,#ap_dName1#,#ap_rankName1#,#ap_sawonName1#,#ap_sign1#,#ap_signdate1#,
+		#ap_wPsC2#,#ap_dName2#,#ap_rankName2#,#ap_sawonName2#,#ap_sign2#,#ap_signdate2#,
+		#ap_wPsC3#,#ap_dName3#,#ap_rankName3#,#ap_sawonName3#,#ap_sign3#,#ap_signdate3#,
+		#ap_wPsC4#,#ap_dName4#,#ap_rankName4#,#ap_sawonName4#,#ap_sign4#,#ap_signdate4#,
+		#ap_wPsC5#,#ap_dName5#,#ap_rankName5#,#ap_sawonName5#,#ap_sign5#,#ap_signdate5#,
+		#step#,#ap_time#)
+	</insert> -->
+	
+	<insert id="approalarm" parameterClass="jackpot.DTO.approDTO">
+		insert into approalarm(ap_wPsC,ap_report,ap_cate) values(#ap_wPsC1#,#doc_num#,'1')
+	</insert>
+	
+	<insert id="impend_alarmInsert1" parameterClass="jackpot.DTO.approDTO">
+		insert into approalarm(ap_wPsC,ap_impend,ap_cate) values(#ap_wPsC1#,#doc_num#,'2')
+	</insert>
         
 </sqlMap>
