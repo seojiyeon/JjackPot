@@ -3,6 +3,7 @@ package jackpot.bean;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,14 +26,17 @@ public class MemoBean {
 	@RequestMapping("/memoList.jp")
 	public String memoList(Model model, HttpSession session, String pageNum) {
 		String emp_num = (String)session.getAttribute("memId");
-		int pageSize = 10;
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+		int number = 0;
 		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
-		
+
 		if(pageNum == null) {
 			pageNum = "1";
 		}
 		
 		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
 		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
 		int startPage = (int)(currentPage/10)*10+1;
 		int pageBlock = 10;
@@ -41,9 +45,16 @@ public class MemoBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
+
+		number = count-(currentPage-1)*pageSize;
+		
+		HashMap params = new HashMap();
+		params.put("startRow", startRow);
+		params.put("endRow", endRow);
+		params.put("emp_num", emp_num);
 		
 		List memoCateList = sqlMap.queryForList("memo.memoCate", emp_num);
-		List memoCont = sqlMap.queryForList("memo.memoSh", emp_num);
+		List memoCont = sqlMap.queryForList("memo.memoSh", params);
 		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", emp_num);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -93,6 +104,7 @@ public class MemoBean {
 		
 		sqlMap.insert("memo.memoInsert", dto);
 		int memoNum = (int)sqlMap.queryForObject("memo.memoNumSelect", dto);
+		dto.setMemo_num(memoNum);
 		
 		Date day = new Date();
 		

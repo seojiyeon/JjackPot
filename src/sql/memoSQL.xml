@@ -16,7 +16,7 @@
 	
 	<!-- 메모 -->
 	<insert id="memoInsert" parameterClass="mdto">
-		insert all into memo values (
+		insert into memo values (
     		memo_seq.NEXTVAL,
     		#memo_cate#,
     		#memo_title#,
@@ -38,7 +38,7 @@
 	</insert>
 	
 	<insert id="memoInsFile" parameterClass="mdto">
-		insert into memo_img values(
+		insert into memo_file values(
     		#memo_num#,
 		    memo_file_seq.NEXTVAL,
     		#org_file#,
@@ -46,12 +46,18 @@
 		)
 	</insert>
 	
-	<select id="memoSh" parameterClass="String" resultClass="mdto">
-		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_cate=mc.cate_num and m.memo_state>0 order by memo_enroll desc
+	<!-- 메모 전체 목록 -->
+	<select id="memoSh" parameterClass="java.util.HashMap" resultClass="mdto">
+		<![CDATA[
+			select * from(select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, r from (
+			select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, rownum r 
+			from memo m, memo_cate mc where m.emp_num='qwe234' and m.memo_cate=mc.cate_num and m.memo_state>0 order by m.memo_enroll desc, m.memo_modi desc) 
+			order by memo_enroll desc, memo_modi desc) where r <=#endRow# and r >=#startRow#
+		]]>
 	</select>
 	
 	<select id="memoCount" parameterClass="String" resultClass="int">
-		select count(*) from memo where emp_num=#emp_num#
+		select count(*) from memo where emp_num=#emp_num# and memo_state > 0
 	</select>
 	
 	<select id="memoContent" parameterClass="mdto" resultClass="mdto">
@@ -66,7 +72,7 @@
 		update memo set memo_state=0 where memo_num=#memo_num#
 	</update>
 	
-	<select id="memoNumSelect" parameterClass="mdto" resultClass="mdto">
+	<select id="memoNumSelect" parameterClass="mdto" resultClass="int">
 		select max(memo_num) from memo where emp_num=#emp_num#
 	</select>
 </sqlMap>

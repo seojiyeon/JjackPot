@@ -139,7 +139,7 @@
 </div>
 	
 <!-- 본문 -->
-<div id="main-container">
+<div class="main-container">
 	<div class="content-wrap">
 		<div class="content-head">
 			<h2>모든 메모</h2>
@@ -154,7 +154,7 @@
 		</div>
 		<div class="table-header">
 			<div class="listInfo">
-				<select name="pagePerRecord">
+				<select name="pageSize">
 					<option value="10" selected="selected">10</option>
 					<option value="20">20</option>
 					<option value="30">30</option>
@@ -191,7 +191,7 @@
 				</c:if>
 			
 				<c:if test="${count > 0}">
-				<c:forEach var="memoCont" items="${memoCont}">
+				<c:forEach var="memoCont" items="${memoCont}"> 
 					<tr>
 						<td>
 							중요여부 체크
@@ -223,7 +223,7 @@
 			</c:if>
 		
 			<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-				<a href="memoList.jp?pageNum=${i}">${i}</a>
+				<a href="memoList.jp?pageNum=${i}">${i}&nbsp;</a>
 			</c:forEach>
 		
 			<c:if test="${endPage < pageCount}">

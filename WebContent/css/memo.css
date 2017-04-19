@@ -4,14 +4,32 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:auto; margin:0px;}
 
 #sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}
-
-.leftmenu-top {
-    height: 10%;
+/* 왼쪽 메뉴 부분 */
+.leftMenuTop {
+    height: 65px;
     width: 210px;
     background: #363636;
     text-align: center;
     display: inline-block;
 }
+.leftMenuTop h2 a {
+	color: white;
+}
+
+/* 메모 전체리스트 본문 */
+.main-container {
+	position: absolute;
+	left: 270px;
+	top: 0px;
+	background-color:#F9F9F9;
+	padding: 25px;
+}
+
+/* 페이지 하단 번호 나오는 부분 */
+.page-wrap {
+	text-align: center;
+}
+
 
 button, input, optgroup, select, textarea {
     color: inherit;
@@ -28,6 +46,9 @@ table {
 	background-color:#fff; 
 }
 
+.content-write table {
+	background-color: #F9F9F9;
+}
 
 /* 메모등록 버튼 */
 .chMemoCate {
