@@ -1,5 +1,6 @@
 package jackpot.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,113 @@ public class bmBean {
 
 	}
 	
-	/*나의 업무리스트보기*/
-	@RequestMapping("/myBmList.jp")
-	public String myBmList(bmDTO bmdto, HttpSession session, Model model){
+/*-------------------------------------업무요청-----------------------------------------*/	
+	/*나의 업무요청리스트보기*/
+	@RequestMapping("/JackPot/myBmYCHList.jp")
+	public String myBmYCHList(bmDTO bmdto, HttpSession session, Model model){
+		
+		return "/bm/myBmYCHList";
+		
+	}
+	
+	
+	/*수신업무요청리스트보기*/
+	@RequestMapping("/JackPot/SSBmYCHList.jp")
+	public String SSBmYCHList(){
+		
+		return "/bm/SSBmYCHList";
+		
+	}
+	
+	/*참조업무요청리스트보기*/
+	@RequestMapping("/JackPot/ChZBGBmYCHList.jp")
+	public String ChZBGBmYCHList(){
+		
+		return "/bm/ChZBGBmYCHList";
+		
+	}
+
+/*------------------------------------------------------------------------------------------*/	
+
+/*----------------------------업무보고--------------------------------------------------------------*/
+	
+	/*내가 한 업무보고리스트보기*/
+	@RequestMapping("/myBmBGList.jp")
+	public String myBmBGList(bmDTO bmdto, HttpSession session, Model model){
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
 		List myBmList = null;
 		myBmList = sqlMap.queryForList("bm.getMyBusiness", myBmList);		
+		model.addAttribute("date", date);
 		model.addAttribute("myBmList", myBmList);		
-		return "/bm/myBmList";
+		return "/bm/myBmBGList";
 
 	}
 	
+
+	/*수신 업무보고리스트보기*/
+	@RequestMapping("/JackPot/SSBGBmList.jp")
+	public String SSBGBmList(bmDTO bmdto, HttpSession session, Model model){
+		
+		return "/bm/SSBGBmList";
+
+	}
+	
+
+	/*참조 업무보고리스트보기*/
+	@RequestMapping("/JackPot/ChZBGBmList.jp")
+	public String ChZBGBmList(bmDTO bmdto, HttpSession session, Model model){
+		
+		return "/bm/ChZBGBmList";
+
+	}
+	
+/*------------------------------------------------------------------------------------------*/	
+/*-----------------------------업무일지-------------------------------------------------------------*/		
+	
+	/*내가 작성 한 업무일지리스트보기*/
+	@RequestMapping("/myBmWriteList.jp")
+	public String myBmWriteList(bmDTO bmdto, HttpSession session, Model model){
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		List myBmList = null;
+		myBmList = sqlMap.queryForList("bm.getMyBusiness", myBmList);		
+		model.addAttribute("date", date);
+		model.addAttribute("myBmList", myBmList);		
+		return "/bm/myBmWriteList";
+
+	}
+
+	/*수신  업무 일지*/
+	@RequestMapping("/SSBmList.jp")
+	public String SSBmList(bmDTO bmdto, HttpSession session, Model model){
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		List myBmList = null;
+		myBmList = sqlMap.queryForList("bm.getMyBusiness", myBmList);		
+		model.addAttribute("date", date);
+		model.addAttribute("myBmList", myBmList);		
+		return "/bm/SSBmList";
+
+	}
+	
+	/*참조  업무 일지*/
+	@RequestMapping("/ChZBmList.jp")
+	public String ChZBmList(bmDTO bmdto, HttpSession session, Model model){
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		List myBmList = null;
+		myBmList = sqlMap.queryForList("bm.getMyBusiness", myBmList);		
+		model.addAttribute("date", date);
+		model.addAttribute("myBmList", myBmList);		
+		return "/bm/ChZBmList";
+
+	}
+	
+/*------------------------------------------------------------------------------------------*/		
+	
+	
+	/*업무등록*/
 	@RequestMapping("/bmForm.jp")
 	public String bmForm(bmDTO bmdto,Model model,HttpSession session){
 		String emp_num =(String)session.getAttribute("memId");
@@ -58,6 +155,7 @@ public class bmBean {
 	/*업무FormPro*/
 	@RequestMapping("/bmFormPro.jp")
 	public String bmForm(bmDTO bmdto, MultipartHttpServletRequest multi,HttpSession session){
+		
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
 		sqlMap.insert("bm.insertBusiness", bmdto);

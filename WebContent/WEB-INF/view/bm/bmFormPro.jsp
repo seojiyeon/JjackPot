@@ -2,4 +2,4 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:redirect url="/JackPot/bmForm.jp"></c:redirect>
+<c:redirect url="/JackPot/bmList.jp"></c:redirect>

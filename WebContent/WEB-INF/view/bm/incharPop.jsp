@@ -18,6 +18,48 @@
 
 <head>
 
+
+
+
+<div class="mask"></div>
+<div class="window">
+   <div id="MemoCateName">
+      <div>등록할 메모폴더를 선택해주세요.</div>
+      <div id="selectCate">
+         <table>
+            <c:if test="${memoCateCount == 0}">
+               <tr>
+                  <td>등록된 폴더가 없습니다.<br>
+                  폴더를 생성해주시기 바랍니다.
+                  </td>
+               </tr>
+            </c:if>
+            <c:if test="${memoCateCount > 0}">
+            
+            <c:forEach var="memoCate" items="${memoCateList}">
+               <tr>
+                  <td>
+                     <a href="memoInsert.jp?memo_cate=${memoCate.getCate_num()}">${memoCate.getCate_title()}</a>
+                  </td>
+               </tr>
+            </c:forEach>
+            
+            </c:if>
+            <tr>
+               <td align="right">
+                  <button class="close">닫기</button>
+               </td>
+            </tr>
+         </table>
+      </div>
+   </div>
+</div>
+
+
+
+
+
+
 <body class="modal-open" style="padding-right: 0px;">
 	
 	<div id="page-container" class="sub sidebar-mini sidebar-subarea">	
@@ -39,7 +81,7 @@
     	</div>
     
     	<div class="pd">
-    		<iframe src="" border="0" frameborder="0" class="dialog" style="height:490px;"></iframe>
+    		<iframe src="" border="1" frameborder="0" class="dialog" style="height:490px;"></iframe>
     	</div>
     </div>
     

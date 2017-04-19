@@ -33,6 +33,9 @@
 			]]>
 	
 		</select>
+		
+		
+		
 	
 	<!--  업무입력  -->
 		<insert id="insertBusiness1" parameterClass="bmdto">
@@ -57,9 +60,16 @@
 		
 		</insert>	
 	
+	
+		<select id="member2" resultClass="odto" parameterClass="int" >
+        	 select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
+   			  from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=#department# order by e.position desc
+     
+        </select>
+		
 			<insert id="insertBusiness2" parameterClass="bmdto">
 	
-				insert into incharge(bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
+				insert into incharge() values(inc_num,inchar_name,inchar_brunch,inchar_depart,inchar_position)
 					bm_seq.nextval,
 					#bm_tiltie#,
 					#bm_content#,
@@ -78,6 +88,8 @@
 				
 		
 		</insert>	
+		
+		
 
 </sqlMap>
 
