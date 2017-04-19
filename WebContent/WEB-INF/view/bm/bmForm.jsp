@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=7" type="text/css" />   
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="resource/ckeditor.js"></script>
 <html>
