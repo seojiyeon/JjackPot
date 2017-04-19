@@ -19,6 +19,10 @@
             select count(*) from message where ref=0 and msg_rid=#msg_rid# and msg_rd='no'
         </select>
         
+        <select id="msgAcnt2" resultClass="int" parameterClass="String">
+            select count(*) from message where ref=0 and msg_rid=#msg_rid# and msg_rd='no' and re_step=1
+        </select>
+        
         
         
         <select id="msgFind" resultClass="empDTO" parameterClass="String">
@@ -66,7 +70,9 @@
         update message set msg_sd='yes' where msg_num=#msg_num#
         </update>
         
-      
+        <update id="msgAL" parameterClass="String">
+        update message set re_step=0 where re_step=1 and msg_rid=#msg_rid#
+        </update>
       
 </sqlMap>
 

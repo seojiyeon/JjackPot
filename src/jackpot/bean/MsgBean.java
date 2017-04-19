@@ -65,6 +65,7 @@ public class MsgBean {
 		dto.setMsg_rid(rid);
 		dto.setMsg_send(name);
 		dto.setEmp_num(id);
+		dto.setRe_step(1);
 		sqlMap.insert("msg.sendmsg", dto);		
 				
 		
@@ -154,19 +155,7 @@ public class MsgBean {
 		return "/msg/msgFind";
 	}	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping("/msgTest.jp")
-	public String msgTest(msgDTO dto, HttpSession session, Model model){
-						
-		return "/msg/main";
-	}
+
 	
 	@RequestMapping("/alarm.jp")
 	public String msgTest2(msgDTO dto, HttpSession session, Model model){
@@ -181,6 +170,31 @@ public class MsgBean {
 	    model.addAttribute("count", count);
 		a =  "/msg/msgAlarm";	
 		}		
+		return a;
+		
+	}
+	
+	
+	
+	@RequestMapping("/msgTest.jp")
+	public String msgTest(msgDTO dto, HttpSession session, Model model){
+						
+		return "/msg/main";
+	}
+	
+	@RequestMapping("/index.jp")
+	public String index(msgDTO dto, HttpSession session, Model model){
+		String a = null;
+		String id = (String) session.getAttribute("memId");
+		int count = (int) sqlMap.queryForObject("msg.msgAcnt2", id);		
+				
+		if(count == 0){
+		a = "false";
+		}else{
+	    a =  "/msg/index";
+	    sqlMap.update("msg.msgAL", id);
+		}
+		
 		return a;
 		
 	}	

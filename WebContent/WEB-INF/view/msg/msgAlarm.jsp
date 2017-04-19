@@ -4,5 +4,6 @@
 <script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>
     
     	
-    	읽지 않은 ${count}개의 쪽지가 있습니다.
+    	읽지 않은 ${count}개의 <br /> 
+    	쪽지가 있습니다.
     	
