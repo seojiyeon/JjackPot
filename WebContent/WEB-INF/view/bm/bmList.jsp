@@ -15,7 +15,9 @@
 <link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
+<html>
 <title> 업무관리</title>
+
 </head>    
  <body>
 <!-- ========================================================사이드바======================================================================= -->		
@@ -41,7 +43,7 @@
 						<li >
 							<a style="display:inline-block;height:20px;">To - Do</a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
-							   		<li style="text-align:center;"><a href="/JackPot/.jp">나의 할일 </a></li>
+							   		<li style="text-align:center;"><a href="/JackPot/mytodoList.jp">나의 할일 </a></li>
 							   		<li><hr color=" lightgrey " size="1"></li>
 							   	</ul>
 						</li>
@@ -50,7 +52,7 @@
 						<li >
 							<a style="display:inline-block;height:20px;">업무요청 </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmYCHList.jp">내가 한 업무</a> </li>
+								      <li><a href="/JackPot/myBmYCHList.jp">내가 한 업무 요청</a> </li>
 								      <li><a href="/JackPot/SSBmYCHList.jp">수신  업무 요청</a></li>
 								      <li><a href="/JackPot/ChZBGBmYCHList.jp">참조  업무 요청</a></li>
 								      <li><hr color=" lightgrey " size="1"></li>
@@ -61,7 +63,7 @@
 							<a style="display:inline-block;height:20px;">업무보고  </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
 								      <li><a href="/JackPot/myBmBGList.jp">내가 한 보고 </a> </li>
-								      <li><a href="/JackPot//JackPot/SSBGBmList.jp">수신  업무 보고 </a></li>
+								      <li><a href="/JackPot/SSBGBmList.jp">수신  업무 보고 </a></li>
 								      <li><a href="/JackPot/ChZBGBmList.jp">참조  업무 보고 </a></li>
 								      <li><hr color=" lightgrey " size="1"></li>
 								   </ul>
@@ -91,3 +93,6 @@
 			</div>
 			</div>
 <!-- ================================================================================================================================================= -->		
+
+</body>
+</html>

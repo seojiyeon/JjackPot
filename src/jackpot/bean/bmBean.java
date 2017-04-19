@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import jackpot.DTO.bmDTO;
+import jackpot.DTO.empDTO;
 import jackpot.DTO.orgDTO;
 
 
@@ -32,29 +33,40 @@ public class bmBean {
 
 	}
 	
+/*-----------------------------todo-------------------------------------------------------------*/		
+	
+	/*나의 할일*/
+	@RequestMapping("/mytodoList.jp")
+	public String mytodoList(bmDTO bmdto, HttpSession session, Model model){
+	
+		return "/bm/mytodoList";
+	}	
+
+	
 /*-------------------------------------업무요청-----------------------------------------*/	
 	/*나의 업무요청리스트보기*/
-	@RequestMapping("/JackPot/myBmYCHList.jp")
-	public String myBmYCHList(bmDTO bmdto, HttpSession session, Model model){
-		
-		return "/bm/myBmYCHList";
+	@RequestMapping("/myBmYCHList.jp")
+	public String myBmYCHList(Model model,HttpSession session,bmDTO bdto){
+		String emp_num = (String)session.getAttribute("memId");
+		System.out.println(emp_num);
+		return "/bm/BmYCHList/myBmYCHList";
 		
 	}
 	
 	
 	/*수신업무요청리스트보기*/
-	@RequestMapping("/JackPot/SSBmYCHList.jp")
+	@RequestMapping("/SSBmYCHList.jp")
 	public String SSBmYCHList(){
 		
-		return "/bm/SSBmYCHList";
+		return "/bm//BmYCHList/SSBmYCHList";
 		
 	}
 	
 	/*참조업무요청리스트보기*/
-	@RequestMapping("/JackPot/ChZBGBmYCHList.jp")
+	@RequestMapping("/ChZBGBmYCHList.jp")
 	public String ChZBGBmYCHList(){
 		
-		return "/bm/ChZBGBmYCHList";
+		return "/bm//BmYCHList/ChZBGBmYCHList";
 		
 	}
 
@@ -65,31 +77,26 @@ public class bmBean {
 	/*내가 한 업무보고리스트보기*/
 	@RequestMapping("/myBmBGList.jp")
 	public String myBmBGList(bmDTO bmdto, HttpSession session, Model model){
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		
-		List myBmList = null;
-		myBmList = sqlMap.queryForList("bm.getMyBusiness", myBmList);		
-		model.addAttribute("date", date);
-		model.addAttribute("myBmList", myBmList);		
-		return "/bm/myBmBGList";
+
+		return "/bm/BmBGList/myBmBGList";
 
 	}
 	
 
 	/*수신 업무보고리스트보기*/
-	@RequestMapping("/JackPot/SSBGBmList.jp")
+	@RequestMapping("/SSBGBmList.jp")
 	public String SSBGBmList(bmDTO bmdto, HttpSession session, Model model){
 		
-		return "/bm/SSBGBmList";
+		return "/bm/BmBGList/SSBGBmList";
 
 	}
 	
 
 	/*참조 업무보고리스트보기*/
-	@RequestMapping("/JackPot/ChZBGBmList.jp")
+	@RequestMapping("/ChZBGBmList.jp")
 	public String ChZBGBmList(bmDTO bmdto, HttpSession session, Model model){
 		
-		return "/bm/ChZBGBmList";
+		return "/bm/BmBGList/ChZBGBmList";
 
 	}
 	
@@ -99,39 +106,24 @@ public class bmBean {
 	/*내가 작성 한 업무일지리스트보기*/
 	@RequestMapping("/myBmWriteList.jp")
 	public String myBmWriteList(bmDTO bmdto, HttpSession session, Model model){
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		
-		List myBmList = null;
-		myBmList = sqlMap.queryForList("bm.getMyBusiness", myBmList);		
-		model.addAttribute("date", date);
-		model.addAttribute("myBmList", myBmList);		
-		return "/bm/myBmWriteList";
+	
+		return "/bm/BmList/myBmWriteList";
 
 	}
 
 	/*수신  업무 일지*/
 	@RequestMapping("/SSBmList.jp")
 	public String SSBmList(bmDTO bmdto, HttpSession session, Model model){
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
-		List myBmList = null;
-		myBmList = sqlMap.queryForList("bm.getMyBusiness", myBmList);		
-		model.addAttribute("date", date);
-		model.addAttribute("myBmList", myBmList);		
-		return "/bm/SSBmList";
+		return "/bm/BmList/SSBmList";
 
 	}
 	
 	/*참조  업무 일지*/
 	@RequestMapping("/ChZBmList.jp")
 	public String ChZBmList(bmDTO bmdto, HttpSession session, Model model){
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
-		List myBmList = null;
-		myBmList = sqlMap.queryForList("bm.getMyBusiness", myBmList);		
-		model.addAttribute("date", date);
-		model.addAttribute("myBmList", myBmList);		
-		return "/bm/ChZBmList";
+		return "/bm/BmList/ChZBmList";
 
 	}
 	
