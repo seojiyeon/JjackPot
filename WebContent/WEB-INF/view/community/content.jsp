@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/JackPot/css/community.css?ver=10" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=11" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- 
+ <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" /> 
+<link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
@@ -290,6 +291,12 @@ Dropzone.options.myDropzone = {
 		  }
 		};
 
+	
+	
+		function test(form){
+			form.submit();
+		}
+
 </script>
 </head>
 
@@ -448,25 +455,102 @@ Dropzone.options.myDropzone = {
 	
 		</div>
 
-<div class="panel-body message-body">
+<div class="panel-body message-body"  style="margin: 0 0 0 20;">
 		 
 	    <div id="boardItemContent" class="contentsBody">
           
 			
-		 ${dto.content}
+		&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">${dto.content}</font>
 
 			 
            
         </div>
-        <br>
-        
+        <br/>
+         <br/>
+          <br/>
+           <br/>
+            <br/>
+             <br/>
+              <br/>
+               <br/>
+                <br/>
             
         
 	</div>
 	
     
 </div>
+
+
+<table width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">
+      <form method="post"  action="comment.jp">
+      
+    <tr height="20" >
+        <td bgcolor="gray" align="center">
+        <font color="white">Comment</font></td></tr>
+        
+      <input type="hidden" name="com_num" value="${dto.com_num}"/>${dto.com_num}
+      <input type="hidden" name="emp_num" value="${dto.emp_num}"/>${dto.emp_num}
+    
+         
+<div class="comment-wrap op">
+	<div class="reply-wrap"><span><i class="icon reply"></i></span></div>
+		<div class="input-group">
+			
+				<input name="itemId" type="hidden" value="8501850">
+				<textarea title="textarea" id="8501850_contents" name="content" rows="2" class="form-control original" placeholder="댓글을 입력하세요."></textarea>
+ 
+ <span class="input-group-btn">
+ 							
+				<!-- <img src="/JackPot/save/chatting.png" width="40" height="40" onclick="test(this.form);">	 -->					   
+				<input  TYPE="IMAGE" src="/JackPot/save/chatting.png"  width="45" height="45" name="Submit" value="Submit" align="absmiddle">					 
+		</span>          
+     </Td>    
+      </tr>   
+</form>        
+     <tr >
+     <td>
+     
+      <c:forEach var="article" items="${articleList}" varStatus="status">
+ 
+    
+     <li class="last">
+		        <ul>		        	
+		        	<li class="name">
+					<font color="gray" size="2"	>${article.emp_name}(${article.re_num})&nbsp;&nbsp;&nbsp;${article.re_date}</font>
+
+		            </li> 
+		            
+		             <li class="content">${article.content}</li>
+		              
+		            
+		            <li class="btn-mody" data-itemid="" data-linereplyid="">
+	                    <a href="javascript:void(0)" onclick="showUpdateForm('8624883UpdateForm','8501850');"><i class="fa fa-pencil" data-toggle="tooltip" title="수정" data-original-title="수정"></i></a>
+	                </li>
+	                
+	                
+	                <li class="btn-del" data-itemid="" data-linereplyid="">
+	                    <a href="javascript:void(0)" onclick="userDeleteBoardLinereply('8501850', '8624883');"><i class="fa fa-trash-o" data-toggle="tooltip" title="삭제" data-original-title="삭제"></i></a>
+	                </li>		 
+	                           
+		        </ul>
+	
+		         </div>
+		    </li>
+     
+     
+     
+      
+      </c:forEach>
+     </td>
+     </tr>
+     
+  
+      </form>    
+
+
 </div>
+    </table>
 </div>
 </html>
 

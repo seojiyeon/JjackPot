@@ -100,11 +100,12 @@
      <li class="last">
 		        <ul>		        	
 		        	<li class="name">
-					<font color="gray" size="2"	>${article.emp_name}(${article.emp_num})&nbsp;&nbsp;&nbsp;${article.reg}</font>
+					<font color="gray" size="2"	style="margin: 3px;">${article.emp_name}(${article.emp_num})&nbsp;&nbsp;&nbsp;${article.reg}</font>
 
 		            </li> 
 		            
-		             <li class="content">${article.content}</li>
+		             <li class="content" style="margin: 5px;">
+		             ${article.content}</li>
 		              
 		            
 		            <li class="btn-mody" data-itemid="" data-linereplyid="">

@@ -49,18 +49,24 @@ public class CommunityBean {
 	
 	
 	@RequestMapping("/content.jp")
-	public String content(HttpServletRequest request,Model model){
-	     int com_num=Integer.parseInt(request.getParameter("com_num"));
-	     System.out.println(com_num);
-	     
+	public String content(HttpServletRequest request,Model model,HttpSession session,communityDTO dto){
+		String emp_num=(String) session.getAttribute("memId");
+		int com_num=Integer.parseInt(request.getParameter("com_num"));
 	     
 	    sqlMap.update("comm.readCount",com_num);
 	    
-	    communityDTO dto=(communityDTO)sqlMap.queryForObject("comm.content", com_num);
-	    dto.setCom_num(com_num);	    
+	    dto=(communityDTO)sqlMap.queryForObject("comm.content", com_num);
+	    dto.setCom_num(com_num);
+	    dto.setEmp_num(emp_num);
 		model.addAttribute("dto",dto);
 
-		 
+		
+		List articleList = null;
+		articleList =sqlMap.queryForList("comm.reply", dto);
+		
+		model.addAttribute("articleList",articleList);
+		
+		
 		return "/community/content";
 		
 	}
@@ -68,13 +74,40 @@ public class CommunityBean {
 	@RequestMapping("/like.jp")
 	public String like(Model model, HttpServletRequest request){
 	     int com_num=Integer.parseInt(request.getParameter("com_num"));
-	     System.out.println(com_num);
-	     
 	     sqlMap.update("comm.recommend",com_num);
 	     
 	     model.addAttribute("com_num",com_num);
 
+	     
+	     
+	     
+	     
 		 
 		return "/community/like";
        }
+	
+	@RequestMapping("/comment.jp")
+	public String comment(Model model, HttpServletRequest request,HttpSession session,communityDTO dto){
+	     int ref=Integer.parseInt(request.getParameter("com_num"));
+	     String re_num=(String) session.getAttribute("memId");
+	     String content=request.getParameter("content");
+	     System.out.println(ref);
+	     System.out.println(re_num);
+	     System.out.println(content);
+	     
+	     dto.setRe_num(re_num);
+	     dto.setRef(ref);
+	     dto.setContent(content);
+	     sqlMap.insert("comm.insertComment", dto);
+	     
+	     
+	     model.addAttribute("dto",dto);
+	     model.addAttribute("com_num", ref);
+
+
+	     
+	     
+		return "/community/comment";
+       }
+	
 }

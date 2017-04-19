@@ -24,8 +24,19 @@
       </select>
     
       <update id="recommend" parameterClass="int">
-      update community set recommend=recommend+1 where com_num =#com_num#
+      update community set recommend=recommend+1 , readcount=readcount-1 where com_num =#com_num#
       </update>
     
+        
+         <insert id="insertComment" parameterClass="codto">
+      insert into reply(rep_num,content,ref,re_step,re_level,re_num,emp_name,re_date) 
+      values(reply_seq.nextval,#content#,#ref#,#re_step#,#re_level#,#re_num#,#emp_name#,sysdate)
+         </insert>
+        
+        <select id="reply" resultClass="codto" parameterClass="codto">
+        select r.content,r.ref,r.re_num,r.re_date,e.emp_num,e.emp_name
+            from  reply r,emp e where r.re_num=e.emp_num and r.ref=#ref#
+        </select>
+        
         
 </sqlMap>

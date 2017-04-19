@@ -86,6 +86,10 @@
          select * from comm where ref=#ref# order by reg desc
       </select>
       
+        
+        
+        
+      
       
 </sqlMap>
 

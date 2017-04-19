@@ -11,13 +11,18 @@ public class communityDTO {
 	private Timestamp reg_date;
 	private int readcount;
 	private int recommend;
-	private int boardtype;
 	private int tmp_storage;
 	private int ref;
 	private int re_step;
 	private int re_level;
 	private String btype;
 	private String emp_num;
+	private int rep_num;
+	private String re_num;
+	private String emp_name;
+	private Timestamp re_date;
+	private String reply_con;
+	private String reply_num;
 	
 	public int getCom_num() {
 		return com_num;
@@ -61,12 +66,6 @@ public class communityDTO {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
-	public int getBoardtype() {
-		return boardtype;
-	}
-	public void setBoardtype(int boardtype) {
-		this.boardtype = boardtype;
-	}
 
 	public int getTmp_storage() {
 		return tmp_storage;
@@ -104,6 +103,43 @@ public class communityDTO {
 	public void setEmp_num(String emp_num) {
 		this.emp_num = emp_num;
 	}
+	public int getRep_num() {
+		return rep_num;
+	}
+	public void setRep_num(int rep_num) {
+		this.rep_num = rep_num;
+	}
+	public String getRe_num() {
+		return re_num;
+	}
+	public void setRe_num(String re_num) {
+		this.re_num = re_num;
+	}
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
+	public Timestamp getRe_date() {
+		return re_date;
+	}
+	public void setRe_date(Timestamp re_date) {
+		this.re_date = re_date;
+	}
+	public String getReply_con() {
+		return reply_con;
+	}
+	public void setReply_con(String reply_con) {
+		this.reply_con = reply_con;
+	}
+	public String getReply_num() {
+		return reply_num;
+	}
+	public void setReply_num(String reply_num) {
+		this.reply_num = reply_num;
+	}
+	
 	
 	
 	
