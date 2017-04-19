@@ -1,5 +1,8 @@
 package jackpot.bean;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +13,10 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jackpot.DTO.apDocDTO;
+import jackpot.DTO.approDTO;
 import jackpot.DTO.empDTO;
 import jackpot.DTO.workDTO;
 
@@ -36,28 +41,92 @@ public class ApproBean {
 			model.addAttribute("emp_position",position);
 			model.addAttribute("emp_department",department);
 			String temp_num = UUID.randomUUID().toString();
-			
-			int no = Integer.parseInt(request.getParameter("no"));
+			System.out.println(temp_num);
+			//int doc_num = Integer.parseInt(request.getParameter("doc_num"));
 			
 			//int id = (Integer)session.getAttribute("memId"); 
-			String workPlace = (String)session.getAttribute("workplace");
+			//String workPlace = (String)session.getAttribute("workplace");
 			
 			apDocDTO dto = new apDocDTO();
 			workDTO workdto = new workDTO();
 			
 			workdto.setEmp_num(emp_num);
 			
-			dto = (apDocDTO) sqlMap.queryForObject("approSQL.docu_content",no);
+			//dto = (apDocDTO) sqlMap.queryForObject("approSQL.docu_content",doc_num);
+			//workdto = (workDTO)sqlMap.queryForObject("approSQL.workInfo",workdto);
 			
-			System.out.println(temp_num);
+			request.setAttribute("temp_num", temp_num);
+			//request.setAttribute("doc_num", doc_num);
+			request.setAttribute("workdto", workdto);
+			request.setAttribute("dto", dto);
+			
+			
 			return "/appro/work/listApproDoc";
 		}
 		
 		return result;
 	}
 	@RequestMapping("/listApproDocPro.jp")
-	public String listApproDocPro(HttpSession session, Model m){
-	
+	public String listApproDocPro(MultipartHttpServletRequest request, approDTO dto, HttpSession session) throws Exception {
+		String result = "main";
+		if(session.getAttribute("memId") != null){
+			///////반려문서의 추가의견, 업로드 지우고 임시저장 데이터 지움/////
+			if(dto.getApprover_step() == 0){
+				if(dto.getDoc_state() == "반려"){
+					sqlMap.delete("approSQL.comment_delete", dto);
+					sqlMap.delete("approSQL.return_delete", dto);
+				}
+			}
+			if(dto.getTemp_num()!=null){
+				int check=(Integer)sqlMap.queryForObject("approSQL.temp_check", dto);
+				if(check != 0){
+					sqlMap.delete("approSQL.temp_delete",dto);
+				}
+			}
+			///////////////////////////////////////////
+			
+			//////////////////게시글 등록////////////////
+			
+			int approver_step = 1;
+			Date now = new Date();
+			SimpleDateFormat vans = new SimpleDateFormat("yyMMdd");
+			SimpleDateFormat van = new SimpleDateFormat("yyyy-M-d");
+			String ww = van.format(now);
+			String wdate = vans.format(now);
+			String seqNum = (String)sqlMap.queryForObject("approSQL.seqNum", null);
+			String ap_Num = wdate + "-" + seqNum;
+			
+			dto.setDoc_date(ww);
+			dto.setDoc_num(ap_Num);
+			dto.setApprover_step(approver_step);
+			dto.setAp_time(new Timestamp(System.currentTimeMillis()));
+			sqlMap.insert("approSQL.approInsert", dto);
+			
+			/*if(dto.getCategorize().equals("근태신청서")){
+				sqlMap.update("approvalSQL.ap_geuntaeUpdate",dto);
+			}*/
+			
+			//////////////////////////////////////////////////////////////
+			
+			//	첫번째 결재권자와 수신참조자들 알람테이블에 등록.///////////////////
+			
+			SimpleDateFormat vann = new SimpleDateFormat("yyyyMMdd");
+			String www = vann.format(now);
+			String aa = dto.getDoc_finish();
+			String [] ee = aa.split("\\-");
+			
+			String bb = ""+ ee[0]+ee[1]+ee[2];
+			int cc = Integer.parseInt(bb)-Integer.parseInt(www);
+			if(cc>3){
+				sqlMap.insert("approSQL.approalarm", dto);
+			}else{
+				sqlMap.insert("approSQL.impend_alramInsert1",dto);
+			}
+			
+			//if(dto.getr)
+			
+			
+		}
 		
 		return "/appro/work/listApproDocPro";
 	}
