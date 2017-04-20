@@ -10,6 +10,8 @@
 </head>
 
 <script>
+
+	/* 레이어 팝업 */
 	function wrapWindowByMask(){
 		//화면의 높이와 너비를 구한다.
 		var maskHeight = $(document).height();  
@@ -52,6 +54,30 @@
 		    $('.window').hide();  
 		});      
 	});
+	
+	
+	/* 화면 전환 */
+	function changeClick(memo_num) {
+		$.ajax({
+			type :"post",
+			url :"http://localhost:8080/JackPot/memoContent.jp",
+			data : {memo_num:memo_num},
+			success : function(memo_content){
+				$(".note-body").html(memo_content.memo_content);
+				alter("memo_content.org_img");
+				
+			}, 
+			error : function(){
+				alert("error");
+			}
+		});
+				
+		var listAll = $('#main-layer');
+		listAll.fadeOut();
+		
+		var cont = $('#content-layer');
+			cont.fadeIn();
+	}
 </script>
 
 <html>
@@ -138,19 +164,21 @@
 	</div>
 </div>
 	
-<!-- 본문 -->
-<div class="main-container">
+<!-- 메모 전체 리스트 : 본문 -->
+<div class="main-container" id="main-layer">
 	<div class="content-wrap">
 		<div class="content-head">
 			<h2>모든 메모</h2>
 			<div class="cont-head-top">
+				<div>
+					<hr width="100%" size="1" color="silver">
+				</div>
 				<ul>
 					<li>
 						<button type="button">화면 설정</button>
 					</li>
 				</ul>
 			</div>
-			<div id="navText" class="breadcrumb-line"></div>
 		</div>
 		<div class="table-header">
 			<div class="listInfo">
@@ -179,6 +207,9 @@
 				</select>
 				<input type="text" title="검색어" name="searchWord" />
 				<button type="button">검색</button> 
+			</div>
+			<div>
+					<hr width="100%" size="2" color="silver">
 			</div>			
 		</div>
 		

@@ -16,18 +16,20 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:auto; margin:0px;}
 	color: white;
 }
 
-/* 메모 전체리스트 본문 */
+/* 메모 본문 */
 .main-container {
 	position: absolute;
 	left: 270px;
 	top: 0px;
-	background-color:#F9F9F9;
+	background-color: white;
 	padding: 25px;
+	width: 100%;
 }
 
 /* 페이지 하단 번호 나오는 부분 */
 .page-wrap {
 	text-align: center;
+	width: 80%;
 }
 
 
@@ -46,8 +48,8 @@ table {
 	background-color:#fff; 
 }
 
-.content-write table {
-	background-color: #F9F9F9;
+.content-write>table {
+	background-color: white;
 }
 
 /* 메모등록 버튼 */
@@ -134,14 +136,6 @@ table {
 .close:active {
 	position:relative;
 	top:1px;
-}
-
-
-.breadcrumb-line {
-    margin: 0 0 35px;
-    position: absolute;
-    right: 0;
-    top: 11px;
 }
 
 

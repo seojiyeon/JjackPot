@@ -2,53 +2,110 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+
 <head>
 <title>메모</title>
 </head>
 
+<html>
 <body>
-
-<div id="header">
-<h2>모든 메모</h2>
-<div id="navText" class="line"></div>
+<div id="page-container">
+	<!-- 왼쪽 사이드바 -->
+	<div id="sidebar"></div>
+	<div id="subarea">
+		<div id="leftMenu">
+			<div class="leftMenuTop">
+				<h2><a href="memoList.jp">메모</a></h2>
+			</div>
+			
+			<div id="leftMenuArea">
+				<ul class="menuList" style="margin:0;padding:0;list-style:none;">
+					<li class="list" style="text-align:center">
+						<button type="button" class="chMemoCate" id="notePopup">메모 등록</button>
+					</li>
+					<li class="list">
+						<a href="memoList.jp">모든 메모 ${count}</a>
+					</li>
+					<li class="list">
+						<a href="">중요 메모 숫자</a>
+					</li>
+					<li class="listFolder">
+						<a style="display:inline-block;height:30px;">나의 폴더</a>
+							<ul style="-webkit-padding-start:0px;width:200px;">
+								<c:if test="${memoCateCount == 0}">
+									<li>등록된 폴더가 없습니다.</li>
+								</c:if>
+								<c:if test="${memoCateCount > 0}">
+									<c:forEach var="memoCate" items="${memoCateList}">
+										<li>
+											<a href="#">${memoCate.getCate_title()}</a>
+										</li>
+									</c:forEach>
+								</c:if>
+							</ul>
+					</li>
+					<li class="list">
+						<a href="">휴지통</a>
+					</li>
+					<li class="list">
+						<a href="">폴더 관리</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div>
-<form action="memoModify.jp" method="post" enctype="multipart/form-data">
-	<table border="1">
-		<tr>
-			<td>
-				<input type="checkbox" name="memo_state" >중요여부체크
-				&nbsp;
-				${dto.getMemo_title()}
-			</td>
-			<td>
-				${dto.getCate_title()} | 등록:${sdf.format(dto.getMemo_enroll())}
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<pre>${dto.getMemo_content()}</pre>
-			</td>
-		</tr>
-		
-		<c:forEach var="img" items="${img}">
-		<tr>
-			<td>
-				<img src="/JackPot/save/${img.sys_img}" name="sys_img"  width=200px, height=200px />
-			</td>
-		</tr>
-		</c:forEach>
-		
-		<tr>
-			<td colspan="2">
-				<input type="submit" value="수정" />
-				<input type="button" value="이동" />
-				<input type="button" value="삭제" onclick="window.location='memoDeletePro.jp?pageNum=${pageNum}&memo_num=${dto.getMemo_num()}'" />
-				<input type="button" value="목록" onclick="window.location='memoList.jp?pageNum=${pageNum}'" />
-			</td>
-		</tr>
-	</table>
-</form>
+<!-- 본문 -->
+<!-- 메모 내용보기 -->
+<div class="main-container" id="content-layer">
+	<div class="content-wrap">
+		<div class="content-head">
+			<h2>모든 메모</h2>
+			<div>
+				<hr width="100%" size="1" color="silver">
+			</div>
+		</div>
+		<div class="content-write">
+			<div class="note-write">
+				<div class="note-write-head">
+					<div class="content-title" style="width:500px;">
+						<input type="checkbox" name="memo_state">중요여부체크
+						&nbsp;
+						${dto.getMemo_title()}
+					</div>
+					<div class="readnote-date" style="width:500px;">
+						${dto.getCate_title()} | 등록:${sdf.format(dto.getMemo_enroll())}
+					</div>			
+				</div>
+				<div class="note-body">
+					<pre>${dto.getMemo_content()}</pre>
+				</div>
+			</div>
+			<div class="doc-img">
+				<c:if test="${imgCount == 0}">
+					<div></div>
+				</c:if>
+				<c:if test="${imgCount > 0 }">
+					<div>
+						<c:forEach var="img" items="${img}">
+							<img src="/JackPot/save/${img.sys_img}" name="sys_img" style="width:200px; height:200px;" />
+						</c:forEach>
+					</div>
+				</c:if>
+			</div>
+			<div class="doc-file">
+			
+			</div>
+			<div class="btn-wrap">
+				<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}'">수정</button>
+				<button type="button" class="btnMove">이동</button>
+				<button type="button" class="btnDelete" onclick="window.location='memoDeletePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">삭제</button>
+				<button type="button" class="btnList" onclick="window.location='memoList.jp?pageNum=${pageNum}'">목록</button>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
+</html>

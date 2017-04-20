@@ -51,7 +51,7 @@
 		<![CDATA[
 			select * from(select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, r from (
 			select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, rownum r 
-			from memo m, memo_cate mc where m.emp_num='qwe234' and m.memo_cate=mc.cate_num and m.memo_state>0 order by m.memo_enroll desc, m.memo_modi desc) 
+			from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_cate=mc.cate_num and m.memo_state>0 order by m.memo_enroll desc, m.memo_modi desc) 
 			order by memo_enroll desc, memo_modi desc) where r <=#endRow# and r >=#startRow#
 		]]>
 	</select>
@@ -61,11 +61,16 @@
 	</select>
 	
 	<select id="memoContent" parameterClass="mdto" resultClass="mdto">
-		select * from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_num=#memo_num# and memo_cate=cate_num
+		select * from memo m, memo_cate mc where m.memo_num=#memo_num# and memo_cate=cate_num
 	</select>
 	
+	<!-- memo 이미지 불러오기 -->
 	<select id="memoImg" parameterClass="mdto" resultClass="mdto">
 		select * from memo_img where memo_num=#memo_num#
+	</select>
+	
+	<select id="memoImgCount" parameterClass="mdto" resultClass="int">
+		select count(*) from memo_img where memo_num=#memo_num#
 	</select>
 	
 	<update id="memoDel" parameterClass="int">

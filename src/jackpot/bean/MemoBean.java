@@ -25,6 +25,7 @@ public class MemoBean {
 	
 	@RequestMapping("/memoList.jp")
 	public String memoList(Model model, HttpSession session, String pageNum) {
+		/* 모든 메모 리스트 */
 		String emp_num = (String)session.getAttribute("memId");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 		int number = 0;
@@ -170,10 +171,12 @@ public class MemoBean {
 	public String memoContent(memoDTO dto, Model model, String pageNum){
 		dto = (memoDTO) sqlMap.queryForObject("memo.memoContent", dto);
 		List img = sqlMap.queryForList("memo.memoImg", dto);
+		int imgCount = (int)sqlMap.queryForObject("memo.memoImgCount", dto);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("img", img);
+		model.addAttribute("imgCount", imgCount);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("sdf", sdf);
 		
