@@ -6,6 +6,7 @@
 	<typeAlias alias="bmdto"  type="jackpot.DTO.bmDTO"/>
 	<typeAlias alias="bpdto"  type="jackpot.DTO.dpDTO"/>
 
+
 	<!--  모든업무불러오기  -->
 		<select id="getBusiness" parameterClass="bmdto" resultClass="bmdto">
 	
@@ -39,7 +40,7 @@
 		
 	
 	<!--  업무입력  -->
-		<insert id="insertBusiness1" parameterClass="bmdto">
+		<insert id="insertBusiness" parameterClass="bmdto">
 	
 				insert into business_manage(bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
 					bm_seq.nextval,
@@ -59,7 +60,11 @@
 				)
 				
 		
-		</insert>	
+		</insert>
+		
+		<select id="showBmNum" resultClass="bmdto">
+			select max(*) from business_manage
+		</select>
 	
 	
 		<select id="member2" resultClass="odto" parameterClass="int" >
@@ -68,34 +73,106 @@
      
         </select>
 		
-			<insert id="insertBusiness2" parameterClass="bmdto">
-	
-				insert into incharge() values(inc_num,inchar_name,inchar_brunch,inchar_depart,inchar_position)
-					bm_seq.nextval,
-					#bm_tiltie#,
-					#bm_content#,
-					#bm_form#,
-					#bm_start#,
-					#bm_end#,
-					#enrollment#,
-					#reg_notice#,
-					#cmp_notice#,
-					#related_bns#,
-					#bns_box#,
-					#important#,
-					#bm_state#,
-					#emp_num#
-				)
-				
 		
+		<!-- 참조자 등록  -->
+		<insert id="insertBm_ref" parameterClass="bmdto">
+	
+			insert into Bm_ref(bmr_num,bm_num,emp_num,ref_name,ref_branch,ref_depart,ref_position) values(
+				bmr_seq.nextval,
+				#bm_num#,
+				#emp_num#,
+				#ref_name#,
+				#ref_branch#,
+				#ref_depart#,
+				#ref_position#
+			)
 		</insert>	
 		
 		
+		<!-- 담당자 등록  -->
+		<insert id="insertIncharge" parameterClass="bmdto">
+	
+			insert into incharge(num,bm_num,emp_num,inchar_name,inchar_brunch,inchar_depart,inchar_position) values(
+				inc_seq.nextval,
+				#bm_num#,
+				#emp_num#,
+				#inchar_name#,
+				#inchar_brunch#,
+				#inchar_depart#,
+				#inchar_position#
+			)
+		</insert>	
 		
+		<!-- 수신자 등록  -->
+		<insert id="insertBms_rec" parameterClass="bmdto">
+	
+			insert into bms_rec(rec_num,bm_num,emp_num,rec_name,rec_branch,rec_depart,rec_position) values(
+				rec_num_seq.nextval,
+				#bm_num#,
+				#emp_num#,
+				#rec_name#,
+				#rec_branch#,
+				#rec_depart#,
+				#rec_position#
+			)
+		</insert>
+		
+		
+		<!-- 업무내역 등록  -->
+		<insert id="insertHistory" parameterClass="bmdto">
+	
+			insert into history(his_num,bm_num,emp_num,his_process,his_content,modify_date) values(
+				his_num_seq.nextval,
+				#bm_num#,
+				#emp_num#,
+				#his_process#,
+				#his_content#,
+				#modify_date#
+			)
+		</insert>
+		
+		<!-- 업무파일 등록  -->
+		<insert id="inserBm_file" parameterClass="bmdto">
+	
+			insert into bm_file(bmf_num,bm_num,org_file,sys_file) values(
+				bmf_num_seq.nextval,
+				#bm_num#,
+				#org_file#,
+				#sys_file#
+			)
+		</insert>
+		
+		<!-- 업무형태 등록  -->
+		<insert id="insertBm_form" parameterClass="bmdto">
+	
+			insert into bm_form(bmfo_num,bm_formName) values(
+				bmfo_num_seq.nextval,
+				#bm_formName#
+			)
+		</insert>
+		
+		<!-- 업무보관함 등록  -->
+		<insert id="insertBns_box" parameterClass="bmdto">
+			insert into bns_box(bns_num,bm_num,bns_name) values(
+				bns_num.nextval,
+				#bm_num#,
+				#bns_name#
+			)
+		</insert>
+
+		<!--  사원 수 불러오기  -->
+		<select id="bm_empCount" resultClass="int">
+        	  select count(*) from emp 
+        </select> 
+		
+		<!--  사원 이름 불러오기  -->
+		<select id="emp_name" resultClass="String" parameterClass="String">
+            select emp_name from emp where emp_num=#emp_num#     
+        </select>
 		
 		<!--  담당자incharPop 불러오기  -->
 		<select id="bm_org_department" resultClass="odto">
-        	  select e.emp_name,p.position,d.department from emp e, position p,department d where p.num=e.position and e.department=d.num
+        	  select e.emp_name,p.position,d.department, d.num from emp e, position p,department d where p.num=e.position and e.department=d.num order by e.position desc
         </select> 
         
         
@@ -104,9 +181,29 @@
         	  select * from department 
         </select> 
         
+        <select id="emp_department" resultClass="dto">
+        	  select department from emp 
+        </select> 
+        
+          <select id="bm_form" resultClass="int" >
+      		select bmfo_num from bm_form 
+      	</select>
         
         
-        
+       	<select id="allorg1" resultClass="odto" parameterClass="int">
+     		select e.emp_num, e.emp_name,d.department, e.position from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=1 order by e.position desc
+        </select>
+      
+      	<select id="allorg2" resultClass="odto" parameterClass="int">
+      		select e.emp_num, e.emp_name,d.department, e.position from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=2 order by e.position desc
+        </select>
+      
+       
+        <select id="allorg3" resultClass="odto" parameterClass="int">
+      		select e.emp_num, e.emp_name,d.department, e.position from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=3 order by e.position desc
+      	</select>
+         
 
 </sqlMap>
 
+ 

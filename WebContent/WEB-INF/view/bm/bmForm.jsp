@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=7" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />   
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="resource/ckeditor.js"></script>
 <html>
@@ -25,7 +25,7 @@
 	
 
     	   $(function() {
-        	      $( "#work_date").datepicker({
+        	      $( "#DateCalendar").datepicker({
         	    	    showOn: "button", 
                         buttonImage:"/JackPot/images/calendar (1).png",
                         buttonImageOnly: true ,
@@ -66,11 +66,15 @@
 
 
 <script>
-     function openInchar(){
-      url = "/JackPot/incharPop.jp"
-      open(url, "inchar", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
+function openInchar(){
+	url = "/JackPot/incharPop.jp"
+ 	open(url, "inchar", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
    }  
    
+function openBms_rec(){
+	url = "/JackPot/bms_recPop.jp"
+ 	open(url, "bms_rec", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
+   }   
 </script>
 
 <!-- 
@@ -211,90 +215,106 @@
                             <th scope="row"><span class="text-point-b">*</span>제목</th>
                             <td>
                                 <div>
-                                        <input type="text" title="제목" name="bm_tiltie" class="form-control" placeholder="제목을 입력하세요.">
-                                    
+                                	<input type="text" title="제목" name="bm_tiltie" class="form-control" placeholder="제목을 입력하세요.">
                                 </div>
                             </td>
                         </tr>
                         
-				<tr>
-					<td><span class="text-point-b" >*</span>업무형태</td>
-						<td>
-							<div >
-								<input type="hidden" name="bm_form" value="">
-								<label ><input type="radio" name="bm_form" title="나의 할일" value="0"> 나의 할 일</label>
-								<label ><input type="radio" name="bm_form" title="업무 요청" value="1"> 업무 요청</label>
-                                <label ><input type="radio" name="bm_form" title="업무 보고" value="2"> 업무 보고</label>
-                                <label ><input type="radio" name="bm_form" title="업무 일지" value="3"> 업무 일지</label>
+						<tr>
+							<th scope="row"><span class="text-point-b" >*</span>업무형태</th>
+							<td>
+								<div >
+									<input type="hidden" name="bm_form" value="">
+									<label ><input type="radio" name="bm_form" title="나의 할일" value="0"> 나의 할 일</label>
+									<label ><input type="radio" name="bm_form" title="업무 요청" value="1"> 업무 요청</label>
+                              	  <label ><input type="radio" name="bm_form" title="업무 보고" value="2"> 업무 보고</label>
+                              	  <label ><input type="radio" name="bm_form" title="업무 일지" value="3"> 업무 일지</label>
                              </div>
-                        </td>
-                    </tr>
+                       	 	</td>
+                   	 	</tr>
                     
                     <tr id="isTermlessTR">
                     	<th ><span class="text-point-b">*</span>업무기한</th>
 							<td>
+								<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
 								<input type="hidden" name="bm_start" value="">
-								<input type="text" title="시작날짜" id="dueDateCalendar" name="bm_start" value="${date}" readonly="readonly" class="input-datepicker w100" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd">
-                                <button type="button" id="dueDateCalendarBtn" class="btn btn-color7 br tbl-inner"><i class="icon calendar"></i></button>
-                                <div class="timepicker-wrap blind">
-                                <div class="input-group bootstrap-timepicker"><div class="bootstrap-timepicker-widget dropdown-menu">
-                                </div></div></div>
-                                
-                                <input type="hidden" name="bm_end" value="">
-                                <input type="text" title="종료날짜" id="dueDateCalendar" name="bm_end" value="${date}" readonly="readonly" class="input-datepicker w100" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd"><!-- readonly 칸에 글자못쓰게 막기-->
-                                <button type="button" id="dueDateCalendarBtn" class="btn btn-color7 br tbl-inner"><i class="icon calendar"></i></button>
-                                <div class="timepicker-wrap blind">
-                                <div class="input-group bootstrap-timepicker"><div class="bootstrap-timepicker-widget dropdown-menu">
-                                
-                                <table>
-                                	<tbody>
-                                		<tr>
-                                			<td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a></td>
-                                			<td class="separator">&nbsp;</td><td><a href="#" data-action="incrementMinute">
-                                				<i class="fa fa-chevron-up"></i></a></td>
-                                			</tr>
-                                			<tr><td><input type="text" class="form-control bootstrap-timepicker-hour" maxlength="2"></td> 
-                                			<td class="separator">:</td><td><input type="text" class="form-control bootstrap-timepicker-minute" maxlength="2"></td> </tr><tr><td><a href="#" data-action="decrementHour"><i class="fa fa-chevron-down"></i></a></td><td class="separator"></td><td><a href="#" data-action="decrementMinute"><i class="fa fa-chevron-down"></i></a></td></tr></tbody></table></div>
-								<input type="text" title="시간" name="timepicker" readonly="readonly" class="input-timepicker" placeholder="h:mm">
-                                <a href="javascript:void(0);" class="btn input-group-addon btn-color5 br">
-                                	<i class="fa fa-clock-o"></i>
-								</a>
-                                </div>
-                                </div>
-								<span class="label-group ml10">
-									<input name="chkbox" type="checkbox" onClick="checkDisable(this.form)">
-                                	<input type="checkbox" title="기한없음" name="bm_end" value="0"><label>기한없음</label>
-                                </span>
+								<input type="text" title="시작날짜" id="DateCalendar" value="${date }" name="bm_start" readonly="readonly" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd" onchange="test(this.value)"><!-- readonly 칸에 글자못쓰게 막기-->
+                           
+               					<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
+								<input type="hidden" name="bm_end" value="">
+								<input type="text" title="종료날짜" id="DateCalendar" value="${date }" name="bm_end" readonly="readonly" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd" onchange="test(this.value)">
+                           		<span class="label-group ml10">
+								<input type="checkbox" title="기한없음" name="bm_end" value="0"><label>기한없음</label>
+                             	</span>
                             </td>
                         </tr>
+                        <c:if test="${bm_form.bmf_num == 1}">
+                        </c:if>
+                        <c:if test="${bm_form.bmf_num == 2}">
                         <tr>
                             <th id="inchar_name" scope="row">
                             	<span class="text-point-b">*</span>담당자</th>
-                            <th id="rec_name" scope="row" style="display:none;">
-                            	<span >*</span>수신자
-                            </th>
-                            	
                             <td>
-                                <div  class="input-group organization">
-                                <div id="selectUser1_div" class="tagsinput">
-                                	<input type="hidden" name="bm_end" value="">
-									<input type="text" title="사용자" name="inchar_name" placeholder="사용자" style="box-shadow:none;">
-                                 	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openInchar()"><i class="icon man-plus">
-                                 	<span class="none">사용자</span></i></button></div></div> 
-     
-                                
-                            </td>
+                            	<input type="hidden" name="bm_end" value="">
+								<input type="text" title="사용자" name="inchar_name" placeholder="사용자" style="box-shadow:none;">
+                                <button type="button" class="btn input-group-addon btn-color5 br" onclick="openInchar()"><i class="icon man-plus">
+                                <span class="none">사용자</span></i></button>
+     						</td>
                         </tr>
                         
-                        <tr id="worker2TR">
-                            <th scope="row">참조자</th>
+                        <tr>
+                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
+                            </th>
+                            
                             <td>
-                                <div id="selectUser2" class="input-group organization"><div id="selectUser2_div" class="tagsinput">
-                                <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;"></div>
-                                <a href="#a" title="사용자" class="btn input-group-addon btn-color5 br">
-                                <i class="icon man-plus"></i><span class="none">사용자</span></a></div>
+                            	<input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
+                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
+                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
                             </td>
                         </tr>
+                        </c:if>
+                        <c:if test="${bm_form.bmf_num == 3}">
+                        <tr>
+                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
+                            </th>
+                            
+                            <td>
+                            	<input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
+                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
+                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<th id="inchar_name" scope="row"><span class="text-point-b">*</span>수신자</th>
+                            <td>
+                                <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
+                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
+                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
+                            </td>
+                        </tr>
+                        </c:if>
+                        
+                        <c:if test="${bm_form.bmf_num == 4}">
+                        <tr>
+                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
+                            </th>
+                            
+                            <td>
+                            	<input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
+                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
+                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<th id="inchar_name" scope="row"><span class="text-point-b">*</span>수신자</th>
+                            <td>
+                                <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
+                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
+                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
+                            </td>
+                        </tr>
+                        </c:if>
+                        
                         
                         <tr id="alarmTR">
                             <th scope="row">등록 알림</th>
@@ -349,7 +369,7 @@
 					</div>
 <div class="btn-wrap" ">
         <button type="submit" class="btn btn-color5 br" id="saveButton" >저장</button>
-        <button type="button" class="btn2 btn-color7 br" onclick="javascript:location.href='/groupware/todo/listTodoView.do?searchConditionString=';">취소</button>
+        <button type="button" class="btn2 btn-color7 br" onclick="javascript:location.href='javascript:location.href='/JackPot/bmForm.js'">취소</button>
     </div>
 </form>
 </div>

@@ -106,18 +106,18 @@ public class bmDTO {
 	}
 	
 	/*업무담당자(incharge)*/
-	private int inc_num;		/*번호*/
+	private int num;		/*번호*/
 	private String inchar_name;		/*업무담당자 이름*/
 	private String inchar_brunch;	/*업무담당자 지점*/
 	private String inchar_depart;	/*업무담당자 부서*/
 	private String inchar_position;	/*업무담당자 직급*/
 
 		
-	public int getInc_num() {
-		return inc_num;
+	public int getNum() {
+		return num;
 	}
-	public void setInc_num(int inc_num) {
-		this.inc_num = inc_num;
+	public void setInc_num(int num) {
+		this.num = num;
 	}
 	public String getInchar_name() {
 		return inchar_name;
@@ -148,7 +148,7 @@ public class bmDTO {
 	
 	private int bns_num;		/*업무보관번호*/
 	private String bns_name;	/*업무보관함이름*/
-	
+
 	public void setBns_num(int bns_num){
 		this.bns_num = bns_num;
 	}
@@ -284,7 +284,7 @@ public class bmDTO {
 	private String rec_name;  /*업무수신자이름*/
 	private String rec_branch; /*업무수신자 지점*/
 	private String rec_depart;  /*업무수신자 부서*/
-	private String position;	/*업무수신자 직급*/
+	private String rec_position;	/*업무수신자 직급*/
 	
 	
 	public int getRec_num() {
@@ -311,17 +311,17 @@ public class bmDTO {
 	public void setRec_depart(String rec_depart) {
 		this.rec_depart = rec_depart;
 	}
-	public String getPosition() {
-		return position;
+	public String getRec_position() {
+		return rec_position;
 	}
-	public void setPosition(String position) {
-		this.position = position;
+	public void setRec_position(String rec_position) {
+		this.rec_position = rec_position;
 	}
 	
 
 	/*업무형태(bm_form)*/
 	private int bmfo_num;  
-	private String bm_name; //업무수신자이름  
+	private String bm_formName; 
 
 	public int getBmfo_num() {
 		return bmfo_num;
@@ -329,11 +329,11 @@ public class bmDTO {
 	public void setBmfo_num(int bmfo_num) {
 		this.bmfo_num = bmfo_num;
 	}
-	public String getBm_name() {
-		return bm_name;
+	public String getBm_formName() {
+		return bm_formName;
 	}
-	public void setBm_name(String bm_name) {
-		this.bm_name = bm_name;
+	public void setBm_formName(String bm_formName) {
+		this.bm_formName = bm_formName;
 	}
 
 	

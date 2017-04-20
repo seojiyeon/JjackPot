@@ -19,7 +19,7 @@ html,BODY { height:100%;overflow-x:hidden; margin:0px;}
 .boardmenu .hide{display:none;}
 
 #main-container{height:100%;padding:20px;padding-top:0;background: white;} 
-#main-contents{top:60; position:fixed;left:270px;padding:25;width: 1500px;height:100%;background: white;}
+#main-contents{overflow:auto; top:60; position:fixed;left:270px;padding:25;width: 1100px;height:100%;background: white; overflow: auto;}
 table { border-spacing: 0; width:100%; max-width:100%; table-layout:fixed; border-collapse:collapse; background-color:#fff; }
 .content-write{margin-bottom: 30px; } 
 .menulist a {text-decoration:none;}
@@ -227,8 +227,11 @@ tr {  display: table-row;  vertical-align: inherit;  border-color: inherit;}
 #organizationSearch .inbox {   padding: 8px;   height: 392px; min-height: 392px;border: 1px solid #ddd;white-space: nowrap;overflow: auto;}
 
 .inbox {   position: relative;  padding: 8px;border: 1px solid #ddd; white-space: nowrap;overflow: auto;}
-
-
+#organizationSearch i.fa-search {color: #fd7d86;}
+.tbl-inner i {margin: 0;}
+.fa-fw {width: 1.28571429em;text-align: center;}
+.fa {display: inline-block; font: normal normal normal 14px/1 FontAwesome;font-size: inherit; text-rendering: auto; -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;}
+.btn span {}
 
 
 

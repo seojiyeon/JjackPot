@@ -2,7 +2,7 @@ package jackpot.DTO;
 
 public class dpDTO {
 	private int num;
-	private String depertment;
+	private String department;
 	
 	public int getNum() {
 		return num;
@@ -12,12 +12,12 @@ public class dpDTO {
 		this.num = num;
 	}
 
-	public String getDepertment() {
-		return depertment;
+	public String getDepartment() {
+		return department;
 	}
 
-	public void setDepertment(String depertment) {
-		this.depertment = depertment;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 
