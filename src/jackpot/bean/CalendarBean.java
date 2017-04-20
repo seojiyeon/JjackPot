@@ -111,6 +111,7 @@ public class CalendarBean {
 		  calendarDTO cdto = new calendarDTO();
 		  int max = (Integer)sqlMap.queryForObject("calendar.maxnum", null);
 		  MultipartFile mf = multi.getFile("file");
+		  System.out.println(mf);
 		  if(!mf.equals(null)){
 			  String path=multi.getRealPath("save");
 			  String org=mf.getOriginalFilename();
@@ -141,6 +142,12 @@ public class CalendarBean {
 		
 		  sqlMap.insert("calendar.insertCalendar",cdto);
 		  
-		return "/calendar/calendarPro";
+		return "/calendar/calendar";
+	}
+	@RequestMapping("/calendardelete.jp")
+	public String delete(HttpServletRequest request){
+		String cl_num= request.getParameter("id");
+		sqlMap.delete("calendar.delete", cl_num);
+		return "/calendar/calendar";
 	}
 }

@@ -24,8 +24,8 @@
         <select id="userCheck" resultClass="int" parameterClass="cdto">
         </select>
         
-        <delete id="deletePro" parameterClass="cdto">
-        
+        <delete id="delete" parameterClass="String">
+        delete calendar where cl_num=#cl_num#
         </delete>
         
 </sqlMap>

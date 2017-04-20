@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/calendar.css?ver=5" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/calendar.css?ver=7" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <html>
@@ -30,8 +30,40 @@ a:hover{none;}
             }else{
                 submenu.slideDown();
             }
-        });        
+        });
+        
+        $(".calendar-insert-bt").click(function(){
+        	var contents = $('#main-container');
+        		contents.fadeOut();
+        	
+        	var insertForm = $('#insertForm-container');
+        		insertForm.fadeIn();
+        });
     });
+    
+function updatebutton_click(id){
+	$.ajax({
+		type :"post",
+		url :"http://localhost:8080/JackPot/calendarcontents.jp",
+		data : {id:id},
+		success : function(contents){
+			
+			var lay = $('#layer2');
+			lay.fadeOut();
+			
+        	var con = $('#main-container');
+    		con.fadeOut();
+    	
+    		var insert = $('#insertForm-container');
+    		insert.fadeIn();
+		}, 
+		error : function(){
+			alert("error");
+		}
+		});
+	
+}
+
 </script>
 
 <script type="text/javascript">
@@ -128,21 +160,84 @@ function checkIt() {
 			</div>
 		</div>
     </div>
-	<div id="#main-container">
+	<div id="main-container">
 		<div id="main-constop">
 		
 		</div>
 	<div id="main-contents">
    		<jsp:include page="/fullcalendar.jp"></jsp:include>
 	</div>
-
+	</div>
+	<div id="insertForm-container">
+		<div id="insertForm-top">
+		<ul>일정등록</ul>
+		</div>
+		<div id="insertForm-contents">
+			<div class="insertForm-info">
+				* 일정을 참여자 외 다른 직원과 공유하지 않을 경우 아래의 비공개를 선택하시기 바랍니다.
+			</div>
+			<div class="insertForm-cons">
+			<form action="calendarPro.jp" method="post" enctype="multipart/form-data" onSubmit="return checkIt()">
+				<div class="insertForm">
+					<ul>
+						<li>* 기간</li>
+						<li><input type="date" name="sdate" id="sdate" />
+    					<input type="time" name="stime" step="1800" value="00:00"/></li>
+    					<li><input type="date" name="edate" />
+    					<input type="time" name="etime" step="1800" /></li>
+					</ul>
+					<ul>
+						<li>* 제목</li>
+						<li>
+						<select name="title">
+   						<optgroup label="업무일정">
+  						<option value="회사일정">회사일정</option>
+  						<option value="지점일정">지점일정</option>
+  						<option value="부서일정">부서일정</option>
+  						<option value="개인업무">개인업무</option>
+   	 					</optgroup>
+   	 					<optgroup label="개인일정">
+   	 					<option value="출장">출장</option>
+    					<option value="연차">연차</option>
+    					</optgroup>
+  						</select>
+  						</li>
+  						<li><input type="text" placeholder=" 제목" name="subject" style="width:300px"></li>
+					</ul>
+					<ul>
+						<li>장소</li><li><input type="text" placeholder=" 장소" name="place" style="width:398px"></li>
+					</ul>
+					<ul>
+						<li>참여자</li><li><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a>추가</a></li>
+					</ul>
+					<ul>
+						<li>내용</li><li><textarea name="contents" placeholder=" 내용"style="width:398px;border-radius:3px;border:1px solid darkgray;"></textarea></li>
+					</ul>
+					<ul>
+						<li>알림</li><li></li>
+					</ul>
+				</div>
+				<div class="insertFile">
+					<ul><li>파일 업로드</li></ul>
+					<ul class="insertFileForm">
+						<li>파일명</li><li>상태</li><li>크기</li>
+						<li>이곳에 파일을 드래그 하세요.</li>
+						<li>파일 추가</li><li></li>
+					</ul>
+				</div>
+				<ul><li><input type="submit" value="전송"><input type="reset" value="취소"></li></ul>
+			</form>
+			</div>
+		</div>
+	</div>
+	
         <div id="layer1" class="pop-layer">
 			<div id="calendarform">
 				<div class="calendarformTop">
 				  일정 <a href='javascript:window.close();'><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
 				</div>
 			<div class="calendarform">
-    			<form action="calendarPro.jp" name="userinput" method="post" enctype="multipart/form-data" onSubmit="return checkIt()">
+    			<form action="calendarPro.jp" method="post" enctype="multipart/form-data" onSubmit="return checkIt()">
   					<ul>
   						<li><select name="title">
    						<optgroup label="업무일정">
@@ -176,7 +271,7 @@ function checkIt() {
 			</div>
 			</div>
 		</div>
-			
+
 			<div id="layer2" class="pop-layer2">
 				<div class="contents">	
 					<div class="contentsTop">
@@ -196,14 +291,13 @@ function checkIt() {
 			<div class="btn">
 				<ul>
 					<li><a href="#" class="cbtn">닫기</a></li>
-					<li><a href="/JackPot/calendarupdate.jp">수정</a></li>
-					<li><a href="/JackPot/calendardelete.jp">삭제</a></li>
+					<li class="contents-bt" style="margin:0;padding:0;border:none;">
+					</li>
 				</ul>
-			</div>
 				</div>
 				</div>
 			</div>
 	</div>
-</div>
+</div>	
 </body>
 </html>

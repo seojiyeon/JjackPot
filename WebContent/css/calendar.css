@@ -25,10 +25,20 @@ form {display: inline-block;}
 .branchmenu {margin: 5 0 0 0;}
 .branchmenu a{cursor:pointer;font-size:18;width:210px;height:35;display:inline-block;}
 .branchmenu li button{border-radius:3px;border:1px solid darkgray;height:20px;background-color:white;width:190;}
+
 #main-container{position:fixed;left:270px;top:0;width:85%;height:100%;} 
 #main-constop{position:fixed;height:60px;top:0px;width:85%;left:270px;}
-#main-contents{position:fixed;left:270px;top:60px;width:85%;height:100%;}
+#main-contents{position:fixed;left:270px;top:60px;width:85%;height:100%;margin: 0 0 0 15;}
 .menulist a {text-decoration:none;}
+
+#insertForm-container{display:none;position:fixed;left:270px;top:0;width:85%;height:100%;}
+#insertForm-top{position:fixed;height:62px;top:0px;width:85%;left:270px;border-bottom:2px solid darkgray;margin: 0 0 0 15;}
+#insertForm-top ul{font-size:20;font-weight:600;margin:0;padding:0 0 0 10;line-height:60px;}
+#insertForm-contents{position:fixed;left:270px;top:60px;width:85%;margin: 0 0 0 15;}
+.insertForm-info{height:40px;line-height:3;padding:0 0 0 10;margin:20 0 0 0;background-color:aliceblue;color:tomato;}
+.insertForm-cons{}
+.insertForm-cons ul{list-style:none;padding:0;margin:0;}
+.insertForm-cons li{}
 
 #layer1 {position:fixed;left:50%;top:10%;background:white;display:none;border:1px solid gray;width: 415;}
 #calendarform {display: inline-block;}

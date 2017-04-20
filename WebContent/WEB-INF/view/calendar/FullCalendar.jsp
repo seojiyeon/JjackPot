@@ -107,10 +107,14 @@ jQuery(document).ready(function() {
 				success : function(contents){
 					if(contents.cl_edate == null){
 						$(".contents-date").html("<ul><li>"+contents.cl_sdate+" "+contents.cl_stime+"<li><ul>");
-					}else{$(".contents-date").html("<ul><li>"+contents.cl_sdate+" "+contents.cl_stime+" ~ "+contents.cl_edate+" "+contents.cl_etime+"<li><ul>");}
+					}else{
+					$(".contents-date").html("<ul><li>"+contents.cl_sdate+" "+contents.cl_stime+" ~ "+contents.cl_edate+" "+contents.cl_etime+"<li><ul>");}
 					$(".contents-subject").html("<ul><li>["+contents.cl_title+"] "+contents.cl_subject+"<li><ul>");
 					$(".contents-writer").html("<li><font color="+"#f05050 !important;"+">[등록자] </font>"+contents.cl_writer+"</li><li>"+"등록일 : "+contents.cl_sdate+"</li>"+"<br/>"+"<font color="+"#f05050 !important;"+">[참여자] </font>"+contents.cl_participants);
 					$(".contents-conts").html("<ul><li>"+contents.cl_contents+"<li><ul>");
+					$(".contents-bt").html(
+					"<li><a href=# onclick=updatebutton_click("+event.id+");>수정</a></li>"+
+					"<li><a href=/JackPot/calendardelete.jp?id="+event.id+">삭제</a></li>");
 				}, 
 				error : function(){
 					alert("error");
