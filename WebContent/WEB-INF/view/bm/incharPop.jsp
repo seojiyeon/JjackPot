@@ -21,53 +21,11 @@
 
 
 
-<div class="mask"></div>
-<div class="window">
-   <div id="MemoCateName">
-      <div>등록할 메모폴더를 선택해주세요.</div>
-      <div id="selectCate">
-         <table>
-            <c:if test="${memoCateCount == 0}">
-               <tr>
-                  <td>등록된 폴더가 없습니다.<br>
-                  폴더를 생성해주시기 바랍니다.
-                  </td>
-               </tr>
-            </c:if>
-            <c:if test="${memoCateCount > 0}">
-            
-            <c:forEach var="memoCate" items="${memoCateList}">
-               <tr>
-                  <td>
-                     <a href="memoInsert.jp?memo_cate=${memoCate.getCate_num()}">${memoCate.getCate_title()}</a>
-                  </td>
-               </tr>
-            </c:forEach>
-            
-            </c:if>
-            <tr>
-               <td align="right">
-                  <button class="close">닫기</button>
-               </td>
-            </tr>
-         </table>
-      </div>
-   </div>
-</div>
-
-
-
-
-
-
+<div class="mask">
+<body class="methods-page" data-page="methods">
+	
 <body class="modal-open" style="padding-right: 0px;">
 	
-	<div id="page-container" class="sub sidebar-mini sidebar-subarea">	
-								<c:forEach var="emp_d" items="${emp_d}" >
-								${emp_d.emp_name}
-								</c:forEach>
-	</div>
-		
 
 
     <div class="modal-content">
@@ -78,30 +36,44 @@
    	 	<div class="modal-close"><a href="javascript:void(0)" data-dismiss="modal">
     		<i class="icon pop-close"></i><span>Close</span></a>
     	</div>
-    	</div>
+ 
     
-    	<div class="pd">
-    		<iframe src="" border="1" frameborder="0" class="dialog" style="height:490px;"></iframe>
-    	</div>
-    </div>
+
+   
+    
     
     <div>
-    	<div class="modal-boby">
-    		<div class="modal-body">
+   		<div class="modal-body">
 			<div class="shuttleL">
 				<div id="divOrgMainTab" class="box-header">
-					<ul class="nav nav-tabs3 push">
-						
-							<li class="active"><a href="#organogramTabOrg" data-toggle="tab tooltip" title="">조직도</a></li>
-						
-						
-						
-						
-						<li><a href="#organogramTabSearch" data-toggle="tab tooltip" title="">검색</a></li>
-						
-						
+					<ul class="nav nav-tabs3 push" style="width: 130px">
+						<li class="active">
+							<a href="#organogramTabOrg" data-toggle="tab tooltip" title="">조직도</a></li>
+							<li style="width: 700px">
+							<div class="inbox mini-box">
+							<div id="orgTreeDept" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="treeItem_G102863_U144716" aria-busy="false">
+							<ul class="jstree-container-ul jstree-children" role="group">
+							<c:forEach var="emp_d2" items="${emp_d2}" >
+							<li role="treeitem" code="G102863" aria-selected="false" aria-level="1" aria-labelledby="treeItem_G102863_anchor" aria-expanded="true" id="treeItem_G102863" class="jstree-node  jstree-last jstree-open">
+							<i class="jstree-icon jstree-ocl" role="presentation"></i>
+							<a class="jstree-anchor" href="#" tabindex="-1" id="treeItem_G102863_anchor">
+							<i class="jstree-icon jstree-themeicon dept jstree-themeicon-custom" role="presentation"></i>
+							${emp_d2.department}</a>	</li>
+							</c:forEach>
+							</ul>
+							</div>
+							
+							<ul role="group" class="jstree-children" style="">	
+							<c:forEach var="emp_d" items="${emp_d}" >
+							<li role="treeitem" code="" aria-selected="false" aria-level="2" aria-labelledby="treeItem_G102863_U144416_anchor" id="treeItem_G102863_U144416" class="jstree-node  jstree-leaf">
+							<i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="treeItem_G102863_U144416_anchor"><i class="jstree-icon jstree-themeicon fa fa-leaf join jstree-themeicon-custom" role="presentation"></i>
+							${emp_d.emp_name}(${emp_d.position })</a></li>
+								
+								</c:forEach>
+</ul></div>
 					</ul>
 				</div>
+				
 				<div class="tab-content">
 					
 						<div class="tab-pane active" id="organogramTabOrg">

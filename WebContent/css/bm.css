@@ -2,7 +2,7 @@
 
 html,BODY { height:100%;overflow-x:hidden; margin:0px;}
 
-#page-container{position: relative;min-height: 100%; min-width: 1200px; background:#fff;}
+#page-container{position: relative;min-height: 100%; min-width: 1200px; background-color: white;}
 
 #sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
 
@@ -19,7 +19,7 @@ html,BODY { height:100%;overflow-x:hidden; margin:0px;}
 .boardmenu .hide{display:none;}
 
 #main-container{height:100%;padding:20px;padding-top:0;background: white;} 
-#main-contents{position:fixed;left:270px;padding:25; width:85%;height:100%;background: white;}
+#main-contents{top:60; position:fixed;left:270px;padding:25;width: 1500px;height:100%;background: white;}
 table { border-spacing: 0; width:100%; max-width:100%; table-layout:fixed; border-collapse:collapse; background-color:#fff; }
 .content-write{margin-bottom: 30px; } 
 .menulist a {text-decoration:none;}
@@ -42,7 +42,7 @@ body {
 .content-view .form-group {display:table;margin-bottom:0;padding:0;}
 
 /*버튼*/
-.btn-color5.br { border: 1px solid #363636; border: 1px solid #363636; font-size: 12; width: 8%;}
+.btn-color5.br { border: 1px solid #363636; border: 1px solid #363636; font-size: 12; }
 
 .btn-wrap .btn { min-width: 63px; padding: 5px 11px;/* box-shadow: 0 3px 5px #e3e3e3; */}
 
@@ -51,7 +51,7 @@ body {
 .btn-color7.br { border: 1px solid #aaa;}
 
 
-.btn-color8. br { border: 1px solid #aaa; width: 20%;}
+.btn-color8. br { border: 1px solid #aaa; width: 20px;}
 
 
 .btn-wrap .btn { min-width: 63px;  padding: 5px 11px;  /* box-shadow: 0 3px 5px #e3e3e3; */}
@@ -146,7 +146,7 @@ ul:not(.itemContentLi), ol:not(.itemContentLi), dl, dt, dd, p {margin: 0; paddin
 #organizationSearch .shuttleL { float: left;width: 53%;padding-left: 0;}
 #organizationSearch .box-header {height: 42px;}
 #page-container.sub { position: relative; min-height: 100%; min-width: 1200px; background: white;}
-#page-container { position: relative;width: 100%; padding: 0; margin: 0 auto; -webkit-transition: background-color 0.2s ease-out; transition: background-color 0.2s ease-out; background: #e6ebed; z-index: 0;}
+#page-container { background: white; position: relative;width: 100%; padding: 0; margin: 0 auto; -webkit-transition: background-color 0.2s ease-out;  z-index: 0;}
 .nav-tabs3 {padding: 0;border-bottom: 1px solid #bbc4d0;}
 .nav { padding: 0 20px; margin-bottom: 0;list-style: none;}
 .nav-tabs3 > li {float: left;margin-bottom: -1px;}
@@ -213,3 +213,25 @@ tr {  display: table-row;  vertical-align: inherit;  border-color: inherit;}
 }
 .btn:hover, .btn:focus, .btn:active {  text-decoration: none;}
 .btn:hover { opacity: 0.8;}
+
+/*------------------------------popup--------------------------------------------------------------------------------*/
+.mask {width: 100%;     background-color: white;height: 100%; position: fixed; left: 0; top: 0; z-index: 10;opacity: .5; filter: alpha(opacity=50);}
+.modal-body { top: 10;   background-color: white; position: relative;padding: 0; min-height: 100px;}
+#organizationSearch .shuttleL { float: left; width: 53%;   padding-left: 0;}
+#organizationSearch .box-header { height: 42px;}
+.tab-content > .active {  display: block;  position: relative;}
+#organizationSearch .mini-box {
+    height: 350px;
+    min-height: 350px;
+}
+#organizationSearch .inbox {   padding: 8px;   height: 392px; min-height: 392px;border: 1px solid #ddd;white-space: nowrap;overflow: auto;}
+
+.inbox {   position: relative;  padding: 8px;border: 1px solid #ddd; white-space: nowrap;overflow: auto;}
+
+
+
+
+
+
+
+

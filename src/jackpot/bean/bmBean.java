@@ -156,13 +156,14 @@ public class bmBean {
 
 	}
 	
-	/*담당자userPop*/
+	/*담당자incharPop*/
 	
 	@RequestMapping("/incharPop.jp")
-	public String incharPop(orgDTO odto,Model model,HttpSession session){
-		
-		List emp_d = sqlMap.queryForList("org.bm_org_department",null);
+	public String incharPop(Model model){
+		List emp_d2 = sqlMap.queryForList("bm.bm_de_department",null);
+		List emp_d = sqlMap.queryForList("bm.bm_org_department",null);
 		System.out.println(emp_d);
+		model.addAttribute("emp_d2",emp_d2);
 		model.addAttribute("emp_d",emp_d);
 		return "/bm/incharPop";
 

@@ -19,10 +19,55 @@
 <html>
 <head>
 
+
+
+<script type="text/javascript">
+	
+
+    	   $(function() {
+        	      $( "#work_date").datepicker({
+        	    	    showOn: "button", 
+                        buttonImage:"/JackPot/images/calendar (1).png",
+                        buttonImageOnly: true ,
+                        buttonText: "Select date",
+                        buttonImageSize : "vertical-align: middle; margin: 10px 10px 10px 10px",
+        	    	 	dateFormat:'yy-mm-dd', 
+						showButtonPanel: true,
+						changeMonth: true, 
+						changeYear: true,
+						nextText: '다음 달',
+						prevText: '이전 달',
+						currentText:'오늘 날짜',
+						closeText: '닫기',
+						changeMonth: true, 
+						dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
+						monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+						maxDate : 'd',
+					});
+        	      
+        	  
+    	   });
+           
+    	   function test(test){
+    		   $.ajax({
+   	  	        type: "post",
+   	  	        url : "/JackPot/workday.jp",
+   	  	        data : {day : test},
+   	  	        success: function(data){
+   	  	        	$("#workday").html(data);
+   	  	        }	
+   	      	  });
+    	   }
+    	   
+    	   
+	</script>
+	
+
+
+
 <script>
-     function openInchar(userEnroll){
+     function openInchar(){
       url = "/JackPot/incharPop.jp"
-      
       open(url, "inchar", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
    }  
    
@@ -234,7 +279,7 @@
                                 <div id="selectUser1_div" class="tagsinput">
                                 	<input type="hidden" name="bm_end" value="">
 									<input type="text" title="사용자" name="inchar_name" placeholder="사용자" style="box-shadow:none;">
-                                 	<button type="button" class="btn input-group-addon btn-color5 br" id="openInchar"><i class="icon man-plus">
+                                 	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openInchar()"><i class="icon man-plus">
                                  	<span class="none">사용자</span></i></button></div></div> 
      
                                 
@@ -302,7 +347,7 @@
 						</script>
 						
 					</div>
-<div class="btn-wrap" style="width: 90%;">
+<div class="btn-wrap" ">
         <button type="submit" class="btn btn-color5 br" id="saveButton" >저장</button>
         <button type="button" class="btn2 btn-color7 br" onclick="javascript:location.href='/groupware/todo/listTodoView.do?searchConditionString=';">취소</button>
     </div>

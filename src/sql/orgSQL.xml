@@ -14,15 +14,13 @@
         	 select department,emp_num from emp where emp_num=#emp_num#
         </select>  
         
-        <select id="bm_org_department" resultClass="odto">
-        	  select e.emp_name,p.position,d.department from emp e, position p,department d where p.num=e.position and e.department=d.num
-        </select>  
         
         <select id="member2" resultClass="odto" parameterClass="int" >
          select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
-     from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=#department# order by e.position desc
+    	 from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=#department# order by e.position desc
      
         </select>
+      
       
          <select id="allorg" resultClass="odto" parameterClass="int">
       select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
