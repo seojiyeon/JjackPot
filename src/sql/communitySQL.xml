@@ -33,10 +33,19 @@
       values(reply_seq.nextval,#content#,#ref#,#re_step#,#re_level#,#re_num#,#emp_name#,sysdate)
          </insert>
         
-        <select id="reply" resultClass="codto" parameterClass="codto">
-        select r.content,r.ref,r.re_num,r.re_date,e.emp_num,e.emp_name
-            from  reply r,emp e where r.re_num=e.emp_num and r.ref=#ref#
+        <select id="reply" resultClass="codto" parameterClass="int">
+        select r.rep_num,r.content,r.ref,r.re_num,r.re_date,e.emp_num,e.emp_name
+            from  reply r,emp e where r.re_num=e.emp_num and r.ref=#ref# order by re_date desc
         </select>
+        
+        <select id="count" resultClass="int">
+            select count(*)from reply where ref=#ref#       
+        </select>
+        
+        <delete id="deleteReply" parameterClass="int">
+            delete  from reply where rep_num=#rep_num#
+        </delete>
+        
         
         
 </sqlMap>

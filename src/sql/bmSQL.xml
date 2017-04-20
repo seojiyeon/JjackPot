@@ -4,6 +4,7 @@
 
 <sqlMap namespace="bm">   
 	<typeAlias alias="bmdto"  type="jackpot.DTO.bmDTO"/>
+	<typeAlias alias="bpdto"  type="jackpot.DTO.dpDTO"/>
 
 	<!--  모든업무불러오기  -->
 		<select id="getBusiness" parameterClass="bmdto" resultClass="bmdto">
@@ -90,6 +91,22 @@
 		</insert>	
 		
 		
+		
+		
+		<!--  담당자incharPop 불러오기  -->
+		<select id="bm_org_department" resultClass="odto">
+        	  select e.emp_name,p.position,d.department from emp e, position p,department d where p.num=e.position and e.department=d.num
+        </select> 
+        
+        
+        <!-- 부서불러오기 -->
+        <select id="bm_de_department" resultClass="bpdto">
+        	  select * from department 
+        </select> 
+        
+        
+        
+        
 
 </sqlMap>
 

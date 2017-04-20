@@ -60,12 +60,14 @@ public class CommunityBean {
 	    dto.setEmp_num(emp_num);
 		model.addAttribute("dto",dto);
 
-		
+		int ref=Integer.parseInt(request.getParameter("com_num"));
 		List articleList = null;
-		articleList =sqlMap.queryForList("comm.reply", dto);
+		articleList =sqlMap.queryForList("comm.reply", ref);
 		
 		model.addAttribute("articleList",articleList);
 		
+		int check=(Integer)sqlMap.queryForObject("comm.count", ref);
+		model.addAttribute("check",check);
 		
 		return "/community/content";
 		
@@ -77,11 +79,6 @@ public class CommunityBean {
 	     sqlMap.update("comm.recommend",com_num);
 	     
 	     model.addAttribute("com_num",com_num);
-
-	     
-	     
-	     
-	     
 		 
 		return "/community/like";
        }
@@ -91,9 +88,6 @@ public class CommunityBean {
 	     int ref=Integer.parseInt(request.getParameter("com_num"));
 	     String re_num=(String) session.getAttribute("memId");
 	     String content=request.getParameter("content");
-	     System.out.println(ref);
-	     System.out.println(re_num);
-	     System.out.println(content);
 	     
 	     dto.setRe_num(re_num);
 	     dto.setRef(ref);
@@ -103,11 +97,20 @@ public class CommunityBean {
 	     
 	     model.addAttribute("dto",dto);
 	     model.addAttribute("com_num", ref);
-
-
-	     
-	     
+ 
 		return "/community/comment";
        }
+	
+	@RequestMapping("/CommentDEL.jp")
+	public String CommentDEL(HttpServletRequest request,Model model,communityDTO dto){
+	    int rep_num=Integer.parseInt(request.getParameter("rep_num"));	
+	    int com_num=Integer.parseInt(request.getParameter("ref"));
+	  
+           sqlMap.delete("comm.deleteReply", rep_num);
+	    	
+           model.addAttribute("com_num", com_num);
+		return "/community/CommentDEL";
+       }
+	
 	
 }
