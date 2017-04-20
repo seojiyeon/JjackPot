@@ -182,8 +182,8 @@ public class MsgBean {
 		return "/msg/main";
 	}
 	
-	@RequestMapping("/index.jp")
-	public String index(msgDTO dto, HttpSession session, Model model){
+	@RequestMapping("/msgNew.jp")
+	public String msgnew(msgDTO dto, HttpSession session, Model model){
 		String a = null;
 		String id = (String) session.getAttribute("memId");
 		int count = (int) sqlMap.queryForObject("msg.msgAcnt2", id);		
@@ -191,7 +191,7 @@ public class MsgBean {
 		if(count == 0){
 		a = "false";
 		}else{
-	    a =  "/msg/index";
+	    a =  "/msg/msgNew";
 	    sqlMap.update("msg.msgAL", id);
 		}
 		
