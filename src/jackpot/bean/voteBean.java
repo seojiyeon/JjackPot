@@ -204,11 +204,14 @@ public class voteBean {
 		
 		   
 		int ref=Integer.parseInt(request.getParameter("v_num"));
+		
 		List articleList=null;
 		  articleList=sqlMap.queryForList("vote.commetList", ref);
 		  
 		  model.addAttribute("articleList",articleList);
-	      request.setAttribute("sdf", sdf);			
+	      
+		  
+		  request.setAttribute("sdf", sdf);			
 		   
 		return "/vote/VoteResult";
 	}
