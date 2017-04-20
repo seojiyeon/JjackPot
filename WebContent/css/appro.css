@@ -320,10 +320,65 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 #sidebar-a{width:60px;height:100%;overflow:hidden;background:#363636;}
 
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
+/*con-header 부분*/
+.con-header { position:relative;width:100%; height:75px; margin:15px 10px; padding:5px 0 0 0; border-bottom:1px solid #d1d1d1 ; background:#fff;padding-left: 10px; }
+
+/*content-wrap부분*/
+.content-wrap {/* display:table; */position: relative;;width: 100%;background-color:#fff;}
+
+/*============================================================
+table-header
+=============================================================*/
+.table-header { position:relative; height:50px; /*margin:0 20px;*/ border-bottom:2px solid #c0c0c0; background:#fff; }
+.table-search .input-search a { background:#a6857e url(../../images/common/ic_search.png) no-repeat center; }
+.table-search .btnSearch { background:#a6857e url(../../images/common/ic_search.png) no-repeat center; }
+.search-wrap .search_btn .btn {background:#a6857e !important;}
+.search-wrap .search_btn .btn.br {border-color:#a6857e}
+.search-wrap table td .btn {border:1px #bbb solid; background:#fff !important;}
+.search-wrap table td .btn  i {color:#a6857e}
+.content-view.border-top {border-color:#c0c0c0}
+.approval .content-write .detail-info h5 {color:#222}
+
+.table-header .w-location { position:absolute; top:10px; right:20px; }
+.table-header .w-location span { color:#555; }
+.table-header .w-location span:first-child { padding-left:8px; background:url(../images/common/ic_dot.png) no-repeat 0 6px; }
+.table-header .w-location span:before {content: "\203a";padding: 0 5px; color: #ccc; font-size:10px; }
+.table-header .w-location span:first-child:before { content:""; padding:0; }
+.table-header .listinfo {position:relative;top:11px;line-height: 20px;}
+.table-header .listinfo select { float:left;display:inline-block; }
+.table-header .listinfo .table-header-checkbox, .table-header .table-search .table-header-checkbox { display: inline-block; float: left; margin: 4px 8px 0 0; }
+.table-header .listinfo .totalnum { float:left;display:inline-block;margin:4px 16px 0 20px; color:#999; }
+.table-header .listinfo .totalnum span { margin-left:3px; font-weight:700; color:#f05050; font-size: 20px;}
+.table-header .listinfo .btn { padding: 0 4px; font-size: 11px; color: #555; border: 1px solid #cacaca; background-color: #e9e9e9; }
+.table-header .listinfo.inner {top:0;}
+.table-header .listinfo.inner select {float:none; margin-left:15px;}
+.table-header .listinfo.inner .totalnum {float:none; margin:0 0 0 2px;}
+.table-header i.fa-caret-up, .table-header i.fa-caret-down { margin-left:3px; color:#999; font-size:13px; }
+.table-header i.fa-caret-up.active, .table-header i.fa-caret-down.active { color:#f05050; }
+.table-search { position:absolute; top:11px; right:0; }
+.table-search label {float:left; margin-right:9px; line-height:27px; font-weight:600}
+.table-search.astatus {top:2px;}
+.table-search select { float:left; margin-right:5px; }
+.table-search .input-search { position:relative; float:left; }
+.table-search .input-search input {padding-right:8px;}
+.table-search .input-unread { position:relative; float:left;padding-right:15px;line-height:26px; }
+.table-search .input-date { position:relative; float:left;padding-right:15px;line-height:26px; }
+.input-search input {position:relative; padding-right:36px; }
+.table-search .input-unread label { font-weight:normal; }
+.table-search .input-search .btn {padding:3px 6px; margin-left:-5px; border-radius:0 2px 2px 0; font-size:15px; border:1px #bbb solid; background:#fff !important;}
+/*.table-search .input-search .btn i {color:#fd7d86 !important;}*/
+.table-search .input-search .btn span {position:absolute; left:-10000px; top:-10000px; width:0; height:0; font-size:0;}
+.table-search.po-left {position:relative; left:0; top:0; padding:7px 0 12px 0; }
+.table-search.po-left .input-search {float:none;}
+.table-search.po-left .input-search label {color:#222; font-weight:600}
 
 #leftmenu{position:fixed;top:0;width:210px;height:100%;}
 .leftmenu-top{height:10%;width:210px;background: #363636;text-align:center;display:inline-block;}
 .leftmenu-top a{color:white;text-decoration:none;}
+.leftmenu-top h2 {display:inline-block;color:#fff;font-size:30px;font-weight:600;vertical-align:middle;padding:30px 0 0 0;}
+.leftmenu-top h2 a {padding:10px 0px 0 0; color:#fff; }
+.leftmenu-top h2 a:hover { text-decoration:none; }
+
 
 #leftmenuarea{position:relative;height:100%;display: inline-block;width: 210px;}
 .boardmenu a{cursor:pointer;}

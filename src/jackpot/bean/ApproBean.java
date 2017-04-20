@@ -30,7 +30,7 @@ public class ApproBean {
 	public String listApproDoc(HttpServletRequest request, HttpSession session, Model model){
 		String result = "main";
 		if(session.getAttribute("memId") != null){
-			String emp_num = (String) session.getAttribute("memId"); //session¿¡¼­ Id °ªÀ» ¹Þ¾Æ¿Í¼­ emp_num¿¡ ÀúÀå. 
+			String emp_num = (String) session.getAttribute("memId"); //sessionï¿½ï¿½ï¿½ï¿½ Id ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Í¼ï¿½ emp_numï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 			empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
 			int emp_position = edto.getPosition();
 			int emp_department = edto.getDepartment();
@@ -70,9 +70,9 @@ public class ApproBean {
 	public String listApproDocPro(MultipartHttpServletRequest request, approDTO dto, HttpSession session) throws Exception {
 		String result = "main";
 		if(session.getAttribute("memId") != null){
-			///////¹Ý·Á¹®¼­ÀÇ Ãß°¡ÀÇ°ß, ¾÷·Îµå Áö¿ì°í ÀÓ½ÃÀúÀå µ¥ÀÌÅÍ Áö¿ò/////
+			///////ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç°ï¿½, ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/////
 			if(dto.getApprover_step() == 0){
-				if(dto.getDoc_state() == "¹Ý·Á"){
+				if(dto.getDoc_state() == "ï¿½Ý·ï¿½"){
 					sqlMap.delete("approSQL.comment_delete", dto);
 					sqlMap.delete("approSQL.return_delete", dto);
 				}
@@ -85,7 +85,7 @@ public class ApproBean {
 			}
 			///////////////////////////////////////////
 			
-			//////////////////°Ô½Ã±Û µî·Ï////////////////
+			//////////////////ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½////////////////
 			
 			int approver_step = 1;
 			Date now = new Date();
@@ -102,13 +102,13 @@ public class ApproBean {
 			dto.setAp_time(new Timestamp(System.currentTimeMillis()));
 			sqlMap.insert("approSQL.approInsert", dto);
 			
-			/*if(dto.getCategorize().equals("±ÙÅÂ½ÅÃ»¼­")){
+			/*if(dto.getCategorize().equals("ï¿½ï¿½ï¿½Â½ï¿½Ã»ï¿½ï¿½")){
 				sqlMap.update("approvalSQL.ap_geuntaeUpdate",dto);
 			}*/
 			
 			//////////////////////////////////////////////////////////////
 			
-			//	Ã¹¹øÂ° °áÀç±ÇÀÚ¿Í ¼ö½ÅÂüÁ¶ÀÚµé ¾Ë¶÷Å×ÀÌºí¿¡ µî·Ï.///////////////////
+			//	Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½.///////////////////
 			
 			SimpleDateFormat vann = new SimpleDateFormat("yyyyMMdd");
 			String www = vann.format(now);
@@ -207,8 +207,8 @@ public class ApproBean {
 	}
 	
 	@RequestMapping("/test.jp")
-	public String test(HttpSession session, Model model){
-		String emp_num = (String) session.getAttribute("memId"); //session¿¡¼­ Id °ªÀ» ¹Þ¾Æ¿Í¼­ emp_num¿¡ ÀúÀå. 
+	public String test(){
+		/*String emp_num = (String) session.getAttribute("memId"); //sessionï¿½ï¿½ï¿½ï¿½ Id ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Í¼ï¿½ emp_numï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 		empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
 		int emp_position = edto.getPosition();
 		int emp_department = edto.getDepartment();
@@ -219,7 +219,7 @@ public class ApproBean {
 		model.addAttribute("emp_position",position);
 		model.addAttribute("emp_department",department);
 		System.out.println(department);
-	
+	*/
 		return "/appro/test";
 	}
 	

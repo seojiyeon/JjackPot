@@ -1,43 +1,71 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<link href="/JackPot/css/appro.css?ver=1" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/common.css?ver=3" rel="stylesheet" type="text/css">
 <html>
     <head>        
-    <meta charset="UTF-8">        
-    <title>Add More Elements</title>        
-    <script src="/JackPot/js/jquery-3.1.1.min.js"></script>  
-    <script>            
-        $(document).ready (function () {                
-            $('.btnAdd').click (function () {                                        
-                $('.buttons').append (                        
-                    '<input type="text" name="txt"> <input type="button" class="btnRemove" value="Remove"><br>'                    
-                ); // end append                            
-                $('.btnRemove').on('click', function () { 
-                    $(this).prev().remove (); // remove the textbox
-                    $(this).next ().remove (); // remove the <br>
-                    $(this).remove (); // remove the button
-                });
-            }); // end click
-            $("#res").on("click", function() {
-            	var chk = $("input[name='chk[]']:checked").map(function() {
-            		return $(this).val();
-            	}).get().join(" , ");
-            	$("#result").text(chk);
-            });
-            
-        }); // end ready  
-        
-   
-    </script>    
+    
     </head>    
-    <body>        
-        <div class="buttons">            
-        <input type="text" name="txt"> <input type="button" class="btnAdd" value="Add"><br>        
-        </div>  
+<body>
+	<div id="page-container">
+		<div id="sidebar-a">
+		
+		</div>
+		<div id="subarea">
+			<div id="leftmenu">
+				<div class="leftmenu-top h2">
+					<h2><a href="/JackPot/listApproForm.jp">전자결재</a></h2>
+				</div>
+				<div id="leftmenearea">
+					기안<br/>
+					<hr>
+					기안문작성<br/>
+					결재요청함<br/>
+					임시저장함<br/>
+					<hr>
+					결재대기함<br/>
+					결재진행함<br/>
+					완료문서함<br/>
+					반려문서함<br/>
+					참조/열람문서함<br/>
+				</div>
+			</div>
+		</div>
+		
+		<div id="main-container" style="position:fixed;top:0;left:270;width:1059px;">
+			<div class="con-header">
+				<h2>양식목록</h2>
+			</div>
+			<div class="content-wrap">
+				<div class="pl10">
+					<form id="" name="" method="post" action="">
+						<div id="formListDiv">
+							<div class="table-header p10 mt-10">
+								<div class="listinfo">
+									<select name="">
+										<option value="10" selected="selected">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+										<option value="50">50</option>
+									</select>
+									<div class="totalnum">
+										전체
+										<span>5</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			
+			</div>
+			
+		
+		</div>
+	</div>         
         
-        <input type="checkbox" name="chk[]" value="aaa">aaa
-		<input type="checkbox" name="chk[]" value="bbb">bbb
-		<input type="checkbox" name="chk[]" value="ccc">ccc
-		<input type="button" value="submit" id="res">
-		<span id="result"></span>  
-    </body>
+</body>
 </html>
