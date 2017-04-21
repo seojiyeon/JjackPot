@@ -162,8 +162,7 @@ public class MsgBean {
 		String a = null;
 		String id = (String) session.getAttribute("memId");
 		int count = (int) sqlMap.queryForObject("msg.msgAcnt", id);		
-		System.out.println(count);
-		
+				
 		if(count == 0){
 		a = "false";
 		}else{
