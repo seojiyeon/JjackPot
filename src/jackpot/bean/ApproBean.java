@@ -34,8 +34,8 @@ public class ApproBean {
 			empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
 			int emp_position = edto.getPosition();
 			int emp_department = edto.getDepartment();
-			String position = (String) sqlMap.queryForObject("approval.position", emp_position);
-			String department= (String) sqlMap.queryForObject("approval.department", emp_department);
+			String position = (String) sqlMap.queryForObject("approSQL.position", emp_position);
+			String department= (String) sqlMap.queryForObject("approSQL.department", emp_department);
 			String emp_name = edto.getEmp_name();
 			model.addAttribute("emp_name",emp_name);
 			model.addAttribute("emp_position",position);
@@ -70,47 +70,33 @@ public class ApproBean {
 	public String listApproDocPro(MultipartHttpServletRequest request, approDTO dto, HttpSession session) throws Exception {
 		String result = "main";
 		if(session.getAttribute("memId") != null){
-			///////�ݷ������� �߰��ǰ�, ���ε� ����� �ӽ����� ������ ����/////
-			if(dto.getApprover_step() == 0){
-				if(dto.getDoc_state() == "�ݷ�"){
-					sqlMap.delete("approSQL.comment_delete", dto);
-					sqlMap.delete("approSQL.return_delete", dto);
-				}
-			}
-			if(dto.getTemp_num()!=null){
-				int check=(Integer)sqlMap.queryForObject("approSQL.temp_check", dto);
-				if(check != 0){
-					sqlMap.delete("approSQL.temp_delete",dto);
-				}
-			}
-			///////////////////////////////////////////
-			
-			//////////////////�Խñ� ���////////////////
 			
 			int approver_step = 1;
 			Date now = new Date();
 			SimpleDateFormat vans = new SimpleDateFormat("yyMMdd");
-			SimpleDateFormat van = new SimpleDateFormat("yyyy-M-d");
+			SimpleDateFormat van = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String ww = van.format(now);
 			String wdate = vans.format(now);
 			String seqNum = (String)sqlMap.queryForObject("approSQL.seqNum", null);
 			String ap_Num = wdate + "-" + seqNum;
+			System.out.println(ww);
+			System.out.println(ap_Num);
+			System.out.println(approver_step);
+			System.out.println(wdate);
 			
-			dto.setDoc_date(ww);
-			dto.setDoc_num(ap_Num);
+			dto.setDoc_date(ww); 										//날짜
+			dto.setDoc_num(ap_Num);										//문서번호
 			dto.setApprover_step(approver_step);
 			dto.setAp_time(new Timestamp(System.currentTimeMillis()));
+			
 			sqlMap.insert("approSQL.approInsert", dto);
 			
 			/*if(dto.getCategorize().equals("���½�û��")){
 				sqlMap.update("approvalSQL.ap_geuntaeUpdate",dto);
 			}*/
 			
-			//////////////////////////////////////////////////////////////
-			
-			//	ù��° ������ڿ� ���������ڵ� �˶����̺� ���.///////////////////
-			
-			SimpleDateFormat vann = new SimpleDateFormat("yyyyMMdd");
+		
+			/*SimpleDateFormat vann = new SimpleDateFormat("yyyyMMdd");
 			String www = vann.format(now);
 			String aa = dto.getDoc_finish();
 			String [] ee = aa.split("\\-");
@@ -124,7 +110,7 @@ public class ApproBean {
 			}
 			
 			//if(dto.getr)
-			
+			*/
 			
 		}
 		

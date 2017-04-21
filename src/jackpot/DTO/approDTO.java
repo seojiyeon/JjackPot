@@ -4,52 +4,52 @@ import java.sql.Timestamp;
 
 public class approDTO {
 
-	private String doc_num; 			//¹®¼­¹øÈ£
-	private String doc_date;			//±â¾ÈÀÏÀÚ(»ó½Å³¯Â¥)
-	private String doc_finish;			//°áÀç¿Ï·áÀÏ(¸¶°¨³¯Â¥)
-	private String emp_num;				//±â¾È»ç¿ø¹øÈ£(»ó½ÅÀÚÀÇ»ç¿øÄÚµå)
-	private String emp_name;			//±â¾ÈÀÚ(ÀÛ¼ºÀÚ)ÀÌ¸§(»ó½ÅÀÚÀÇ »ç¿øÀÌ¸§)
-	private String doc_title;			//¹®¼­Á¦¸ñ(»ó½Å¹®¼­ Á¦¸ñ)
-	private String doc_content;			//¹®¼­³»¿ë(»ó½Å¹®¼­ ³»¿ë)
-	private String style_num;			//¾ç½Ä¹øÈ£
-	private String doc_division;		//¹®¼­Á¾·ù
-	private String start_work;			//±ÙÅÂ½ÃÀÛÀÏ
-	private String end_work;			//±ÙÅÂÁ¾·áÀÏ
-	private String doc_state;			//°áÀçÁøÇà»óÅÂ
-	private String doc_count;			//°áÀç¹ŞÀ» »ç¶÷ ¼ö(°áÀç±ÇÀÚ ¼ö)
-	private int doc_step;				//°áÀç´Ü°è
-	private int branch;					//±â¾ÈÀÚ¼Ò¼ÓÁöÁ¡
-	private int department;				//±â¾ÈÀÚ¼Ò¼ÓºÎ¼­(»ó½ÅÀÚÀÇºÎ¼­ÀÌ¸§)
-	private int position;				//±â¾ÈÀÚÁ÷±Ş(»ó½ÅÀÚÀÇ Á÷±Ş)
+	private String doc_num; 			//ë¬¸ì„œ ë²ˆí˜¸
+	private String doc_date;			//ìƒì‹  ì¼ì	
+	private String doc_finish;			//ë§ˆê° ì¼ì
+	private String emp_num;				//ì‚¬ì› ë²ˆí˜¸
+	private String emp_name;			//ì‚¬ì› ì´ë¦„
+	private String doc_title;			//ë¬¸ì„œ ì œëª©
+	private String doc_content;			//ë¬¸ì„œ ë‚´ìš©
+	private String style_num;			//ì–‘ì‹ ë²ˆí˜¸
+	private String doc_division;		//ë¬¸ì„œ ì¢…ë¥˜
+	private String start_work;			//ê·¼íƒœ ì‹œì‘ì¼
+	private String end_work;			//ê·¼íƒœ ì¢…ë£Œì¼
+	private String doc_state;			//ê²°ì¬ ìƒíƒœ
+	private String doc_count;			//ê²°ì¬ ë°›ì„ ì‚¬ëŒìˆ˜
+	private int doc_step;				//ê²°ì¬ ë‹¨ê³„
+	private int branch;					//ì†Œì†ì§€ì 
+	private int department;				//ì†Œì†ë¶€ì„œ
+	private int position;				//ì§ê¸‰
 	
-	private String ap_dName1;			//°áÀçÀÚÀÇ ºÎ¼­ÀÌ¸§.
-	private String ap_rankName1;		//°áÀçÀÚÀÇ Á÷±Ş.
-	private String ap_sawonName1;		//°áÀçÀÚÀÇ ÀÌ¸§.
-	private String ap_sign1;			//°áÀçÀÚÀÇ ¼­¸í.
-	private Timestamp ap_signdate1;		//°áÀç³¯Â¥.
-	private String ap_sawonRank1;		//°áÀç»ç¿øÀÇ Á÷±Ş·¹º§
-	private String ap_wPsC1;			//°áÀçÀÚÀÇ Å×ÀÌºíÀÌ¸§,»ç¿øÄÚµå
+	private String ap_dName1;			
+	private String ap_rankName1;		
+	private String ap_sawonName1;		
+	private String ap_sign1;			
+	private Timestamp ap_signdate1;		
+	private String ap_sawonRank1;		
+	private String ap_wPsC1;			
 	
 	
-	private int approver_step;			//´Ü°èº°·Î ¿Ã¶ó°¡±âÀ§ÇÑ °áÀç±ÇÀÚ ·¹º§
-	private String situation;			//ÁøÇà»óÈ².
-	private String ap_count;			//°áÀçÀÚ±ÇÀÚ ¼ö.
-	private Timestamp ap_time;			//°Ô½Ã±ÛÀÌ ¾÷µ¥ÀÌÆ®µÈ ½Ã°£ ÀÔ·Â.
-	private int readcount;				//°Ô½Ã±ÛÀÇ Á¶È¸¼ö
-	private int impend_reCount;			//°Ô½Ã±ÛÀÇ ÀÓ¹Ú½Ã Á¶È¸¼ö
+	private int approver_step;			
+	private String situation;			
+	private String ap_count;			
+	private Timestamp ap_time;			//ê²Œì‹œê¸€ì´ ì—…ë°ì´íŠ¸ ëœ ì‹œê°„
+	private int readcount;				
+	private int impend_reCount;			
 	private int return_readCount;
 	
-	//ÀÓ½ÃÀúÀåºÎºĞ
-	private String temp_End;			//ÀÓ½ÃÀúÀå ¸¶°¨ÀÏÀÚ
-	private String temp_subject;		//ÀÓ½ÃÀúÀå Á¦¸ñ
-	private String temp_ir1;			//³»¿ë
-	private String temp_cate;			//ÀÓ½ÃÀúÀå Ä«Å×
-	private String temp_num;			//ÀÓ½ÃÀúÀå ³Ñ¹ö
-	private Timestamp temp_date;		//ÀÓ½ÃÀúÀå ½Ã°£
-	private int cc;						//¸¶°¨±â°£ ³Ñ°å´ÂÁö ¾È³Ñ°å´ÂÁö ±âÁØÀÌµÇ´Â º¯¼ö.
-	private String temp_geuntae_cate;	//ÀÓ½ÃÀúÀå. ¹®¼­ºĞ·ù
-	private String temp_startDate;		//ÀÓ½ÃÀúÀå. ÈŞ°¡½ÃÀÛÀÏ.
-	private String temp_endDate;		//ÀÓ½ÃÀúÀå. ÈŞ°¡³¡.
+	//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½
+	private String temp_End;			//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String temp_subject;		//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private String temp_ir1;			//ï¿½ï¿½ï¿½ï¿½
+	private String temp_cate;			//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½
+	private String temp_num;			//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½
+	private Timestamp temp_date;		//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+	private int cc;						//ï¿½ï¿½ï¿½ï¿½ï¿½â°£ ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ ï¿½È³Ñ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÌµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	private String temp_geuntae_cate;	//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½
+	private String temp_startDate;		//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Ş°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	private String temp_endDate;		//ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Ş°ï¿½ï¿½ï¿½.
 		
 	public String getSituation() {
 		return situation;
@@ -159,14 +159,14 @@ public class approDTO {
 	public void setApprover_step(int approver_step) {
 		this.approver_step = approver_step;
 	}
-	private String dec_num;			//¹øÈ£
-	private String dec_name;		//°áÀç±ÇÀÚ ÀÌ¸§(°áÀçÀÚÀÇ ÀÌ¸§)
-	private String dec_branch;		//°áÀç±ÇÀÚ ÁöÁ¡
-	private String dec_depart;		//°áÀç±ÇÀÚ ºÎ¼­(°áÀçÀÚÀÇ ºÎ¼­ÀÌ¸§)
-	private String dec_position;	//°áÀç±ÇÀÚ Á÷±Ş(°áÀçÀÚÀÇ Á÷±Ş)
-	private String sign_img;		//°áÀç±ÇÀÚ ¼­¸í(°áÀçÀÚÀÇ ¼­¸í)
-	private String dec_empnum;		//°áÀç±ÇÀÚ »ç¿ø¹øÈ£(°áÀçÀÚÀÇ ½Ã¿øÄÚµå)
-	private Timestamp sign_date;	//°áÀç±ÇÀÚ ½ÂÀÎ³¯Â¥(°áÀç³¯Â¥)
+	private String dec_num;			//ï¿½ï¿½È£
+	private String dec_name;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½)
+	private String dec_branch;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private String dec_depart;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½Ì¸ï¿½)
+	private String dec_position;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+	private String sign_img;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+	private String dec_empnum;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È£(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¿ï¿½ï¿½Úµï¿½)
+	private Timestamp sign_date;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î³ï¿½Â¥(ï¿½ï¿½ï¿½ç³¯Â¥)
 	
 	
 	public String getDoc_num() {
