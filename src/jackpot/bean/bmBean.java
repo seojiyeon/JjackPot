@@ -1,17 +1,25 @@
 package jackpot.bean;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import jackpot.DTO.bmDTO;
 import jackpot.DTO.empDTO;
 import jackpot.DTO.orgDTO;
+import jackpot.DTO.workDTO;
 
 
 @Controller
@@ -134,10 +142,9 @@ public class bmBean {
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
 		bmdto = (bmDTO)sqlMap.queryForObject("bm.getemp_name", null);	
-		int bm_form = (int)sqlMap.insert("bm.bm_form", null);
 		model.addAttribute("bmdto",bmdto);
-		model.addAttribute("bm_form",bm_form);
 		model.addAttribute("emp_num",emp_num);
+		
 
 
 		return "/bm/bmForm";
@@ -146,11 +153,22 @@ public class bmBean {
 	
 	/*업무FormPro*/
 	@RequestMapping("/bmFormPro.jp")
-	public String bmForm(bmDTO bmdto, MultipartHttpServletRequest multi,HttpSession session){
+	public String bmForm(bmDTO bmdto, MultipartHttpServletRequest multi,HttpSession session,String dateFormatStr ){
 		
 		String emp_num =(String)session.getAttribute("memId");
 		String name = (String) sqlMap.queryForObject("msg.emp_name", emp_num);
 		String Inchar = bmdto.getInchar_name();
+		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+
+		Date date = new Date();
+		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
+		Calendar cal = Calendar.getInstance();   //캘린더를 date로 변환
+		DateFormat stringForma = new SimpleDateFormat(dateFormatStr); 
+		cal.setTime(date);     //date를 캘린더시간에 넣어준다.
+		System.out.println(date);
+
+		bmdto = (bmDTO)sqlMap.queryForObject("bm.getDay", null);   //해당날짜만 불러오기
+		
 		
 		bmdto.setEmp_num(emp_num);
 		sqlMap.insert("bm.insertBusiness", bmdto);

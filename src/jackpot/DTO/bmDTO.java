@@ -17,7 +17,15 @@ public class bmDTO {
 	private int important;			/*중요업무*/
 	private String bm_state;		/*업무상태*/
 	private String emp_num;			/*작성자*/
+	private	String day;
+
 	
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
 	public int getBm_num() {
 		return bm_num;
 	}

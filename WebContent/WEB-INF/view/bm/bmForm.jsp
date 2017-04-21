@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="jquery-3.1.1.min.js"></script> 
+<script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
 <!--  jQuery UI CSS파일 --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <!-- // jQuery 기본 js파일 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <!-- // jQuery UI 라이브러리 js파일 -->
-<script type="text/javascript" charset="UTF-8" src="/comon/ETC/js/jquery.leanModal.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
@@ -22,7 +21,7 @@
 
 
 <script type="text/javascript">
-	
+	/* 
 
     	   $(function() {
         	      $( "#DateCalendar").datepicker({
@@ -54,11 +53,46 @@
    	  	        url : "/JackPot/workday.jp",
    	  	        data : {day : test},
    	  	        success: function(data){
-   	  	        	$("#workday").html(data);
+   	  	        	$("#DateCalendar").html(data);
    	  	        }	
    	      	  });
-    	   }
+    	   } */
     	   
+    	   
+    	   $(document).ready(function()
+    				{
+    				    
+    				    $('input[name=bm_form]').change(function()
+    				    {
+    				    	
+    				    	if($(':radio[name="bm_form"]:checked').val()=='1')
+    						{	    		
+    							$('#Termless').show();
+    				    		$('#incharge').hide();
+    							$('#rec').hide();
+    							$('#ref').hide();
+    				    		
+    						}else if($(':radio[name="bm_form"]:checked').val()=='2')
+    						{
+    							$('#Termless').show();
+    							$('#incharge').show();
+    							$('#rec').hide();
+    							$('#ref').show();
+    						}else if($(':radio[name="bm_form"]:checked').val()=='3')
+    						{
+    							$('#Termless').hide();
+    							$('#incharge').hide();
+    							$('#rec').show();
+    							$('#ref').show();
+    						}else if($(':radio[name="bm_form"]:checked').val()=='4')
+    						{
+    							$('#Termless').hide();
+    							$('#incharge').hide();
+    							$('#rec').show();
+    							$('#ref').show();
+    						}
+    				    });
+    				});
     	   
 	</script>
 	
@@ -225,16 +259,16 @@ function openBms_rec(){
 							<td>
 								<div >
 									<input type="hidden" name="bm_form" value="">
-									<label ><input type="radio" name="bm_form" title="나의 할일" value="0"> 나의 할 일</label>
-									<label ><input type="radio" name="bm_form" title="업무 요청" value="1"> 업무 요청</label>
-                              	  <label ><input type="radio" name="bm_form" title="업무 보고" value="2"> 업무 보고</label>
-                              	  <label ><input type="radio" name="bm_form" title="업무 일지" value="3"> 업무 일지</label>
+									<label ><input type="radio" id="type" name="bm_form" title="나의 할일" value="1"> 나의 할 일</label>
+									<label ><input type="radio"  id="type" name="bm_form" title="업무 요청" value="2" checked="checked"> 업무 요청</label>
+                              	  <label ><input type="radio"   id="type" name="bm_form" title="업무 보고" value="3"> 업무 보고</label>
+                              	  <label ><input type="radio"  id="type" name="bm_form" title="업무 일지" value="4"> 업무 일지</label>
                              </div>
                        	 	</td>
                    	 	</tr>
                     
-                    <tr id="isTermlessTR">
-                    	<th ><span class="text-point-b">*</span>업무기한</th>
+                    <tr id="Termless" style="display: none;" >
+                    	<th id="isTermlessTR"  ><span class="text-point-b">*</span>업무기한</th>
 							<td>
 								<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
 								<input type="hidden" name="bm_start" value="">
@@ -248,55 +282,30 @@ function openBms_rec(){
                              	</span>
                             </td>
                         </tr>
-                        <c:if test="${bm_form.bmf_num == 1}">
-                        </c:if>
-                        <c:if test="${bm_form.bmf_num == 2}">
-                        <tr>
-                            <th id="inchar_name" scope="row">
+                 
+                        <tr id="incharge" style="display: none;">
+                            <th id="incharge_name" scope="row">
                             	<span class="text-point-b">*</span>담당자</th>
                             <td>
-                            	<input type="hidden" name="bm_end" value="">
+                            	<input type="hidden" name="inchar_name" value="">
 								<input type="text" title="사용자" name="inchar_name" placeholder="사용자" style="box-shadow:none;">
                                 <button type="button" class="btn input-group-addon btn-color5 br" onclick="openInchar()"><i class="icon man-plus">
                                 <span class="none">사용자</span></i></button>
      						</td>
                         </tr>
                         
-                        <tr>
-                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
-                            </th>
-                            
+                        <tr id="rec" style=" display: none;">
+                        	<th id="rec_name" scope="row" ><span class="text-point-b">*</span>수신자</th>
                             <td>
-                            	<input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
-                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
-                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
-                            </td>
-                        </tr>
-                        </c:if>
-                        <c:if test="${bm_form.bmf_num == 3}">
-                        <tr>
-                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
-                            </th>
-                            
-                            <td>
-                            	<input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
-                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
-                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th id="inchar_name" scope="row"><span class="text-point-b">*</span>수신자</th>
-                            <td>
+                            	<input type="hidden" name="rec_name" value="">
                                 <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
                                	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
                                 <i class="icon man-plus"><span class="none">사용자</span></i></button>
                             </td>
                         </tr>
-                        </c:if>
                         
-                        <c:if test="${bm_form.bmf_num == 4}">
-                        <tr>
-                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
+                        <tr id="ref" style=" display: none;">
+                            <th id="ref_name" scope="row" ><span class="text-point-b">*</span>참조자
                             </th>
                             
                             <td>
@@ -305,16 +314,10 @@ function openBms_rec(){
                                 <i class="icon man-plus"><span class="none">사용자</span></i></button>
                             </td>
                         </tr>
-                        <tr>
-                        	<th id="inchar_name" scope="row"><span class="text-point-b">*</span>수신자</th>
-                            <td>
-                                <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
-                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
-                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
-                            </td>
-                        </tr>
-                        </c:if>
-                        
+
+
+                       
+                    
                         
                         <tr id="alarmTR">
                             <th scope="row">등록 알림</th>
@@ -361,10 +364,7 @@ function openBms_rec(){
 					<div>
 					
 						<textarea class="ckeditor" cols="1" id="bm_content" name="bm_content" rows="15"></textarea>
-						<script type="text/javascript">
-							CKEDITOR.replace('editor2')
-                            
-						</script>
+						
 						
 					</div>
 <div class="btn-wrap" ">
