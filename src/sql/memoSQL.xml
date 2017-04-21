@@ -80,4 +80,13 @@
 	<select id="memoNumSelect" parameterClass="mdto" resultClass="int">
 		select max(memo_num) from memo where emp_num=#emp_num#
 	</select>
+	
+	<!-- memo 파일 불러오기 -->
+	<select id="memoFile" parameterClass="mdto" resultClass="mdto">
+		select * from memo_file where memo_num=#memo_num#
+	</select>
+	
+	<select id="memoFileCount" parameterClass="mdto" resultClass="int">
+		select count(*) from memo_file where memo_num=#memo_num#
+	</select>
 </sqlMap>

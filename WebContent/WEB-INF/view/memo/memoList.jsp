@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
 
@@ -54,30 +55,21 @@
 		    $('.window').hide();  
 		});      
 	});
-	
-	
-	/* 화면 전환 */
-	function changeClick(memo_num) {
-		$.ajax({
-			type :"post",
-			url :"http://localhost:8080/JackPot/memoContent.jp",
-			data : {memo_num:memo_num},
-			success : function(memo_content){
-				$(".note-body").html(memo_content.memo_content);
-				alter("memo_content.org_img");
-				
-			}, 
-			error : function(){
-				alert("error");
+</script>
+
+<script>
+	/* 메뉴 슬라이드 업&다운 */
+	$(document).ready(function() {
+		$(".listFolder>a").click(function() {
+			var subMenu = $(this).next("ul");
+			
+			if(subMenu.is(":visible")) {
+				subMenu.slideUp();
+			} else {
+				subMenu.slideDown();
 			}
 		});
-				
-		var listAll = $('#main-layer');
-		listAll.fadeOut();
-		
-		var cont = $('#content-layer');
-			cont.fadeIn();
-	}
+	});
 </script>
 
 <html>
@@ -132,14 +124,14 @@
 						<button type="button" class="chMemoCate" id="notePopup">메모 등록</button>
 					</li>
 					<li class="list">
-						<a href="memoList.jp">모든 메모 ${count}</a>
+						<a href="memoList.jp">모든 메모 <font color="red">${count}</font></a>
 					</li>
 					<li class="list">
 						<a href="">중요 메모 숫자</a>
 					</li>
 					<li class="listFolder">
 						<a style="display:inline-block;height:30px;">나의 폴더</a>
-							<ul style="-webkit-padding-start:0px;width:200px;">
+							<ul style="-webkit-padding-start:0px;width:200px; display:none;" >
 								<c:if test="${memoCateCount == 0}">
 									<li>등록된 폴더가 없습니다.</li>
 								</c:if>
@@ -189,7 +181,7 @@
 				</select>
 				
 				<div class="totalNum">
-					전체 <span>${count}</span>
+					<font color="#BDBDBD">전체</font> <span><font color="red">${count}</font></span>
 				</div>
 				
 				<select class="mr10" name="sortWord">
@@ -261,6 +253,12 @@
 			
 			</c:if>
 		</table>
+	</div>
+	
+	<div class="main-bottom">
+		<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp'">등록</button>
+		<button type="button" class="btnMove">이동</button>
+		<button type="button" class="btnDelete" onclick="window.location=''">삭제</button>
 	</div>
 </div>
 </body>

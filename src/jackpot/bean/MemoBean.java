@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import jackpot.DTO.memoDTO;
 
@@ -84,6 +86,7 @@ public class MemoBean {
 		List memoCateList = sqlMap.queryForList("memo.memoCate", dto.getEmp_num());
 		
 		model.addAttribute("memoCateList", memoCateList);
+		model.addAttribute("memo_cate", dto.getMemo_cate());
 		
 		return "/memo/memoInsert";
 	}
@@ -169,18 +172,41 @@ public class MemoBean {
 	
 	@RequestMapping("/memoContent.jp")
 	public String memoContent(memoDTO dto, Model model, String pageNum){
+		/* 메모 내용 불러오기 */
 		dto = (memoDTO) sqlMap.queryForObject("memo.memoContent", dto);
+		
+		/* 메모 이미지 불러오기 */
 		List img = sqlMap.queryForList("memo.memoImg", dto);
 		int imgCount = (int)sqlMap.queryForObject("memo.memoImgCount", dto);
+		
+		/* 메모 파일 불러오기 */
+		List file = sqlMap.queryForList("memo.memoFile", dto);
+		int fileCount = (int)sqlMap.queryForObject("memo.memoFileCount", dto);
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		/* 메모 폴더 개수, 내용 불러오기*/
+		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", dto.getEmp_num());
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("img", img);
 		model.addAttribute("imgCount", imgCount);
+		model.addAttribute("file", file);
+		model.addAttribute("fileCount", fileCount);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("sdf", sdf);
+		model.addAttribute("memoCateCount", memoCateCount);
+		model.addAttribute("file", file);
 		
 		return "/memo/memoContent";
+	}
+	
+	@RequestMapping(value={"/memoFileDown.jp"})
+	public ModelAndView memoFileDown(String fileName, HttpServletRequest request) {
+		String dir = request.getRealPath("save");
+		File f = new File(dir+"//"+fileName);
+		ModelAndView mv = new ModelAndView("down", "downloadFile", f);
+		return mv;
 	}
 	
 	@RequestMapping("memoModify.jp")

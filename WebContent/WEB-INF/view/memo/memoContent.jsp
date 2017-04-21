@@ -1,12 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
 
 <head>
 <title>메모</title>
 </head>
+
+<script>
+	/* 메뉴 슬라이드 업&다운 */
+	$(document).ready(function() {
+		$(".listFolder>a").click(function() {
+			var subMenu = $(this).next("ul");
+			
+			if(subMenu.is(":visible")) {
+				subMenu.slideUp();
+			} else {
+				subMenu.slideDown();
+			}
+		});
+	});
+</script>
 
 <html>
 <body>
@@ -32,7 +48,7 @@
 					</li>
 					<li class="listFolder">
 						<a style="display:inline-block;height:30px;">나의 폴더</a>
-							<ul style="-webkit-padding-start:0px;width:200px;">
+							<ul style="-webkit-padding-start:0px;width:200px display:none;">
 								<c:if test="${memoCateCount == 0}">
 									<li>등록된 폴더가 없습니다.</li>
 								</c:if>
@@ -67,6 +83,7 @@
 				<hr width="100%" size="1" color="silver">
 			</div>
 		</div>
+		<form>
 		<div class="content-write">
 			<div class="note-write">
 				<div class="note-write-head">
@@ -96,7 +113,17 @@
 				</c:if>
 			</div>
 			<div class="doc-file">
-			
+				<c:if test="${fileCount == 0}">
+					<div></div>
+				</c:if>
+				<c:if test="${fileCount > 0}">
+					<div>
+						<c:forEach var="file" items="${file}">
+							<input type="hidden" name="${file.sys_file}" />
+							<a href="memoFileDown.jp?fileName=${file.sys_file}">${file.org_file}</a><br/>
+						</c:forEach>
+					</div>
+				</c:if>		
 			</div>
 			<div class="btn-wrap">
 				<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}'">수정</button>
@@ -105,6 +132,7 @@
 				<button type="button" class="btnList" onclick="window.location='memoList.jp?pageNum=${pageNum}'">목록</button>
 			</div>
 		</div>
+		</form>
 	</div>
 </div>
 </body>

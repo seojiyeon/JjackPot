@@ -80,7 +80,7 @@
 		<td>
 			<select name="memo_cate">
 				<c:forEach var="memoCate" items="${memoCateList}">
-					<option value="${memoCate.getCate_num()}">${memoCate.getCate_title()}</option>
+					<option value="${memoCate.getCate_num()}" >${memoCate.getCate_title()}</option>
 				</c:forEach>
 			</select>
 		</td>
