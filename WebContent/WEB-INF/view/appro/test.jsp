@@ -17,53 +17,25 @@
 				<div class="leftmenu-top h2">
 					<h2><a href="/JackPot/listApproForm.jp">전자결재</a></h2>
 				</div>
-				<div id="leftmenearea">
-					기안<br/>
-					<hr>
-					기안문작성<br/>
-					결재요청함<br/>
-					임시저장함<br/>
-					<hr>
-					결재대기함<br/>
-					결재진행함<br/>
-					완료문서함<br/>
-					반려문서함<br/>
-					참조/열람문서함<br/>
-				</div>
+				
 			</div>
 		</div>
 		
-		<div id="main-container" style="position:fixed;top:0;left:270;width:1059px;">
-			<div class="con-header">
-				<h2>양식목록</h2>
+		<div id="main-container" style="position:fixed;top:-15px;left:270;width:100%; vertical-align: middle;height: 70;">
+			<div class="con-header" style="height: 90px;">
+				<h2>기안문작성</h2>
 			</div>
-			<div class="content-wrap">
-				<div class="pl10">
-					<form id="" name="" method="post" action="">
-						<div id="formListDiv">
-							<div class="table-header p10 mt-10">
-								<div class="listinfo">
-									<select name="">
-										<option value="10" selected="selected">10</option>
-										<option value="15">15</option>
-										<option value="20">20</option>
-										<option value="30">30</option>
-										<option value="40">40</option>
-										<option value="50">50</option>
-									</select>
-									<div class="totalnum">
-										전체
-										<span>5</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
+			<div class="content-wrap approval responsive">
+				<div class="content-write">
+					<div id="formButtonDiv" class="btn-wrap pt10">
+						<a href="#" onclick="layer_open('layer1');return false;"><button id="addApprLineButton" type="button" class="btn btn-color5 br">결재선</button></a>
+					    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재요청</button>
+					    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">기결재첨부</button>
+					    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
+					    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
+					</div>
 				</div>
-			
 			</div>
-			
-		
 		</div>
 	</div>         
         

@@ -321,7 +321,7 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
 /*con-header 부분*/
-.con-header { position:relative;width:100%; height:75px; margin:15px 10px; padding:5px 0 0 0; border-bottom:1px solid #d1d1d1 ; background:#fff;padding-left: 10px; }
+.con-header { position:relative;width:100%; height:75px; margin:30px 10px ; padding:5px 0 0 0; border-bottom:1px solid #d1d1d1 ; background:#fff;padding-left: 10px; }
 
 /*content-wrap부분*/
 .content-wrap {/* display:table; */position: relative;;width: 100%;background-color:#fff;}
@@ -384,7 +384,7 @@ table-header
 .boardmenu a{cursor:pointer;}
 .boardmenu .hide{display:none;}
 
-#main-container{height:100%;padding:20px;padding-top:0;} 
+#main-container{ height:100%;padding:20px;padding-top:0; padding-right: 20px;} 
 #main-contents{position:fixed;left:270px;top:0;width:85%;height:100%;}
 
 .pop-layer {display:none; position:fixed; top: 20%; left: 35%; width: 800px; height:500px;  background-color:#fff; border: 1px solid black; z-index: 10;}	
