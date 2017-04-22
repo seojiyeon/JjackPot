@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
 
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
 
@@ -10,78 +11,61 @@
 </head>
 
 <script>
-	/* 메뉴 슬라이드 업&다운 */
-	$(document).ready(function() {
-		$(".listFolder>a").click(function() {
-			var subMenu = $(this).next("ul");
-			
-			if(subMenu.is(":visible")) {
-				subMenu.slideUp();
-			} else {
-				subMenu.slideDown();
-			}
+	/* 레이어 팝업 */
+	function wrapWindowByMask(){
+		//화면의 높이와 너비를 구한다.
+		var maskHeight = $(document).height();  
+		var maskWidth = $(window).width();  
+
+		//마스크의 높이와 너비를 화면의 높이와 너비로 설정한다.
+		$('.mask').css({'width':maskWidth,'height':maskHeight});  
+
+		//애니메이션 효과
+		$('.mask').fadeTo("slow",0.5);   
+	
+		// 레이어 팝업을 가운데로 띄운다.
+		var left = ($(window).scrollLeft() + ($(window).width() - $('.window').width())/2);
+		var top = ($(window).scrollTop() + ($(window).height() - $('.window').height())/2);
+	
+		// css 스타일 변경
+		$('.window').css({'left':left, 'top':top, 'position':'absolute'});
+
+		// 레이어 팝업 띄운다.
+		$('.window').show();
+	}
+
+	$(document).ready(function(){
+		//검은 마스크 배경과 레이어 팝업 띄운다.
+		$('.imgSh').click(function(e){
+			e.preventDefault();
+			wrapWindowByMask();
 		});
+
+		//닫기 버튼을 눌렀을 때
+		$('.window .close').click(function (e) {  
+		    //링크 기본동작은 작동하지 않도록 한다.
+	    	e.preventDefault();  
+		    $('.mask, .window').hide();  
+		});       
+
+		//검은 마스크을 눌렀을 때
+		$('.mask').click(function () {  
+	    	$(this).hide();  
+		    $('.window').hide();  
+		});      
 	});
 </script>
 
 <html>
 <body>
-<div id="page-container">
-	<!-- 왼쪽 사이드바 -->
-	<div id="sidebar"></div>
-	<div id="subarea">
-		<div id="leftMenu">
-			<div class="leftMenuTop">
-				<h2><a href="memoList.jp">메모</a></h2>
-			</div>
-			
-			<div id="leftMenuArea">
-				<ul class="menuList" style="margin:0;padding:0;list-style:none;">
-					<li class="list" style="text-align:center">
-						<button type="button" class="chMemoCate" id="notePopup">메모 등록</button>
-					</li>
-					<li class="list">
-						<a href="memoList.jp">모든 메모 ${count}</a>
-					</li>
-					<li class="list">
-						<a href="">중요 메모 숫자</a>
-					</li>
-					<li class="listFolder">
-						<a style="display:inline-block;height:30px;">나의 폴더</a>
-							<ul style="-webkit-padding-start:0px;width:200px display:none;">
-								<c:if test="${memoCateCount == 0}">
-									<li>등록된 폴더가 없습니다.</li>
-								</c:if>
-								<c:if test="${memoCateCount > 0}">
-									<c:forEach var="memoCate" items="${memoCateList}">
-										<li>
-											<a href="#">${memoCate.getCate_title()}</a>
-										</li>
-									</c:forEach>
-								</c:if>
-							</ul>
-					</li>
-					<li class="list">
-						<a href="">휴지통</a>
-					</li>
-					<li class="list">
-						<a href="">폴더 관리</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
+<jsp:include page="memo_sidebar.jsp" flush="false" />
 
 <!-- 본문 -->
 <!-- 메모 내용보기 -->
 <div class="main-container" id="content-layer">
 	<div class="content-wrap">
 		<div class="content-head">
-			<h2>모든 메모</h2>
-			<div>
-				<hr width="100%" size="1" color="silver">
-			</div>
+			<h2 style="margin:5px; width: 300px;">모든 메모</h2>
 		</div>
 		<form>
 		<div class="content-write">
@@ -107,7 +91,7 @@
 				<c:if test="${imgCount > 0 }">
 					<div>
 						<c:forEach var="img" items="${img}">
-							<img src="/JackPot/save/${img.sys_img}" name="sys_img" style="width:200px; height:200px;" />
+							<img src="/JackPot/save/${img.sys_img}" name="sys_img" class="imgSh" style="width:200px; height:200px;" />
 						</c:forEach>
 					</div>
 				</c:if>
@@ -126,14 +110,28 @@
 				</c:if>		
 			</div>
 			<div class="btn-wrap">
-				<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}'">수정</button>
-				<button type="button" class="btnMove">이동</button>
-				<button type="button" class="btnDelete" onclick="window.location='memoDeletePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">삭제</button>
+				<c:if test="${memoState > 0}">
+					<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">수정</button>
+					<button type="button" class="btnMove">이동</button>
+					<button type="button" class="btnDelete" onclick="window.location='memoDeletePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">삭제</button>
+				</c:if>
+				<c:if test="${memoState == 0}">
+					<button type="button" class="btnRecover" onclick="window.location=''">복구</button>
+					<button type="button" class="btnRomove" onclick="window.location='">삭제</button>
+				</c:if>
 				<button type="button" class="btnList" onclick="window.location='memoList.jp?pageNum=${pageNum}'">목록</button>
 			</div>
 		</div>
 		</form>
 	</div>
+</div>
+
+<div class="mask"></div>
+<div class="window">
+	<c:forEach var="img" items="${img}">
+		<img src="/JackPot/save/${img.sys_img}" name="sys_img" class="imgSh" style="width:500px; height:500px;"/>
+		<div class="img_title">	${img.org_img}</div>
+	</c:forEach>
 </div>
 </body>
 </html>

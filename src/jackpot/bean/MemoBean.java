@@ -30,8 +30,8 @@ public class MemoBean {
 		/* 모든 메모 리스트 */
 		String emp_num = (String)session.getAttribute("memId");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
-		int number = 0;
 		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
+		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
 
 		if(pageNum == null) {
 			pageNum = "1";
@@ -49,7 +49,6 @@ public class MemoBean {
 			endPage = pageCount;
 		}
 
-		number = count-(currentPage-1)*pageSize;
 		
 		HashMap params = new HashMap();
 		params.put("startRow", startRow);
@@ -65,6 +64,7 @@ public class MemoBean {
 		model.addAttribute("memoCateList", memoCateList);
 		model.addAttribute("memoCont", memoCont);
 		model.addAttribute("count", count);
+		model.addAttribute("removeCount", removeCount);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -84,9 +84,14 @@ public class MemoBean {
 		dto.setEmp_num((String)session.getAttribute("memId"));
 		
 		List memoCateList = sqlMap.queryForList("memo.memoCate", dto.getEmp_num());
+		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", dto.getEmp_num());
+		int count = (int) sqlMap.queryForObject("memo.memoCount", dto.getEmp_num());
+		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", dto.getEmp_num());
 		
 		model.addAttribute("memoCateList", memoCateList);
-		model.addAttribute("memo_cate", dto.getMemo_cate());
+		model.addAttribute("memoCateCount", memoCateCount);
+		model.addAttribute("count", count);
+		model.addAttribute("removeCount", removeCount);
 		
 		return "/memo/memoInsert";
 	}
@@ -187,6 +192,14 @@ public class MemoBean {
 		
 		/* 메모 폴더 개수, 내용 불러오기*/
 		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", dto.getEmp_num());
+		List memoCateList = sqlMap.queryForList("memo.memoCate", dto.getEmp_num());
+		
+		/* 메모 내용 개수 */
+		int count = (int) sqlMap.queryForObject("memo.memoCount", dto.getEmp_num());
+		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", dto.getEmp_num());
+		
+		/* 메모 상태 불러오기 */
+		int memoState = (int) sqlMap.queryForObject("memo.memoState", dto);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("img", img);
@@ -196,7 +209,11 @@ public class MemoBean {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("sdf", sdf);
 		model.addAttribute("memoCateCount", memoCateCount);
+		model.addAttribute("memoCateList", memoCateList);
 		model.addAttribute("file", file);
+		model.addAttribute("count", count);
+		model.addAttribute("removeCount", removeCount);
+		model.addAttribute("memoState", memoState);
 		
 		return "/memo/memoContent";
 	}
@@ -210,7 +227,33 @@ public class MemoBean {
 	}
 	
 	@RequestMapping("memoModify.jp")
-	public String memoModify() {
+	public String memoModify(Model model, HttpSession session, memoDTO dto, String pageNum) {
+		/* 왼쪽 사이드바에 들어갈 내용 */
+		String emp_num = (String)session.getAttribute("memId");
+		
+		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", emp_num);
+		List memoCateList = sqlMap.queryForList("memo.memoCate", emp_num);
+		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
+		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
+		
+		/* 저장된 내용 불러오기 */
+		dto = (memoDTO) sqlMap.queryForObject("memo.memoContent", dto);
+		int imgCount = (int)sqlMap.queryForObject("memo.memoImgCount", dto);
+		List img = sqlMap.queryForList("memo.memoImg", dto);
+		int fileCount = (int)sqlMap.queryForObject("memo.memoFileCount", dto);
+		List file = sqlMap.queryForList("memo.memoFile", dto);
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("memoCateCount", memoCateCount);
+		model.addAttribute("memoCateList", memoCateList);
+		model.addAttribute("count", count);
+		model.addAttribute("dto", dto);
+		model.addAttribute("img", img);
+		model.addAttribute("imgCount", imgCount);
+		model.addAttribute("file", file);
+		model.addAttribute("fileCount", fileCount);
+		model.addAttribute("removeCount", removeCount);
+		
 		return "/memo/memoModify";
 	}
 	
@@ -224,7 +267,57 @@ public class MemoBean {
 	}
 	
 	@RequestMapping("memoRemoveList.jp")
-	public String memoRemoveList() {
+	public String memoRemoveList(Model model, HttpSession session, String pageNum) {
+		/* 휴지통에 있는 메모 리스트 */
+		String emp_num = (String)session.getAttribute("memId");
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
+		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = removeCount / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+
+		
+		HashMap params = new HashMap();
+		params.put("startRow", startRow);
+		params.put("endRow", endRow);
+		params.put("emp_num", emp_num);
+		
+		List memoCateList = sqlMap.queryForList("memo.memoCate", emp_num);
+		List memoCont = sqlMap.queryForList("memo.memoRemoveSh", params);
+		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", emp_num);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		model.addAttribute("memoCateList", memoCateList);
+		model.addAttribute("memoCont", memoCont);
+		model.addAttribute("count", count);
+		model.addAttribute("removeCount", removeCount);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("sdf", sdf);
+		model.addAttribute("memoCateCount", memoCateCount);
+		
+		System.out.println(emp_num);
+		
 		return "/memo/memoRemoveList";
 	}
 }

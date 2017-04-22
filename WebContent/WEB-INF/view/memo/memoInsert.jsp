@@ -6,9 +6,10 @@
 <script src="/JackPot/js/jquery.form.min.js"></script>
 <script src="/JackPot/js/jQuery.MultiFile.min.js"></script>
 
+<link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+
 <head>
 <title>메모</title>
-
 </head>
 
 <script>
@@ -66,56 +67,126 @@
     	    list:"#img-list" //파일목록을 출력할 요소 지정가능
 	    });	
 	});
+
+	
+	/* 메뉴 슬라이드 업&다운 */
+	$(document).ready(function() {
+		$(".listFolder>a").click(function() {
+			var subMenu = $(this).next("ul");
+			
+			if(subMenu.is(":visible")) {
+				subMenu.slideUp();
+			} else {
+				subMenu.slideDown();
+			}
+		});
+	});
 </script>
 
+<html>
 <body>
-<div class="header">
-<h2>메모 등록</h2>
-<div id="navText" class="line"></div>
+<div id="page-container">
+	<!-- 왼쪽 사이드바 -->
+	<div id="sidebar"></div>
+	<div id="subarea">
+		<div id="leftMenu">
+			<div class="leftMenuTop">
+				<h2><a href="memoList.jp">메모</a></h2>
+			</div>
+			
+			<div id="leftMenuArea">
+				<ul class="menuList" style="margin:0;padding:0;list-style:none;">
+					<li class="list" style="text-align:center">
+						<button type="button" class="chMemoCate" id="notePopup" onclick="window.location='memoInsert.jp'">메모 등록</button>
+					</li>
+					<li class="list">
+						<a href="memoList.jp">모든 메모 <font color="red">${count}</font></a>
+					</li>
+					<li class="list">
+						<a href="">중요 메모 숫자</a>
+					</li>
+					<li class="listFolder">
+						<a style="display:inline-block;height:30px;">나의 폴더</a>
+							<ul style="-webkit-padding-start:0px;width:200px; display:none;" >
+								<c:if test="${memoCateCount == 0}">
+									<li>등록된 폴더가 없습니다.</li>
+								</c:if>
+								<c:if test="${memoCateCount > 0}">
+									<c:forEach var="memoCate" items="${memoCateList}">
+										<li>
+											<a href="#">${memoCate.getCate_title()}</a>
+										</li>
+									</c:forEach>
+								</c:if>
+							</ul>
+					</li>
+					<li class="list">
+						<a href="memoRemoveList.jp">휴지통 <font color="red">${removeCount}</font></a>
+					</li>
+					<li class="list">
+						<a href="">폴더 관리</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
 
-<form name="memoIns" id="multiform" method="post" action="memoInsertPro.jp" enctype="multipart/form-data"  onSubmit="return checkIt();">
-<table>
-	<tr>
-		<td>
-			<select name="memo_cate">
-				<c:forEach var="memoCate" items="${memoCateList}">
-					<option value="${memoCate.getCate_num()}" >${memoCate.getCate_title()}</option>
-				</c:forEach>
-			</select>
-		</td>
-		<td>
-			<input type="reset" value="새메모" />
- 			<input type="file" name="org_img" value="이미지 첨부" id="imgInp" multiple="multiple" />  
-		 	<input type="file" name="org_file" value="파일 첨부" id="fileInp" />
-		 </td>  
-	</tr>
-</table>
-<br/>
-<table>
-	<tr>
-		<td>
-			<input type="checkbox" name="memo_state" value="2" >중요
-			<input type="text" name="memo_title" placeholder="제목을 입력하세요." />
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<textarea name="memo_content" rows="20" cols="100"></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div id="img-list"></div> 
-			<div id="file-list"></div>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<input type="submit" value="저장" />
-			<input type="button" value="취소" onClick="window.location='memoList.jp'" />
-		</td>
-	</tr>
-</table>
-</form>
+<!-- 메모 본문 : 내용 작성 폼 -->
+<div class="main-container" id="main-layer">
+	<div class="content-wrap">
+		<div class="content-head">
+			<h2 style="margin:5px; width:300px;">메모 등록</h2>
+		</div>
+		
+		<form name="memoIns" id="multiform" method="post" action="memoInsertPro.jp" enctype="multipart/form-data"  onSubmit="return checkIt();">
+		<div class="table">
+			<div class="listInfo">
+				<select name="memo_cate">
+					<c:if test="${memoCateCount == 0}">
+						<option value="0">폴더 없음</option>
+					</c:if>
+					<c:if test="${memoCateCount > 0}">
+						<c:forEach var="memoCate" items="${memoCateList}">
+							<option value="${memoCate.getCate_num()}" >${memoCate.getCate_title()}</option>
+						</c:forEach>
+					</c:if>
+				</select>
+			</div>
+			<div class="inputFileNImg">
+				<input type="reset" value="새메모" />
+				<input type="file" name="org_img" value="이미지 첨부" id="imgInp" />
+				<input type="file" name="org_file" value="파일 첨부" id="fileInp" />
+			</div>
+		</div>
+		
+		<div class="content-write">
+			<table>
+				<tr>
+					<td>
+						<input type="checkbox" name="memo_state" value="2" >중요
+						<input type="text" name="memo_title" placeholder="제목을 입력하세요." />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<textarea name="memo_content" rows="20" cols="100"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="img-list"></div> 
+						<div id="file-list"></div>
+					</td>
+				</tr>
+			</table>
+			<div>
+				<input type="submit" value="저장" />
+				<button type="button" onClick="window.location='memoList.jp'">취소</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
 </body>
+</html>
