@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
 <!--  jQuery UI CSS파일 --> 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <!-- // jQuery 기본 js파일 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <!-- // jQuery UI 라이브러리 js파일 -->
@@ -21,44 +21,8 @@
 
 
 <script type="text/javascript">
-	/* 
+	 
 
-    	   $(function() {
-        	      $( "#DateCalendar").datepicker({
-        	    	    showOn: "button", 
-                        buttonImage:"/JackPot/images/calendar (1).png",
-                        buttonImageOnly: true ,
-                        buttonText: "Select date",
-                        buttonImageSize : "vertical-align: middle; margin: 10px 10px 10px 10px",
-        	    	 	dateFormat:'yy-mm-dd', 
-						showButtonPanel: true,
-						changeMonth: true, 
-						changeYear: true,
-						nextText: '다음 달',
-						prevText: '이전 달',
-						currentText:'오늘 날짜',
-						closeText: '닫기',
-						changeMonth: true, 
-						dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
-						monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-						maxDate : 'd',
-					});
-        	      
-        	  
-    	   });
-           
-    	   function test(test){
-    		   $.ajax({
-   	  	        type: "post",
-   	  	        url : "/JackPot/workday.jp",
-   	  	        data : {day : test},
-   	  	        success: function(data){
-   	  	        	$("#DateCalendar").html(data);
-   	  	        }	
-   	      	  });
-    	   } */
-    	   
-    	   
     	   $(document).ready(function()
     				{
     				    
@@ -94,6 +58,39 @@
     				    });
     				});
     	   
+    	   
+    	   $(document).ready(function(){
+    		   
+    		   var datePicker = {
+    		   monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월' ],
+    		   dayNamesMin: ['일','월','화','수','목','금','토'],
+    		   weekHeader: 'Wk',
+    		   dateFormat: 'yymmdd',  // 날짜형식 = 20130329
+    		   autoSize: false,   // 자동리사이즈 (false 이면 상위 정의에 따름)
+    		   changeMonth: true,  // 월변경 가능
+    		   changeYear: true,  // 연변경 가능
+    		   showMonthAterYear: true, // 년 위에 월 표시
+    		   showOn: 'both',   // 엘리먼트와 이미지 동시사용 (both, button)
+    		   buttonImageOnly: true,  // 이미지 표시
+    		   buttonText: '달력',  // 버튼 텍스트 표시
+    		   buttonImage: '/images/new/icon_calendar.gif', // 이미지 주소
+    		   yearRange: 'c-99:c+99', // 1990~2020년 까지
+    		   maxDate: '+6Y',   // 오늘 부터 6년 후까지만.  +0d 오늘 이전 날짜만 선택
+    		   minDate: '-30d'                   // 30일 이전까지만 선택 가능            
+    		   }
+    		    
+    		    
+    		   $('#bm_start').trueDate($('#bm_start'));
+    		   $('#bm_end').trueDate('${bm_end}');
+    		    
+    		   $('img.ui-datepicker-trigger').attr('style','margin-left:5px; vertical-align:middle; cursor:pointer;');
+    		   $('#ui-datepicker-div').hide();
+    		    
+    		   });
+ 
+     	      
+
+    	   
 	</script>
 	
 
@@ -109,6 +106,12 @@ function openBms_rec(){
 	url = "/JackPot/bms_recPop.jp"
  	open(url, "bms_rec", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
    }   
+   
+   
+function resetAll(){
+	  document.frm.reset();
+	 }
+	 
 </script>
 
 <!-- 
@@ -238,7 +241,7 @@ function openBms_rec(){
 
 
 <div id="main-contents">
-<form method="post" ation="/JackPot/bmForm.js">
+<form method="post" action="/JackPot/bmFormPro.jp" onSubmit="return checkIt();">
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
 <div class="form-block">
@@ -270,13 +273,14 @@ function openBms_rec(){
                     <tr id="Termless" style="display: none;" >
                     	<th id="isTermlessTR"  ><span class="text-point-b">*</span>업무기한</th>
 							<td>
-								<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
-								<input type="hidden" name="bm_start" value="">
-								<input type="text" title="시작날짜" id="DateCalendar" value="${date }" name="bm_start" readonly="readonly" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd" onchange="test(this.value)"><!-- readonly 칸에 글자못쓰게 막기-->
-                           
-               					<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
-								<input type="hidden" name="bm_end" value="">
-								<input type="text" title="종료날짜" id="DateCalendar" value="${date }" name="bm_end" readonly="readonly" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd" onchange="test(this.value)">
+								<fmf:parseDate value="${date }" var=" date1" pattern="yyyymmdd" scope="page"/><!-- String형을 받아서 원하는 포멧으로 Date형태로 변경  -->
+								<fmt:formatDate value="${date1 }" pattern="yyyy-MM-dd" var="date1"/> <!-- Date형을 받아서 원하는 포멧으로 날짜형태를 변경  -->
+								<input type="text" title="시작날짜" id="bm_start" value="${date1 }" name="bm_start" readonly="readonly" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" onchange="test(this.value)"><!-- readonly 칸에 글자못쓰게 막기-->
+                                
+                                <fmf:parseDate value="${date }" var=" date2" pattern="yyyymmdd" scope="page"/>
+               					<fmt:formatDate value="${date2 }" pattern="yyyy-MM-dd" var="date2"/>
+								
+								<input type="text" title="종료날짜" id="DateCalendar" value="${date2 }" name="bm_end" readonly="readonly" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" onchange="test(this.value)">
                            		<span class="label-group ml10">
 								<input type="checkbox" title="기한없음" name="bm_end" value="0"><label>기한없음</label>
                              	</span>
@@ -368,8 +372,9 @@ function openBms_rec(){
 						
 					</div>
 <div class="btn-wrap" ">
-        <button type="submit" class="btn btn-color5 br" id="saveButton" >저장</button>
-        <button type="button" class="btn2 btn-color7 br" onclick="javascript:location.href='javascript:location.href='/JackPot/bmForm.js'">취소</button>
+		<input type="submit" value="저장" class="btn btn-color5 br" />
+        <button type="button" onClick="window.location='bmForm.jp'"class="btn2 btn-color7 br">취소</button>
+    
     </div>
 </form>
 </div>

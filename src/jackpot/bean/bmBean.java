@@ -31,11 +31,14 @@ public class bmBean {
 	
 	/*모든업무리스트보기*/
 	@RequestMapping("/bmList.jp")
-	public String bmList(bmDTO bmdto, HttpSession session, Model model){
+	public String bmList(bmDTO bmdto, Model model){
 		
 		List bmList = null;
-		bmList = sqlMap.queryForList("bm.getBusiness", bmList);		
+		bmList = sqlMap.queryForList("bm.getBusiness", bmdto);
+		int bmcount = (int) sqlMap.queryForObject("bm.bmcount", bmdto);
+		
 		model.addAttribute("bmList", bmList);		
+		model.addAttribute("bmcount", bmcount);		
 		
 		return "/bm/bmList";
 
@@ -136,12 +139,22 @@ public class bmBean {
 /*------------------------------------------------------------------------------------------*/		
 	
 	
-	/*업무등록*/
+	/*업무등록폼 */
 	@RequestMapping("/bmForm.jp")
-	public String bmForm(bmDTO bmdto,Model model,HttpSession session){
+	public String bmForm(bmDTO bmdto,Model model,HttpSession session,String dateFormatStr ){
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
-		bmdto = (bmDTO)sqlMap.queryForObject("bm.getemp_name", null);	
+		
+		Date date = new Date();
+		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
+		Calendar cal = Calendar.getInstance();   //캘린더를 date로 변환
+		DateFormat stringForma = new SimpleDateFormat(dateFormatStr); 
+		cal.setTime(date);     //date를 캘린더시간에 넣어준다.
+		System.out.println(date);
+		bmdto = (bmDTO)sqlMap.queryForObject("bm.getDay", null);   //해당날짜만 불러오기
+		
+		bmdto = (bmDTO)sqlMap.queryForObject("bm.getEmp_name", null);	
+		model.addAttribute("date", date);
 		model.addAttribute("bmdto",bmdto);
 		model.addAttribute("emp_num",emp_num);
 		
@@ -153,23 +166,13 @@ public class bmBean {
 	
 	/*업무FormPro*/
 	@RequestMapping("/bmFormPro.jp")
-	public String bmForm(bmDTO bmdto, MultipartHttpServletRequest multi,HttpSession session,String dateFormatStr ){
+	public String bmForm(bmDTO bmdto, MultipartHttpServletRequest multi,HttpSession session){
 		
 		String emp_num =(String)session.getAttribute("memId");
-		String name = (String) sqlMap.queryForObject("msg.emp_name", emp_num);
+		String name = (String) sqlMap.queryForObject("bm.getEmp_name", emp_num);
 		String Inchar = bmdto.getInchar_name();
-		SimpleDateFormat sys = new SimpleDateFormat("HH:mm");
+	
 
-		Date date = new Date();
-		if(dateFormatStr == null) dateFormatStr = "yyyy-MM-dd"; // string을 date로 하기위한 것
-		Calendar cal = Calendar.getInstance();   //캘린더를 date로 변환
-		DateFormat stringForma = new SimpleDateFormat(dateFormatStr); 
-		cal.setTime(date);     //date를 캘린더시간에 넣어준다.
-		System.out.println(date);
-
-		bmdto = (bmDTO)sqlMap.queryForObject("bm.getDay", null);   //해당날짜만 불러오기
-		
-		
 		bmdto.setEmp_num(emp_num);
 		sqlMap.insert("bm.insertBusiness", bmdto);
 		int bmNum = (int)sqlMap.insert("bm.showBmNum", null);
@@ -244,6 +247,25 @@ public class bmBean {
 		model.addAttribute("emp_d2",emp_d2);
 		model.addAttribute("emp_d",emp_d);
 		return "/bm/incharPop";
+
+	}
+	
+	/*담당자incharPop*/
+	
+	@RequestMapping("/bms_recPop.jp")
+	public String bms_recPop(Model model,empDTO dto,HttpSession session){
+		String emp_num = (String) session.getAttribute("memId");
+		List emp_d2 = sqlMap.queryForList("bm.bm_de_department",null);
+		List emp_d = sqlMap.queryForList("bm.bm_org_department",null);
+		List dp = sqlMap.queryForList("bm.emp_department",null);
+		int count = (int) sqlMap.queryForObject("bm.bm_empCount",emp_num);
+		
+		model.addAttribute("count", count);
+		model.addAttribute("dp",dp);
+		model.addAttribute("emp_d2",emp_d2);
+		model.addAttribute("emp_d",emp_d);
+		
+		return "/bm/bms_recPop";
 
 	}
 	

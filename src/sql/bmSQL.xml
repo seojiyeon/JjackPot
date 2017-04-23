@@ -11,17 +11,22 @@
 		<select id="getBusiness" parameterClass="bmdto" resultClass="bmdto">
 	
 			<![CDATA[
-				select bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, r 
-				from (select bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, rownum r
+				select bm_num,bm_title,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, r 
+				from (select bm_num,bm_title,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, rownum r
 				from business_manage where bm_num=#bm_num# order by bm_num desc) where rownum <= 1	
 			]]>
 	
 		</select>
 		
+		<!-- 모든업무 갯수 -->
+		<select id="bmcount" parameterClass="bmdto" resultClass="int">
+			select count(*) from business_manage
+		</select>
 		
-		<select id="getemp_name" parameterClass="string" resultClass="bmdto">
 		
-			select  e.emp_name from business_manage b,emp e where e.emp_num = b.emp_num 
+		<select id="getEmp_name" parameterClass="string" resultClass="bmdto">
+		
+			select  e.emp_name from business_manage b, emp e where e.emp_num = b.emp_num 
 		
 		</select>
 		
@@ -29,8 +34,8 @@
 		<select id="getMyBusiness" parameterClass="bmdto" resultClass="bmdto">
 	
 			<![CDATA[
-				select bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, r 
-				from (select bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, rownum r
+				select bm_num,bm_title,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, r 
+				from (select bm_num,bm_title,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state,emp_num, rownum r
 				from business_manage where emp_num=#emp_num# order by bm_num desc) where rownum <= 1
 			]]>
 	
@@ -42,14 +47,14 @@
 	<!--  업무입력  -->
 		<insert id="insertBusiness" parameterClass="bmdto">
 	
-				insert into business_manage(bm_num,bm_tiltie,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
+				insert into business_manage(bm_num,bm_title,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
 					bm_seq.nextval,
-					#bm_tiltie#,
+					#bm_title#,
 					#bm_content#,
 					#bm_form#,
-					#bm_start#,
-					#bm_end#,
-					#enrollment#,
+					sysdate,
+					sysdate,
+					sysdate,
 					#reg_notice#,
 					#cmp_notice#,
 					#related_bns#,
@@ -71,9 +76,22 @@
         	 select e.emp_num , e.emp_name, e.phone,e.mail,e.address,e.profilephoto profilephoto, p.position position,d.department department, e.position oo
    			  from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=#department# order by e.position desc
      
-        </select>
-		
-		
+   	    </select>
+     
+     <!-- 달력날 불러오기  -->
+		<select id="getDay" resultClass="bmdto">
+        	<![CDATA[              
+				select * from work  where to_char(work_on,'yyyymmdd') = to_char(sysdate,'yyyymmdd') and emp_num=#emp_num#
+			]]>
+		</select>          
+     
+		<!--  달력입력 -->
+		<select id="getDayChagne" resultClass="bmdto" parameterClass="bmdto">
+		<![CDATA[
+			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd') and emp_num=#emp_num#
+		]]>
+		</select> 
+	
 		<!-- 참조자 등록  -->
 		<insert id="insertBm_ref" parameterClass="bmdto">
 	

@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 public class bmDTO {
 	
 	private int bm_num;			/*诀公包府锅龋*/
-	private String bm_tiltie;	/*力格*/
+	private String bm_title;	/*力格*/
 	private String bm_content; 	/*郴侩*/
 	private int bm_form;		/*诀公屈怕*/
 	private Timestamp bm_start;	/*诀公矫累老*/
@@ -32,11 +32,11 @@ public class bmDTO {
 	public void setBm_num(int bm_num) {
 		this.bm_num = bm_num;
 	}
-	public String getBm_tiltie() {
-		return bm_tiltie;
+	public String getBm_title() {
+		return bm_title;
 	}
-	public void setBm_tiltie(String bm_tiltie) {
-		this.bm_tiltie = bm_tiltie;
+	public void setBm_title(String bm_title) {
+		this.bm_title = bm_title;
 	}
 	public String getBm_content() {
 		return bm_content;

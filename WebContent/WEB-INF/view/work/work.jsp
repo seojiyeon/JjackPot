@@ -23,7 +23,7 @@
                         buttonImageOnly: true ,
                         buttonText: "Select date",
                         buttonImageSize : "vertical-align: middle; margin: 10px 10px 10px 10px",
-        	    	 	dateFormat:'yy-mm-dd', 
+        	    	 	dateFormat:'yyyy-mm-dd', 
 						showButtonPanel: true,
 						changeMonth: true, 
 						changeYear: true,
