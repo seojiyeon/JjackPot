@@ -134,6 +134,7 @@ public class MemoBean {
 			fmImg = fmImg.replace(" ", "");
 			fmImg = fmImg.replace(":", "");
 			File f = new File(pathImg+"//"+fmImg);
+			System.out.println(pathImg);
 			
 			try {
 				multiImg.transferTo(f);
@@ -319,5 +320,29 @@ public class MemoBean {
 		System.out.println(emp_num);
 		
 		return "/memo/memoRemoveList";
+	}
+	
+	@RequestMapping("memoRemovePro.jp")
+	public String memoRemovePro(String pageNum, memoDTO dto, HttpServletRequest request, Model model) {
+		String memoNum = request.getParameter("memo_num");
+		String imgPath = request.getRealPath("save");
+		dto.setMemo_num(Integer.parseInt(memoNum));
+		List sys_img = sqlMap.queryForList("memo.memoImg", dto);
+		try {
+			File imgF = new File(imgPath+"\\"+sys_img);
+			if(imgF.exists()) {
+				imgF.delete();
+			}
+
+		} catch(Exception e ) {
+			e.printStackTrace();
+		}
+		
+		sqlMap.delete("memo.memoRemoveImg", memoNum);
+		sqlMap.delete("memo.memoRemove", memoNum);
+		
+		model.addAttribute("pageNum", pageNum);
+		
+		return "/memo/memoRemovePro";
 	}
 }

@@ -117,7 +117,7 @@
 				</c:if>
 				<c:if test="${memoState == 0}">
 					<button type="button" class="btnRecover" onclick="window.location=''">복구</button>
-					<button type="button" class="btnRomove" onclick="window.location='">삭제</button>
+					<button type="button" class="btnRomove" onclick="window.location='memoRemovePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">삭제</button>
 				</c:if>
 				<button type="button" class="btnList" onclick="window.location='memoList.jp?pageNum=${pageNum}'">목록</button>
 			</div>

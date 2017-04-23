@@ -70,6 +70,19 @@
 		]]>
 	</select>
 	
+	<!-- 휴지통에 있는 메모 삭제 -->
+	<delete id="memoRemoveImg" parameterClass="String">
+		delete from memo_img where memo_num=#memo_num#
+	</delete>
+	
+	<delete id="memoRemoveFile" parameterClass="String">
+		delete from memo_file where memo_num=#memo_num#
+	</delete>
+	
+	<delete id="memoRemove" parameterClass="String">
+		delete from memo where memo_num=#memo_num#
+	</delete>
+	
 	<!-- 메모 휴지통으로 이동 -->
 	<update id="memoDel" parameterClass="int">
 		update memo set memo_state=0 where memo_num=#memo_num#
