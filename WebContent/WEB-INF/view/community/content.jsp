@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/JackPot/css/community.css?ver=12" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=13" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
@@ -197,14 +197,6 @@ $(document).ready(function(){
     });
 });
 
-/* function recommend(){
-	var re = $('#viewReply');
-	if( re.is(":visible")){
-		re.slideUp();
-	}else{
-		re.slideDown();
-	}
-} */
 
 
 function layer_open(el){
@@ -439,7 +431,9 @@ Dropzone.options.myDropzone = {
 				 ${dto.title }
 
 
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">추천하기 </font>
+				&nbsp;&nbsp;&nbsp;
+				
+				;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">추천하기 </font>
 				<a id="recommend" href="/JackPot/like.jp?com_num=${dto.com_num}"> 	
 							
 				<img src="/JackPot/save/like (2).png" width="30" height="30">						   
@@ -502,7 +496,7 @@ Dropzone.options.myDropzone = {
 
 
 <table width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">
-      <form method="post"  action="comment.jp">
+<form method="post"  action="comment.jp">      
       
     <tr height="20" >
         <td bgcolor="gray" align="center">
@@ -526,14 +520,14 @@ Dropzone.options.myDropzone = {
 		</span>          
      </Td>    
       </tr>   
-</form>   
+</form>
 
      
      <tr >
      <td>
      
       <c:forEach var="article" items="${articleList}" varStatus="status">
-
+	
     
      <li class="last">
 		        <ul>		        	
@@ -546,26 +540,55 @@ Dropzone.options.myDropzone = {
              <a href="/JackPot/CommentDEL.jp?ref=${article.ref}&rep_num=${article.rep_num}"> 	
 				<img src="/JackPot/save/garbage2.png" width="18" height="18" >			   
 			</a>
+			
+			
 				
-		      <a class="recommend" onclick="recommend()" href="#<%-- /JackPot/reply.jp?ref=${article.ref}&rep_num=${article.rep_num} --%>" style="margin:0 10 0 20;"> 	
+      <table  width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">		
+		
+		
+		<form action="/JackPot/reply2.jp" method="post">
+		     
+		   
+		      <a class="recommend" href="#<%-- /JackPot/reply.jp?ref=${article.ref}&rep_num=${article.rep_num} --%>" style="margin:0 10 0 20;"> 
+			
 				[답글쓰기]   
 			</a>
-		<ul style="display:none;width:500px;height:20px;background:gray;">
-		<form>
+
+		<ul style="display:none;width:900px;height:20px;background:none;">
+		 
+		  <input type="hidden" name="rep_num" value="${article.rep_num}"/>
+		  <input type="hidden" name="step_num" value="${article.step_num}"/>
+		   <input type="hidden" name="com_num" value="${dto.com_num}"/>
+          <input type="hidden" name="emp_num" value="${dto.emp_num}"/>
+         
+      
+        
+		<li>
 		
-		</form>
+        
+		<textarea name="content" rows="1" cols="80"  placeholder="답글을 입력하세요."></textarea>
+		
+ 										   
+				<input TYPE="IMAGE" src="/JackPot/save/save.png"  width="20" height="20"  name="Submit" value="Submit" align="absmiddle">					 
+		</span>          
+		
+		</li> 
+	
 		</ul>
-				
-				
-		             <li class="content" style="margin: 5px;">${article.content}
-		             
-		      
-							
+		</form>
+       </table>		
+      </li>
+     		
+
+		             <li class="content" style="margin: 10px;">${article.content}	
+		          
 		            </li> 
-	                           
+		       
+	    
 		        </ul>
 	
 		    </li>
+		    </div>
 		 </div>
      
      
@@ -578,8 +601,6 @@ Dropzone.options.myDropzone = {
   </div>
       </form>    
 
-
-</div>
     </table>
 </div>
 </html>

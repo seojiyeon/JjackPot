@@ -63,11 +63,13 @@ public class CommunityBean {
 		int ref=Integer.parseInt(request.getParameter("com_num"));
 		List articleList = null;
 		articleList =sqlMap.queryForList("comm.reply", ref);
-		
 		model.addAttribute("articleList",articleList);
+		
 		
 		int check=(Integer)sqlMap.queryForObject("comm.count", ref);
 		model.addAttribute("check",check);
+		
+		
 		
 		return "/community/content";
 		
@@ -111,6 +113,34 @@ public class CommunityBean {
            model.addAttribute("com_num", com_num);
 		return "/community/CommentDEL";
        }
+	
+
+	@RequestMapping("/reply2.jp")
+	public String reply2(Model model, HttpServletRequest request,HttpSession session,communityDTO dto){
+		 int ref=Integer.parseInt(request.getParameter("com_num"));
+	     String re_num=(String) session.getAttribute("memId");
+	     String content=request.getParameter("content");
+	     int rep_num=Integer.parseInt(request.getParameter("rep_num"));
+	    
+	     dto.setRe_num(re_num);
+	     dto.setRef(ref);
+	     dto.setStep_num(rep_num);
+	     dto.setContent(content);
+	     
+	     int step_num=Integer.parseInt(request.getParameter("step_num"));
+	     System.out.println(step_num);
+	       sqlMap.insert("comm.reply2", dto);	     
+	       
+	     
+	     model.addAttribute("dto",dto);
+	     model.addAttribute("com_num", ref);
+ 
+           
+		return "/community/reply2";
+       }
+	
+	
+	
 	
 	
 }
