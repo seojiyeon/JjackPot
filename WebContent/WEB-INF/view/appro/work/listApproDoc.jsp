@@ -195,9 +195,17 @@
 							</tr>
 							<tr>
 								<th>기안자</th>
-								<td>${emp_name}&nbsp;${emp_position}</td>
+								<td>${emp_name}&nbsp;${position_name}</td>
 								<th>기안부서</th>
-								<td><input type="hidden" name="apprGroupId" value="G102863">${emp_department}</td>
+								<td>${department_name}</td>
+								<td>
+								<input type="hidden" name="emp_name" 		value="${emp_name}">
+								<input type="hidden" name="position" 		value="${emp_position}">
+								<input type="hidden" name="department" 		value="${emp_department}">
+								<input type="hidden" name="temp_num" 		value="${temp_num}">
+								<input type="hidden" name="emp_num" 		value="${emp_num}">
+								<input type="hidden" name="branch" 		value="${edto.branch}">
+								</td>
 							</tr>
 							
 							<tr>
