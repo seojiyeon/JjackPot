@@ -148,7 +148,7 @@
 					</c:if>
 					<c:if test="${memoCateCount > 0}">
 						<c:forEach var="memoCate" items="${memoCateList}">
-							<option value="${memoCate.getCate_num()}" >${memoCate.getCate_title()}</option>
+							<option value="${memoCate.cate_num}" >${memoCate.cate_title}</option>
 						</c:forEach>
 					</c:if>
 				</select>

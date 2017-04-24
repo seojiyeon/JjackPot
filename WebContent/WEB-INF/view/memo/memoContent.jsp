@@ -111,7 +111,7 @@
 			</div>
 			<div class="btn-wrap">
 				<c:if test="${memoState > 0}">
-					<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">수정</button>
+					<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memo_cate=${dto.getMemo_cate()}'">수정</button>
 					<button type="button" class="btnMove">이동</button>
 					<button type="button" class="btnDelete" onclick="window.location='memoDeletePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">삭제</button>
 				</c:if>

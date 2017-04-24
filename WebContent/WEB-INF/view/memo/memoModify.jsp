@@ -148,7 +148,13 @@
 					</c:if>
 					<c:if test="${memoCateCount > 0}">
 						<c:forEach var="memoCate" items="${memoCateList}">
-							<option value="${memoCate.getCate_num()}" >${memoCate.getCate_title()}</option>
+							<c:if test="${memoCate.cate_num == dto.getMemo_cate()}">
+								<option value="${memoCate.cate_num}" selected>${memoCate.cate_title}</option>
+							</c:if>
+							
+							<c:if test="${memoCate.cate_num != dto.getMemo_cate()}">
+								<option value="${memoCate.cate_num}">${memoCate.cate_title}</option>
+							</c:if>		
 						</c:forEach>
 					</c:if>
 				</select>
@@ -175,23 +181,8 @@
 				</tr>
 				<tr>
 					<td>
-						<c:if test="${imgCount == 0}">
-							<div id="img-list"></div> 
-						</c:if>
-						<c:if test="${imgCount > 0}">
-							<c:forEach var="img" items="${img}">
-								<div id="img-list"></div>
-							</c:forEach>
-						</c:if>
-						
-						<c:if test="${fileCount == 0}">
-							<div id="file-list"></div> 
-						</c:if>
-						<c:if test="${fileCount > 0}">
-							<c:forEach var="file" items="${file}">
-								<div id="file-list"></div>
-							</c:forEach>
-						</c:if>
+						<div id="img-list"></div>
+						<div id="file-list"></div>  
 					</td>
 				</tr>
 			</table>

@@ -116,25 +116,23 @@ public class MemoBean {
 		dto.setMemo_num(memoNum);
 		
 		Date day = new Date();
+		String path = request.getRealPath("save"); // 업로드 경로
 		
 		/* 이미지 업로드 */
-		String pathImg = request.getRealPath("save"); // 업로드 경로
-		System.out.println(pathImg);
+		System.out.println("1====="+path);
 		List<MultipartFile> mf = request.getFiles("org_img"); // 업로드 원본 파일
 		
 		for(MultipartFile multiImg : mf) {
 			String imgName = multiImg.getOriginalFilename();
 			dto.setOrg_img(imgName);
+			System.out.println("2======"+imgName);
 			int extImg = imgName.lastIndexOf(".");
 			System.out.println(extImg);
 			imgName = imgName.substring(extImg+1);
 			
-			String fmImg = dto.getEmp_num()+"_"+day+"."+imgName;
+			String fmImg = dto.getEmp_num()+"_"+multiImg+"."+imgName;
 			
-			fmImg = fmImg.replace(" ", "");
-			fmImg = fmImg.replace(":", "");
-			File f = new File(pathImg+"//"+fmImg);
-			System.out.println(pathImg);
+			File f = new File(path+"//"+fmImg);
 			
 			try {
 				multiImg.transferTo(f);
@@ -148,8 +146,6 @@ public class MemoBean {
 		
 		
 		/* 파일 업로드 */
-		String pathFile = request.getRealPath("save");
-		System.out.println(pathFile);
 		List<MultipartFile> fileMf = request.getFiles("org_file");
 		
 		for(MultipartFile multiFile : fileMf) {
@@ -161,7 +157,7 @@ public class MemoBean {
 			
 			fmFile = fmFile.replace(" ", "");
 			fmFile = fmFile.replace(":", "");
-			File ff = new File(pathFile+"//"+fmFile);
+			File ff = new File(path+"//"+fmFile);
 		
 			try {
 				multiFile.transferTo(ff);
@@ -325,20 +321,42 @@ public class MemoBean {
 	@RequestMapping("memoRemovePro.jp")
 	public String memoRemovePro(String pageNum, memoDTO dto, HttpServletRequest request, Model model) {
 		String memoNum = request.getParameter("memo_num");
-		String imgPath = request.getRealPath("save");
+		String path = request.getRealPath("save");
+		
 		dto.setMemo_num(Integer.parseInt(memoNum));
+		
 		List sys_img = sqlMap.queryForList("memo.memoImg", dto);
-		try {
-			File imgF = new File(imgPath+"\\"+sys_img);
-			if(imgF.exists()) {
-				imgF.delete();
+		List sys_file = sqlMap.queryForList("memo.memoFile", dto);
+		System.out.println(path);
+		
+		for(int i=0; i<sys_img.size(); i++) {
+			try {
+				memoDTO dtoImg = (memoDTO)sys_img.get(i);
+				File imgF = new File(path+"\\"+dtoImg.getSys_img());
+				System.out.println(sys_img.get(i));
+				if(imgF.exists()) {
+					imgF.delete();
+				}
+			} catch(Exception e ) {
+				e.printStackTrace();
 			}
-
-		} catch(Exception e ) {
-			e.printStackTrace();
 		}
 		
+		for(int i=0; i<sys_file.size(); i++) {
+			try {
+				memoDTO dtoFile = (memoDTO)sys_file.get(i);
+				File fileF = new File(path+"\\"+dtoFile.getSys_file());
+				
+				if(fileF.exists()) {
+					fileF.delete();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		sqlMap.delete("memo.memoRemoveImg", memoNum);
+		sqlMap.delete("memo.memoRemoveFile", memoNum);
 		sqlMap.delete("memo.memoRemove", memoNum);
 		
 		model.addAttribute("pageNum", pageNum);
