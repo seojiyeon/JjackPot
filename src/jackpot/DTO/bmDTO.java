@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 public class bmDTO {
 	
 	private int bm_num;			/*업무관리번호*/
-	private String bm_tiltie;	/*제목*/
+	private String bm_title;	/*제목*/
 	private String bm_content; 	/*내용*/
 	private int bm_form;		/*업무형태*/
 	private Timestamp bm_start;	/*업무시작일*/
@@ -17,18 +17,26 @@ public class bmDTO {
 	private int important;			/*중요업무*/
 	private String bm_state;		/*업무상태*/
 	private String emp_num;			/*작성자*/
+	private	String day;
+
 	
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
 	public int getBm_num() {
 		return bm_num;
 	}
 	public void setBm_num(int bm_num) {
 		this.bm_num = bm_num;
 	}
-	public String getBm_tiltie() {
-		return bm_tiltie;
+	public String getBm_title() {
+		return bm_title;
 	}
-	public void setBm_tiltie(String bm_tiltie) {
-		this.bm_tiltie = bm_tiltie;
+	public void setBm_title(String bm_title) {
+		this.bm_title = bm_title;
 	}
 	public String getBm_content() {
 		return bm_content;

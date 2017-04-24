@@ -1,6 +1,12 @@
 @CHARSET "UTF-8";
 
-html,BODY { height:100%;overflow-x:hidden; overflow-y:auto; margin:0px;}
+html,BODY { 
+	height:100%;
+	overflow-x:hidden; 
+	overflow-y:auto; 
+	margin:0px; 
+	font-family:"Nanum Gothic","NanumGothic",나눔고딕,NanumGothic,ng,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;
+}
 
 #sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}
@@ -155,17 +161,43 @@ table {
 	top:100px;
 	z-index:10000;
 }
-	
+
+/* 글자가 긴 경우 중간부분 자르기 */	
 .memoNote {
-	margin: 12px 0 6px;
-    line-height: 18px;
-    max-height: 52px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
-    word-wrap: break-word;
+	box-sizing: border-box;
+	color: rgb(17, 17, 17);
+	display: -webkit-box;
+	font-family: "Nanum Gothic","NanumGothic",나눔고딕,NanumGothic,ng,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 18px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 6px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	max-height: 52px;
+	overflow: hidden;
+	overflow-wrap: break-word;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	text-overflow: ellipsis;
+	-moz-box-orient: vertical;
+}
+
+
+/* 하단에 회색 줄 표시됨 */
+.content-head {
+	border-bottom-color:silver;
+	border-bottom-style:solid; 
+	border-bottom-width:1px;
+}
+.table-header {
+	border-bottom-color:silver;
+	border-bottom-style:solid; 
+	border-bottom-width:2px;
 }
 
 

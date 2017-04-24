@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="jquery-3.1.1.min.js"></script> 
+<script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
 <!--  jQuery UI CSS파일 --> 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <!-- // jQuery 기본 js파일 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <!-- // jQuery UI 라이브러리 js파일 -->
-<script type="text/javascript" charset="UTF-8" src="/comon/ETC/js/jquery.leanModal.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
@@ -22,43 +21,75 @@
 
 
 <script type="text/javascript">
-	
+	 
 
-    	   $(function() {
-        	      $( "#DateCalendar").datepicker({
-        	    	    showOn: "button", 
-                        buttonImage:"/JackPot/images/calendar (1).png",
-                        buttonImageOnly: true ,
-                        buttonText: "Select date",
-                        buttonImageSize : "vertical-align: middle; margin: 10px 10px 10px 10px",
-        	    	 	dateFormat:'yy-mm-dd', 
-						showButtonPanel: true,
-						changeMonth: true, 
-						changeYear: true,
-						nextText: '다음 달',
-						prevText: '이전 달',
-						currentText:'오늘 날짜',
-						closeText: '닫기',
-						changeMonth: true, 
-						dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
-						monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-						maxDate : 'd',
-					});
-        	      
-        	  
-    	   });
-           
-    	   function test(test){
-    		   $.ajax({
-   	  	        type: "post",
-   	  	        url : "/JackPot/workday.jp",
-   	  	        data : {day : test},
-   	  	        success: function(data){
-   	  	        	$("#workday").html(data);
-   	  	        }	
-   	      	  });
-    	   }
+    	   $(document).ready(function()
+    				{
+    				    
+    				    $('input[name=bm_form]').change(function()
+    				    {
+    				    	
+    				    	if($(':radio[name="bm_form"]:checked').val()=='1')
+    						{	    		
+    							$('#Termless').show();
+    				    		$('#incharge').hide();
+    							$('#rec').hide();
+    							$('#ref').hide();
+    				    		
+    						}else if($(':radio[name="bm_form"]:checked').val()=='2')
+    						{
+    							$('#Termless').show();
+    							$('#incharge').show();
+    							$('#rec').hide();
+    							$('#ref').show();
+    						}else if($(':radio[name="bm_form"]:checked').val()=='3')
+    						{
+    							$('#Termless').hide();
+    							$('#incharge').hide();
+    							$('#rec').show();
+    							$('#ref').show();
+    						}else if($(':radio[name="bm_form"]:checked').val()=='4')
+    						{
+    							$('#Termless').hide();
+    							$('#incharge').hide();
+    							$('#rec').show();
+    							$('#ref').show();
+    						}
+    				    });
+    				});
     	   
+    	   
+    	   $(document).ready(function(){
+    		   
+    		   var datePicker = {
+    		   monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월' ],
+    		   dayNamesMin: ['일','월','화','수','목','금','토'],
+    		   weekHeader: 'Wk',
+    		   dateFormat: 'yymmdd',  // 날짜형식 = 20130329
+    		   autoSize: false,   // 자동리사이즈 (false 이면 상위 정의에 따름)
+    		   changeMonth: true,  // 월변경 가능
+    		   changeYear: true,  // 연변경 가능
+    		   showMonthAterYear: true, // 년 위에 월 표시
+    		   showOn: 'both',   // 엘리먼트와 이미지 동시사용 (both, button)
+    		   buttonImageOnly: true,  // 이미지 표시
+    		   buttonText: '달력',  // 버튼 텍스트 표시
+    		   buttonImage: '/images/new/icon_calendar.gif', // 이미지 주소
+    		   yearRange: 'c-99:c+99', // 1990~2020년 까지
+    		   maxDate: '+6Y',   // 오늘 부터 6년 후까지만.  +0d 오늘 이전 날짜만 선택
+    		   minDate: '-30d'                   // 30일 이전까지만 선택 가능            
+    		   }
+    		    
+    		    
+    		   $('#bm_start').trueDate($('#bm_start'));
+    		   $('#bm_end').trueDate('${bm_end}');
+    		    
+    		   $('img.ui-datepicker-trigger').attr('style','margin-left:5px; vertical-align:middle; cursor:pointer;');
+    		   $('#ui-datepicker-div').hide();
+    		    
+    		   });
+ 
+     	      
+
     	   
 	</script>
 	
@@ -75,6 +106,12 @@ function openBms_rec(){
 	url = "/JackPot/bms_recPop.jp"
  	open(url, "bms_rec", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
    }   
+   
+   
+function resetAll(){
+	  document.frm.reset();
+	 }
+	 
 </script>
 
 <!-- 
@@ -204,7 +241,7 @@ function openBms_rec(){
 
 
 <div id="main-contents">
-<form method="post" ation="/JackPot/bmForm.js">
+<form method="post" action="/JackPot/bmFormPro.jp" onSubmit="return checkIt();">
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
 <div class="form-block">
@@ -225,78 +262,54 @@ function openBms_rec(){
 							<td>
 								<div >
 									<input type="hidden" name="bm_form" value="">
-									<label ><input type="radio" name="bm_form" title="나의 할일" value="0"> 나의 할 일</label>
-									<label ><input type="radio" name="bm_form" title="업무 요청" value="1"> 업무 요청</label>
-                              	  <label ><input type="radio" name="bm_form" title="업무 보고" value="2"> 업무 보고</label>
-                              	  <label ><input type="radio" name="bm_form" title="업무 일지" value="3"> 업무 일지</label>
+									<label ><input type="radio" id="type" name="bm_form" title="나의 할일" value="1"> 나의 할 일</label>
+									<label ><input type="radio"  id="type" name="bm_form" title="업무 요청" value="2" checked="checked"> 업무 요청</label>
+                              	  <label ><input type="radio"   id="type" name="bm_form" title="업무 보고" value="3"> 업무 보고</label>
+                              	  <label ><input type="radio"  id="type" name="bm_form" title="업무 일지" value="4"> 업무 일지</label>
                              </div>
                        	 	</td>
                    	 	</tr>
                     
-                    <tr id="isTermlessTR">
-                    	<th ><span class="text-point-b">*</span>업무기한</th>
+                    <tr id="Termless" style="display: none;" >
+                    	<th id="isTermlessTR"  ><span class="text-point-b">*</span>업무기한</th>
 							<td>
-								<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
-								<input type="hidden" name="bm_start" value="">
-								<input type="text" title="시작날짜" id="DateCalendar" value="${date }" name="bm_start" readonly="readonly" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd" onchange="test(this.value)"><!-- readonly 칸에 글자못쓰게 막기-->
-                           
-               					<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
-								<input type="hidden" name="bm_end" value="">
-								<input type="text" title="종료날짜" id="DateCalendar" value="${date }" name="bm_end" readonly="readonly" data-date-format="yyyy.mm.dd" placeholder="yyyy.mm.dd" onchange="test(this.value)">
+								<fmf:parseDate value="${date }" var=" date1" pattern="yyyymmdd" scope="page"/><!-- String형을 받아서 원하는 포멧으로 Date형태로 변경  -->
+								<fmt:formatDate value="${date1 }" pattern="yyyy-MM-dd" var="date1"/> <!-- Date형을 받아서 원하는 포멧으로 날짜형태를 변경  -->
+								<input type="text" title="시작날짜" id="bm_start" value="${date1 }" name="bm_start" readonly="readonly" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" onchange="test(this.value)"><!-- readonly 칸에 글자못쓰게 막기-->
+                                
+                                <fmf:parseDate value="${date }" var=" date2" pattern="yyyymmdd" scope="page"/>
+               					<fmt:formatDate value="${date2 }" pattern="yyyy-MM-dd" var="date2"/>
+								
+								<input type="text" title="종료날짜" id="DateCalendar" value="${date2 }" name="bm_end" readonly="readonly" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" onchange="test(this.value)">
                            		<span class="label-group ml10">
 								<input type="checkbox" title="기한없음" name="bm_end" value="0"><label>기한없음</label>
                              	</span>
                             </td>
                         </tr>
-                        <c:if test="${bm_form.bmf_num == 1}">
-                        </c:if>
-                        <c:if test="${bm_form.bmf_num == 2}">
-                        <tr>
-                            <th id="inchar_name" scope="row">
+                 
+                        <tr id="incharge" style="display: none;">
+                            <th id="incharge_name" scope="row">
                             	<span class="text-point-b">*</span>담당자</th>
                             <td>
-                            	<input type="hidden" name="bm_end" value="">
+                            	<input type="hidden" name="inchar_name" value="">
 								<input type="text" title="사용자" name="inchar_name" placeholder="사용자" style="box-shadow:none;">
                                 <button type="button" class="btn input-group-addon btn-color5 br" onclick="openInchar()"><i class="icon man-plus">
                                 <span class="none">사용자</span></i></button>
      						</td>
                         </tr>
                         
-                        <tr>
-                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
-                            </th>
-                            
+                        <tr id="rec" style=" display: none;">
+                        	<th id="rec_name" scope="row" ><span class="text-point-b">*</span>수신자</th>
                             <td>
-                            	<input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
-                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
-                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
-                            </td>
-                        </tr>
-                        </c:if>
-                        <c:if test="${bm_form.bmf_num == 3}">
-                        <tr>
-                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
-                            </th>
-                            
-                            <td>
-                            	<input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
-                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
-                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th id="inchar_name" scope="row"><span class="text-point-b">*</span>수신자</th>
-                            <td>
+                            	<input type="hidden" name="rec_name" value="">
                                 <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
                                	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
                                 <i class="icon man-plus"><span class="none">사용자</span></i></button>
                             </td>
                         </tr>
-                        </c:if>
                         
-                        <c:if test="${bm_form.bmf_num == 4}">
-                        <tr>
-                            <th id="inchar_name" scope="row"><span class="text-point-b">*</span>참조자
+                        <tr id="ref" style=" display: none;">
+                            <th id="ref_name" scope="row" ><span class="text-point-b">*</span>참조자
                             </th>
                             
                             <td>
@@ -305,16 +318,10 @@ function openBms_rec(){
                                 <i class="icon man-plus"><span class="none">사용자</span></i></button>
                             </td>
                         </tr>
-                        <tr>
-                        	<th id="inchar_name" scope="row"><span class="text-point-b">*</span>수신자</th>
-                            <td>
-                                <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
-                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
-                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
-                            </td>
-                        </tr>
-                        </c:if>
-                        
+
+
+                       
+                    
                         
                         <tr id="alarmTR">
                             <th scope="row">등록 알림</th>
@@ -361,15 +368,13 @@ function openBms_rec(){
 					<div>
 					
 						<textarea class="ckeditor" cols="1" id="bm_content" name="bm_content" rows="15"></textarea>
-						<script type="text/javascript">
-							CKEDITOR.replace('editor2')
-                            
-						</script>
+						
 						
 					</div>
 <div class="btn-wrap" ">
-        <button type="submit" class="btn btn-color5 br" id="saveButton" >저장</button>
-        <button type="button" class="btn2 btn-color7 br" onclick="javascript:location.href='javascript:location.href='/JackPot/bmForm.js'">취소</button>
+		<input type="submit" value="저장" class="btn btn-color5 br" />
+        <button type="button" onClick="window.location='bmForm.jp'"class="btn2 btn-color7 br">취소</button>
+    
     </div>
 </form>
 </div>

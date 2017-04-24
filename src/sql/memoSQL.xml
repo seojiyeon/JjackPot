@@ -14,7 +14,9 @@
 		select count(*) from memo_cate where emp_num=#emp_num#
 	</select>
 	
+	
 	<!-- 메모 -->
+	<!-- 메모 내용 저장 -->
 	<insert id="memoInsert" parameterClass="mdto">
 		insert into memo values (
     		memo_seq.NEXTVAL,
@@ -28,6 +30,7 @@
 		)
 	</insert>
 	
+	<!-- 메모 파일 저장 -->
 	<insert id="memoInsImg" parameterClass="mdto">
 		insert into memo_img values(
  			#memo_num#,
@@ -37,6 +40,7 @@
 		)
 	</insert>
 	
+	<!-- 메모 파일 저장 -->
 	<insert id="memoInsFile" parameterClass="mdto">
 		insert into memo_file values(
     		#memo_num#,
@@ -56,14 +60,60 @@
 		]]>
 	</select>
 	
+	<!-- 휴지통에 있는 메모 목록 -->
+	<select id="memoRemoveSh" parameterClass="java.util.HashMap" resultClass="mdto">
+		<![CDATA[
+			select * from(select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, r from (
+			select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, rownum r 
+			from memo m, memo_cate mc where m.emp_num=#emp_num# and m.memo_cate=mc.cate_num and m.memo_state=0 order by m.memo_enroll desc, m.memo_modi desc) 
+			order by memo_enroll desc, memo_modi desc) where r <=#endRow# and r >=#startRow#
+		]]>
+	</select>
+	
+	<!-- 휴지통에 있는 메모 삭제 -->
+	<delete id="memoRemoveImg" parameterClass="String">
+		delete from memo_img where memo_num=#memo_num#
+	</delete>
+	
+	<delete id="memoRemoveFile" parameterClass="String">
+		delete from memo_file where memo_num=#memo_num#
+	</delete>
+	
+	<delete id="memoRemove" parameterClass="String">
+		delete from memo where memo_num=#memo_num#
+	</delete>
+	
+	<!-- 메모 휴지통으로 이동 -->
+	<update id="memoDel" parameterClass="int">
+		update memo set memo_state=0 where memo_num=#memo_num#
+	</update>
+	
+	<select id="memoNumSelect" parameterClass="mdto" resultClass="int">
+		select max(memo_num) from memo where emp_num=#emp_num#
+	</select>
+	
+	<!-- 상태 1이상인 메모 개수 -->
 	<select id="memoCount" parameterClass="String" resultClass="int">
 		select count(*) from memo where emp_num=#emp_num# and memo_state > 0
 	</select>
 	
+	<!-- 휴지통에 있는 메모 개수 -->
+	<select id="memoRemoveCount" parameterClass="String" resultClass="int">
+		select count(*) from memo where emp_num=#emp_num# and memo_state = 0
+	</select>
+	
+	<!-- 메모 내용 -->
 	<select id="memoContent" parameterClass="mdto" resultClass="mdto">
 		select * from memo m, memo_cate mc where m.memo_num=#memo_num# and memo_cate=cate_num
 	</select>
 	
+	<!-- 메모 상태 불러오기 -->
+	<select id="memoState" parameterClass="mdto" resultClass="int">
+		select memo_state from memo where emp_num=#emp_num# and memo_num=#memo_num#
+	</select>
+	
+	
+	<!-- 메모 이미지&파일 -->
 	<!-- memo 이미지 불러오기 -->
 	<select id="memoImg" parameterClass="mdto" resultClass="mdto">
 		select * from memo_img where memo_num=#memo_num#
@@ -73,11 +123,12 @@
 		select count(*) from memo_img where memo_num=#memo_num#
 	</select>
 	
-	<update id="memoDel" parameterClass="int">
-		update memo set memo_state=0 where memo_num=#memo_num#
-	</update>
+	<!-- memo 파일 불러오기 -->
+	<select id="memoFile" parameterClass="mdto" resultClass="mdto">
+		select * from memo_file where memo_num=#memo_num#
+	</select>
 	
-	<select id="memoNumSelect" parameterClass="mdto" resultClass="int">
-		select max(memo_num) from memo where emp_num=#emp_num#
+	<select id="memoFileCount" parameterClass="mdto" resultClass="int">
+		select count(*) from memo_file where memo_num=#memo_num#
 	</select>
 </sqlMap>
