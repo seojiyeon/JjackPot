@@ -31,13 +31,19 @@ public class bmBean {
 	
 	/*모든업무리스트보기*/
 	@RequestMapping("/bmList.jp")
-	public String bmList(bmDTO bmdto, Model model){
+	public String bmList(bmDTO bmdto, Model model, HttpServletRequest request){
 		
 		List bmList = null;
-		bmList = sqlMap.queryForList("bm.getBusiness", bmdto);
+		
+		int a = 2;
+
+		bmList = sqlMap.queryForList("bm.getBmList", a);
 		int bmcount = (int) sqlMap.queryForObject("bm.bmcount", bmdto);
 		
-		model.addAttribute("bmList", bmList);		
+		
+		System.out.println(bmList);
+		System.out.println(bmcount);
+		model.addAttribute("bmList", bmList);
 		model.addAttribute("bmcount", bmcount);		
 		
 		return "/bm/bmList";

@@ -44,6 +44,9 @@ public class MsgBean {
 		
 		List articleList = null;
 		articleList = sqlMap.queryForList("msg.msgSend", id);	
+		
+		System.out.println(articleList);
+		
 		model.addAttribute("count", count);
 		model.addAttribute("articleList", articleList);		
 		

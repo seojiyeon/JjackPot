@@ -279,27 +279,27 @@ tbody {
 			<c:forEach var="bmdto"  items="${bmList}">
 				<tr>
                         <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
-                        <th style="width: 40px;">${bmList.num }</th>
+                        <th style="width: 40px;">${bmdto.bm_num }</th>
                         <th style="width: 50px;">
-                            ${bmList.important}
+                            ${bmdto.important}
                         </th>
                         <th style="width: 120px;">
-                       		${bmList.bns_box}
+                       		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                            ${bmList.emp_num}
+                            ${bmdto.bm_title}
                         </th>
                         <th style="width: 100px;">
-                            ${bmList.emp_num}
+                            ${bmdto.bm_name}
                         </th>
                         <th style="width: 90px;">
-                          ${bmList.bm_start}
+                          ${bmdto.bm_start}
                         </th>
                         <th style="width: 120px;">
-                            ${bmList.bm_end}
+                            ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
-                            ${bmList.bm_state}
+                            ${bmdto.bm_state}
                         </th>
                     </tr>
 				</c:forEach>

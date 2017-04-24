@@ -15,9 +15,36 @@ public class bmDTO {
 	private String related_bns; 	/*관련업무*/
 	private int  bns_box;			/*업무보관함*/
 	private int important;			/*중요업무*/
-	private String bm_state;		/*업무상태*/
+	private String important2;
+	private int bm_state;		/*업무상태*/
+	private String bm_state2;		/*업무상태*/
 	private String emp_num;			/*작성자*/
+	private String bm_name;			/*작성자*/
 	private	String day;
+	
+	
+	public String getBm_state2() {
+		return bm_state2;
+	}
+	public void setBm_state2(String bm_state2) {
+		this.bm_state2 = bm_state2;
+	}
+	public String getImportant2() {
+		return important2;
+	}
+	public void setImportant2(String important2) {
+		this.important2 = important2;
+	}
+	public String getBm_name() {
+		return bm_name;
+	}
+	public void setBm_name(String bm_name) {
+		this.bm_name = bm_name;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 
 	
 	public String getDay() {
@@ -98,10 +125,10 @@ public class bmDTO {
 	public void setImportant(int important) {
 		this.important = important;
 	}
-	public String getBm_state() {
+	public int getBm_state() {
 		return bm_state;
 	}
-	public void setBm_state(String bm_state) {
+	public void setBm_state(int bm_state) {
 		this.bm_state = bm_state;
 	}
 	
@@ -155,7 +182,7 @@ public class bmDTO {
 	/*업무보관함(bns_box)*/
 	
 	private int bns_num;		/*업무보관번호*/
-	private String bns_name;	/*업무보관함이름*/
+	private String box_name;	/*업무보관함이름*/
 
 	public void setBns_num(int bns_num){
 		this.bns_num = bns_num;
@@ -164,11 +191,11 @@ public class bmDTO {
 		return bns_num;
 	}
 	
-	public void setBns_name(String bns_name){
-		this.bns_name = bns_name;
+	public void setBox_name(String box_name){
+		this.box_name = box_name;
 	}
-	public String getBns_name(){
-		return bns_name;
+	public String getBox_name(){
+		return box_name;
 	}
 	
 	/*업무관리 파일(bm_file)*/
@@ -344,12 +371,16 @@ public class bmDTO {
 		this.bm_formName = bm_formName;
 	}
 
+	/*업무상태(bm_state)*/
+	private int state_num;
+
 	
-	
-	
-	
-	
-	
+	public void setState_num(int state_num){
+		this.state_num = state_num;
+	}
+	public int getState_num() {
+		return state_num;
+	}
 
 	
 }
