@@ -28,20 +28,30 @@ public class ApproBean {
 
 	@RequestMapping("/listApproDoc.jp")
 	public String listApproDoc(HttpServletRequest request, HttpSession session, Model model){
-		String result = "main";
+		String result = "/emp/loginform";
 		if(session.getAttribute("memId") != null){
 			String emp_num = (String) session.getAttribute("memId"); //session���� Id ���� �޾ƿͼ� emp_num�� ����. 
 			empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
 			int emp_position = edto.getPosition();
 			int emp_department = edto.getDepartment();
-			String position = (String) sqlMap.queryForObject("approSQL.position", emp_position);
-			String department= (String) sqlMap.queryForObject("approSQL.department", emp_department);
+			String position_name = (String) sqlMap.queryForObject("approSQL.position", emp_position);
+			String department_name= (String) sqlMap.queryForObject("approSQL.department", emp_department);
 			String emp_name = edto.getEmp_name();
+			model.addAttribute("emp_num",emp_num);
 			model.addAttribute("emp_name",emp_name);
-			model.addAttribute("emp_position",position);
-			model.addAttribute("emp_department",department);
+			model.addAttribute("emp_position",emp_position);
+			model.addAttribute("emp_department",emp_department);
+			model.addAttribute("position_name",position_name);
+			model.addAttribute("department_name",department_name);
 			String temp_num = UUID.randomUUID().toString();
 			System.out.println(temp_num);
+			System.out.println(emp_num);
+			System.out.println(emp_name);
+			System.out.println(emp_position);
+			System.out.println(emp_department);
+			System.out.println(position_name);
+			System.out.println(department_name);
+
 			//int doc_num = Integer.parseInt(request.getParameter("doc_num"));
 			
 			//int id = (Integer)session.getAttribute("memId"); 
@@ -58,7 +68,7 @@ public class ApproBean {
 			request.setAttribute("temp_num", temp_num);
 			//request.setAttribute("doc_num", doc_num);
 			request.setAttribute("workdto", workdto);
-			request.setAttribute("dto", dto);
+			request.setAttribute("edto", edto);
 			
 			
 			return "/appro/work/listApproDoc";
@@ -68,7 +78,7 @@ public class ApproBean {
 	}
 	@RequestMapping("/listApproDocPro.jp")
 	public String listApproDocPro(MultipartHttpServletRequest request, approDTO dto, HttpSession session) throws Exception {
-		String result = "main";
+		String result = "/emp/loginform";
 		if(session.getAttribute("memId") != null){
 			
 			int approver_step = 1;
@@ -79,10 +89,7 @@ public class ApproBean {
 			String wdate = vans.format(now);
 			String seqNum = (String)sqlMap.queryForObject("approSQL.seqNum", null);
 			String ap_Num = wdate + "-" + seqNum;
-			System.out.println(ww);
-			System.out.println(ap_Num);
-			System.out.println(approver_step);
-			System.out.println(wdate);
+			
 			
 			dto.setDoc_date(ww); 										//날짜
 			dto.setDoc_num(ap_Num);										//문서번호
@@ -111,10 +118,11 @@ public class ApproBean {
 			
 			//if(dto.getr)
 			*/
-			
+		
+			return "/appro/work/listApproDocPro";
 		}
 		
-		return "/appro/work/listApproDocPro";
+		return result;
 	}
 	
 	@RequestMapping("/listApproMyRequest.jp")

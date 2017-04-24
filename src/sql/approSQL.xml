@@ -49,9 +49,12 @@
 		</select>
 		
 		<insert id ="approInsert" parameterClass="adto">
-			insert into appro(doc_date,doc_num,approver_step,ap_time)
+			insert into appro(doc_date,doc_num,approver_step,ap_time,emp_name,emp_num,
+							  position,department,branch)
 			
-			values(#doc_date#,#doc_num#,#approver_step#,#ap_time#)
+			values(#doc_date#,#doc_num#,#approver_step#,#ap_time#,#emp_name#,#emp_num#,
+				   #position#,#department#,#branch#)
+			
 		</insert>
 		
 		<!-- <insert id="approInsert" parameterClass="jackpot.DTO.approDTO">
