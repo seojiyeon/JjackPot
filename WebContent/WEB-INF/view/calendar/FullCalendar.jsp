@@ -15,7 +15,6 @@
     }
     #calendar {
         max-width : 1400px;
-        margin : 0 auto;
     }
     
 .fc-day.fc-widget-content.fc-sat.fc-other-month.fc-past{background-color: #F2F2F2;}
@@ -115,6 +114,9 @@ jQuery(document).ready(function() {
 					$(".contents-bt").html(
 					"<li><a href=# onclick=updatebutton_click("+event.id+");>수정</a></li>"+
 					"<li><a href=/JackPot/calendardelete.jp?id="+event.id+">삭제</a></li>");
+					if(contents.cl_sys != null) {
+						$(".contents-file").html("<ul><li><a href=/JackPot/calendarFiledown.jp?fileName="+contents.cl_sys+">"+contents.cl_org+"</a></li></ul>");
+					}
 				}, 
 				error : function(){
 					alert("error");

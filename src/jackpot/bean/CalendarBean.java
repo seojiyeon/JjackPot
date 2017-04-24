@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import jackpot.DTO.calendarDTO;
 import jackpot.DTO.empDTO;
@@ -111,8 +112,7 @@ public class CalendarBean {
 		  calendarDTO cdto = new calendarDTO();
 		  int max = (Integer)sqlMap.queryForObject("calendar.maxnum", null);
 		  MultipartFile mf = multi.getFile("file");
-		  System.out.println(mf);
-		  if(!mf.equals(null)){
+		  if(!(mf.getSize()==0)){
 			  String path=multi.getRealPath("save");
 			  String org=mf.getOriginalFilename();
 			  String ext = org.substring(org.lastIndexOf("."));
@@ -147,7 +147,26 @@ public class CalendarBean {
 	@RequestMapping("/calendardelete.jp")
 	public String delete(HttpServletRequest request){
 		String cl_num= request.getParameter("id");
+		String path = request.getRealPath("save");
+		String cl_sys = (String) sqlMap.queryForObject("calendar.getSysname", cl_num);
+
+		try {
+			File f = new File(path+"\\"+cl_sys);
+			if(f.exists()) {
+				f.delete();
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		sqlMap.delete("calendar.delete", cl_num);
 		return "/calendar/calendar";
+	}
+	
+	@RequestMapping("/calendarFiledown.jp")
+	public ModelAndView filedown(String fileName, HttpServletRequest request){
+		String dir = request.getRealPath("save");
+		File f = new File(dir+"//"+fileName);
+		ModelAndView mv = new ModelAndView("down", "downloadFile", f);
+		return mv;
 	}
 }

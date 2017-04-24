@@ -28,4 +28,7 @@
         delete calendar where cl_num=#cl_num#
         </delete>
         
+        <select id="getSysname" parameterClass="String" resultClass="String">
+        	select cl_sys from calendar where cl_num=#cl_num#
+        </select>
 </sqlMap>

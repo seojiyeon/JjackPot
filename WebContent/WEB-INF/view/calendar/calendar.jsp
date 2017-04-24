@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/calendar.css?ver=7" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/calendar.css?ver=11" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <html>
@@ -47,15 +47,11 @@ function updatebutton_click(id){
 		url :"http://localhost:8080/JackPot/calendarcontents.jp",
 		data : {id:id},
 		success : function(contents){
+			console.log(contents);
 			
-			var lay = $('#layer2');
-			lay.fadeOut();
-			
-        	var con = $('#main-container');
-    		con.fadeOut();
-    	
-    		var insert = $('#insertForm-container');
-    		insert.fadeIn();
+			var lay = $('#layer2');lay.fadeOut();
+        	var con = $('#main-container');con.fadeOut();
+       		var insert = $('#insertForm-container');insert.fadeIn();
 		}, 
 		error : function(){
 			alert("error");
@@ -179,16 +175,16 @@ function checkIt() {
 			<div class="insertForm-cons">
 			<form action="calendarPro.jp" method="post" enctype="multipart/form-data" onSubmit="return checkIt()">
 				<div class="insertForm">
-					<ul>
-						<li>* 기간</li>
-						<li><input type="date" name="sdate" id="sdate" />
+					<ul style="margin: 20px 0 0 0;">
+						<li class="insertForm-name">* 기간</li>
+						<li class="insertForm-value" style="margin: 0 0 0 7;"><input type="date" name="sdate"/>
     					<input type="time" name="stime" step="1800" value="00:00"/></li>
-    					<li><input type="date" name="edate" />
+    					<li class="insertForm-value"><input type="date" name="edate" />
     					<input type="time" name="etime" step="1800" /></li>
 					</ul>
 					<ul>
-						<li>* 제목</li>
-						<li>
+						<li class="insertForm-name">* 제목</li>
+						<li style="margin: 0 0 0 7;">
 						<select name="title">
    						<optgroup label="업무일정">
   						<option value="회사일정">회사일정</option>
@@ -202,30 +198,25 @@ function checkIt() {
     					</optgroup>
   						</select>
   						</li>
-  						<li><input type="text" placeholder=" 제목" name="subject" style="width:300px"></li>
+  						<li style="width:70%;"><input type="text" placeholder=" 제목" name="subject" style="min-width:500px;width:68%;"></li>
 					</ul>
 					<ul>
-						<li>장소</li><li><input type="text" placeholder=" 장소" name="place" style="width:398px"></li>
+						<li class="insertForm-name">장소</li><li style="width:75%;"><input type="text" placeholder=" 장소" name="place" style="min-width: 599;margin:0 0 0 10;width:71.7%;"></li>
 					</ul>
 					<ul>
-						<li>참여자</li><li><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a>추가</a></li>
+						<li class="insertForm-name">참여자</li><li><input type="text" name="name" id="participants" style="margin:0 0 0 10;"/></li><li id="addparticipants"><a>추가</a></li>
 					</ul>
 					<ul>
-						<li>내용</li><li><textarea name="contents" placeholder=" 내용"style="width:398px;border-radius:3px;border:1px solid darkgray;"></textarea></li>
+						<li class="insertForm-name" style="line-height:150px;">내용</li><li style="position:absolute;height:150px;width:90%;"><textarea name="contents" placeholder=" 내용"style="min-width: 600px;height: 130px;width: 60%;border-radius:3px;border:1px solid darkgray;margin: 0 0 0 10;top: 10px;position: relative;"></textarea></li>
 					</ul>
 					<ul>
-						<li>알림</li><li></li>
+						<li class="insertForm-name">알림</li><li></li>
+					</ul>
+					<ul>
+						<li class="insertForm-name">파일 업로드</li><li style="width:70%;"><input type="file" style="margin:0 0 0 10;padding-left:0;min-width:600px;width:77.5%;"/></li>
 					</ul>
 				</div>
-				<div class="insertFile">
-					<ul><li>파일 업로드</li></ul>
-					<ul class="insertFileForm">
-						<li>파일명</li><li>상태</li><li>크기</li>
-						<li>이곳에 파일을 드래그 하세요.</li>
-						<li>파일 추가</li><li></li>
-					</ul>
-				</div>
-				<ul><li><input type="submit" value="전송"><input type="reset" value="취소"></li></ul>
+				<ul style="min-width:760px;width:64%;height:50px;"><li style="float:right;margin:10 0 0 0;"><input type="submit" value="전송"><input type="reset" value="취소"></li></ul>
 			</form>
 			</div>
 		</div>
@@ -287,6 +278,8 @@ function checkIt() {
 						</ul>
 					</div>
 					<div class="contents-conts">
+					</div>
+					<div class="contents-file">
 					</div>
 			<div class="btn">
 				<ul>
