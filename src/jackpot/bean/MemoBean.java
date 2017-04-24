@@ -119,13 +119,13 @@ public class MemoBean {
 		String path = request.getRealPath("save"); // 업로드 경로
 		
 		/* 이미지 업로드 */
-		System.out.println("1====="+path);
+		System.out.println("1 : "+path);
 		List<MultipartFile> mf = request.getFiles("org_img"); // 업로드 원본 파일
 		
 		for(MultipartFile multiImg : mf) {
 			String imgName = multiImg.getOriginalFilename();
 			dto.setOrg_img(imgName);
-			System.out.println("2======"+imgName);
+			System.out.println("2 : "+imgName);
 			int extImg = imgName.lastIndexOf(".");
 			System.out.println(extImg);
 			imgName = imgName.substring(extImg+1);
@@ -329,6 +329,7 @@ public class MemoBean {
 		List sys_file = sqlMap.queryForList("memo.memoFile", dto);
 		System.out.println(path);
 		
+		/* 이미지 삭제 */
 		for(int i=0; i<sys_img.size(); i++) {
 			try {
 				memoDTO dtoImg = (memoDTO)sys_img.get(i);
@@ -342,6 +343,7 @@ public class MemoBean {
 			}
 		}
 		
+		/* 파일 삭제 */
 		for(int i=0; i<sys_file.size(); i++) {
 			try {
 				memoDTO dtoFile = (memoDTO)sys_file.get(i);
