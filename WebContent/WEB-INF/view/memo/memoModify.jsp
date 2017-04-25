@@ -103,7 +103,7 @@
 						<a href="memoList.jp">모든 메모 <font color="red">${count}</font></a>
 					</li>
 					<li class="list">
-						<a href="">중요 메모 숫자</a>
+						<a href="memoImp.jp">중요 메모 <font color="red">${impCount}</font></a>
 					</li>
 					<li class="listFolder">
 						<a style="display:inline-block;height:30px;">나의 폴더</a>

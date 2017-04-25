@@ -103,7 +103,7 @@
 						<a href="memoList.jp">모든 메모 <font color="red">${count}</font></a>
 					</li>
 					<li class="list">
-						<a href="">중요 메모 숫자</a>
+						<a href="memoImp.jp">중요 메모 <font color="red">${impCount}</font></a>
 					</li>
 					<li class="listFolder">
 						<a style="display:inline-block;height:30px;">나의 폴더</a>
@@ -148,7 +148,12 @@
 					</c:if>
 					<c:if test="${memoCateCount > 0}">
 						<c:forEach var="memoCate" items="${memoCateList}">
-							<option value="${memoCate.cate_num}" >${memoCate.cate_title}</option>
+							<c:if test="${memoCate.cate_num == dto.getMemo_cate()}">
+								<option value="${memoCate.cate_num}" selected>${memoCate.cate_title}</option>
+							</c:if>
+							<c:if test="${memoCate.cate_num != dto.getMemo_cate()}">
+								<option value="${memoCate.cate_num}" >${memoCate.cate_title}</option>
+							</c:if>									
 						</c:forEach>
 					</c:if>
 				</select>

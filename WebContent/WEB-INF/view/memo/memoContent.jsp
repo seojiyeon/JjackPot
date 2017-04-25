@@ -11,7 +11,7 @@
 </head>
 
 <script>
-	/* 레이어 팝업 */
+	/* 레이어 팝업 : 이미지 */
 	function wrapWindowByMask(){
 		//화면의 높이와 너비를 구한다.
 		var maskHeight = $(document).height();  
@@ -103,7 +103,6 @@
 				<c:if test="${fileCount > 0}">
 					<div>
 						<c:forEach var="file" items="${file}">
-							<input type="hidden" name="${file.sys_file}" />
 							<a href="memoFileDown.jp?fileName=${file.sys_file}">${file.org_file}</a><br/>
 						</c:forEach>
 					</div>
@@ -111,7 +110,7 @@
 			</div>
 			<div class="btn-wrap">
 				<c:if test="${memoState > 0}">
-					<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memo_cate=${dto.getMemo_cate()}'">수정</button>
+					<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memo_cate=${dto.memo_cate}'">수정</button>
 					<button type="button" class="btnMove">이동</button>
 					<button type="button" class="btnDelete" onclick="window.location='memoDeletePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">삭제</button>
 				</c:if>
