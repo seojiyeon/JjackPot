@@ -17,11 +17,6 @@
 	<div class="content-wrap">
 		<div class="content-head">
 			<h2 style="margin:5px; width: 300px;">모든 메모</h2>
-			<ul style="height:20px; margin:5px; width: 100px;">
-				<li>
-					<button type="button">화면 설정</button>
-				</li>
-			</ul>
 		</div>
 		<div class="table-header">
 			<div class="listInfo">

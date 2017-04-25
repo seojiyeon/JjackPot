@@ -137,11 +137,12 @@ public class MemoBean {
 	@RequestMapping("/memoViewList.jp")
 	public String memoViewList(memoDTO dto, Model model, HttpSession session, String pageNum) {
 		String emp_num = (String)session.getAttribute("memId");
+		dto.setEmp_num(emp_num);
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
 		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
 		int impCount = (int) sqlMap.queryForObject("memo.memoImpCount", emp_num);
-		int viewCount = (int) sqlMap.queryForObject("memo.memoView", dto);
+		int viewCount = (int) sqlMap.queryForObject("memo.memoViewCount", dto);
 		
 		if(pageNum == null) {
 			pageNum = "1";
@@ -159,17 +160,39 @@ public class MemoBean {
 			endPage = pageCount;
 		}
 		
+		int memo_cate = dto.getMemo_cate();
+		
 		HashMap params = new HashMap();
 		params.put("startRow", startRow);
 		params.put("endRow", endRow);
 		params.put("emp_num", emp_num);
-		params.put("memo_cate", dto.getMemo_cate());
+		params.put("memo_cate", memo_cate);
 		
 		List memoCateList = sqlMap.queryForList("memo.memoCate", emp_num);
 		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", emp_num);
-		
+		List memoViewList = sqlMap.queryForList("memo.memoView", params);		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		dto.setCate_num(memo_cate);
+		String memoCateName = (String) sqlMap.queryForObject("memo.memoCateName", dto);
+		
+		model.addAttribute("memoCateList", memoCateList);
+		model.addAttribute("memoViewList", memoViewList);
+		model.addAttribute("count", count);
+		model.addAttribute("removeCount", removeCount);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("sdf", sdf);
+		model.addAttribute("memoCateCount", memoCateCount);
+		model.addAttribute("impCount", impCount);
+		model.addAttribute("viewCount", viewCount);
+		model.addAttribute("memoCateName", memoCateName);
 		
 		return "/memo/memoViewList";
 	}
@@ -473,5 +496,10 @@ public class MemoBean {
 		model.addAttribute("pageNum", pageNum);
 		
 		return "/memo/memoRemovePro";
+	}
+	
+	@RequestMapping("/memoCateManage.jp")
+	public String memoCateManage() {
+		return "/memo/memoCateManage";
 	}
 }

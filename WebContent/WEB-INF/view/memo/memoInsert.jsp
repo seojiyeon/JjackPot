@@ -114,7 +114,7 @@
 								<c:if test="${memoCateCount > 0}">
 									<c:forEach var="memoCate" items="${memoCateList}">
 										<li>
-											<a href="#">${memoCate.getCate_title()}</a>
+											<a href="memoViewList.jp?memo_cate=${memoCate.cate_num}">${memoCate.getCate_title()}</a>
 										</li>
 									</c:forEach>
 								</c:if>
