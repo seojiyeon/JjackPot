@@ -93,13 +93,15 @@ public class CommunityBean {
 	     
 	     dto.setRe_num(re_num);
 	     dto.setRef(ref);
-	     dto.setContent(content);
-	     sqlMap.insert("comm.insertComment", dto);
+	     dto.setContent(content);	     
 	     
+	     sqlMap.insert("comm.insertComment", dto);
 	     
 	     model.addAttribute("dto",dto);
 	     model.addAttribute("com_num", ref);
- 
+	     
+	
+	     
 		return "/community/comment";
        }
 	
@@ -121,19 +123,21 @@ public class CommunityBean {
 	     String re_num=(String) session.getAttribute("memId");
 	     String content=request.getParameter("content");
 	     int rep_num=Integer.parseInt(request.getParameter("rep_num"));
-	    
+	     int step_num=Integer.parseInt(request.getParameter("step_num"));
+	     
+	     
 	     dto.setRe_num(re_num);
 	     dto.setRef(ref);
 	     dto.setStep_num(rep_num);
 	     dto.setContent(content);
-	     
-	     int step_num=Integer.parseInt(request.getParameter("step_num"));
-	     System.out.println(step_num);
+	    	     
+	    	    
 	       sqlMap.insert("comm.reply2", dto);	     
-	       
+	       sqlMap.update("comm.upreply", null);
 	     
 	     model.addAttribute("dto",dto);
 	     model.addAttribute("com_num", ref);
+	     model.addAttribute("step_num", step_num);
  
            
 		return "/community/reply2";

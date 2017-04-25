@@ -13,6 +13,7 @@ public class communityDTO {
 	private int recommend;
 	private int tmp_storage;
 	private int ref;
+	private int re_level;
 	private int re_step;
 	private String btype;
 	private String emp_num;
@@ -140,6 +141,12 @@ public class communityDTO {
 	}
 	public void setStep_num(int step_num) {
 		this.step_num = step_num;
+	}
+	public int getRe_level() {
+		return re_level;
+	}
+	public void setRe_level(int re_level) {
+		this.re_level = re_level;
 	}
 	
 	

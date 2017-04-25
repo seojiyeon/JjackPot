@@ -528,7 +528,7 @@ Dropzone.options.myDropzone = {
      
       <c:forEach var="article" items="${articleList}" varStatus="status">
 	
-    
+  <c:if test="${article.re_level == 0 }"  >
      <li class="last">
 		        <ul>		        	
 		        	<li class="name">
@@ -590,9 +590,15 @@ Dropzone.options.myDropzone = {
 		    </li>
 		    </div>
 		 </div>
+   </c:if>  
      
-     
-     
+     		<c:if test="${article.re_level== 1 }"  >	
+    	
+		  
+		 <li class="content" style="margin:10 50 10 ;"><img src="/JackPot/save/reply.png" width="13" height="13" > [답글]${article.content}	
+		          
+		            </li> 
+		  </c:if>     
       
       </c:forEach>
      </td>

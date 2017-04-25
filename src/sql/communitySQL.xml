@@ -29,15 +29,17 @@
     
         
          <insert id="insertComment" parameterClass="codto">
-      insert into reply(rep_num,content,ref,step_num,re_step,re_num,emp_name,re_date) 
-      values(reply_seq.nextval,#content#,#ref#,#step_num#,0,#re_num#,#emp_name#,sysdate)
+      insert into reply(rep_num,content,ref,step_num,re_step,re_level,re_num,emp_name,re_date) 
+      values(reply_seq.nextval,#content#,#ref#,reply_seq.nextval,0,0,#re_num#,#emp_name#,sysdate)
          </insert>
+         
+     
         
         <select id="reply" resultClass="codto" parameterClass="int">
        <![CDATA[
-        select rep_num,content,ref,step_num,re_step,re_num,re_date,r 
-    from (select rep_num,content,ref,step_num,re_step,re_num,re_date,rownum r
-    from (select * from reply order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= 1 and r <= 10 
+       select rep_num,content,ref,step_num,re_step,re_num,re_date,re_level,r 
+    from (select rep_num,content,ref,step_num,re_step,re_num,re_date,re_level,rownum r
+    from (select * from reply order by step_num desc, re_step asc) order by step_num desc, re_step asc ) where r >= 1 and r <= 10 and ref=#ref#
           ]]>
         </select>
     
@@ -52,13 +54,12 @@
         </delete>
         
         <insert id="reply2" parameterClass="codto">
-      insert into reply(rep_num,content,ref,step_num,re_step,re_num,emp_name,re_date) 
-      values(reply_seq.nextval,#content#,#ref#,#step_num#,#re_step#,#re_num#,#emp_name#,sysdate)
+      insert into reply(rep_num,content,ref,step_num,re_step,re_num,emp_name,re_date,re_level) 
+      values(reply_seq.nextval,#content#,#ref#,#step_num#,0,#re_num#,#emp_name#,sysdate,1)
          </insert>
         
-
-        <update id="upreply" parameterClass="int">
-      update reply set re_step=re_step+1 where step_num =#step_num#
+        <update id="upreply" parameterClass="codto">
+      update reply set re_step=re_step+1 where re_level =1
         </update>
       
       
