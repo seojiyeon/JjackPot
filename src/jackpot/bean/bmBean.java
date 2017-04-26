@@ -32,19 +32,19 @@ public class bmBean {
 	/*모든업무리스트보기*/
 	@RequestMapping("/bmList.jp")
 	public String bmList(bmDTO bmdto, Model model, HttpServletRequest request){
-		
+	
 		List bmList = null;
 		
-		int a = 2;
-
-		bmList = sqlMap.queryForList("bm.getBmList", a);
-		int bmcount = (int) sqlMap.queryForObject("bm.bmcount", bmdto);
 		
+		bmList = sqlMap.queryForList("bm.getBmList", bmdto);
+		int bmcount = (int) sqlMap.queryForObject("bm.bmcount", bmdto);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		System.out.println(bmList);
 		System.out.println(bmcount);
 		model.addAttribute("bmList", bmList);
 		model.addAttribute("bmcount", bmcount);		
+		model.addAttribute("sdf", sdf);		
 		
 		return "/bm/bmList";
 
@@ -54,8 +54,46 @@ public class bmBean {
 	
 	/*나의 할일*/
 	@RequestMapping("/mytodoList.jp")
-	public String mytodoList(bmDTO bmdto, HttpSession session, Model model){
+	public String mytodoList(bmDTO bmdto, HttpSession session, Model model,String pageNum){
+		
+		String emp_num = (String)session.getAttribute("memId");	
+		List mytodoList = null;
+		mytodoList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		System.out.println(mytodoList);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("mytodoList", mytodoList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
 		return "/bm/mytodoList";
 	}	
 
@@ -63,9 +101,46 @@ public class bmBean {
 /*-------------------------------------업무요청-----------------------------------------*/	
 	/*나의 업무요청리스트보기*/
 	@RequestMapping("/myBmYCHList.jp")
-	public String myBmYCHList(Model model,HttpSession session,bmDTO bdto){
+	public String myBmYCHList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
 		String emp_num = (String)session.getAttribute("memId");
-		System.out.println(emp_num);
+	
+		List myBmYCHList = null;
+		
+
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		myBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("myBmYCHList", myBmYCHList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
 		return "/bm/BmYCHList/myBmYCHList";
 		
 	}
@@ -73,16 +148,87 @@ public class bmBean {
 	
 	/*수신업무요청리스트보기*/
 	@RequestMapping("/SSBmYCHList.jp")
-	public String SSBmYCHList(){
+	public String SSBmYCHList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
+		String emp_num = (String)session.getAttribute("memId");
+		List SSBmYCHList = null;
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SSBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
 		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("SSBmYCHList", SSBmYCHList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
 		return "/bm//BmYCHList/SSBmYCHList";
 		
 	}
 	
 	/*참조업무요청리스트보기*/
 	@RequestMapping("/ChZBGBmYCHList.jp")
-	public String ChZBGBmYCHList(){
+	public String ChZBGBmYCHList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
 		
+		String emp_num = (String)session.getAttribute("memId");
+		List ChZBGBmYCHList = null;
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ChZBGBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("ChZBGBmYCHList", ChZBGBmYCHList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
 		return "/bm//BmYCHList/ChZBGBmYCHList";
 		
 	}
@@ -91,8 +237,43 @@ public class bmBean {
 	
 	/*내가 한 업무보고리스트보기*/
 	@RequestMapping("/myBmBGList.jp")
-	public String myBmBGList(bmDTO bmdto, HttpSession session, Model model){
+	public String myBmBGList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
+		String emp_num = (String)session.getAttribute("memId");
+		List myBmBGList = null;
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		myBmBGList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
 
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("myBmBGList", myBmBGList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
 		return "/bm/BmBGList/myBmBGList";
 
 	}
@@ -100,8 +281,43 @@ public class bmBean {
 
 	/*수신 업무보고리스트보기*/
 	@RequestMapping("/SSBGBmList.jp")
-	public String SSBGBmList(bmDTO bmdto, HttpSession session, Model model){
+	public String SSBGBmList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
+		String emp_num = (String)session.getAttribute("memId");
+		List SSBGBmList = null;
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SSBGBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
 		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("SSBGBmList", SSBGBmList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
 		return "/bm/BmBGList/SSBGBmList";
 
 	}
@@ -109,7 +325,43 @@ public class bmBean {
 
 	/*참조 업무보고리스트보기*/
 	@RequestMapping("/ChZBGBmList.jp")
-	public String ChZBGBmList(bmDTO bmdto, HttpSession session, Model model){
+	public String ChZBGBmList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
+		String emp_num = (String)session.getAttribute("memId");
+		List ChZBGBmList = null;
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ChZBGBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("ChZBGBmList", ChZBGBmList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
 		
 		return "/bm/BmBGList/ChZBGBmList";
 
@@ -120,15 +372,91 @@ public class bmBean {
 	
 	/*내가 작성 한 업무일지리스트보기*/
 	@RequestMapping("/myBmWriteList.jp")
-	public String myBmWriteList(bmDTO bmdto, HttpSession session, Model model){
+	public String myBmWriteList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
+		
+		String emp_num = (String)session.getAttribute("memId");
+		List myBmWriteList = null;
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		myBmWriteList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("myBmWriteList", myBmWriteList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
+		
+		
 		return "/bm/BmList/myBmWriteList";
 
 	}
 
 	/*수신  업무 일지*/
 	@RequestMapping("/SSBmList.jp")
-	public String SSBmList(bmDTO bmdto, HttpSession session, Model model){
+	public String SSBmList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
+		
+		String emp_num = (String)session.getAttribute("memId");
+		List SSBmList = null;
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SSBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("SSBmList", SSBmList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
+		
 		
 		return "/bm/BmList/SSBmList";
 
@@ -136,7 +464,45 @@ public class bmBean {
 	
 	/*참조  업무 일지*/
 	@RequestMapping("/ChZBmList.jp")
-	public String ChZBmList(bmDTO bmdto, HttpSession session, Model model){
+	public String ChZBmList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
+		
+		String emp_num = (String)session.getAttribute("memId");
+		List ChZBmList = null;
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ChZBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+		
+		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1;
+		int endRow = currentPage*pageSize;
+		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("ChZBmList", ChZBmList);
+		model.addAttribute("count", count);		
+		model.addAttribute("sdf", sdf);		
+		
 		
 		return "/bm/BmList/ChZBmList";
 

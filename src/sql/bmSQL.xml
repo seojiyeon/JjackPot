@@ -18,16 +18,30 @@
 	
 		</select>
 		
-	<!--  리스트 불러오기(번호 중요도 보관함 제목 요청자 요청일 마감일 상태  -->
-		<select id="getBmList" parameterClass="int" resultClass="bmdto" >
-		select bm.bm_num,i.important important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-		from business_manage bm,important i,bns_box bns, bm_state bs 
-		where bm_num=#bm_num# and bm.important=i.imp_num and bm.bns_box=bns.bns_num and bm.bm_state=bs.state_num  order by bm.bm_num desc
+	<!--  모든업무 리스트보기 -->
+		<select id="getBmList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 	
 		</select>
-				
 		
 		
+		<!--  나의할일 리스트보기 -->		
+		<select id="getMytodoList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2 from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!--  나의할일 COUNT 리스트보기 -->	
+		<select id="getMytodoListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
+			order by bm.bm_num desc		
+		</select>
+		
+
 		<!-- 모든업무 갯수 -->
 		<select id="bmcount" parameterClass="bmdto" resultClass="int">
 			select count(*) from business_manage
