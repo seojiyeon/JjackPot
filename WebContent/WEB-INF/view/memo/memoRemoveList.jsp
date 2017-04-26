@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
 
 <head>
 <title>메모</title>
 </head>
+
+<script>
+	function selectRemove() {
+		document.multiForm.action="memoRemovePro.jp";
+		document.multiForm.submit();
+	}
+</script>
 
 <html>
 <body>
@@ -48,6 +55,7 @@
 			</div>
 		</div>
 		
+		<form name="multiForm">
 		<div class="content-write" style="width:100%;">
 			<table>
 				<c:if test="${removeCount == 0}">
@@ -60,8 +68,8 @@
 				<c:forEach var="memoCont" items="${memoCont}"> 
 					<tr>
 						<td>
-							<input type="checkbox" name="checkParams" />
-							중요여부 체크
+							<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
+							<img alt="중요" src="/JackPot/images/memo/notImp.png" />
 							<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}">${memoCont.getMemo_title()}</a></font>
 						</td>
 					</tr>
@@ -79,6 +87,7 @@
 					</c:if>
 			</table>
 		</div>
+		</form>
 	</div>
 	
 	<div class="page-wrap">
@@ -103,7 +112,7 @@
 	
 	<div class="main-bottom">
 		<button type="button" class="btnRecover" onclick="window.location=''">복구</button>
-		<button type="button" class="btnRemove" onclick="window.location=''">삭제</button>
+		<button type="button" class="btnRemove" onclick="selectRemove()">삭제</button>
 	</div>
 </div>
 </body>

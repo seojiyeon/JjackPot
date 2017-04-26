@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
-
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
 
 <script>
@@ -60,7 +58,7 @@
 						<a href="memoRemoveList.jp">휴지통 <font color="red">${removeCount}</font></a>
 					</li>
 					<li class="list">
-						<a href="">폴더 관리</a>
+						<a href="memoCateManage.jp">폴더 관리</a>
 					</li>
 				</ul>
 			</div>

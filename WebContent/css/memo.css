@@ -8,6 +8,10 @@ html,BODY {
 	font-family:"Nanum Gothic","NanumGothic",나눔고딕,NanumGothic,ng,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;
 }
 
+ul {
+	list-display:none;
+}
+
 #sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}
 /* 왼쪽 메뉴 부분 */
@@ -198,6 +202,16 @@ table {
 	border-bottom-color:silver;
 	border-bottom-style:solid; 
 	border-bottom-width:2px;
+}
+
+/* 폴더 이동 */
+.modal-header>h2 {
+	padding: 8px 15px;
+    color: #fff;
+    height: 40px;
+    /* border-radius: 4px 4px 0 0; */
+    background: #555154;
+	
 }
 
 
