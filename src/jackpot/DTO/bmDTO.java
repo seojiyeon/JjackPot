@@ -7,8 +7,8 @@ public class bmDTO {
 	private String bm_title;	/*제목*/
 	private String bm_content; 	/*내용*/
 	private int bm_form;		/*업무형태*/
-	private Timestamp bm_start;	/*업무시작일*/
-	private Timestamp bm_end;	/*업무종료일*/
+	private String bm_start;	/*업무시작일*/
+	private String bm_end;	/*업무종료일*/
 	private Timestamp enrollment;	/*업무등록일*/
 	private String reg_notice;		/*등록알림*/
 	private String cmp_notice;		/*완료알림*/
@@ -71,16 +71,16 @@ public class bmDTO {
 	public void setBm_form(int bm_form) {
 		this.bm_form = bm_form;
 	}
-	public Timestamp getBm_start() {
+	public String getBm_start() {
 		return bm_start;
 	}
-	public void setBm_start(Timestamp bm_start) {
+	public void setBm_start(String bm_start) {
 		this.bm_start = bm_start;
 	}
-	public Timestamp getBm_end() {
+	public String getBm_end() {
 		return bm_end;
 	}
-	public void setBm_end(Timestamp bm_end) {
+	public void setBm_end(String bm_end) {
 		this.bm_end = bm_end;
 	}
 	public Timestamp getEnrollment() {
