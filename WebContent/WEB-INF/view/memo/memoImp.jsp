@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
 
 <head>
@@ -103,7 +103,7 @@
 	<div class="main-bottom">
 		<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp'">등록</button>
 		<button type="button" class="btnMove">이동</button>
-		<button type="button" class="btnDelete" onclick="window.location=''">삭제</button>
+		<button type="button" class="btnDelete" onclick="selectDelete()">삭제</button>
 	</div>
 </div>
 </body>

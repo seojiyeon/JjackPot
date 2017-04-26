@@ -33,11 +33,12 @@ public class MemoBean {
 		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
 		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
 		int impCount = (int) sqlMap.queryForObject("memo.memoImpCount", emp_num);
-
-		if(pageNum == null) {
+		System.out.println(pageNum);
+		if(pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
 		
+		System.out.println(pageNum);
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage-1)*pageSize+1;
 		int endRow = currentPage*pageSize;
@@ -89,7 +90,7 @@ public class MemoBean {
 		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
 		int impCount = (int) sqlMap.queryForObject("memo.memoImpCount", emp_num);
 		
-		if(pageNum == null) {
+		if(pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
 		
@@ -144,7 +145,7 @@ public class MemoBean {
 		int impCount = (int) sqlMap.queryForObject("memo.memoImpCount", emp_num);
 		int viewCount = (int) sqlMap.queryForObject("memo.memoViewCount", dto);
 		
-		if(pageNum == null) {
+		if(pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
 		
@@ -385,8 +386,16 @@ public class MemoBean {
 	}
 	
 	@RequestMapping("memoDeletePro.jp")
-	public String memoDeletePro(int memo_num, String pageNum, Model model) {
-		sqlMap.update("memo.memoDel", memo_num);
+	public String memoDeletePro(String pageNum, Model model, HttpServletRequest request) { 
+		String memo_num[] = request.getParameterValues("memo_num");
+	
+		for(int i=0; i<memo_num.length; i++) {
+			memoDTO dto = new memoDTO();
+			
+			dto.setMemo_num(Integer.parseInt(memo_num[i]));
+		
+			sqlMap.update("memo.memoDel", dto.getMemo_num());
+		}
 		
 		model.addAttribute("pageNum", pageNum);
 		
@@ -402,7 +411,7 @@ public class MemoBean {
 		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
 		int impCount = (int) sqlMap.queryForObject("memo.memoImpCount", emp_num);
 
-		if(pageNum == null) {
+		if(pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
 		
@@ -452,46 +461,51 @@ public class MemoBean {
 	
 	@RequestMapping("memoRemovePro.jp")
 	public String memoRemovePro(String pageNum, memoDTO dto, HttpServletRequest request, Model model) {
-		String memoNum = request.getParameter("memo_num");
+		String memoNum[] = request.getParameterValues("memo_num");
 		String path = request.getRealPath("save");
 		
-		dto.setMemo_num(Integer.parseInt(memoNum));
-		
-		List sys_img = sqlMap.queryForList("memo.memoImg", dto);
-		List sys_file = sqlMap.queryForList("memo.memoFile", dto);
-		System.out.println(path);
-		
-		/* 이미지 삭제 */
-		for(int i=0; i<sys_img.size(); i++) {
-			try {
-				memoDTO dtoImg = (memoDTO)sys_img.get(i);
-				File imgF = new File(path+"\\"+dtoImg.getSys_img());
-				System.out.println(sys_img.get(i));
-				if(imgF.exists()) {
-					imgF.delete();
+		for(int i=0; i<memoNum.length; i++) {
+			dto.setMemo_num(Integer.parseInt(memoNum[i]));
+			
+			List sys_img = sqlMap.queryForList("memo.memoImg", dto);
+			List sys_file = sqlMap.queryForList("memo.memoFile", dto);
+			
+			System.out.println(path);
+			
+			/* 이미지 삭제 */
+			for(int a=0; a<sys_img.size(); a++) {
+				try {
+					memoDTO dtoImg = (memoDTO)sys_img.get(a);
+					File imgF = new File(path+"\\"+dtoImg.getSys_img());
+					System.out.println(sys_img.get(a));
+					if(imgF.exists()) {
+						imgF.delete();
+					}
+				} catch(Exception e ) {
+					e.printStackTrace();
 				}
-			} catch(Exception e ) {
-				e.printStackTrace();
 			}
-		}
-		
-		/* 파일 삭제 */
-		for(int i=0; i<sys_file.size(); i++) {
-			try {
-				memoDTO dtoFile = (memoDTO)sys_file.get(i);
-				File fileF = new File(path+"\\"+dtoFile.getSys_file());
-				
-				if(fileF.exists()) {
-					fileF.delete();
+			
+			/* 파일 삭제 */
+			for(int b=0; b<sys_file.size(); b++) {
+				try {
+					memoDTO dtoFile = (memoDTO)sys_file.get(b);
+					File fileF = new File(path+"\\"+dtoFile.getSys_file());
+					
+					if(fileF.exists()) {
+						fileF.delete();
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
 				}
-			} catch(Exception e) {
-				e.printStackTrace();
 			}
-		}
 
-		sqlMap.delete("memo.memoRemoveImg", memoNum);
-		sqlMap.delete("memo.memoRemoveFile", memoNum);
-		sqlMap.delete("memo.memoRemove", memoNum);
+				
+				sqlMap.delete("memo.memoRemoveImg", dto.getMemo_num());
+				sqlMap.delete("memo.memoRemoveFile", dto.getMemo_num());
+				sqlMap.delete("memo.memoRemove", dto.getMemo_num());
+		}
+		
 		
 		model.addAttribute("pageNum", pageNum);
 		
@@ -499,7 +513,22 @@ public class MemoBean {
 	}
 	
 	@RequestMapping("/memoCateManage.jp")
-	public String memoCateManage() {
+	public String memoCateManage(HttpSession session, Model model) {
+		/* 왼쪽 사이드바 */
+		String emp_num = (String)session.getAttribute("memId");
+		
+		int memoCateCount = (int) sqlMap.queryForObject("memo.memoCateCount", emp_num);
+		List memoCateList = sqlMap.queryForList("memo.memoCate", emp_num);
+		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
+		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
+		int impCount = (int) sqlMap.queryForObject("memo.memoImpCount", emp_num);
+		
+		model.addAttribute("memoCateCount", memoCateCount);
+		model.addAttribute("memoCateList", memoCateList);
+		model.addAttribute("count", count);
+		model.addAttribute("removeCount", removeCount);
+		model.addAttribute("impCount", impCount);
+		
 		return "/memo/memoCateManage";
 	}
 }
