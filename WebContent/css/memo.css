@@ -149,8 +149,8 @@ table {
 }
 
 
-/* 레이어 팝업 */
-.mask {  
+/* 레이어 팝업 : 이미지 크게 보기 */
+.img-back {  
 	  position:absolute;  
 	  z-index:9000;  
 	  background-color:#000;  
@@ -158,7 +158,24 @@ table {
 	  left:0;
 	  top:0;
 }
-.window {
+.img-pop {
+	display: none;
+	position:absolute;  
+	left:100px;
+	top:100px;
+	z-index:10000;
+}
+
+/* 레이어 팝업: 메모 이동 */
+.maskMove {  
+	  position:absolute;  
+	  z-index:9000;  
+	  background-color:#000;  
+	  display:none;  
+	  left:0;
+	  top:0;
+}
+.windowMove {
 	display: none;
 	position:absolute;  
 	left:100px;
@@ -202,16 +219,6 @@ table {
 	border-bottom-color:silver;
 	border-bottom-style:solid; 
 	border-bottom-width:2px;
-}
-
-/* 폴더 이동 */
-.modal-header>h2 {
-	padding: 8px 15px;
-    color: #fff;
-    height: 40px;
-    /* border-radius: 4px 4px 0 0; */
-    background: #555154;
-	
 }
 
 

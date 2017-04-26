@@ -33,12 +33,11 @@ public class MemoBean {
 		int count = (int) sqlMap.queryForObject("memo.memoCount", emp_num);
 		int removeCount = (int) sqlMap.queryForObject("memo.memoRemoveCount", emp_num);
 		int impCount = (int) sqlMap.queryForObject("memo.memoImpCount", emp_num);
-		System.out.println(pageNum);
+
 		if(pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
 		
-		System.out.println(pageNum);
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage-1)*pageSize+1;
 		int endRow = currentPage*pageSize;
@@ -530,5 +529,19 @@ public class MemoBean {
 		model.addAttribute("impCount", impCount);
 		
 		return "/memo/memoCateManage";
+	}
+	
+	@RequestMapping("/memoCateMove.jp")
+	public String memoCateMove(String pageNum, Model model, HttpServletRequest request, memoDTO dto) {
+		String memo_num[] = request.getParameterValues("memo_num");
+		System.out.println(dto.getMemo_cate());
+		for(int i=0; i<memo_num.length; i++) {
+			dto.setMemo_num(Integer.parseInt(memo_num[i]));
+			
+			sqlMap.update("memo.memoMove", dto);
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		return "/memo/memoCateMove";
 	}
 }

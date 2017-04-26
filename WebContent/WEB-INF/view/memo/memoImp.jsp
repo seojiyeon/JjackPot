@@ -8,6 +8,13 @@
 <title>메모</title>
 </head>
 
+<script>
+	function selectDelete() {
+		document.multiForm.action="memoDeletePro.jp";
+		document.multiForm.submit();
+	}
+</script>
+
 <html>
 <body>
 <jsp:include page="memo_sidebar.jsp" flush="false" />
@@ -47,6 +54,7 @@
 			</div>
 		</div>
 		
+		<form name="multiForm">
 		<div class="content-write" style="width:100%;">
 			<table>
 				<c:if test="${impCount == 0}">
@@ -59,8 +67,8 @@
 				<c:forEach var="memoImp" items="${memoImp}"> 
 					<tr>
 						<td>
-							<input type="checkbox" name="checkParams" />
-							중요여부 체크
+							<input type="checkbox" value="${memoImp.memo_num}" name="memo_num" />
+							<img alt="중요" src="/JackPot/images/memo/notImp.png" />
 							<font size="3"><a href="memoContent.jp?emp_num=${memoImp.emp_num}&memo_num=${memoImp.memo_num}&pageNum=${pageNum}">${memoImp.memo_title}</a></font>
 						</td>
 					</tr>
@@ -77,7 +85,8 @@
 					</c:forEach>
 					</c:if>
 			</table>
-		</div>		
+		</div>
+		</form>		
 	</div>
 	
 	<div class="page-wrap">
@@ -102,7 +111,7 @@
 	
 	<div class="main-bottom">
 		<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp'">등록</button>
-		<button type="button" class="btnMove">이동</button>
+		<button type="button" class="btnMove" onclick="">이동</button>
 		<button type="button" class="btnDelete" onclick="selectDelete()">삭제</button>
 	</div>
 </div>

@@ -14,50 +14,6 @@
 		document.multiForm.action="memoDeletePro.jp";
 		document.multiForm.submit();
 	}
-	
-	/* 메모 이동 : 레이어 팝업 */
-	function wrapWindowByMask(){
-		//화면의 높이와 너비를 구한다.
-		var maskHeight = $(document).height();  
-		var maskWidth = $(window).width();  
-
-		//마스크의 높이와 너비를 화면의 높이와 너비로 설정한다.
-		$('.mask').css({'width':maskWidth,'height':maskHeight});  
-
-		//애니메이션 효과
-		$('.mask').fadeTo("slow",0.5);   
-	
-		// 레이어 팝업을 가운데로 띄운다.
-		var left = ($(window).scrollLeft() + ($(window).width() - $('.window').width())/2);
-		var top = ($(window).scrollTop() + ($(window).height() - $('.window').height())/2);
-	
-		// css 스타일 변경
-		$('.window').css({'left':left, 'top':top, 'position':'absolute'});
-
-		// 레이어 팝업 띄운다.
-		$('.window').show();
-	}
-
-	$(document).ready(function(){
-		//검은 마스크 배경과 레이어 팝업 띄운다.
-		$('.btnMove').click(function(e){
-			e.preventDefault();
-			wrapWindowByMask();
-		});
-
-		//닫기 버튼을 눌렀을 때
-		$('.window .close').click(function (e) {  
-		    //링크 기본동작은 작동하지 않도록 한다.
-	    	e.preventDefault();  
-		    $('.mask, .window').hide();  
-		});       
-
-		//검은 마스크을 눌렀을 때
-		$('.mask').click(function () {  
-	    	$(this).hide();  
-		    $('.window').hide();  
-		});      
-	});	
 </script>
 
 <html>
@@ -160,32 +116,6 @@
 		<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp'">등록</button>
 		<button type="button" class="btnMove" onclick="">이동</button>
 		<button type="button" class="btnDelete" onclick="selectDelete()">삭제</button>
-	</div>
-</div>
-
-<div class="mask"></div>
-<div class="window" style="background:white;">
-	<div class="modal-header"><h2 style="margin:0px; height:20px;">메모 폴더</h2></div>
-	<div class="modal-main">
-		<c:if test="${memoCateCount == 0}">
-			<li>등록된 폴더가 없습니다.</li>
-		</c:if>
-		
-		<c:if test="${memoCateCount > 0}">
-			<ul style="list-style:none; padding:10px; margin:0px; border: 1px solid #e7e7e7;">
-				<li style=" height: 25px;">이동할 메모를 선택해 주세요.</li>
-				<c:forEach var="memoCate" items="${memoCateList}">
-					<li style=" height: 25px;">
-						<img alt="체크" src="/JackPot/images/memo/point.png">
-						<a href=" ">${memoCate.getCate_title()}</a>
-					</li>
-				</c:forEach>
-			</ul>
-		</c:if>
-		
-		<div class="modal-footer">
-			<button class="close" type="button" style="padding:3px;">닫기</button>
-		</div>
 	</div>
 </div>
 </body>

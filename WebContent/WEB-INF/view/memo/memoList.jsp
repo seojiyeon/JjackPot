@@ -112,7 +112,7 @@
 	
 	<div class="main-bottom">
 		<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp'">등록</button>
-		<button type="button" class="btnMove" onclick="window.location=''">이동</button>
+		<button type="button" class="btnMove">이동</button>
 		<button type="button" class="btnDelete" onclick="selectDelete()">삭제</button>
 	</div>
 </div>
