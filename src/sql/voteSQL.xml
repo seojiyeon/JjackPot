@@ -86,8 +86,13 @@
          select * from comm where ref=#ref# order by reg desc
       </select>
       
+         <select id="emp" resultClass="vdto" parameterClass="String">
+           select emp_name from emp where emp_num=#emp_num#
+      </select>
         
-        
+         <select id="count" resultClass="int">
+            select count(*)from comm where ref=#ref#       
+        </select>
         
       
       

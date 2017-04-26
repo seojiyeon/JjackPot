@@ -6,7 +6,7 @@
 
 
       <select id="commList" resultClass="codto">
-            select com_num,title,content,writer,reg_date,readcount,recommend from community order by com_num asc
+            select com_num,title,content,writer,reg_date,readcount,recommend from community order by com_num desc
 	</select>
 
 
@@ -32,25 +32,23 @@
       insert into reply(rep_num,content,ref,step_num,re_step,re_level,re_num,emp_name,re_date) 
       values(reply_seq.nextval,#content#,#ref#,reply_seq.nextval,0,0,#re_num#,#emp_name#,sysdate)
          </insert>
-         
-     
+          
         
         <select id="reply" resultClass="codto" parameterClass="int">
        <![CDATA[
-       select rep_num,content,ref,step_num,re_step,re_num,re_date,re_level,r 
-    from (select rep_num,content,ref,step_num,re_step,re_num,re_date,re_level,rownum r
+       select rep_num,content,ref,step_num,emp_name,re_step,re_num,re_date,re_level,r 
+    from (select rep_num,content,ref,step_num,emp_name,re_step,re_num,re_date,re_level,rownum r
     from (select * from reply order by step_num desc, re_step asc) order by step_num desc, re_step asc ) where r >= 1 and r <= 10 and ref=#ref#
           ]]>
         </select>
     
-    
-        
+      
         <select id="count" resultClass="int">
             select count(*)from reply where ref=#ref#       
         </select>
         
         <delete id="deleteReply" parameterClass="int">
-            delete  from reply where rep_num=#rep_num#
+            delete  from reply where step_num=#step_num#
         </delete>
         
         <insert id="reply2" parameterClass="codto">
@@ -61,6 +59,14 @@
         <update id="upreply" parameterClass="codto">
       update reply set re_step=re_step+1 where re_level =1
         </update>
-      
-      
+
+      <delete id="trash" parameterClass="int">
+            delete  from reply where rep_num=#rep_num#
+        </delete>  
+    
+    
+         <select id="emp" resultClass="vdto" parameterClass="String">
+           select emp_name from emp where emp_num=#emp_num#
+      </select>
+        
 </sqlMap>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/JackPot/css/community.css?ver=13" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=14" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
@@ -325,72 +325,6 @@ Dropzone.options.myDropzone = {
 				<ul class="menulist" style="margin:0;padding:0;list-style:none;">
 					<li style="text-align:center;height:40px;border-style:solid;border-width:thin;border-color:lightgray;">
 						<a href="#" class="btn-example" onclick="layer_open('layer1');return false;">게시물 등록</a>
-							<div id="layer1" class="pop-layer">
-								    <div class="pop-top">
-									<font>게시판</font><a href="#" class="cbtn"><img src="/JackPot/mainsave/logout.jpg"/></a>
-									</div>
-									<div class="pop-info">
-									등록할 게시판을 선택해주세요.
-									</div>
-								<div class="pop-container">
-									<div class="pop-conts">
-										<a href="#" class="btn-example2" onclick="layer_open('layer2');return false;">게시판</a>
-											<div id="layer2" class="pop-layer2">
-										<div class="contents">	
-								  			<div class="pop-top2">
-											게시판 <a href="#" class="cbtn2"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
-											</div>
-											<div class="pop-board">
-												<div class="pop-info2">
-												<font size="2">등록 시 제목의 체크박스에 체크하면 목록의 상단에 위치하며 업무포탈 상단의 NOTICE에 노출됩니다.</font>
-												</div>
-												<div class="pop-container2">
-												<div class="pop-conts2">
-													<div>
-														<form action="commInsert.jp" name="insert" method="post">
-														<ul>
-															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li><li style="width:80%;">자유게시판<input type="hidden" name="btype"></li>
-														</ul>
-														<ul>
-															<li style="width:20%;background-color:#f5f5f5;">*제목</li><li style="width:80%;"><input type="text" name="title" ></li>
-														</ul>
-														<ul>
-															<li style="width:20%;background-color:#f5f5f5;">작성자</li><li style="width:80%;"><input type="text" name=writer></li>
-														</ul>
-														<ul>
-															<li><textarea class="ckeditor" cols="1" id="editor1" name="content" rows="15"></textarea></li>
-														</ul>
-														
-														 <input type="submit" value="제출">
-														</form>
-													</div>
-													<div class="pop2boardfileuplord">
-														<ul>
-															<li>
-															<form action="/JackPot/boardinsert.jp"
-     															  class="dropzone"
-     															  id="my-dropzone"
-     															  style="width:762px;border: 1px solid rgba(0, 0, 0, 0.3);"></form>
-															</li>
-														</ul>
-														<ul>
-														<li><button id="submit-all">업로드</button></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										<div class="btn-r2">
-											<a href="#" class="cbtn2">닫기</a>
-										</div>
-									</div>
-									</div>
-								</div>
-							</div>
-						<div class="btn-r">
-						<a href="#" class="cbtn">닫기</a>
-						</div>
-					</div>
-				</div>
 					</li>
 					<li style="text-align:center;height:40px;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
 					<a href="/JackPot/community.jp" style="text-decoration:none;">최근게시글</a></li>
@@ -433,7 +367,7 @@ Dropzone.options.myDropzone = {
 
 				&nbsp;&nbsp;&nbsp;
 				
-				;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">추천하기 </font>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">추천하기 </font>
 				<a id="recommend" href="/JackPot/like.jp?com_num=${dto.com_num}"> 	
 							
 				<img src="/JackPot/save/like (2).png" width="30" height="30">						   
@@ -504,7 +438,7 @@ Dropzone.options.myDropzone = {
         
       <input type="hidden" name="com_num" value="${dto.com_num}"/>
       <input type="hidden" name="emp_num" value="${dto.emp_num}"/>
-    
+      <input type="hidden" name="emp_name" value="${ddto.emp_name}"/>
          
 <div class="comment-wrap op">
 	<div class="reply-wrap"><span><i class="icon reply"></i></span> ${check} </div>
@@ -531,14 +465,15 @@ Dropzone.options.myDropzone = {
   <c:if test="${article.re_level == 0 }"  >
      <li class="last">
 		        <ul>		        	
-		        	<li class="name">
+		        	<li class="name" style="margin:5px;">
 					<font color="gray" size="2"	style="margin: 3px;">${article.emp_name}(${article.re_num})&nbsp;&nbsp;&nbsp;&nbsp;${article.re_date} </font>
+             
              
              <input type="hidden" name="rep_num" value="${article.rep_num}">
              <input type="hidden" name="com_num" value="${article.ref}"/>
              
-             <a href="/JackPot/CommentDEL.jp?ref=${article.ref}&rep_num=${article.rep_num}"> 	
-				<img src="/JackPot/save/garbage2.png" width="18" height="18" >			   
+             <a href="/JackPot/CommentDEL.jp?ref=${article.ref}&step_num=${article.step_num}">
+				<img src="/JackPot/save/trash.png" width="20" height="20" >			   
 			</a>
 			
 			
@@ -580,7 +515,7 @@ Dropzone.options.myDropzone = {
       </li>
      		
 
-		             <li class="content" style="margin: 10px;">${article.content}	
+		             <li class="content" style="margin: 10 30;">${article.content}	
 		          
 		            </li> 
 		       
@@ -592,13 +527,23 @@ Dropzone.options.myDropzone = {
 		 </div>
    </c:if>  
      
+     	 <table  width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">	
+     	 	<form action="trash.jp" method="post">
      		<c:if test="${article.re_level== 1 }"  >	
-    	
-		  
-		 <li class="content" style="margin:10 50 10 ;"><img src="/JackPot/save/reply.png" width="13" height="13" > [답글]${article.content}	
-		          
+		  <input type="hidden" name="rep_num" value="${article.rep_num}"/>
+		   <input type="hidden" name="com_num" value="${dto.com_num}"/>
+		 <li class="content" style="margin:0 50 10 ;"><img src="/JackPot/save/reply.png" width="15" height="15" >
+		 
+		  <font color="gray" size="3" style="margin: 3px;"> [답글]</font>&nbsp;&nbsp;${article.content}	
+		  <font color="gray" size="2" style="margin: 3px;">${article.emp_name}(${article.re_num})&nbsp;&nbsp;&nbsp;&nbsp;${article.re_date}</font>
+		  <input TYPE="IMAGE" src="/JackPot/save/trash.png"  width="21" height="21"  name="Submit" value="Submit" align="absmiddle">
+		   
 		            </li> 
+		            
+		            
 		  </c:if>     
+      </form>
+     </table> 
       
       </c:forEach>
      </td>
@@ -608,6 +553,74 @@ Dropzone.options.myDropzone = {
       </form>    
 
     </table>
+ <div id="layer1" class="pop-layer">
+								    <div class="pop-top">
+									<font>게시판</font><a href="#" class="cbtn"><img src="/JackPot/mainsave/logout.jpg"/></a>
+									</div>
+									<div class="pop-info">
+									등록할 게시판을 선택해주세요.
+									</div>
+								<div class="pop-container">
+									<div class="pop-conts">
+										<a href="#" class="btn-example2" onclick="layer_open('layer2');return false;">게시판</a>
+											<div id="layer2" class="pop-layer2">
+										<div class="contents">	
+								  			<div class="pop-top2">
+											게시판 <a href="#" class="cbtn2"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
+											</div>
+											<div class="pop-board">
+												<div class="pop-info2">
+												<font size="2">등록 시 제목의 체크박스에 체크하면 목록의 상단에 위치하며 업무포탈 상단의 NOTICE에 노출됩니다.</font>
+												</div>
+												<div class="pop-container2">
+												<div class="pop-conts2">
+													<div>
+														<form action="commInsert.jp" name="insert" method="post">
+														<ul>
+															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li><li style="width:80%;">자유게시판<input type="hidden" name="btype"></li>
+														</ul>
+														<ul>
+															<li style="width:20%;background-color:#f5f5f5;">*제목</li><li style="width:80%;"><input type="text" name="title" ></li>
+														</ul>
+														<ul>
+															<li style="width:20%;background-color:#f5f5f5;">작성자</li><li style="width:80%;"><input type="text" name=writer></li>
+														</ul>
+														<ul>
+															<li><textarea class="ckeditor" cols="1" id="editor1" name="content" rows="15"></textarea></li>
+														</ul>
+														
+														 <input type="submit" value="제출">
+														</form>
+													</div>
+													<div class="pop2boardfileuplord">
+														<ul>
+															<li>
+															<form action="/JackPot/boardinsert.jp"
+     															  class="dropzone"
+     															  id="my-dropzone"
+     															  style="width:762px;border: 1px solid rgba(0, 0, 0, 0.3);"></form>
+															</li>
+														</ul>
+														<ul>
+														<li><button id="submit-all">업로드</button></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										<div class="btn-r2">
+											<a href="#" class="cbtn2">닫기</a>
+										</div>
+									</div>
+									</div>
+								</div>
+							</div>
+						<div class="btn-r">
+						<a href="#" class="cbtn">닫기</a>
+						</div>
+					</div>
+				</div>   
+    
+    
 </div>
 </html>
 

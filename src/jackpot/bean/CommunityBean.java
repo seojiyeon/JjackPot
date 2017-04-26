@@ -38,6 +38,7 @@ public class CommunityBean {
 	@RequestMapping("/commInsert.jp")
 	public String commInsert(HttpSession session,communityDTO dto){
 		String emp_num=(String) session.getAttribute("memId");
+		
 		System.out.println(emp_num);
 		dto.setEmp_num(emp_num);
 		
@@ -59,7 +60,10 @@ public class CommunityBean {
 	    dto.setCom_num(com_num);
 	    dto.setEmp_num(emp_num);
 		model.addAttribute("dto",dto);
-
+		voteDTO ddto=(voteDTO)sqlMap.queryForObject("comm.emp", emp_num);
+		model.addAttribute("ddto",ddto);
+		
+		
 		int ref=Integer.parseInt(request.getParameter("com_num"));
 		List articleList = null;
 		articleList =sqlMap.queryForList("comm.reply", ref);
@@ -90,27 +94,29 @@ public class CommunityBean {
 	     int ref=Integer.parseInt(request.getParameter("com_num"));
 	     String re_num=(String) session.getAttribute("memId");
 	     String content=request.getParameter("content");
+	     String emp_name=request.getParameter("emp_name");
+	    
+	     System.out.println(emp_name);
 	     
 	     dto.setRe_num(re_num);
 	     dto.setRef(ref);
 	     dto.setContent(content);	     
+	     dto.setEmp_name(emp_name);
 	     
 	     sqlMap.insert("comm.insertComment", dto);
 	     
 	     model.addAttribute("dto",dto);
 	     model.addAttribute("com_num", ref);
-	     
-	
-	     
+	     	     
 		return "/community/comment";
        }
 	
 	@RequestMapping("/CommentDEL.jp")
 	public String CommentDEL(HttpServletRequest request,Model model,communityDTO dto){
-	    int rep_num=Integer.parseInt(request.getParameter("rep_num"));	
+	    int step_num=Integer.parseInt(request.getParameter("step_num"));	
 	    int com_num=Integer.parseInt(request.getParameter("ref"));
 	  
-           sqlMap.delete("comm.deleteReply", rep_num);
+           sqlMap.delete("comm.deleteReply", step_num);
 	    	
            model.addAttribute("com_num", com_num);
 		return "/community/CommentDEL";
@@ -124,26 +130,35 @@ public class CommunityBean {
 	     String content=request.getParameter("content");
 	     int rep_num=Integer.parseInt(request.getParameter("rep_num"));
 	     int step_num=Integer.parseInt(request.getParameter("step_num"));
-	     
-	     
+	     	     
 	     dto.setRe_num(re_num);
 	     dto.setRef(ref);
 	     dto.setStep_num(rep_num);
 	     dto.setContent(content);
-	    	     
-	    	    
+	    	     	    	    
 	       sqlMap.insert("comm.reply2", dto);	     
 	       sqlMap.update("comm.upreply", null);
-	     
+	     System.out.println(ref);
 	     model.addAttribute("dto",dto);
 	     model.addAttribute("com_num", ref);
 	     model.addAttribute("step_num", step_num);
- 
-           
+	   
 		return "/community/reply2";
        }
 	
-	
+	@RequestMapping("/trash.jp")
+	public String trash(HttpServletRequest request,Model model,communityDTO dto){	   
+		 int rep_num=Integer.parseInt(request.getParameter("rep_num"));	
+		 int com_num=Integer.parseInt(request.getParameter("com_num"));
+	    System.out.println(rep_num);
+	    
+		 sqlMap.delete("comm.trash", rep_num);
+		 
+		 model.addAttribute("rep_num",rep_num);
+		 model.addAttribute("com_num",com_num);
+		 
+		return "/community/trash";
+       }
 	
 	
 	
