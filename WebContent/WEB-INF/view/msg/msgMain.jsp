@@ -342,7 +342,7 @@ function checkSub(chk){
 <c:if test="${count!=0}">(${count})</c:if>
 </li>
 <li><a href="/JackPot/msgsmain.jp">보낸 쪽지함</a></li>
-<li><a href="/JackPot/msgTest.jp">aJax 연습</a></li>
+<li><a href="#">임시 보관함</a></li>
 </ul>
 
 

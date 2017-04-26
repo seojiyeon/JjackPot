@@ -149,6 +149,14 @@ function realtimeClock() {
 	  }
 	  return zero + n;
 	}
+	
+	
+	function logout(){				
+			alert("로그아웃 하셨습니다.");
+			
+		}
+	
+	
 
 </script>
 
@@ -196,6 +204,10 @@ height: 200px;
 <body onload="realtimeClock()">
     
     <div id="top">
+    <c:if test="${memId != null}">  
+    <font color="white">${memId} 님이 접속중입니다.</font>
+    <a href="logout.jp" onClick="logout()"><img src="/JackPot/mainsave/logout.jpg"></a>
+    </c:if>
     	<ul style="padding: 0;list-style-type: none; -webkit-padding-start:0px;    -webkit-margin-before: 0em;
    				   -webkit-margin-after: 0em;">
     	<li>
@@ -204,12 +216,14 @@ height: 200px;
     		<li style="text-align:center;">
     		
     			<div class="Search">
+    			<c:if test="${memId == null}"> 
     			<input type="button" value="로그인폼가긔" onclick="window.location='loginform.jp'" />
+    			</c:if>
     			<form>
        			<select><option>통합검색</option><option>직원검색</option></select>
   				<input type="text" name=""/>
     			<input  TYPE="IMAGE" src="/JackPot/mainsave/submit.jpg" name="Submit" value="Submit" align="absmiddle">
-    			</form><a href="logout.jp"><img src="/JackPot/mainsave/logout.jpg"></a>
+    			</form>
     			</div>
     		</li>
     		</ul>
