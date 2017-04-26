@@ -15,7 +15,6 @@ public class bmDTO {
 	private String related_bns; 	/*관련업무*/
 	private int  bns_box;			/*업무보관함*/
 	private int important;			/*중요업무*/
-	private String important2;
 	private int bm_state;		/*업무상태*/
 	private String bm_state2;		/*업무상태*/
 	private String emp_num;			/*작성자*/
@@ -29,12 +28,7 @@ public class bmDTO {
 	public void setBm_state2(String bm_state2) {
 		this.bm_state2 = bm_state2;
 	}
-	public String getImportant2() {
-		return important2;
-	}
-	public void setImportant2(String important2) {
-		this.important2 = important2;
-	}
+
 	public String getBm_name() {
 		return bm_name;
 	}
@@ -381,6 +375,22 @@ public class bmDTO {
 	public int getState_num() {
 		return state_num;
 	}
-
+	 /*중요도 (important)*/
+	private int imp_num;
+	private String important2;
 	
+	public void setImp_num(int imp_num){
+		 this.imp_num=imp_num;
+	}
+	public int getImp_num(){
+		return imp_num;
+	}
+	
+	public String getImportant2() {
+		return important2;
+	}		
+	public void setImportant2(String important2) {
+		this.important2 = important2;
+	}
+	 
 }

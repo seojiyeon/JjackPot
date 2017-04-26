@@ -263,7 +263,7 @@ tbody {
                         <th style="width: 100px;">
                             <a data-sortcolumn="REGISTERNAME" href="#">요청자<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
-                        <th style="width: 90px;">
+                        <th style="width: 120px;">
                             <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 120px;">
@@ -281,7 +281,7 @@ tbody {
                         <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
                         <th style="width: 40px;">${bmdto.bm_num }</th>
                         <th style="width: 50px;">
-                            ${bmdto.important}
+                            ${bmdto.important2}
                         </th>
                         <th style="width: 120px;">
                        		${bmdto.box_name}
@@ -292,14 +292,14 @@ tbody {
                         <th style="width: 100px;">
                             ${bmdto.bm_name}
                         </th>
-                        <th style="width: 90px;">
-                          ${bmdto.bm_start}
+                        <th style="width: 120px;">
+                          ${sdf.format(bmdto.bm_start)}
                         </th>
                         <th style="width: 120px;">
-                            ${bmdto.bm_end}
+                            ${sdf.format(bmdto.bm_end)}
                         </th>
                         <th style="width: 100px;">
-                            ${bmdto.bm_state}
+                            ${bmdto.bm_state2}
                         </th>
                     </tr>
 				</c:forEach>
@@ -307,28 +307,26 @@ tbody {
 	
 			</table>
 			
-			<div class="pagination-wrap">
-				<ul class="pagination">
-					<li>
-						<a href="javascript:void(0)" class="disabled">
-							<i class="fa fa-chevron-left"></i>
-							<i class="fa fa-chevron-left"></i>
-					<span class="none">first</span></a></li>
-					<li>
-						<a href="javascript:void(0)" class="disabled">
-						<i class="fa fa-chevron-left"></i><span class="none">previous</span></a>
-					</li>
-					<li class="active"><a href="javascript:void(0)">1</a></li>
-					<li><a href="javascript:void(0)" class="disabled">
-						<i class="fa fa-chevron-right"></i><span class="none">next</span></a>
-					</li>
-					<li>
-						<a href="javascript:void(0)" class="disabled"><i class="fa fa-chevron-right"></i>
-						<i class="fa fa-chevron-right"></i><span class="none">last</span></a>
-					</li>
-				</ul>
-			</div>
+		<div class="page-wrap">
+			<table>
+				<c:if test="${count > 0}">
+				
+				<c:if test="${startPage > 10}">
+					<a href="bmList.jp?pageNum=${startPage-10}">[이전]</a>
+				</c:if>
+		
+				<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+					<a href="bmList.jp?pageNum=${i}">${i}&nbsp;</a>
+				</c:forEach>
+		
+				<c:if test="${endPage < pageCount}">
+					<a href="bmList.jp?pageNum=${startPage+10}">[다음]</a>
+				</c:if>
+			
+				</c:if>
+			</table>
 		</div>
+	</div>
 		
 		
 		

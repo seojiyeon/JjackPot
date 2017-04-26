@@ -95,151 +95,154 @@
 			</div>
 			</div>
 <!-- ================================================================================================================================================= -->		
-<div id="main-contents">
-	<div class="con-header">
-   	 <h2>나의 할 일</h2>
-    	<div id="navId" class="breadcrumb-line"></div>
-    	
-    	<div class="content-wrap">
-	    <div class="table-header">
-	        <div class="listinfo">
-	        <select id="pagePerRecord" name="pagePerRecord" title="[ui.lightpack.todo.common.searchCondition.pagePerRecord] 가 없습니다. 확인해주세요.">
-	        	<option value="10">10</option>
-	            <option value="15">15</option>
-	            <option value="20">20</option>
-	            <option value="30">30</option>
-	            <option value="40">40</option>
-	            <option value="50" selected="selected">50</option>
-	        </select>
-	        
-	   		<div class="totalnum">전체 
-	   		<span><!-- ${count}  나의할일로 등록된글 count  --></span>
-	   		</div>     
-	  		</div>
-	  	
-	  		<div class="table-search" style="right:250px;">
-	  			<div class="input-unread">
-	            	<label><i class="icon imp"></i> 중요</label>
-	                <input type="checkbox" id="bm_state" title="중요" value="2">
-	            </div>
-	        </div>
-	       
-	            <input id="startDate" type="text" title="날짜시작" name="" class="input-datepicker w100" placeholder="From" value="" readonly="readonly">
-	      			<button type="button" class="btn btn-color7 br tbl-inner"><i class="icon calendar"></i></button>
-	                	<span>~</span>
-	                <input id="endDate" type="text" title="날짜끝" name="" class="input-datepicker w100" placeholder="To" value="" readonly="readonly">    	
-						<button type="button" class="btn btn-color7 br tbl-inner"><i class="icon calendar"></i></button>
-		</div>
-		<div class="table-search">
-			<select name="searchColumn" title="검색타입">
-	        	<option value="searchTitle">제목</option>
-	        </select>
-	        
-	        <div class="input-search">
-	        	<input name="searchWord" value="" type="text" class="w150 aTitle" title="검색어" placeholder="검색어">
-	            	<button id="searchMessageListButton" class="btn btn-color5"><i class="fa fa-search"></i>
-	                	<span>검색</span>
-	               	</button>
-	        </div>
-	    </div>
-	</div>
+		<div id="main-contents">
+		<div class="con-header">
+   			<h2>나의 할일</h2>
+   			</div>
+   			<div class="table-header">
+            <div class="listinfo">
+                
+                    <select id="pagePerRecord" name="pagePerRecord" title="[ui.lightpack.todo.common.searchCondition.pagePerRecord] 가 없습니다. 확인해주세요.">
+                    
+                        <option value="10">10</option>
+                    
+                        <option value="15">15</option>
+                    
+                        <option value="20">20</option>
+                    
+                        <option value="30">30</option>
+                    
+                        <option value="40">40</option>
+                    
+                        <option value="50" selected="selected">50</option>
+                    
+                    </select>
+                
+                <div class="totalnum">전체 <span>${bmcount }</span></div>
+            </div>
+            <div class="table-search" style="right:250px;">
+                <div class="input-unread">
+                    <label><i class="icon imp"></i> 중요</label>
+                    
+                        <input type="checkbox" id="checkboxPriority" title="중요" value="1">
+                    
+                </div>
+                <div class="input-unread w180">
+                     <div class="ui-step-wrap">
+                         <div class="ui-step-todo">
+                             <div class="step-bar"></div>
+                                 <label for="statusReject" style="left: 0%;"><input type="checkbox" name="bm_state" title="반려" id="statusReject" value="20" checked=""><span class="box"></span><span class="txt">반려</span></label><!-- 반려 -->
+                                 <label for="statusDelay" style="left: 33.3%;"><input type="checkbox" name="bm_state" title="지연" id="statusDelay" value="11" checked=""><span class="box"></span><span class="txt">지연</span></label><!-- 지연 -->
+                                 <label for="statusNotComplete" style="left: 66.6%;"><input type="checkbox" name="bm_state" title="미완료" id="statusNotComplete" value="12" checked=""><span class="box"></span><span class="txt">미완료</span></label><!-- 미완료 -->
+                                 <label for="statusComplete" style="left: 100%;"><input type="checkbox" name="bm_state" title="완료" id="statusComplete" value="1" checked=""><span class="box"></span><span class="txt">완료</span></label><!-- 완료 -->
+                         </div>
+                    </div>
+                </div>
+                
+                <input id="startDate" type="text" title="날짜시작" name="" class="input-datepicker w100" placeholder="From" value="" readonly="readonly">
+                	<button type="button" class="btn btn-color7 br tbl-inner"><i class="icon calendar"></i></button>
+                <span>~</span>
+                <input id="endDate" type="text" title="날짜끝" name="" class="input-datepicker w100" placeholder="To" value="" readonly="readonly">
+                	<button type="button" class="btn btn-color7 br tbl-inner">
+                		<i class="icon calendar"></i>
+                	</button>
+            </div>
+            <div class="table-search">
+                
+                    <select name="searchColumn" title="검색타입">
+                        <option value="emp_name" selected="selected">요청자</option>
+                        <option value="searchTitle">제목</option>
+                    </select>
+                
+                <div class="input-search">
+                    
+                        <input name="searchWord" value="" type="text" class="w150 aTitle" title="검색어" placeholder="검색어">
+                    
+                    <button id="searchMessageListButton" class="btn btn-color5"><i class="fa fa-search"></i><span>검색</span></button>
+                </div>
+            </div>
+        </div>
 	
-	<div class="content-list">
-		<table class="table table-striped" id="tblList">
-			<caption></caption>
-            	<colgroup>
-                    <col style="width: 40px;">
-                    <col style="width: 40px;">
-                    <col style="width: 50px;">
-                    <col style="width: 140px;">
-                    <col style="min-width: 200px;">
-                    <col style="width: 100px;">
-                    <col style="width: 120px;">
-                    <col style="width: 100px;">
-                </colgroup>
-		        <thead>
-		            <tr>
-		                <th scope="col"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
-		                <th scope="col">번호</th>
-		                <th scope="col">
-		                    <a data-sortcolumn="PRIORITY" href="#">중요<i class="fa fa-caret-up">
-		                    	<span class="blind">오름차순</span></i></a>
-		                </th>
-		                <th scope="col">
-		                    <a data-sortcolumn="FOLDER" href="#">업무 보관함<i class="fa fa-caret-up">
-		                    	<span class="blind">오름차순</span></i></a>
-		                </th>
-		                <th scope="col">
-		                    <a data-sortcolumn="TITLE" href="#">제목<i class="fa fa-caret-up">
-		                    	<span class="blind">오름차순</span></i></a>
-		                </th>
-		                <th scope="col">
-		                    <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up">
-		                    	<span class="blind">오름차순</span></i></a>
-		                </th>
-		                <th scope="col">
-		                    <a data-sortcolumn="DUEDATE" href="#">마감일<i class="fa fa-caret-up">
-		                    	<span class="blind">오름차순</span></i></a>
-		                </th>
-		                <th scope="col">
-		                    <a data-sortcolumn="TODOSTATUS" href="#">상태<i class="fa fa-caret-up active">
-		                    	<span class="blind">오름차순</span></i></a>
-		                </th>
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <c:if test="${count == 0 }">
-		            </c:if>
-		                
-		                <c:if test="${count >0 }">
-		                    <c:forEach var=" bdto" items="${bmdto}" >
-		                    <tr class="important" style="background: rgb(249, 249, 249);">
-                                <td><input name="chkid" type="checkbox" title="checkbox" value="${bm_num}" data-tk="${bm_num}" data-status="${bm_state}"></td>
-		                        <td>  <!-- ${bm_num}글번호--> </td>
-		                        <td>
-		                            <a href="javascript:void(0);" onclick="addPriority(this, 'SPRO', 'TASK', '8797308', 'U144718');return false;">
-		                                <i class="icon nonimp"></i>
-		                                <span class="blind">  <!-- ${important}중요--> </span>
-		                            </a>
-		                        </td>
-		                        <td>
-		                             <!-- ${bns_box}업무보관함--> 
-		                        </td>
-		                        <td class="text-left">
-		                            
-		                                <div class="ellipsis" title="나의할일"><a href="javascript:void(0);" onclick="goURL('Y', '', '/groupware/todo/readTodoView.do', 'SPRO', 'TASK', '8797308', 'U144718')">  <!-- ${bm_title}제목--> </a></div>
-		                            
-		                            
-		                        </td>
-		                        <td>  <!-- ${bm_start}요청일--> </td>
-		                        <td>
-		                                
-		                                   <!-- ${bm_end}마감일--> 
-		                                
-		                                
-		                            
-		                        </td>
-		                        <td>
-		                            
-		                            
-		                            
-		                            
-		                                <span class="todo-cate-box1 color2"><!-- ${dm_state}완료/ 미완료 -->  </span>
-		                            
-		                            
-		                            
-		                        </td>
-		                    </tr>
-		                    </c:forEach>
-		                 </c:if>
-		                
-		            
-		        </tbody>
-		    </table>
-	        
-	        <div class="pagination-wrap"><ul class="pagination"><li><a href="javascript:void(0)" class="disabled"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i><span class="none">first</span></a></li><li><a href="javascript:void(0)" class="disabled"><i class="fa fa-chevron-left"></i><span class="none">previous</span></a></li><li class="active"><a href="javascript:void(0)">1</a></li><li><a href="javascript:void(0)" class="disabled"><i class="fa fa-chevron-right"></i><span class="none">next</span></a></li><li><a href="javascript:void(0)" class="disabled"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><span class="none">last</span></a></li></ul></div><script>pageMoveAction = function(inputName, formId, movePageIndex) { jQuery('input[name=' + inputName + ']', formId).val(movePageIndex); jQuery('input[name=action]', formId).val('pagePerRecord');};</script>
-
-	        <input name="pageIndex" type="hidden" value="1" title="현재 페이지">
+   		<div class="content-list">
+            <table class="table table-striped" id="tblList">	
+				<thead>
+                    <tr>
+                        <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
+                        <th style="width: 40px;">번호</th>
+                        <th style="width: 50px;">
+                            <a data-sortcolumn="PRIORITY" href="#">중요<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                        </th>
+                        <th style="width: 120px;">
+                            <a data-sortcolumn="FOLDER" href="#">업무 보관함<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                        </th>
+                        <th style="min-width: 200px;">
+                            <a data-sortcolumn="TITLE" href="#">제목<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                        </th>
+                        <th style="width: 100px;">
+                            <a data-sortcolumn="REGISTERNAME" href="#">요청자<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                        </th>
+                        <th style="width: 120px;">
+                            <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                        </th>
+                        <th style="width: 120px;">
+                            <a data-sortcolumn="DUEDATE" href="#">마감일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                        </th>
+                        <th style="width: 100px;">
+                            상태
+                        </th>
+                    </tr>
+                </thead>
+		<tbody>
+			<c:forEach var="bmdto"  items="${mytodoList}">
+				<tr>
+                        <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
+                        <th style="width: 40px;">${bmdto.bm_num }</th>
+                        <th style="width: 50px;">
+                            ${bmdto.important2}
+                        </th>
+                        <th style="width: 120px;">
+                       		${bmdto.box_name}
+                        </th>
+                        <th style="min-width: 200px;">
+                            ${bmdto.bm_title}
+                        </th>
+                        <th style="width: 100px;">
+                            ${bmdto.bm_name}
+                        </th>
+                        <th style="width: 120px;">
+                          ${sdf.format(bmdto.bm_start)}
+                        </th>
+                        <th style="width: 120px;">
+                            ${sdf.format(bmdto.bm_end)}
+                        </th>
+                        <th style="width: 100px;">
+                            ${bmdto.bm_state2}
+                        </th>
+                    </tr>
+				</c:forEach>
+				</tbody>
+	
+			</table>
+			
+				
+			<div class="page-wrap">
+				<table>
+					<c:if test="${count > 0}">
+			
+						<c:if test="${startPage > 10}">
+							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+						</c:if>
+			
+						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+						</c:forEach>
+		
+						<c:if test="${endPage < pageCount}">
+							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+						</c:if>
+					</c:if>
+				</table>
+			</div>
 	        
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="createTask();">업무 등록</button>
@@ -248,9 +251,13 @@
 	                <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
 	                <button type="button" class="btn btn-color5 br" onclick="deleteTask();">삭제</button>
 	            
-	        </div>
 		</div>
 
+		<div class="ins-box">
+		    <ul>
+  		      <li><i class="fa fa-exclamation-circle"></i> 업무 상태를 클릭하시면 담당자 별 처리현황을 확인 할 수 있습니다.</li>
+    		</ul>
+	    </div>
 
 
 
