@@ -29,7 +29,10 @@
           delete from vote where v_num=#v_num#
        </delete>
     
-      
+       <delete id="garbage" parameterClass="int">
+            delete  from comm where comm_num=#comm_num#
+        </delete>  
+    
        <update id="EndVote" parameterClass="int">
       
       	update vote set notice=2,v_end=sysdate where v_num=#v_num#

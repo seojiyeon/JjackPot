@@ -101,12 +101,18 @@
     
      <li class="last">
 		        <ul>		        	
-		        	<li class="name">
+		        	<li class="name" style="margin : 5 5;">
 					<font color="gray" size="2"	style="margin: 3px;">${article.emp_name}(${article.emp_num})&nbsp;&nbsp;&nbsp;${article.reg}</font>
 
+            <c:if  test="${sessionScope.memId == article.emp_num }">    
+                    <a href="/JackPot/garbage.jp?comm_num=${article.comm_num}&v_num=${dto.v_num}">
+					<img src="/JackPot/save/garbage2.png" width="20" height="20" style="margin: 2 10;">			   
+				</a>
+		    </c:if>    
+		         
 		            </li> 
 		            
-		             <li class="content" style="margin: 5px;">
+		             <li class="content" style="margin : 5 19;">
 		             ${article.content}</li>
 		              
 		            
