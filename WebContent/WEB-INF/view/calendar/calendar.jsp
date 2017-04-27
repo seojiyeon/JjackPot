@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/calendar.css?ver=11" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/calendar.css?ver=14" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <html>
@@ -39,6 +39,8 @@ a:hover{none;}
         	var insertForm = $('#insertForm-container');
         		insertForm.fadeIn();
         });
+        
+        
     });
     
 function updatebutton_click(id){
@@ -47,19 +49,82 @@ function updatebutton_click(id){
 		url :"http://localhost:8080/JackPot/calendarcontents.jp",
 		data : {id:id},
 		success : function(contents){
-			console.log(contents);
-			
 			var lay = $('#layer2');lay.fadeOut();
         	var con = $('#main-container');con.fadeOut();
        		var insert = $('#insertForm-container');insert.fadeIn();
+       		$(".insertForm-sdate-li").html("<input type=date name=sdate value="+contents.cl_sdate+"></input><input type=time name=stime step=1800 value="+contents.cl_stime+"></input>");
+       		$(".insertForm-edate-li").html("<input type=date name=edate value="+contents.cl_edate+"></input><input type=time name=etime step=1800 value="+contents.cl_etime+"></input>");
+       		$(".insertForm-name-li").html("<select name=title><optgroup label=업무일정><option value=회사일정>회사일정</option><option value=지점일정>지점일정</option><option value=부서일정>부서일정</option><option value=개인업무>개인업무</option></optgroup><optgroup label=개인일정><option value=출장>출장</option><option value=연차>연차</option></optgroup></select>");
+       		$(".insertForm-suject-li").html("<input type=text placeholder= 제목 name=subject class=subject value="+contents.cl_subject+"></input>");
+       		$(".insertForm-place-li").html("<input type=text placeholder= 장소 name=place class=place value="+contents.cl_place+"></input>");
+       		
+       		$(".insertForm-contents-li2").html("<textarea name=contents class=insertForm-contents placeholder= 내용 >"+contents.cl_contents+"</textarea>");
+       		$(".insertForm-hidden").html("<input type=hidden name=num value="+contents.cl_num+"></input>");
+ 		/*       	
+				<li class="insertForm-name">참여자</li><li><input type="text" name="name" id="participants" class="participants"/></li><li id="addparticipants"><a>추가</a></li>
+		*/
 		}, 
 		error : function(){
 			alert("error");
 		}
 		});
-	
 }
 
+function checkIt(){
+    var userinput = eval("document.userinput");
+    if(!userinput.sdate.value) {
+        alert("시작일을 선택하세요");
+        return false;
+    }
+    if(!userinput.contents.value) {
+        alert("내용을 입력하세요");
+        return false;
+    }
+    if(userinput.edate.value){
+    	if(!userinput.etime.value){
+    		alert("종료시간을 선택하세요")
+    		return false;
+      }
+    	if(userinput.sdate.value>userinput.edate.value){
+    		alert("종료일이 시작일보다 작을 수 없습니다.")
+    		return false;
+  	  }
+    	if(userinput.sdate.value==userinput.edate.value){
+    		if(userinput.stime.value>userinput.etime.value){
+    			alert("종료시간이 시작시간보다 작을 수 없습니다.")
+        		return false;
+    		}
+    	}
+    }
+}
+
+function checkIt2(){
+    var userinput = eval("document.userinput2");
+    if(!userinput.sdate.value) {
+        alert("시작일을 선택하세요");
+        return false;
+    }
+    if(!userinput.contents.value) {
+        alert("내용을 입력하세요");
+        return false;
+    }
+    if(userinput.edate.value){
+    	if(!userinput.etime.value){
+    		alert("종료시간을 선택하세요")
+    		return false;
+      }
+    	if(userinput.sdate.value>userinput.edate.value){
+    		alert("종료일이 시작일보다 작을 수 없습니다.")
+    		return false;
+  	  }
+    	if(userinput.sdate.value==userinput.edate.value){
+    		if(userinput.stime.value>userinput.etime.value){
+    			alert("종료시간이 시작시간보다 작을 수 없습니다.")
+        		return false;
+    		}
+    	}
+    }
+}
 </script>
 
 <script type="text/javascript">
@@ -90,29 +155,6 @@ function layer_open(el){
 	});
 
 }
-
-function checkIt() {
-    var userinput = eval("document.userinput");
-    if(!userinput.sdate.value) {
-        alert("시작일을 선택하세요");
-        return false;
-    }
-    if(!userinput.contents.value) {
-        alert("내용을 입력하세요");
-        return false;
-    }
-    if(!!userinput.edate.value){
-    	if(!userinput.etime.value){
-    		alert("종료시간을 선택하세요")
-    		return false;
-      }
-    	if(userinput.sdate.value>userinput.edate.value){
-    		alert("종료일이 시작일보다 작을 수 없습니다.")
-    		return false;
-  	  }
-    }
-}
-
 </script>
 
 </head>
@@ -173,18 +215,18 @@ function checkIt() {
 				* 일정을 참여자 외 다른 직원과 공유하지 않을 경우 아래의 비공개를 선택하시기 바랍니다.
 			</div>
 			<div class="insertForm-cons">
-			<form action="calendarPro.jp" method="post" enctype="multipart/form-data" onSubmit="return checkIt()">
+			<form action="calendarPro.jp" name="userinput2" method="post" enctype="multipart/form-data" onSubmit="return checkIt2()">
 				<div class="insertForm">
-					<ul style="margin: 20px 0 0 0;">
+					<ul class="insertForm1">
 						<li class="insertForm-name">* 기간</li>
-						<li class="insertForm-value" style="margin: 0 0 0 7;"><input type="date" name="sdate"/>
+						<li class="insertForm-sdate-li"><input type="date" name="sdate"/>
     					<input type="time" name="stime" step="1800" value="00:00"/></li>
-    					<li class="insertForm-value"><input type="date" name="edate" />
+    					<li class="insertForm-edate-li"><input type="date" name="edate"/>
     					<input type="time" name="etime" step="1800" /></li>
 					</ul>
 					<ul>
 						<li class="insertForm-name">* 제목</li>
-						<li style="margin: 0 0 0 7;">
+						<li class="insertForm-name-li">
 						<select name="title">
    						<optgroup label="업무일정">
   						<option value="회사일정">회사일정</option>
@@ -198,25 +240,28 @@ function checkIt() {
     					</optgroup>
   						</select>
   						</li>
-  						<li style="width:70%;"><input type="text" placeholder=" 제목" name="subject" style="min-width:500px;width:68%;"></li>
+  						<li class="insertForm-suject-li"><input type="text" placeholder=" 제목" name="subject" class="subject"></li>
 					</ul>
 					<ul>
-						<li class="insertForm-name">장소</li><li style="width:75%;"><input type="text" placeholder=" 장소" name="place" style="min-width: 599;margin:0 0 0 10;width:71.7%;"></li>
+						<li class="insertForm-name">장소</li><li class="insertForm-place-li"><input type="text" placeholder=" 장소" name="place" class="place"></li>
 					</ul>
 					<ul>
-						<li class="insertForm-name">참여자</li><li><input type="text" name="name" id="participants" style="margin:0 0 0 10;"/></li><li id="addparticipants"><a>추가</a></li>
+						<li class="insertForm-name">참여자</li><li><input type="text" name="name" id="participants" class="participants"/></li><li id="addparticipants"><a>추가</a></li>
 					</ul>
 					<ul>
-						<li class="insertForm-name" style="line-height:150px;">내용</li><li style="position:absolute;height:150px;width:90%;"><textarea name="contents" placeholder=" 내용"style="min-width: 600px;height: 130px;width: 60%;border-radius:3px;border:1px solid darkgray;margin: 0 0 0 10;top: 10px;position: relative;"></textarea></li>
+						<li class="insertForm-contents-li">내용</li><li class="insertForm-contents-li2"><textarea name="contents" class="insertForm-contents" placeholder=" 내용"></textarea></li>
 					</ul>
 					<ul>
 						<li class="insertForm-name">알림</li><li></li>
 					</ul>
 					<ul>
-						<li class="insertForm-name">파일 업로드</li><li style="width:70%;"><input type="file" style="margin:0 0 0 10;padding-left:0;min-width:600px;width:77.5%;"/></li>
+						<li class="insertForm-name">파일 업로드</li><li class="insertForm-file-li"><input type="file" name="file" class="file"/></li>
+					</ul>
+					<ul>
+						<li class="insertForm-hidden"></li>
 					</ul>
 				</div>
-				<ul style="min-width:760px;width:64%;height:50px;"><li style="float:right;margin:10 0 0 0;"><input type="submit" value="전송"><input type="reset" value="취소"></li></ul>
+				<ul class="insertForm-submit-ul"><li class="insertForm-submit-li"><input type="submit" value="전송"><input type="reset" value="취소"></li></ul>
 			</form>
 			</div>
 		</div>
@@ -228,7 +273,7 @@ function checkIt() {
 				  일정 <a href='javascript:window.close();'><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
 				</div>
 			<div class="calendarform">
-    			<form action="calendarPro.jp" method="post" enctype="multipart/form-data" onSubmit="return checkIt()">
+    			<form action="calendarPro.jp" name="userinput" method="post" enctype="multipart/form-data" onSubmit="return checkIt()">
   					<ul>
   						<li><select name="title">
    						<optgroup label="업무일정">
@@ -251,7 +296,7 @@ function checkIt() {
     					<input type="time" name="stime" step="1800" value="00:00"/></li></ul>
     					<ul><li>종료일    <input type="date" name="edate" />
     					<input type="time" name="etime" step="1800" /></li></ul>
-						<ul><li>참여자<br/><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a>추가</a></li></ul>
+						<ul><li>참여자<br/><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a >추가</a></li></ul>
    						<ul><li><br/><textarea name="contents" placeholder=" 내용"style="width:398px;border-radius:3px;border:1px solid darkgray;"></textarea></li></ul>
   						<ul><li><input type="submit" value="전송"></li><li><input type="reset" value="취소"></li></ul>
     					<input type="hidden" name="writer" value=""/>

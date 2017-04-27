@@ -100,35 +100,29 @@ public class CalendarBean {
 		calendarDTO contents = (calendarDTO) sqlMap.queryForObject("calendar.getcontents", id);
 		return contents;
 	}
-	
-	@RequestMapping("/calendarinsert.jp")
-	public String insert(){
-		return "/calendar/calendarinsert";
-	}
-	
+
 	@RequestMapping("/calendarPro.jp")
-	public String insertPro(calendarDTO dto, MultipartHttpServletRequest multi, HttpSession session){
-		
+	public String insertPro(calendarDTO dto, MultipartHttpServletRequest multi, HttpSession session,HttpServletRequest request){
+		  String cl_num = multi.getParameter("num");
 		  calendarDTO cdto = new calendarDTO();
 		  int max = (Integer)sqlMap.queryForObject("calendar.maxnum", null);
 		  MultipartFile mf = multi.getFile("file");
-		  if(!(mf.getSize()==0)){
-			  String path=multi.getRealPath("save");
-			  String org=mf.getOriginalFilename();
-			  String ext = org.substring(org.lastIndexOf("."));
-			  String sys ="file_"+max+ext;
-			  File f = new File(path+"//"+sys);
-			  try{
-				  mf.transferTo(f);
-			  }catch(Exception e){
-				  e.printStackTrace();
+			  if(!(mf.getSize()==0)){
+				  String path=multi.getRealPath("save");
+				  String org=mf.getOriginalFilename();
+				  String ext = org.substring(org.lastIndexOf("."));
+				  String sys ="file_"+max+ext;
+				  File f = new File(path+"//"+sys);
+				  try{
+					  mf.transferTo(f);
+				  }catch(Exception e){
+					  e.printStackTrace();
+				  }
+				  cdto.setCl_sys(sys);
+				  cdto.setCl_org(mf.getOriginalFilename());
 			  }
-			  cdto.setCl_sys(sys);
-			  cdto.setCl_org(mf.getOriginalFilename());
-		  	  }
 		String emp_num = (String)session.getAttribute("memId");
 		empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
-
 		  cdto.setCl_title(multi.getParameter("title"));
 		  cdto.setCl_subject(multi.getParameter("subject"));
 		  cdto.setCl_place(multi.getParameter("place"));
@@ -140,10 +134,33 @@ public class CalendarBean {
 		  cdto.setCl_contents(multi.getParameter("contents" ));
 		  cdto.setCl_writer(edto.getEmp_name());
 		
-		  sqlMap.insert("calendar.insertCalendar",cdto);
+		  if(cl_num==null){
+			  sqlMap.insert("calendar.insertCalendar",cdto);
+		  }
+		  if(cl_num!=null){
+			  cdto.setCl_num(Integer.parseInt(cl_num));
+			  if(cdto.getCl_sys()!=null){
+		      String path = request.getRealPath("save");  
+		      String cl_sys = (String) sqlMap.queryForObject("calendar.getSysname", cl_num);
+				try {
+					File f = new File(path+"\\"+cl_sys);
+					if(f.exists()) {
+						f.delete();
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			  sqlMap.update("calendar.updateCalendar", cdto);
+			  }
+			  if(cdto.getCl_sys()==null){
+		      sqlMap.update("calendar.updateCalendar2", cdto);	  
+			  }
+		  }
 		  
 		return "/calendar/calendar";
 	}
+	
+	
 	@RequestMapping("/calendardelete.jp")
 	public String delete(HttpServletRequest request){
 		String cl_num= request.getParameter("id");
