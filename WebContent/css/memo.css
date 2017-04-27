@@ -8,6 +8,10 @@ html,BODY {
 	font-family:"Nanum Gothic","NanumGothic",나눔고딕,NanumGothic,ng,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;
 }
 
+ul {
+	list-display:none;
+}
+
 #sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}
 /* 왼쪽 메뉴 부분 */
@@ -145,8 +149,8 @@ table {
 }
 
 
-/* 레이어 팝업 */
-.mask {  
+/* 레이어 팝업 : 이미지 크게 보기 */
+.img-back {  
 	  position:absolute;  
 	  z-index:9000;  
 	  background-color:#000;  
@@ -154,7 +158,24 @@ table {
 	  left:0;
 	  top:0;
 }
-.window {
+.img-pop {
+	display: none;
+	position:absolute;  
+	left:100px;
+	top:100px;
+	z-index:10000;
+}
+
+/* 레이어 팝업: 메모 이동 */
+.maskMove {  
+	  position:absolute;  
+	  z-index:9000;  
+	  background-color:#000;  
+	  display:none;  
+	  left:0;
+	  top:0;
+}
+.windowMove {
 	display: none;
 	position:absolute;  
 	left:100px;

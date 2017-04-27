@@ -6,8 +6,8 @@
 
 
       <select id="commList" resultClass="codto">
-            select com_num,title,content,writer,reg_date,readcount,recommend,ref,re_step,re_level from community order by com_num asc
-      </select>
+            select com_num,title,content,writer,reg_date,readcount,recommend from community order by com_num desc
+	</select>
 
 
        <insert id="insertComm" parameterClass="codto">
@@ -20,7 +20,7 @@
       </update>
     
     <select id="content" resultClass="codto"  parameterClass="int">
-            select com_num,title,content,writer,reg_date,readcount,recommend,ref,re_step,re_level from community where com_num =#com_num#
+            select com_num,title,content,writer,reg_date,readcount,recommend,ref,re_level,re_step from community where com_num =#com_num#
       </select>
     
       <update id="recommend" parameterClass="int">
@@ -29,23 +29,44 @@
     
         
          <insert id="insertComment" parameterClass="codto">
-      insert into reply(rep_num,content,ref,re_step,re_level,re_num,emp_name,re_date) 
-      values(reply_seq.nextval,#content#,#ref#,#re_step#,#re_level#,#re_num#,#emp_name#,sysdate)
+      insert into reply(rep_num,content,ref,step_num,re_step,re_level,re_num,emp_name,re_date) 
+      values(reply_seq.nextval,#content#,#ref#,reply_seq.nextval,0,0,#re_num#,#emp_name#,sysdate)
          </insert>
+          
         
         <select id="reply" resultClass="codto" parameterClass="int">
-        select r.rep_num,r.content,r.ref,r.re_num,r.re_date,e.emp_num,e.emp_name
-            from  reply r,emp e where r.re_num=e.emp_num and r.ref=#ref# order by re_date desc
+       <![CDATA[
+       select rep_num,content,ref,step_num,emp_name,re_step,re_num,re_date,re_level,r 
+    from (select rep_num,content,ref,step_num,emp_name,re_step,re_num,re_date,re_level,rownum r
+    from (select * from reply order by step_num desc, re_step asc) order by step_num desc, re_step asc ) where r >= 1 and r <= 10 and ref=#ref#
+          ]]>
         </select>
-        
+    
+      
         <select id="count" resultClass="int">
             select count(*)from reply where ref=#ref#       
         </select>
         
         <delete id="deleteReply" parameterClass="int">
-            delete  from reply where rep_num=#rep_num#
+            delete  from reply where step_num=#step_num#
         </delete>
         
+        <insert id="reply2" parameterClass="codto">
+      insert into reply(rep_num,content,ref,step_num,re_step,re_num,emp_name,re_date,re_level) 
+      values(reply_seq.nextval,#content#,#ref#,#step_num#,0,#re_num#,#emp_name#,sysdate,1)
+         </insert>
         
+        <update id="upreply" parameterClass="codto">
+      update reply set re_step=re_step+1 where re_level =1
+        </update>
+
+      <delete id="trash" parameterClass="int">
+            delete  from reply where rep_num=#rep_num#
+        </delete>  
+    
+    
+         <select id="emp" resultClass="vdto" parameterClass="String">
+           select emp_name from emp where emp_num=#emp_num#
+      </select>
         
 </sqlMap>

@@ -18,6 +18,30 @@
 	
 		</select>
 		
+	<!--  모든업무 리스트보기 -->
+		<select id="getBmList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+	
+		</select>
+		
+		
+		<!--  나의할일 리스트보기 -->		
+		<select id="getMytodoList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2 from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!--  나의할일 COUNT 리스트보기 -->	
+		<select id="getMytodoListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
+			order by bm.bm_num desc		
+		</select>
+		
+
 		<!-- 모든업무 갯수 -->
 		<select id="bmcount" parameterClass="bmdto" resultClass="int">
 			select count(*) from business_manage
@@ -52,8 +76,8 @@
 					#bm_title#,
 					#bm_content#,
 					#bm_form#,
-					sysdate,
-					sysdate,
+					#bm_start#,
+					#bm_end#,
 					sysdate,
 					#reg_notice#,
 					#cmp_notice#,
@@ -78,19 +102,7 @@
      
    	    </select>
      
-     <!-- 달력날 불러오기  -->
-		<select id="getDay" resultClass="bmdto">
-        	<![CDATA[              
-				select * from work  where to_char(work_on,'yyyymmdd') = to_char(sysdate,'yyyymmdd') and emp_num=#emp_num#
-			]]>
-		</select>          
-     
-		<!--  달력입력 -->
-		<select id="getDayChagne" resultClass="bmdto" parameterClass="bmdto">
-		<![CDATA[
-			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd') and emp_num=#emp_num#
-		]]>
-		</select> 
+  
 	
 		<!-- 참조자 등록  -->
 		<insert id="insertBm_ref" parameterClass="bmdto">
@@ -145,7 +157,7 @@
 				#emp_num#,
 				#his_process#,
 				#his_content#,
-				#modify_date#
+				sysdate
 			)
 		</insert>
 		
@@ -160,23 +172,31 @@
 			)
 		</insert>
 		
-		<!-- 업무형태 등록  -->
-		<insert id="insertBm_form" parameterClass="bmdto">
-	
-			insert into bm_form(bmfo_num,bm_formName) values(
-				BM_FORM_SEQ.nextval,
-				#bm_formName#
-			)
-		</insert>
 		
 		<!-- 업무보관함 등록  -->
 		<insert id="insertBns_box" parameterClass="bmdto">
-			insert into bns_box(bns_num,bm_num,bns_name) values(
+			insert into bns_box(bns_num,bm_num,box_name) values(
 				BNS_BOX_SEQ.nextval,
 				#bm_num#,
-				#bns_name#
+				#box_name#
 			)
 		</insert>
+		
+		<!--  업무보관함 count  -->
+		<select id="countBns_box" resultClass="int" parameterClass="bmdto">
+            select count(*) from  bns_box
+        </select>
+        
+        <!--  업무보관함 list  -->
+		<select id="ListBns_box" resultClass="bmdto" >
+            select * from  bns_box
+        </select>
+		
+		 <!--  bm_form    -->
+		<select id="bm_form" resultClass="bmdto" >
+            select * from  bm_form
+        </select>
+	
 
 		<!--  사원 수 불러오기  -->
 		<select id="bm_empCount" resultClass="int">
@@ -203,7 +223,7 @@
         	  select department from emp 
         </select> 
         
-       <select id="bm_form" resultClass="int" parameterClass="int">
+       <select id="bm_form2" resultClass="int" parameterClass="int">
       		select bmfo_num from bm_form where bmfo_num=#bmfo_num#
       	</select>
         
@@ -224,35 +244,7 @@
          
         
         
-        <!-- 달력들고오기 --> 
         
-        <!-- 시작일 -->
-        <select id="getbm_start" resultClass="bmdto">
-			<![CDATA[      
-				select * from business_manage  where to_char(bm_start,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
-			]]>
-		</select>       
-	
-	
-		<select id="getbm_startChagne" resultClass="wdto" parameterClass="bmdto">
-			<![CDATA[
-				select * from business_manage  where to_char(bm_start,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd') 
-			]]>
-		</select>
-		
-		<!-- 마감일 -->
-        <select id="getbm_end" resultClass="bmdto">
-			<![CDATA[      
-				select * from business_manage  where to_char(bm_end,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
-			]]>
-		</select>       
-	
-	
-		<select id="getbm_endChagne" resultClass="bmdto" parameterClass="bmdto">
-			<![CDATA[
-				select * from business_manage  where to_char(bm_end,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd') 
-			]]>
-		</select>   
          
 
 </sqlMap>

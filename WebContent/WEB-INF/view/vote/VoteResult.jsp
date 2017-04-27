@@ -75,19 +75,21 @@
     <tr height="20" >
         <td bgcolor="gray" align="center">
         <font color="white">Comment</font></td></tr>
-        
+       
       <input type="hidden" name="v_num" value="${dto.v_num}"/>
       <input type="hidden" name="emp_num" value="${dto.emp_num}"/>
-      <input type="hidden" name="emp_name" value="${dto.emp_name}"/>
+      <input type="hidden" name="emp_name" value="${ddto.emp_name}"/>
+      
          
 <div class="comment-wrap op">
-	<div class="reply-wrap"><span><i class="icon reply"></i></span></div>
+	<div class="reply-wrap"><span><i class="icon reply">  </i></span>  ${check10 } </div>
 		<div class="input-group">
-			<form id="8501850_pollLinereplyForm" name="8501850_pollLinereplyForm" action="/vote/reply.jp" novalidate="novalidate">								
+			<form  action="/vote/reply.jp" novalidate="novalidate">								
 				<input name="itemId" type="hidden" value="8501850">
 				<textarea title="textarea" id="8501850_contents" name="content" rows="2" class="form-control original" placeholder="댓글을 입력하세요."></textarea>
-  
-      <input type="submit" value="댓글 달기">     
+   <span class="input-group-btn">
+      	<input TYPE="IMAGE" src="/JackPot/save/speech.png"  width="40" height="40"  name="Submit" value="Submit" align="absmiddle" style="margin : 5 10">
+   </span>  
      </Td>    
       </tr>   
         

@@ -261,7 +261,7 @@ function resetAll(){
 							<th scope="row"><span class="text-point-b" >*</span>업무형태</th>
 							<td>
 								<div >
-									<input type="hidden" name="bm_form" value="">
+									
 									<label ><input type="radio" id="type" name="bm_form" title="나의 할일" value="1"> 나의 할 일</label>
 									<label ><input type="radio"  id="type" name="bm_form" title="업무 요청" value="2" checked="checked"> 업무 요청</label>
                               	  <label ><input type="radio"   id="type" name="bm_form" title="업무 보고" value="3"> 업무 보고</label>
@@ -275,12 +275,12 @@ function resetAll(){
 							<td>
 								<fmf:parseDate value="${date }" var=" date1" pattern="yyyymmdd" scope="page"/><!-- String형을 받아서 원하는 포멧으로 Date형태로 변경  -->
 								<fmt:formatDate value="${date1 }" pattern="yyyy-MM-dd" var="date1"/> <!-- Date형을 받아서 원하는 포멧으로 날짜형태를 변경  -->
-								<input type="text" title="시작날짜" id="bm_start" value="${date1 }" name="bm_start" readonly="readonly" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" onchange="test(this.value)"><!-- readonly 칸에 글자못쓰게 막기-->
+								<input type="text" title="시작날짜" id="bm_start" value="${date1 }" name="bm_start" readonly="readonly" onchange="test(this.value)"><!-- readonly 칸에 글자못쓰게 막기-->
                                 
                                 <fmf:parseDate value="${date }" var=" date2" pattern="yyyymmdd" scope="page"/>
                					<fmt:formatDate value="${date2 }" pattern="yyyy-MM-dd" var="date2"/>
 								
-								<input type="text" title="종료날짜" id="DateCalendar" value="${date2 }" name="bm_end" readonly="readonly" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" onchange="test(this.value)">
+								<input type="text" title="종료날짜" id="DateCalendar" value="${date2 }" name="bm_end" onchange="test(this.value)">
                            		<span class="label-group ml10">
 								<input type="checkbox" title="기한없음" name="bm_end" value="0"><label>기한없음</label>
                              	</span>
@@ -291,7 +291,7 @@ function resetAll(){
                             <th id="incharge_name" scope="row">
                             	<span class="text-point-b">*</span>담당자</th>
                             <td>
-                            	<input type="hidden" name="inchar_name" value="">
+                            
 								<input type="text" title="사용자" name="inchar_name" placeholder="사용자" style="box-shadow:none;">
                                 <button type="button" class="btn input-group-addon btn-color5 br" onclick="openInchar()"><i class="icon man-plus">
                                 <span class="none">사용자</span></i></button>
@@ -301,7 +301,7 @@ function resetAll(){
                         <tr id="rec" style=" display: none;">
                         	<th id="rec_name" scope="row" ><span class="text-point-b">*</span>수신자</th>
                             <td>
-                            	<input type="hidden" name="rec_name" value="">
+                      
                                 <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
                                	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
                                 <i class="icon man-plus"><span class="none">사용자</span></i></button>
@@ -327,8 +327,8 @@ function resetAll(){
                             <th scope="row">등록 알림</th>
                             <td>
                             <input type="hidden" name="bm_end" >
-                                <input name="reg_notice" type="checkbox" title="쪽지 발송" value="2"> 쪽지 발송&nbsp;&nbsp;
-                                <input name="reg_notice" type="checkbox" title="푸시 발송 " value="3"> 푸시 발송 &nbsp;&nbsp;
+                                <input name="reg_notice" type="checkbox" title="쪽지 발송" value="쪽지 발송"> 쪽지 발송&nbsp;&nbsp;
+                                <input name="reg_notice" type="checkbox" title="푸시 발송 " value="푸시 발송"> 푸시 발송 &nbsp;&nbsp;
                             </td>
                         </tr>
                         
@@ -336,19 +336,30 @@ function resetAll(){
                             <th scope="row">완료 알림</th>
                             <td>
                             <input type="hidden" name="cmp_notice" >
-                                <input name="cmp_notice" type="checkbox" title="쪽지 발송" value="0"> 쪽지 발송&nbsp;&nbsp;
-                                <input name="cmp_notice" type="checkbox" title="푸시 발송 " value="1"> 푸시 발송 &nbsp;&nbsp;
+                                <input name="cmp_notice" type="checkbox" title="쪽지 발송" value="쪽지 발송"> 쪽지 발송&nbsp;&nbsp;
+                                <input name="cmp_notice" type="checkbox" title="푸시 발송 " value="푸시 발송 "> 푸시 발송 &nbsp;&nbsp;
                             </td>
                         </tr>
                         
-                        <tr id="folderTR">
+                        <tr >
                             <th scope="row"><label for="bns_box">업무 보관함</label></th>
                             <td>
-                            	<select name="folderId" id="bns_box" class="w400" style="">
-                            	<c:forEach var="wdto" items="${monthsh}">
-									<option value="${bmdto.getBns_box()}">${bmdto.getBns_box()}</option>               
-                                </c:forEach>
-                                </select>
+                            	<select name="Bns_box" class="w400" style="">
+									<c:if test="${countBns_box == 0}">
+										<option value="0">폴더 없음</option>
+									</c:if>
+									<c:if test="${countBns_box > 0}">
+										<c:forEach var="Bns_box" items="${ListBns_box}">
+											<c:if test="${Bns_box.bns_num == bmdto.getBns_box()}">
+												<option value="${Bns_box.bns_num}" selected>${Bns_box.box_name}</option>
+											</c:if>
+											<c:if test="${Bns_box.bns_num != bmdto.getBns_box()}">
+												<option value="${Bns_box.bns_num}" >${Bns_box.box_name}</option>
+											</c:if>									
+									</c:forEach>
+								</c:if>
+								</select>
+
                             </td>
                         </tr>
                       

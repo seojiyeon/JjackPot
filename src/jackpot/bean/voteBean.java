@@ -183,16 +183,15 @@ public class voteBean {
 	
 	
 	@RequestMapping("/VoteResult.jp")
-	public String VoteResult(HttpServletRequest request,Model model,voteDTO dto){
-		SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
-		
+	public String VoteResult(HttpSession session,HttpServletRequest request,Model model,voteDTO dto){
+		String emp_num = (String)session.getAttribute("memId");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");		
 		int v_num=Integer.parseInt(request.getParameter("v_num"));
-		dto.setV_num(v_num);
-		
+		dto.setV_num(v_num);		
 		 dto=(voteDTO)sqlMap.queryForObject("vote.v_num", v_num);
-		
+		 voteDTO ddto=(voteDTO)sqlMap.queryForObject("vote.emp", emp_num);
 		model.addAttribute("dto",dto);
-		
+		model.addAttribute("ddto",ddto);
 		
 		int check =(Integer)sqlMap.queryForObject("vote.Result", v_num);
 		int check2 =(Integer)sqlMap.queryForObject("vote.Result2", v_num);
@@ -200,32 +199,30 @@ public class voteBean {
 		
 		   model.addAttribute("check",new Integer(check));
 		   model.addAttribute("check2",new Integer(check2));
-		   model.addAttribute("check3",new Integer(check3));
-		
+		   model.addAttribute("check3",new Integer(check3));		
 		   
 		int ref=Integer.parseInt(request.getParameter("v_num"));
 		
 		List articleList=null;
-		  articleList=sqlMap.queryForList("vote.commetList", ref);
-		  
-		  model.addAttribute("articleList",articleList);
-	      
-		  
+		  articleList=sqlMap.queryForList("vote.commetList", ref);	  
+		  model.addAttribute("articleList",articleList);	  
 		  request.setAttribute("sdf", sdf);			
-		   
+		 
+		  int check10=(Integer)sqlMap.queryForObject("vote.count", ref);
+			model.addAttribute("check10",check10);
+		  
 		return "/vote/VoteResult";
 	}
 	
 	@RequestMapping("/reply.jp")
-	public String reply(voteDTO dto,HttpServletRequest request,Model model){
-		int v_num=Integer.parseInt(request.getParameter("v_num"));
-		String emp_num=(String)request.getParameter("emp_num");
+	public String reply(HttpSession session,voteDTO dto,HttpServletRequest request,Model model){
+		String emp_num = (String)session.getAttribute("memId");
+		int v_num=Integer.parseInt(request.getParameter("v_num"));		
 		String content=(String)request.getParameter("content");
 		String emp_name=(String)request.getParameter("emp_name");
 		
-		System.out.println(v_num);
-		System.out.println(emp_num);
-		System.out.println(content);
+		System.out.println(emp_name);
+	
 		
 		dto.setEmp_num(emp_num);
 		dto.setRef(v_num);

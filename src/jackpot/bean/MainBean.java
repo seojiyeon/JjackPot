@@ -30,6 +30,7 @@ public class MainBean {
 		
 		favList = sqlMap.queryForList("org.fav",empfav);
 		model.addAttribute("favList", favList);
+		model.addAttribute("memId", empfav);
 
 		return "/main/main";
 	}

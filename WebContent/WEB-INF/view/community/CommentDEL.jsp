@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
 
    <h2>성공</h2>
-    <!--  <c:redirect url="content.jp?com_num=${com_num}">
-     </c:redirect> -->
+    <c:redirect url="content.jp?com_num=${com_num}">
+     </c:redirect>
   
 

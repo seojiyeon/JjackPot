@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/JackPot/css/community.css?ver=12" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=14" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
@@ -197,14 +197,6 @@ $(document).ready(function(){
     });
 });
 
-/* function recommend(){
-	var re = $('#viewReply');
-	if( re.is(":visible")){
-		re.slideUp();
-	}else{
-		re.slideDown();
-	}
-} */
 
 
 function layer_open(el){
@@ -333,7 +325,235 @@ Dropzone.options.myDropzone = {
 				<ul class="menulist" style="margin:0;padding:0;list-style:none;">
 					<li style="text-align:center;height:40px;border-style:solid;border-width:thin;border-color:lightgray;">
 						<a href="#" class="btn-example" onclick="layer_open('layer1');return false;">게시물 등록</a>
-							<div id="layer1" class="pop-layer">
+					</li>
+					<li style="text-align:center;height:40px;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
+					<a href="/JackPot/community.jp" style="text-decoration:none;">최근게시글</a></li>
+					<li class="boardmenu" style="width:208px;display:inline-block;text-align:center;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
+					<a style="display:inline-block;height:40px;">게시판 목록</a>
+								   <ul style="-webkit-padding-start:0px;width:208px;">
+								      <li>공지사항</li>
+								      <li>자유게시판</li>
+								      <li>게시판1</li>
+								      <li>게시판2</li>
+								      <li>게시판3</li>
+								   </ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+<div id="main-contents">
+	
+	<div class="con-header bdr-b">
+	<h3>
+		자유게시판
+	</h3>
+	<div id="navText" class="breadcrumb-line"></div>
+	</div>
+	
+
+      <div class="content-wrap">
+      
+      
+ <div class="board-header">
+	<h3>	
+						<i class="icon nonimp">	</i>
+				
+				 ${dto.title }
+
+
+				&nbsp;&nbsp;&nbsp;
+				
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">추천하기 </font>
+				<a id="recommend" href="/JackPot/like.jp?com_num=${dto.com_num}"> 	
+							
+				<img src="/JackPot/save/like (2).png" width="30" height="30">						   
+					
+				</a>
+			</h3>
+			
+
+<ul class="writer-info mt15">
+			
+				
+				<li style="display:-webkit-inline-box;">
+					
+						<span class="ellipsis"> ${dto.writer }</span>
+						<span class="txt_bar"></span>
+					
+				</li>
+				<li style="display:-webkit-inline-box;">
+					<span class="num"> ${dto.reg_date}</span>
+					<span class="txt_bar"></span>
+				</li>
+				<li style="display:-webkit-inline-box;">
+					
+						<span class="ellipsis"> 추천수 : ${dto.recommend }</span>
+						<span class="txt_bar"></span>
+						</li>
+				<li style="display:-webkit-inline-box;">
+					
+						<span class="ellipsis"> 조회수 : ${dto.readcount }</span>
+			   </li>		
+			</ul>		
+	
+		</div>
+
+<div class="panel-body message-body"  style="margin: 0 0 0 20;">
+		 
+	    <div id="boardItemContent" class="contentsBody">
+          
+			
+		&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">${dto.content}</font>
+
+			 
+           
+        </div>
+        <br/>
+         <br/>
+          <br/>
+           <br/>
+            <br/>
+             <br/>
+              <br/>
+               <br/>
+                <br/>
+            
+        
+	</div>
+	
+    
+</div>
+
+
+<table width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">
+<form method="post"  action="comment.jp">      
+      
+    <tr height="20" >
+        <td bgcolor="gray" align="center">
+        <font color="white">Comment</font></td></tr>
+        
+      <input type="hidden" name="com_num" value="${dto.com_num}"/>
+      <input type="hidden" name="emp_num" value="${dto.emp_num}"/>
+      <input type="hidden" name="emp_name" value="${ddto.emp_name}"/>
+         
+<div class="comment-wrap op">
+	<div class="reply-wrap"><span><i class="icon reply"></i></span> ${check} </div>
+		<div class="input-group">
+			
+				<input name="itemId" type="hidden" value="8501850">
+				<textarea title="textarea" id="8501850_contents" name="content" rows="2" class="form-control original" placeholder="댓글을 입력하세요."></textarea>
+ 
+ <span class="input-group-btn">
+ 							
+				<!-- <img src="/JackPot/save/chatting.png" width="40" height="40" onclick="test(this.form);">	 -->					   
+				<input  TYPE="IMAGE" src="/JackPot/save/chatting.png"  width="45" height="45" name="Submit" value="Submit" align="absmiddle">					 
+		</span>          
+     </Td>    
+      </tr>   
+</form>
+
+     
+     <tr >
+     <td>
+     
+      <c:forEach var="article" items="${articleList}" varStatus="status">
+	
+  <c:if test="${article.re_level == 0 }"  >
+     <li class="last">
+		        <ul>		        	
+		        	<li class="name" style="margin:5px;">
+					<font color="gray" size="2"	style="margin: 3px;">${article.emp_name}(${article.re_num})&nbsp;&nbsp;&nbsp;&nbsp;${article.re_date} </font>
+             
+             
+             <input type="hidden" name="rep_num" value="${article.rep_num}">
+             <input type="hidden" name="com_num" value="${article.ref}"/>
+             
+             <a href="/JackPot/CommentDEL.jp?ref=${article.ref}&step_num=${article.step_num}">
+				<img src="/JackPot/save/trash.png" width="20" height="20" >			   
+			</a>
+			
+			
+				
+      <table  width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">		
+		
+		
+		<form action="/JackPot/reply2.jp" method="post">
+		     
+		   
+		      <a class="recommend" href="#<%-- /JackPot/reply.jp?ref=${article.ref}&rep_num=${article.rep_num} --%>" style="margin:0 10 0 20;"> 
+			
+				[답글쓰기]   
+			</a>
+
+		<ul style="display:none;width:900px;height:20px;background:none;">
+		 
+		  <input type="hidden" name="rep_num" value="${article.rep_num}"/>
+		  <input type="hidden" name="step_num" value="${article.step_num}"/>
+		   <input type="hidden" name="com_num" value="${dto.com_num}"/>
+          <input type="hidden" name="emp_num" value="${dto.emp_num}"/>
+         
+      
+        
+		<li>
+		
+        
+		<textarea name="content" rows="1" cols="80"  placeholder="답글을 입력하세요."></textarea>
+		
+ 										   
+				<input TYPE="IMAGE" src="/JackPot/save/save.png"  width="20" height="20"  name="Submit" value="Submit" align="absmiddle">					 
+		</span>          
+		
+		</li> 
+	
+		</ul>
+		</form>
+       </table>		
+      </li>
+     		
+
+		             <li class="content" style="margin: 10 30;">${article.content}	
+		          
+		            </li> 
+		       
+	    
+		        </ul>
+	
+		    </li>
+		    </div>
+		 </div>
+   </c:if>  
+     
+     	 <table  width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">	
+     	 	<form action="trash.jp" method="post">
+     		<c:if test="${article.re_level== 1 }"  >	
+		  <input type="hidden" name="rep_num" value="${article.rep_num}"/>
+		   <input type="hidden" name="com_num" value="${dto.com_num}"/>
+		 <li class="content" style="margin:0 50 10 ;"><img src="/JackPot/save/reply.png" width="15" height="15" >
+		 
+		  <font color="gray" size="3" style="margin: 3px;"> [답글]</font>&nbsp;&nbsp;${article.content}	
+		  <font color="gray" size="2" style="margin: 3px;">${article.emp_name}(${article.re_num})&nbsp;&nbsp;&nbsp;&nbsp;${article.re_date}</font>
+		  <input TYPE="IMAGE" src="/JackPot/save/trash.png"  width="21" height="21"  name="Submit" value="Submit" align="absmiddle">
+		   
+		            </li> 
+		            
+		            
+		  </c:if>     
+      </form>
+     </table> 
+      
+      </c:forEach>
+     </td>
+     </tr>
+     
+  </div>
+      </form>    
+
+    </table>
+ <div id="layer1" class="pop-layer">
 								    <div class="pop-top">
 									<font>게시판</font><a href="#" class="cbtn"><img src="/JackPot/mainsave/logout.jpg"/></a>
 									</div>
@@ -398,189 +618,9 @@ Dropzone.options.myDropzone = {
 						<a href="#" class="cbtn">닫기</a>
 						</div>
 					</div>
-				</div>
-					</li>
-					<li style="text-align:center;height:40px;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
-					<a href="/JackPot/community.jp" style="text-decoration:none;">최근게시글</a></li>
-					<li class="boardmenu" style="width:208px;display:inline-block;text-align:center;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
-					<a style="display:inline-block;height:40px;">게시판 목록</a>
-								   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li>공지사항</li>
-								      <li>자유게시판</li>
-								      <li>게시판1</li>
-								      <li>게시판2</li>
-								      <li>게시판3</li>
-								   </ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
-</body>
-
-<div id="main-contents">
-	
-	<div class="con-header bdr-b">
-	<h3>
-		자유게시판
-	</h3>
-	<div id="navText" class="breadcrumb-line"></div>
-	</div>
-	
-
-      <div class="content-wrap">
-      
-      
- <div class="board-header">
-	<h3>	
-						<i class="icon nonimp">	</i>
-				
-				 ${dto.title }
-
-
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">추천하기 </font>
-				<a id="recommend" href="/JackPot/like.jp?com_num=${dto.com_num}"> 	
-							
-				<img src="/JackPot/save/like (2).png" width="30" height="30">						   
-					
-				</a>
-			</h3>
-			
-
-<ul class="writer-info mt15">
-			
-				
-				<li style="display:-webkit-inline-box;">
-					
-						<span class="ellipsis"> ${dto.writer }</span>
-						<span class="txt_bar"></span>
-					
-				</li>
-				<li style="display:-webkit-inline-box;">
-					<span class="num"> ${dto.reg_date}</span>
-					<span class="txt_bar"></span>
-				</li>
-				<li style="display:-webkit-inline-box;">
-					
-						<span class="ellipsis"> 추천수 : ${dto.recommend }</span>
-						<span class="txt_bar"></span>
-						</li>
-				<li style="display:-webkit-inline-box;">
-					
-						<span class="ellipsis"> 조회수 : ${dto.readcount }</span>
-			   </li>		
-			</ul>		
-	
-		</div>
-
-<div class="panel-body message-body"  style="margin: 0 0 0 20;">
-		 
-	    <div id="boardItemContent" class="contentsBody">
-          
-			
-		&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">${dto.content}</font>
-
-			 
-           
-        </div>
-        <br/>
-         <br/>
-          <br/>
-           <br/>
-            <br/>
-             <br/>
-              <br/>
-               <br/>
-                <br/>
-            
-        
-	</div>
-	
+				</div>   
     
-</div>
-
-
-<table width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">
-      <form method="post"  action="comment.jp">
-      
-    <tr height="20" >
-        <td bgcolor="gray" align="center">
-        <font color="white">Comment</font></td></tr>
-        
-      <input type="hidden" name="com_num" value="${dto.com_num}"/>
-      <input type="hidden" name="emp_num" value="${dto.emp_num}"/>
     
-         
-<div class="comment-wrap op">
-	<div class="reply-wrap"><span><i class="icon reply"></i></span> ${check} </div>
-		<div class="input-group">
-			
-				<input name="itemId" type="hidden" value="8501850">
-				<textarea title="textarea" id="8501850_contents" name="content" rows="2" class="form-control original" placeholder="댓글을 입력하세요."></textarea>
- 
- <span class="input-group-btn">
- 							
-				<!-- <img src="/JackPot/save/chatting.png" width="40" height="40" onclick="test(this.form);">	 -->					   
-				<input  TYPE="IMAGE" src="/JackPot/save/chatting.png"  width="45" height="45" name="Submit" value="Submit" align="absmiddle">					 
-		</span>          
-     </Td>    
-      </tr>   
-</form>   
-
-     
-     <tr >
-     <td>
-     
-      <c:forEach var="article" items="${articleList}" varStatus="status">
-
-    
-     <li class="last">
-		        <ul>		        	
-		        	<li class="name">
-					<font color="gray" size="2"	style="margin: 3px;">${article.emp_name}(${article.re_num})&nbsp;&nbsp;&nbsp;&nbsp;${article.re_date} </font>
-             
-             <input type="hidden" name="rep_num" value="${article.rep_num}">
-             <input type="hidden" name="com_num" value="${article.ref}"/>
-             
-             <a href="/JackPot/CommentDEL.jp?ref=${article.ref}&rep_num=${article.rep_num}"> 	
-				<img src="/JackPot/save/garbage2.png" width="18" height="18" >			   
-			</a>
-				
-		      <a class="recommend" onclick="recommend()" href="#<%-- /JackPot/reply.jp?ref=${article.ref}&rep_num=${article.rep_num} --%>" style="margin:0 10 0 20;"> 	
-				[답글쓰기]   
-			</a>
-		<ul style="display:none;width:500px;height:20px;background:gray;">
-		<form>
-		
-		</form>
-		</ul>
-				
-				
-		             <li class="content" style="margin: 5px;">${article.content}
-		             
-		      
-							
-		            </li> 
-	                           
-		        </ul>
-	
-		    </li>
-		 </div>
-     
-     
-     
-      
-      </c:forEach>
-     </td>
-     </tr>
-     
-  </div>
-      </form>    
-
-
-</div>
-    </table>
 </div>
 </html>
 

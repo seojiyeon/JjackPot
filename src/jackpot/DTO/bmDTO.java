@@ -7,17 +7,38 @@ public class bmDTO {
 	private String bm_title;	/*제목*/
 	private String bm_content; 	/*내용*/
 	private int bm_form;		/*업무형태*/
-	private Timestamp bm_start;	/*업무시작일*/
-	private Timestamp bm_end;	/*업무종료일*/
+	private String bm_start;	/*업무시작일*/
+	private String bm_end;	/*업무종료일*/
 	private Timestamp enrollment;	/*업무등록일*/
 	private String reg_notice;		/*등록알림*/
 	private String cmp_notice;		/*완료알림*/
 	private String related_bns; 	/*관련업무*/
 	private int  bns_box;			/*업무보관함*/
 	private int important;			/*중요업무*/
-	private String bm_state;		/*업무상태*/
+	private int bm_state;		/*업무상태*/
+	private String bm_state2;		/*업무상태*/
 	private String emp_num;			/*작성자*/
+	private String bm_name;			/*작성자*/
 	private	String day;
+	
+	
+	public String getBm_state2() {
+		return bm_state2;
+	}
+	public void setBm_state2(String bm_state2) {
+		this.bm_state2 = bm_state2;
+	}
+
+	public String getBm_name() {
+		return bm_name;
+	}
+	public void setBm_name(String bm_name) {
+		this.bm_name = bm_name;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 
 	
 	public String getDay() {
@@ -50,16 +71,16 @@ public class bmDTO {
 	public void setBm_form(int bm_form) {
 		this.bm_form = bm_form;
 	}
-	public Timestamp getBm_start() {
+	public String getBm_start() {
 		return bm_start;
 	}
-	public void setBm_start(Timestamp bm_start) {
+	public void setBm_start(String bm_start) {
 		this.bm_start = bm_start;
 	}
-	public Timestamp getBm_end() {
+	public String getBm_end() {
 		return bm_end;
 	}
-	public void setBm_end(Timestamp bm_end) {
+	public void setBm_end(String bm_end) {
 		this.bm_end = bm_end;
 	}
 	public Timestamp getEnrollment() {
@@ -98,10 +119,10 @@ public class bmDTO {
 	public void setImportant(int important) {
 		this.important = important;
 	}
-	public String getBm_state() {
+	public int getBm_state() {
 		return bm_state;
 	}
-	public void setBm_state(String bm_state) {
+	public void setBm_state(int bm_state) {
 		this.bm_state = bm_state;
 	}
 	
@@ -155,7 +176,7 @@ public class bmDTO {
 	/*업무보관함(bns_box)*/
 	
 	private int bns_num;		/*업무보관번호*/
-	private String bns_name;	/*업무보관함이름*/
+	private String box_name;	/*업무보관함이름*/
 
 	public void setBns_num(int bns_num){
 		this.bns_num = bns_num;
@@ -164,11 +185,11 @@ public class bmDTO {
 		return bns_num;
 	}
 	
-	public void setBns_name(String bns_name){
-		this.bns_name = bns_name;
+	public void setBox_name(String box_name){
+		this.box_name = box_name;
 	}
-	public String getBns_name(){
-		return bns_name;
+	public String getBox_name(){
+		return box_name;
 	}
 	
 	/*업무관리 파일(bm_file)*/
@@ -344,12 +365,32 @@ public class bmDTO {
 		this.bm_formName = bm_formName;
 	}
 
-	
-	
-	
-	
-	
-	
+	/*업무상태(bm_state)*/
+	private int state_num;
 
 	
+	public void setState_num(int state_num){
+		this.state_num = state_num;
+	}
+	public int getState_num() {
+		return state_num;
+	}
+	 /*중요도 (important)*/
+	private int imp_num;
+	private String important2;
+	
+	public void setImp_num(int imp_num){
+		 this.imp_num=imp_num;
+	}
+	public int getImp_num(){
+		return imp_num;
+	}
+	
+	public String getImportant2() {
+		return important2;
+	}		
+	public void setImportant2(String important2) {
+		this.important2 = important2;
+	}
+	 
 }

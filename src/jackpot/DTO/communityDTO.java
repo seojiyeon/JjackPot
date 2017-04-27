@@ -13,8 +13,8 @@ public class communityDTO {
 	private int recommend;
 	private int tmp_storage;
 	private int ref;
-	private int re_step;
 	private int re_level;
+	private int re_step;
 	private String btype;
 	private String emp_num;
 	private int rep_num;
@@ -23,6 +23,8 @@ public class communityDTO {
 	private Timestamp re_date;
 	private String reply_con;
 	private String reply_num;
+	private int step_num;
+	
 	
 	public int getCom_num() {
 		return com_num;
@@ -85,12 +87,7 @@ public class communityDTO {
 	public void setRe_step(int re_step) {
 		this.re_step = re_step;
 	}
-	public int getRe_level() {
-		return re_level;
-	}
-	public void setRe_level(int re_level) {
-		this.re_level = re_level;
-	}
+	
 	public String getBtype() {
 		return btype;
 	}
@@ -138,6 +135,18 @@ public class communityDTO {
 	}
 	public void setReply_num(String reply_num) {
 		this.reply_num = reply_num;
+	}
+	public int getStep_num() {
+		return step_num;
+	}
+	public void setStep_num(int step_num) {
+		this.step_num = step_num;
+	}
+	public int getRe_level() {
+		return re_level;
+	}
+	public void setRe_level(int re_level) {
+		this.re_level = re_level;
 	}
 	
 	
