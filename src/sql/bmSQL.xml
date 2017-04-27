@@ -71,7 +71,7 @@
 	<!--  업무입력  -->
 		<insert id="insertBusiness" parameterClass="bmdto">
 	
-				insert into business_manage(bm_num,bm_title,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
+				insert into business_manage values(
 					bm_seq.nextval,
 					#bm_title#,
 					#bm_content#,
@@ -85,14 +85,16 @@
 					#bns_box#,
 					#important#,
 					#bm_state#,
-					#emp_num#
+					#emp_num#,
+					#bm_name#
+					
 				)
 				
 		
 		</insert>
 		
-		<select id="showBmNum" resultClass="bmdto">
-			select max(*) from business_manage
+		<select id="showBmNum" resultClass="int">
+			select max(bm_num) from business_manage
 		</select>
 	
 	

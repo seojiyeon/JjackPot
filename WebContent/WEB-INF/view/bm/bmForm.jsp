@@ -252,7 +252,7 @@ function resetAll(){
                             <th scope="row"><span class="text-point-b">*</span>제목</th>
                             <td>
                                 <div>
-                                	<input type="text" title="제목" name="bm_tiltie" class="form-control" placeholder="제목을 입력하세요.">
+                                	<input type="text" title="제목" name="bm_title" class="form-control" value="${bm_title}" placeholder="제목을 입력하세요.">
                                 </div>
                             </td>
                         </tr>
@@ -292,7 +292,7 @@ function resetAll(){
                             	<span class="text-point-b">*</span>담당자</th>
                             <td>
                             
-								<input type="text" title="사용자" name="inchar_name" placeholder="사용자" style="box-shadow:none;">
+								<input type="text" title="사용자" name="inchar_name"  value="${inchar_name}" placeholder="사용자" style="box-shadow:none;">
                                 <button type="button" class="btn input-group-addon btn-color5 br" onclick="openInchar()"><i class="icon man-plus">
                                 <span class="none">사용자</span></i></button>
      						</td>
@@ -302,7 +302,7 @@ function resetAll(){
                         	<th id="rec_name" scope="row" ><span class="text-point-b">*</span>수신자</th>
                             <td>
                       
-                                <input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
+                                <input type="text" title="사용자" id="selectUser2_input"  value="${rec_name}" placeholder="사용자" style="box-shadow:none;">
                                	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
                                 <i class="icon man-plus"><span class="none">사용자</span></i></button>
                             </td>
@@ -313,7 +313,7 @@ function resetAll(){
                             </th>
                             
                             <td>
-                            	<input type="text" title="사용자" id="selectUser2_input" placeholder="사용자" style="box-shadow:none;">
+                            	<input type="text" title="사용자" id="selectUser2_input"  value="${ref_name}" placeholder="사용자" style="box-shadow:none;">
                                	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
                                 <i class="icon man-plus"><span class="none">사용자</span></i></button>
                             </td>
@@ -344,7 +344,7 @@ function resetAll(){
                         <tr >
                             <th scope="row"><label for="bns_box">업무 보관함</label></th>
                             <td>
-                            	<select name="Bns_box" class="w400" style="">
+                            	<select name="bns_box" class="w400" style="">
 									<c:if test="${countBns_box == 0}">
 										<option value="0">폴더 없음</option>
 									</c:if>
@@ -354,7 +354,7 @@ function resetAll(){
 												<option value="${Bns_box.bns_num}" selected>${Bns_box.box_name}</option>
 											</c:if>
 											<c:if test="${Bns_box.bns_num != bmdto.getBns_box()}">
-												<option value="${Bns_box.bns_num}" >${Bns_box.box_name}</option>
+												<option value="${Bns_box.bns_num}">${Bns_box.box_name}</option>
 											</c:if>									
 									</c:forEach>
 								</c:if>
@@ -366,7 +366,7 @@ function resetAll(){
                         <tr id="categoryTR3">
                             <th scope="row"><label for="related_bns">관련업무</label></th>
                             <td>
-                                <button type="button" class="btn btn-color8 br" onclick="javascript:selectTodoViewPopup();">관련업무 추가</button>
+                                <button type="button" class="btn btn-color8 br" value="${related_bns}"  onclick="javascript:selectTodoViewPopup();">관련업무 추가</button>
                                 <div id="addTask"></div>
                             </td>
                         </tr>
@@ -378,11 +378,11 @@ function resetAll(){
 							<!--ckeditor 부분 -->
 					<div>
 					
-						<textarea class="ckeditor" cols="1" id="bm_content" name="bm_content" rows="15"></textarea>
+						<textarea class="ckeditor" cols="1" id="bm_content" name="${bm_content}" rows="15"></textarea>
 						
 						
 					</div>
-<div class="btn-wrap" ">
+	<div class="btn-wrap" >
 		<input type="submit" value="저장" class="btn btn-color5 br" />
         <button type="button" onClick="window.location='bmForm.jp'"class="btn2 btn-color7 br">취소</button>
     

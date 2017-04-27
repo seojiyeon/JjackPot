@@ -12,7 +12,7 @@ public class bmDTO {
 	private Timestamp enrollment;	/*업무등록일*/
 	private String reg_notice;		/*등록알림*/
 	private String cmp_notice;		/*완료알림*/
-	private String related_bns; 	/*관련업무*/
+	private int related_bns; 	/*관련업무*/
 	private int  bns_box;			/*업무보관함*/
 	private int important;			/*중요업무*/
 	private int bm_state;		/*업무상태*/
@@ -101,10 +101,10 @@ public class bmDTO {
 	public void setCmp_notice(String cmp_notice) {
 		this.cmp_notice = cmp_notice;
 	}
-	public String getRelated_bns() {
+	public int getRelated_bns() {
 		return related_bns;
 	}
-	public void setRelated_bns(String related_bns) {
+	public void setRelated_bns(int related_bns) {
 		this.related_bns = related_bns;
 	}
 	public int getBns_box() {

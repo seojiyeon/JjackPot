@@ -516,11 +516,16 @@ public class bmBean {
 	public String bmForm(bmDTO bmdto,Model model,HttpSession session,String dateFormatStr ){
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
+		int countBns_box = (int) sqlMap.queryForObject("bm.countBns_box",bmdto);
+		List ListBns_box = sqlMap.queryForList("bm.ListBns_box", bmdto);
 		
 	
 		bmdto = (bmDTO)sqlMap.queryForObject("bm.getEmp_name", null);	
+	
 		model.addAttribute("bmdto",bmdto);
 		model.addAttribute("emp_num",emp_num);
+		model.addAttribute("countBns_box", countBns_box);
+		model.addAttribute("ListBns_box", ListBns_box);
 		
 
 
@@ -533,35 +538,53 @@ public class bmBean {
 	public String bmForm(Model model,bmDTO bmdto, HttpServletRequest request ,HttpSession session){
 		
 		String emp_num =(String)session.getAttribute("memId");
-		String name = (String) sqlMap.queryForObject("bm.getEmp_name", emp_num);
-		int countBns_box = (int) sqlMap.queryForObject("bm.countBns_box",bmdto);
-		List ListBns_box = sqlMap.queryForList("bm.ListBns_box", bmdto);
-
-		int bmNum = (int)sqlMap.insert("bm.showBmNum", null);
-		bmdto.setBm_num(bmNum);
+		String bm_name = (String) sqlMap.queryForObject("bm.getEmp_name", emp_num);
+		
+	
+//		int bm_num = 0;
+//
+//		int countBm_num = (int) sqlMap.queryForObject("bm.showBmNum", bm_num);
+//		bmdto.setBm_num(bm_num);
 		bmdto.setBm_title(request.getParameter("bm_title"));
 		bmdto.setBm_content(request.getParameter("bm_content"));
 		bmdto.setBm_form(Integer.parseInt(request.getParameter("bm_form")));
 		
-		bmdto.setBm_content(request.getParameter("enrollment"));
+//		bmdto.setBm_content(request.getParameter("enrollment"));
 		
 		bmdto.setReg_notice(request.getParameter("reg_notice"));
 		bmdto.setCmp_notice(request.getParameter("cmp_notice"));
-		bmdto.setRelated_bns(request.getParameter("related_bns"));
+		String related_bns = request.getParameter("related_bns");
+		
+		if(related_bns == null) {
+			bmdto.setRelated_bns(0);
+		} else if(related_bns != null) {
+			bmdto.setRelated_bns(Integer.parseInt(related_bns));
+		}
+		
 		bmdto.setBns_box(Integer.parseInt(request.getParameter("bns_box")));
-		bmdto.setImportant(Integer.parseInt(request.getParameter("important")));
-		bmdto.setBm_state(Integer.parseInt(request.getParameter("bm_state")));
-		bmdto.setBm_content(request.getParameter("bm_name"));
-
+		
+		String important = request.getParameter("important");
+		if(important == null) {
+			bmdto.setImportant(1);
+		} else if(important != null) {
+			bmdto.setImportant(Integer.parseInt(important));
+		}
+			
+		bmdto.setBm_state(1); // 기본값 : 미완료
 		
 		/*시작 끝 날짜 */
 		bmdto.setBm_start(request.getParameter("bm_start"));
 		bmdto.setBm_end(request.getParameter("bm_end"));
+		bmdto.setEmp_num(emp_num);
+		bmdto.setBm_name(bm_name);
 		sqlMap.insert("bm.insertBusiness", bmdto);
+		int maxBmNum = (int) sqlMap.queryForObject("bm.showBmNum", null);
+		
 	
 		
 		
 		/*담당자*/
+		
 		String Inchar = bmdto.getInchar_name();
 		String inchar_name[] = request.getParameterValues("inchar_name");
 		for(int i=0; i<inchar_name.length; i++ ) {
@@ -572,7 +595,8 @@ public class bmBean {
 		/*참조자*/
 		String Bm_ref = bmdto.getRef_name();
 		bmdto.setEmp_num(emp_num);
-		bmdto.setBm_num(bmNum);
+//		bmdto.setBm_num(bm_num);
+		bmdto.setBm_num(maxBmNum);
 		String ref_name[] = request.getParameterValues("ref_name");
 		for(int i=0; i<ref_name.length; i++ ) {
 			bmdto.setRef_name(ref_name[i]);
@@ -584,7 +608,8 @@ public class bmBean {
 		/*수신자*/
 		String Bms_ref = bmdto.getRec_name();
 		bmdto.setEmp_num(emp_num);
-		bmdto.setBm_num(bmNum);
+//		bmdto.setBm_num(bm_num);
+		bmdto.setBm_num(maxBmNum);
 		String rec_name[] = request.getParameterValues("rec_name");
 		for(int i=0; i<inchar_name.length; i++ ) {
 			bmdto.setRec_name(rec_name[i]);
@@ -595,7 +620,8 @@ public class bmBean {
 		String his_process = bmdto.getHis_process();
 		String his_content = bmdto.getHis_content();
 		bmdto.setEmp_num(emp_num);
-		bmdto.setBm_num(bmNum);
+//		bmdto.setBm_num(bm_num);
+		bmdto.setBm_num(maxBmNum);
 		bmdto.setHis_process(his_process);
 		bmdto.setHis_content(his_content);
 		sqlMap.insert("bm.insertHistory", bmdto);
@@ -603,14 +629,16 @@ public class bmBean {
 		/*업무파일 등록*/
 		String org_file = bmdto.getOrg_file();
 		String sys_file = bmdto.getSys_file();
-		bmdto.setBm_num(bmNum);
+//		bmdto.setBm_num(bm_num);
+		bmdto.setBm_num(maxBmNum);
 		bmdto.setOrg_file(org_file);
 		bmdto.setSys_file(sys_file);
 		sqlMap.insert("bm.inserBm_file", bmdto);
 		
 		/*업무형태 등록*/
 		int bm_form = bmdto.getBm_form();
-		bmdto.setBm_num(bmNum);
+//		bmdto.setBm_num(bm_num);
+		bmdto.setBm_num(maxBmNum);
 		bmdto.setBm_form(bm_form);
 		sqlMap.insert("bm.insertBusiness", bmdto);
 		
@@ -620,9 +648,7 @@ public class bmBean {
 		
 
 		
-		model.addAttribute("countBns_box", countBns_box);
-		model.addAttribute("bmNum", bmNum);
-		model.addAttribute("ListBns_box", ListBns_box);
+//		model.addAttribute("bm_num", bm_num);
 		
 
 		return "/bm/bmFormPro";
