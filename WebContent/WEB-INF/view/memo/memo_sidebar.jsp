@@ -65,8 +65,14 @@
 	
 	
 	/* 메모 카테고리 선택 후 페이지 이동 */
-	function selectMove(memo_cate) {
-		document.multiForm.action="memoCateMove.jp?memo_cate="+memo_cate;
+	$(document).ready(function() {
+		$('.memoNum').click(function() {
+			var memoNumArray = new Array();
+		});
+	});
+	
+	function selectMove(a) {
+		document.multiForm.action="memoCateMove.jp?memo_cate="+a;
 		document.multiForm.submit();
 	}
 </script>
@@ -136,6 +142,7 @@
 				<li>이동할 메모를 선택해 주세요.</li>
 				<c:forEach var="memoCate" items="${memoCateList}">
 					<li style=" height: 25px;">
+						<input type="hidden" value="${memoCate.cate_num}" name="memo_cate" />
 						<img alt="before" src="/JackPot/images/memo/right-arrow.png" />
 						<a onclick="selectMove(${memoCate.cate_num})">${memoCate.getCate_title()}</a>
 						<input type="hidden" value="${memoCate.cate_num}" name="memo_cate" />

@@ -55,7 +55,7 @@
 			</div>
 		</div>
 		
-		<form name="multiForm">
+		<form name="multiForm" method="post">
 		<div class="content-write" style="width:100%;">
 			<table>
 				<c:if test="${count == 0}">
@@ -68,7 +68,7 @@
 				<c:forEach var="memoCont" items="${memoCont}"> 
 					<tr>
 						<td>
-							<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
+							<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" class="memoNum"/>
 							<img alt="중요" src="/JackPot/images/memo/notImp.png" />
 							<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}">${memoCont.getMemo_title()}</a></font>
 						</td>

@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		
-		<form name="multiForm">
+		<form name="multiForm" method="post">
 		<div class="content-write" style="width:100%;">
 			<table>
 				<c:if test="${impCount == 0}">
@@ -111,7 +111,7 @@
 	
 	<div class="main-bottom">
 		<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp'">등록</button>
-		<button type="button" class="btnMove" onclick="">이동</button>
+		<button type="button" class="btnMove">이동</button>
 		<button type="button" class="btnDelete" onclick="selectDelete()">삭제</button>
 	</div>
 </div>

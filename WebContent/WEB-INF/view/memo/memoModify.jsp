@@ -67,20 +67,6 @@
     	    list:"#img-list" //파일목록을 출력할 요소 지정가능
 	    });	
 	});
-	
-	
-	/* 메뉴 슬라이드 업&다운 */
-	$(document).ready(function() {
-		$(".listFolder>a").click(function() {
-			var subMenu = $(this).next("ul");
-			
-			if(subMenu.is(":visible")) {
-				subMenu.slideUp();
-			} else {
-				subMenu.slideDown();
-			}
-		});
-	});
 </script>
 
 <html>

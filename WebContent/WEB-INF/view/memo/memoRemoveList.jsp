@@ -55,7 +55,7 @@
 			</div>
 		</div>
 		
-		<form name="multiForm">
+		<form name="multiForm" method="post">
 		<div class="content-write" style="width:100%;">
 			<table>
 				<c:if test="${removeCount == 0}">

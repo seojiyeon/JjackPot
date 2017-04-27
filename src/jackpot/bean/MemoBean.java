@@ -533,8 +533,8 @@ public class MemoBean {
 	
 	@RequestMapping("/memoCateMove.jp")
 	public String memoCateMove(String pageNum, Model model, HttpServletRequest request, memoDTO dto) {
+		System.out.println("memo_cate ="+ request.getParameter("memo_cate"));
 		String memo_num[] = request.getParameterValues("memo_num");
-		System.out.println(dto.getMemo_cate());
 		for(int i=0; i<memo_num.length; i++) {
 			dto.setMemo_num(Integer.parseInt(memo_num[i]));
 			
