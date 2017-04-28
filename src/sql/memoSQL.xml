@@ -155,6 +155,10 @@
 		update memo set memo_cate=#memo_cate# where memo_num=#memo_num#
 	</update>
 	
+	<update id="memoRecover" parameterClass="mdto">
+		update memo set memo_cate=#memo_cate#, memo_state=1 where memo_num=#memo_num#
+	</update>
+	
 	<!-- 메모 이미지&파일 -->
 	<!-- memo 이미지 불러오기 -->
 	<select id="memoImg" parameterClass="mdto" resultClass="mdto">

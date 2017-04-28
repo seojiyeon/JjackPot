@@ -101,7 +101,7 @@
 			</div>
 			<div class="inputFileNImg">
 				<input type="reset" value="새메모" />
-				<input type="file" name="org_img" value="이미지 첨부" id="imgInp" />
+				<span class="imgButton"><input type="file" name="org_img" value="이미지 첨부" id="imgInp" /></span>
 				<input type="file" name="org_file" value="파일 첨부" id="fileInp" />
 			</div>
 		</div>
@@ -127,8 +127,9 @@
 				</tr>
 			</table>
 			<div>
+				<input type="hidden" value="${memoGroup}" name="memoGroup" />
 				<input type="submit" value="저장" />
-				<button type="button" onClick="window.location='memoList.jp'">취소</button>
+				<button type="button" onClick="window.location='memoList.jp?memoGroup=${memoGroup}'">취소</button>
 			</div>
 		</div>
 		</form>

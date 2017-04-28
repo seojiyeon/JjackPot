@@ -128,8 +128,9 @@
 				</tr>
 			</table>
 			<div>
-				<input type="submit" value="저장" />
-				<button type="button" onClick="window.location='memoList.jp?pageNum=${pageNum}'">취소</button>
+				<input type="submit" value="수정" />
+				<input type="hidden" value="${memoGroup}" name="memoGroup" />
+				<button type="button" onClick="window.location='memoList.jp?pageNum=${pageNum}&memoGroup=${memoGroup}'">취소</button>
 			</div>
 		</div>
 		</form>
