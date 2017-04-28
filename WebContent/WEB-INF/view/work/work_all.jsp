@@ -117,7 +117,6 @@ table.ui-datepicker-calendar { display:none; }
 		<table  width="600" border="0"> 
     	<tr>
     		<td>
-    			<fmt:formatDate value="${date }" pattern="yyyy-MM" var="date"/>
 				<input type="text" id="work_date" value=${date} onchange="ttt()" />
    		</td>
     	</tr>
@@ -160,6 +159,7 @@ table.ui-datepicker-calendar { display:none; }
 						<th style="text-align:center;"><label >퇴근시각</label>
 						</th>
 						<th  style="text-align:center;"><label>근무시간</label></th>
+						<th style="text-align:center;"><label>휴일근로</label></th>
 						<th style="text-align:center;"><label>연장근로</label></th>
 						<th  style="text-align:center;"><label>지각시간</label></th>
 						<th  style="text-align:center;"><label>조퇴시간</label></th>
@@ -181,6 +181,7 @@ table.ui-datepicker-calendar { display:none; }
 								<td  style="text-align:center;height: 30px;"><label>${sys.format(wdto.work_on)}</label></td>
 								<td  style="text-align:center;"><label>${sys.format(wdto.work_off)}</label></td>
 								<td style="text-align:center;"><label >${wdto.work_time}</label></td>
+								<td style="text-align:center;"><label >${wdto.h_work}</label></td>
 								<td style="text-align:center;"><label >${wdto.workOut}</label></td>
 								<td style="text-align:center;"><label >${wdto.lateNess}</label></td>
 								<td style="text-align:center;"><label >${wdto.early}</label></td>

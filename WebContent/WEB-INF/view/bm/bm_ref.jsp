@@ -41,36 +41,7 @@ function setName(e)
    	 	<div class="modal-close"><a href="javascript:void(0)" data-dismiss="modal">
     		<i class="icon pop-close"></i><span>Close</span></a>
     	</div></div></div>-->
-					<tbody>
-						<tr>
-							<th scope="row"><label for="hrBasiMatrMngGridSearchForm_enplcCd"><span class="text-point-b" title='필수입력항목'>*</span>
-								사업장</label></th>
-							<!-- 사업장 -->
-							<td><select class="w150" id="hrBasiMatrMngGridSearchForm_enplcCd" name="enplcCd">
-									
-										<option value="G001" selected>루크</option>
-									
-							</select></td>
-
-							<th scope="row"><label for="hrBasiMatrMngGridSearchForm_searchColumn">검색어</label></th>
-							<!-- 검색어 -->
-							<td><select id="hrBasiMatrMngGridSearchForm_searchColumn" class="w100" name="searchColumn">
-									<option value="1">성명</option>
-									<option value="2">사원번호</option>
-									<option value="3">부서</option>
-							</select> <input type="text" class="w100" id="hrBasiMatrMngGridSearchForm_searchWord" name="searchWord" title="검색어" /></td>
-						
-							<td>	
-								<div class="search_btn">
-					<button type="submit" class="btn btn-color5" >
-						<i class="fa fa-search"></i>
-						검색
-					</button>
-				</div>
-				</td>
-						
-						</tr>
-					</tbody> 
+ 
    		<div class="modal-body">
    		
 			<div class="shuttleL">
@@ -108,8 +79,6 @@ function setName(e)
 
 
 </div></div>
-
-
 <!-- 
 	<c:if test="${count==0}">
 	</c:if>

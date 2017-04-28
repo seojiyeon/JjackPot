@@ -23,7 +23,7 @@
                         buttonImageOnly: true ,
                         buttonText: "Select date",
                         buttonImageSize : "vertical-align: middle; margin: 10px 10px 10px 10px",
-        	    	 	dateFormat:'yyyy-mm-dd', 
+        	    	 	dateFormat:'yy-mm-dd', 
 						showButtonPanel: true,
 						changeMonth: true, 
 						changeYear: true,
@@ -58,10 +58,10 @@
 	<script>
 		$(document).ready(function(){
 			$("#work_on").click(function(){
-				var  result = confirm('출근처리하시겠습니까');
+				var result = confirm('출근처리하시겠습니까');
 				window.location="/JackPot/work_on.jp";
+				});
 			});
-		});
 		</script>
 		
 		<script>	
@@ -81,8 +81,7 @@
     <table  width="600" border="1">
     	<tr>
     		<td>
-    			<fmt:formatDate value="${date }" pattern="yyyy-MM-dd" var="date"/>
-				<input type="text" id="work_date" value="${date }" onchange="test(this.value)">
+				<input type="text" id="work_date" value=${date } onchange="test(this.value)">
     		</td>
     	</tr>
     </table>
@@ -111,57 +110,42 @@
 	<div class="tab-content">
 		<div id="tabs-1" class="tab-pane active">
 			<div class="content-write mb10">
-				<table class="table border-top separate">
-					<colgroup>
-						<col width="80">
-						<col width="80">
-						<col width="80">
-						<col width="80">
-						<col width="80">
-						<col width="80">
-						<col width="80">
-						<col width="80">
-		 				<col width="80">
-						<col width="80">
-						<col width="110">
-					</colgroup>
-					
+				<table class="table border-top separate">					
 				<tbody>
 					<tr>
-						<th style="text-align:center;"><label>사원번호</label></th>
-						<th style="text-align:center;"><label for="onedayGolvwkMngPersForm_onedayGolvwkMngPersForm_work_on">
+						<th style="width: 100px;text-align:center;"><label>사원번호</label></th>
+						<th style="width: 100px;text-align:center;"><label for="onedayGolvwkMngPersForm_onedayGolvwkMngPersForm_work_on">
 						<span class="text-point-b" title="필수입력항목">*</span>출근시각</label>
 						</th>
-						<th style="text-align:center;"><label for="onedayGolvwkMngPersForm_work_off">퇴근시각</label>
+						<th style="width: 100px;text-align:center;"><label for="onedayGolvwkMngPersForm_work_off">퇴근시각</label>
 						</th>
-						<th style="text-align:center;"><label>근무시간</label></th>
-						<th style="text-align:center;"><label>휴일근로</label></th>
-						<th style="text-align:center;"><label>연장근로</label></th>
-						<th style="text-align:center;"><label>지각시간</label></th>
-						<th style="text-align:center;"><label>조퇴시간</label></th>
-						<th style="text-align:center;width: 100px;">
+						<th style="width: 100px;text-align:center;"><label>근무시간</label></th>
+						<th style="width: 100px;text-align:center;"><label>연장근로</label></th>
+						<th style="width: 100px;text-align:center;"><label>지각시간</label></th>
+						<th style="width: 100px;text-align:center;"><label>조퇴시간</label></th>
+						<th style="width: 130px;text-align:center;">
 						<label for="onedayGolvwkMngPersForm_clientIP">PC IP</label></th>
 					</tr>
+					</table>
 					
 					
-					
+			<table>		
 			<tr id="workday">		
 				<c:if test="${wdto.work_on == null}">
-							<th style="text-align:center;"><label>출근기록이 없습니다</label></th>
+							<th style="text-align:center;width: 730px;"><label>출근기록이 없습니다</label></th>
 				</c:if>
 			
 				<c:if test="${wdto.work_on != null}">		
-						<td name="emplMgntNo" style="text-align:center;">${wdto.emp_num}</td>
-						<td style="text-align:center;height: 30px;"><label>${sys.format(wdto.work_on)}</label></td>
-						<td style="text-align:center;">
+						<th style="width: 105px;text-align:center;">${wdto.emp_num}</td>
+						<th style="width: 105px;text-align:center;"><label>${sys.format(wdto.work_on)}</label></th>
+						<th style="width:105px;text-align:center;">
 						<c:if test="${wdto.work_off == null }"><label >00:00</label></c:if>
-						<c:if test="${wdto.work_off != null }"><label >${sys.format(wdto.work_off)}</label></c:if></td>
-						<td style="text-align:center;"><label >${wdto.work_time}</label></td>
-						<td style="text-align:center;"><label >${wdto.h_work}</label></td>
-						<td style="text-align:center;"><label >${wdto.workOut}</label></td>
-						<td style="text-align:center;"><label>${wdto.lateNess}</label></td>
-						<td style="text-align:center;"><label>${wdto.early}</label></td>
-						<td id="onedayGolvwkMngPersForm_ip" style="text-align:center;"><label>${wdto.ip}</label></td>
+						<c:if test="${wdto.work_off != null }"><label >${sys.format(wdto.work_off)}</label></c:if></th>
+						<th style="width: 105px;text-align:center;"><label >${wdto.work_time}</label></th>
+						<th style="width: 105px;text-align:center;"><label >${wdto.workOut}</label></th>
+						<th style="width: 105px;text-align:center;"><label>${wdto.lateNess}</label></th>
+						<th style="width: 105px;text-align:center;"><label>${wdto.early}</label></th>
+						<th id="onedayGolvwkMngPersForm_ip" style="width: 130px;text-align:center;"><label>${wdto.ip}</label></th>
 					</c:if>
 				</tr>
 

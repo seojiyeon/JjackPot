@@ -287,16 +287,18 @@ tbody {
                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                            ${bmdto.bm_title}
+                        	<a href="myBmYCHContent.jp?emp_num=${emp_num}&bm_num=${=.bm_num}&pageNum=${pageNum}">
+                            	${bmdto.bm_title}
+                           	</a>
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_name}
                         </th>
                         <th style="width: 120px;">
-                          ${sdf.format(bmdto.bm_start)}
+                          ${bmdto.bm_start}
                         </th>
                         <th style="width: 120px;">
-                            ${sdf.format(bmdto.bm_end)}
+                            ${ bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_state2}
