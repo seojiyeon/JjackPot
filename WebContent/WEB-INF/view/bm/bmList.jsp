@@ -287,7 +287,7 @@ tbody {
                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                        	<a href="myBmYCHContent.jp?emp_num=${emp_num}&bm_num=${=.bm_num}&pageNum=${pageNum}">
+                        	<a href="myBmYCHContent.jp?emp_num=${bmdto.emp_num}&bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                            	</a>
                         </th>
@@ -311,7 +311,7 @@ tbody {
 			
 		<div class="page-wrap">
 			<table>
-				<c:if test="${count > 0}">
+				<c:if test="${bmcount > 0}">
 				
 				<c:if test="${startPage > 10}">
 					<a href="bmList.jp?pageNum=${startPage-10}">[이전]</a>

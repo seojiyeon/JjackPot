@@ -70,7 +70,7 @@
 
  -->
 
-<title> 내가한 업무 요청 조회 </title>
+<title> 업무관리  </title>
 </head>    
  <body>
 <!-- ========================================================사이드바======================================================================= -->		
@@ -153,8 +153,9 @@
 <div class="content-write" style="width: 100%;">
 <div class="con-header">
     <h2>나의 할 일 조회</h2>
-    </div>
+</div>
 <div class="form-block">
+
                 <table class="table">
                     <caption></caption>
                     <tbody>
@@ -173,13 +174,7 @@
                             </td>                            
                             
                         </tr>
-	                   <tr>
-							<th scope="row">지시자 </th>
-                            <td>
-                                <div>
-                                	${bmdto.bm_name }
-                                </div>
-                   	 	</tr>
+	                  
                         
 						<tr>
 							<th scope="row">업무기한 </th>
@@ -188,59 +183,7 @@
                                 	${bmdto.bm_start } ~ ${bmdto.bm_end }
                                 </div>
                    	 	</tr>
-                   	 	
-                   	 	<tr>
-							<th scope="row">업무등록일  </th>
-							
-							<c:if test="${bmdto.enrollment == null }">
- 							<td>
-                                <div>
-                                  
-                                </div>            
-                            </td>                   
- 							</c:if>
- 							
- 							<c:if test="${bmdto.enrollment != null }">
-                            <td>
-                                <div>
-                                	${sdf.format(bmdto.enrollment) }
-                                </div>
-                                </td>
-                                </c:if>
-                                
- 							<th scope="row">수정일  </th>
- 							
- 							<c:if test="${bmdto.update_day == null }">
- 							<td>
-                                <div> </div>                               
- 							</c:if>
- 							
-                            <c:if test="${bmdto.update_day != null }">
-                            <td>
-                                <div>
-                                  	${sdf.format(bmdto.update_day) }
-                                </div>           
-				      	 	 </td>     
-							</c:if>               
-                   	 	</tr>
-                    
-                 
-						<tr>
-							<th scope="row">담당자  </th>
-                            <td>
-                                <div>
-                                	${bmdto.inchar_name }
-                                </div>
-                   	 	</tr>
-                        
-						<tr>
-							<th scope="row">참조자  </th>
-                            <td>
-                                <div>
-                                	${bmdto.ref_name }
-                                </div>
-                   	 	</tr>
-                        
+
   						<tr>
 							<th scope="row">업무보관함    </th>
                             <td>
@@ -257,9 +200,9 @@
                                 </div>
                    	 	</tr>
                    	 	
-                   	 	<tr>
+  						<tr>
 							<th scope="row">첨부파일    </th>
-							<c:if test="${bmdto.sys_file == null }">
+							<c:if test="${bmdto.sysfile == null }">
                             <td>
                                 <div>
                              		첨부파일이 없습니다.
@@ -267,7 +210,7 @@
 						    </td>
 							</c:if>
                    	 	
-                   	 		<c:if test="${bmdto.sys_file != null }">
+                   	 		<c:if test="${bmdto.sysfile != null }">
                             <td>
                                 <div>
                                 	${bmdto.sys_file }
@@ -275,15 +218,10 @@
 						    </td>
 							</c:if>
                    	 	</tr>
+                   	 	
 
-</tbody></table></div>
-			<div class="btn-wrap" >
-     		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
-    			<button type="button" onClick="window.location='myBmdelete.jp?num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-    			<button type="button" onClick="window.location='bmList.jp'"class="btn2 btn-color7 br">목록  </button>
-    
-    		</div>
-</div></div>
+
+</tbody></table></div></div></div>
 </div>
 </body>
 </html>
