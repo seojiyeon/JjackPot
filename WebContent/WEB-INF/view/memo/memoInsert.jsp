@@ -33,7 +33,7 @@
 	        maxfile: 1024, //각 파일 최대 업로드 크기
     	    maxsize: 3024,  //전체 파일 최대 업로드 크기
         	STRING: { //Multi-lingual support : 메시지 수정 가능
-	            remove : "제거", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
+	            remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
     	        duplicate : "$file 은 이미 선택된 파일입니다.", 
         	    denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
 	            selected:'$file 을 선택했습니다.', 
@@ -56,7 +56,7 @@
 	        maxfile: 1024, //각 파일 최대 업로드 크기
     	    maxsize: 3024,  //전체 파일 최대 업로드 크기
         	STRING: { //Multi-lingual support : 메시지 수정 가능
-	            remove : "제거", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
+	            remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
     	        duplicate : "$file 은 이미 선택된 파일입니다.", 
         	    denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
             	selected:'$file 을 선택했습니다.', 

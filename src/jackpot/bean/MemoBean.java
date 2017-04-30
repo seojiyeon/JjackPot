@@ -550,4 +550,10 @@ public class MemoBean {
 		
 		return "memo/memoRecover";
 	}
+	
+	@RequestMapping("/memoModifyPro")
+	public String memoModifyPro(String pageNum, int memoGroup, String org_img) {
+		System.out.println(org_img);
+		return "/memo/memoModifyPro";
+	}
 }
