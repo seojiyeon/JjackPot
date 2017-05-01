@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
 
 <head>
 <title>메모</title>
@@ -103,7 +104,7 @@
 						<tr>
 							<td>
 								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" class="memoNum"/>
-								<img alt="중요" src="/JackPot/images/memo/notImp.png" />
+								<i class="icon nonimp">	</i>
 								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
 							</td>
 						</tr>
@@ -136,7 +137,7 @@
 						<tr>
 							<td>
 								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
-								<img alt="중요" src="/JackPot/images/memo/notImp.png" />
+								<i class="icon nonimp">	</i>
 								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.memo_title}</a></font>
 							</td>
 						</tr>
@@ -202,7 +203,7 @@
 						<tr>
 							<td>
 								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
-								<img alt="중요" src="/JackPot/images/memo/notImp.png" />							
+								<i class="icon nonimp">	</i>			
 								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
 							</td>
 						</tr>

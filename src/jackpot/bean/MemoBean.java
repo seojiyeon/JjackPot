@@ -551,9 +551,21 @@ public class MemoBean {
 		return "memo/memoRecover";
 	}
 	
-	@RequestMapping("/memoModifyPro")
-	public String memoModifyPro(String pageNum, int memoGroup, String org_img) {
-		System.out.println(org_img);
+	@RequestMapping("/memoModifyPro.jp")
+	public String memoModifyPro(MultipartHttpServletRequest request ) {
+		String [] f = request.getParameterValues("cfile");
+		for(String a : f){
+			System.out.println("=============="+a);
+		}
+		
+		
+		
 		return "/memo/memoModifyPro";
 	}
 }
+
+
+
+
+
+

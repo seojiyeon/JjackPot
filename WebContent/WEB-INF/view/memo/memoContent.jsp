@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 
-
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
 
 <head>
@@ -24,51 +23,6 @@
 		});
 	});
 	
-
-
-	/* 메모 이미지 보기 : 레이어 팝업 */
-	function wrapWindowByMask(){
-		//화면의 높이와 너비를 구한다.
-		var maskHeight = $(document).height();  
-		var maskWidth = $(window).width();  
-
-		//마스크의 높이와 너비를 화면의 높이와 너비로 설정한다.
-		$('.img-back').css({'width':maskWidth,'height':maskHeight});  
-
-		//애니메이션 효과
-		$('.img-back').fadeTo("slow",0.5);   
-	
-		// 레이어 팝업을 가운데로 띄운다.
-		var left = ($(window).scrollLeft() + ($(window).width() - $('.img-pop').width())/2);
-		var top = ($(window).scrollTop() + ($(window).height() - $('.img-pop').height())/2);
-
-		// css 스타일 변경
-		$('.img-pop').css({'left':left, 'top':top, 'position':'absolute'});
-
-		// 레이어 팝업 띄운다.
-		$('.img-pop').show();
-	}
-
-	$(document).ready(function(){
-		//검은 마스크 배경과 레이어 팝업 띄운다.
-		$('.imgBig').click(function(e){
-			e.preventDefault();
-			wrapWindowByMask();
-		});
-	
-		//닫기 버튼을 눌렀을 때
-		$('.img-pop .close').click(function (e) {  
-		    //링크 기본동작은 작동하지 않도록 한다.
-    		e.preventDefault();  
-		    $('.img-back, .img-pop').hide();  
-		});       
-
-		//검은 마스크을 눌렀을 때
-		$('.img-back').click(function () {  
-    		$(this).hide();  
-		    $('.img-pop').hide();  
-		});      
-	});
 </script>
 
 <html>
@@ -146,7 +100,7 @@
 	</div>
 </div>
 
-<div class="img-back"></div>
+<!-- div class="img-back"></div>
 <div class="img-pop">
 	<div class="img-main">
 		<button type="button" class="esc" title="esc" style="text-align:right;">x</button>
@@ -159,6 +113,6 @@
 			</c:forEach>
 		</figure>
 	</div>
-</div>
+</div-->
 </body>
 </html>
