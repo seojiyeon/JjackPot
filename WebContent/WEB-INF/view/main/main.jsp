@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-<link href="/JackPot/css/main.css?ver=5" rel="stylesheet" type="text/css">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
+<link href="/JackPot/css/main.css?ver=19" rel="stylesheet" type="text/css">
 
 <link href="css/fullcalendar.css" rel="stylesheet"/>
 <link href="css/fullcalendar.print.css" rel="stylesheet" media="print"/>
@@ -201,7 +201,7 @@ height: 200px;
 <head>
 <title>메인 페이지</title>
 </head>
-<body onload="realtimeClock()">
+<body class="methods-page main-bg" data-page="methods">
     
     <div id="top">
     <c:if test="${memId != null}">  
@@ -232,37 +232,59 @@ height: 200px;
     	</ul>
     </div>
 	
-	<div id="mainInfo-wrap">
+	<div id="mainInfo-wrap"  style="height: 1798px;">
 		<div class="mainlogo"><br/><br/><a href="/JackPot/main.jp"><img src="/JackPot/mainsave/logo.jpg"></a></div>
 		<div class="user-info"></div>
 		<div class="schedule"><div id="calendar"></div></div>
 		<br/>
-		<div class="main-basic-info">
+		<div class="main-basic-info"></div>
 		
 		
-		<h2>즐겨찾기 <input type="button" value="즐겨찾기 수정" onclick="window.location='orgChart.jp'">
-		</h2> 
+		 
 		
-		<c:forEach var="article" items="${favList}" varStatus="status">
 		<ul style="list-style:none">
-  
+		
+
+  <div class="m-box coworker">
+		
+
+
+
+		 <h2><img src="/JackPot/save/star.jpg" width="18" height="18">&nbsp;자주 연락하는 사람들  <a href="orgChart.jp" style="margin:80; font-size:14;"> 수정하기 </a></h2> 
+		 
+		
+  <div id="listFavoriteDiv" class="favorite-m user-list">
+		<c:forEach var="article" items="${favList}" varStatus="status">
+	<ul>	
   <li>
-    <div align="center" width="300" >
-  <img src="/JackPot/save/star.jpg" width="20" height="20"> &nbsp; <img src="/JackPot/save/${article.profilephoto}" width="50" height="55" > 
   
+  <span id="favoriteProfileImgSpan1" class="per2">
+  <img src="/JackPot/save/${article.profilephoto}" width="45" height="45" > 
+  </span>
+  
+  <span class="name-team ellipsis">
+        <strong  style="cursor: pointer;"> 
    ${article.emp_name}(${article.emp_num}) <br/>
+ </strong></span>
  
-   ${article.address}<br/>
-   ${article.phone}<br/>
+ <span class="info">
+       <span class="phone"    style= "font-size:15;" > ${article.phone}</span><br/>
+       <span class="tel"  style= "font-size: 14;"> ${article.address}<br/></span>
+ </span>
+   
+    </li >
+    </ul>
+   </c:forEach>
+    </div>
+    
+    </div>                    
+  
    </div>
- </li>
    </ul>
    
-   </c:forEach>
 		</div>
-		<div class="main-coworker"></div>
-	</div>
-
+		
+</div>
 
   
 	
@@ -319,7 +341,7 @@ height: 200px;
     	<li><a href="/JackPot/msgmain.jp"><br/><br/>쪽지<br><img src="/JackPot/mainsave/쪽지.png"></a></li>
     	<li><a href=""><br/><br/>거래처<br><img src="/JackPot/mainsave/거래처.png"></a></li>
     	<li><a href="/JackPot/orgChart.jp"><br/><br/>주소록<br><img src="/JackPot/mainsave/주소록.png"></a></li>
-    	<li><a href="/JackPot/memoList.jp"><br/><br/>메모<br><img src="/JackPot/mainsave/메모.png"></a></li>
+    	<li><a href="/JackPot/memoList.jp?memoGroup=1"><br/><br/>메모<br><img src="/JackPot/mainsave/메모.png"></a></li>
     	<li><a href="/JackPot/UpVote.jp"><br/><br/>온라인투표<br><img src="/JackPot/mainsave/온라인투표.png"></a></li>
     	<li><a href=""><br/><br/>메신저<br><img src="/JackPot/mainsave/메신저.png"></a></li>
     	<li><a href=""><br/><br/>웹팩스<br><img src="/JackPot/mainsave/웹팩스.png"></a></li>
