@@ -17,10 +17,18 @@ public class empDTO {
 	private String profilephoto;
 	private int emp_point;
 	private int department;
+	private String department2;
 	private int rank;
 	private int branch;
 	private int position;
 	
+	
+	public String getDepartment2() {
+		return department2;
+	}
+	public void setDepartment2(String department2) {
+		this.department2 = department2;
+	}
 	
 	public String getEmp_num() {
 		return emp_num;

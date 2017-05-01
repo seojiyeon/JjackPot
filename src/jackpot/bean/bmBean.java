@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import jackpot.DTO.bmDTO;
 import jackpot.DTO.empDTO;
 import jackpot.DTO.memoDTO;
+import jackpot.DTO.msgDTO;
 import jackpot.DTO.orgDTO;
 import jackpot.DTO.workDTO;
 
@@ -205,9 +206,10 @@ public class bmBean {
 	/*나의 업무요청 내용 보기*/
 	@RequestMapping("/myBmYCHContent.jp")
 	public String myBmYCHcontent(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session,bmDTO bdto){
+		
 		String emp_num = (String)session.getAttribute("memId");
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
-	
+		
 		bmdto.setEmp_num(emp_num);
 		bmdto.setBm_num(bm_num);
  
@@ -223,7 +225,6 @@ public class bmBean {
 		
 /*		model.addAttribute("pageNum", pageNum);*/
 		model.addAttribute("bmdto", bmdto);
-
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("bm_num", bm_num);
 		model.addAttribute("BusinessCont", bmdto);
@@ -634,18 +635,17 @@ public class bmBean {
 		bmdto.setBm_title(request.getParameter("bm_title"));
 		bmdto.setBm_content(request.getParameter("bm_content"));
 		bmdto.setBm_form(Integer.parseInt(request.getParameter("bm_form")));
-		
-//		bmdto.setBm_content(request.getParameter("enrollment"));
-		
 		bmdto.setReg_notice(request.getParameter("reg_notice"));
 		bmdto.setCmp_notice(request.getParameter("cmp_notice"));
-		String related_bns = request.getParameter("related_bns");
+		
+		/*String related_bns = request.getParameter("related_bns");
 		
 		if(related_bns == null) {
 			bmdto.setRelated_bns(0);
 		} else if(related_bns != null) {
 			bmdto.setRelated_bns(Integer.parseInt(related_bns));
-		}
+		}*/
+		
 		
 		bmdto.setBns_box(Integer.parseInt(request.getParameter("bns_box")));
 		
@@ -657,13 +657,15 @@ public class bmBean {
 		}
 			
 		bmdto.setBm_state(1); // 기본값 : 미완료
+		bmdto.setEmp_num(request.getParameter("emp_num"));
+		bmdto.setBm_name(request.getParameter("bm_name"));
 		
 		/*시작 끝 날짜 */
 		bmdto.setBm_start(request.getParameter("bm_start"));
 		bmdto.setBm_end(request.getParameter("bm_end"));
-		bmdto.setEmp_num(emp_num);
-		bmdto.setBm_name(bm_name);
 		sqlMap.insert("bm.insertBusiness", bmdto);
+		
+		
 		int maxBmNum = (int) sqlMap.queryForObject("bm.showBmNum", null);
 		
 	
@@ -744,19 +746,16 @@ public class bmBean {
 	/*담당자incharPop*/
 	
 	@RequestMapping("/incharPop.jp")
-	public String incharPop(Model model,empDTO dto,HttpSession session){
-		String emp_num = (String) session.getAttribute("memId");
-		List emp_d2 = sqlMap.queryForList("bm.bm_de_department",null);
-		List emp_d = sqlMap.queryForList("bm.bm_org_department",null);
-		List dp = sqlMap.queryForList("bm.emp_department",null);
-		int count = (int) sqlMap.queryForObject("bm.bm_empCount",emp_num);
+	public String incharPop(HttpServletRequest request,msgDTO dto, HttpSession session, Model model){
+		String id = request.getParameter("id");
+		int count = (int) sqlMap.queryForObject("bm.empFindCnt", id);
+		
 		List articleList = null;
-		articleList = sqlMap.queryForList("employee.memberAll", articleList);		
-		model.addAttribute("articleList", articleList);	
+		articleList = sqlMap.queryForList("bm.empFind",id);
 		model.addAttribute("count", count);
-		model.addAttribute("dp",dp);
-		model.addAttribute("emp_d2",emp_d2);
-		model.addAttribute("emp_d",emp_d);
+		model.addAttribute("articleList", articleList);		
+		
+		
 		return "/bm/incharPop";
 
 	}
@@ -764,8 +763,19 @@ public class bmBean {
 	/*수신rec_Pop*/
 	
 	@RequestMapping("/bms_recPop.jp")
-	public String bms_recPop(Model model,empDTO dto,HttpSession session){
-		String emp_num = (String) session.getAttribute("memId");
+	public String bms_recPop(HttpServletRequest request,msgDTO dto, HttpSession session, Model model){
+		
+		String id = request.getParameter("id");
+		int count = (int) sqlMap.queryForObject("bm.empFindCnt", id);
+		
+		List articleList = null;
+		articleList = sqlMap.queryForList("bm.empFind",id);
+		model.addAttribute("count", count);
+		model.addAttribute("articleList", articleList);		
+		
+		
+		
+		/*String emp_num = (String) session.getAttribute("memId");
 		List emp_d2 = sqlMap.queryForList("bm.bm_de_department",null);
 		List emp_d = sqlMap.queryForList("bm.bm_org_department",null);
 		List dp = sqlMap.queryForList("bm.emp_department",null);
@@ -776,7 +786,7 @@ public class bmBean {
 		model.addAttribute("count", count);
 		model.addAttribute("dp",dp);
 		model.addAttribute("emp_d2",emp_d2);
-		model.addAttribute("emp_d",emp_d);
+		model.addAttribute("emp_d",emp_d);*/
 		
 		return "/bm/bms_recPop";
 
@@ -785,8 +795,17 @@ public class bmBean {
 /*담당자ref_Pop*/
 	
 	@RequestMapping("/refPop.jp")
-	public String refPop(Model model,empDTO dto,HttpSession session){
-		String emp_num = (String) session.getAttribute("memId");
+	public String refPop(HttpServletRequest request,msgDTO dto, HttpSession session, Model model){
+
+		String id = request.getParameter("id");
+		int count = (int) sqlMap.queryForObject("bm.empFindCnt", id);
+		
+		List articleList = null;
+		articleList = sqlMap.queryForList("bm.empFind",id);
+		model.addAttribute("count", count);
+		model.addAttribute("articleList", articleList);		
+		
+		/*		String emp_num = (String) session.getAttribute("memId");
 		List emp_d2 = sqlMap.queryForList("bm.bm_de_department",null);
 		List emp_d = sqlMap.queryForList("bm.bm_org_department",null);
 		List dp = sqlMap.queryForList("bm.emp_department",null);
@@ -798,13 +817,15 @@ public class bmBean {
 		model.addAttribute("dp",dp);
 		model.addAttribute("emp_d2",emp_d2);
 		model.addAttribute("emp_d",emp_d);
-		return "/bm/refPop";
+*/		return "/bm/refPop";
 
 	}
 	
 	/*관련업무 */
 	@RequestMapping("/related_bns.jp")
 	public String related_bns(Model model,empDTO dto,HttpSession session){
+
+		
 		String emp_num = (String) session.getAttribute("memId");
 		List emp_d2 = sqlMap.queryForList("bm.bm_de_department",null);
 		List emp_d = sqlMap.queryForList("bm.bm_org_department",null);
@@ -815,7 +836,7 @@ public class bmBean {
 		model.addAttribute("dp",dp);
 		model.addAttribute("emp_d2",emp_d2);
 		model.addAttribute("emp_d",emp_d);
-		
+
 		return "/bm/related_bns";
 
 	}	

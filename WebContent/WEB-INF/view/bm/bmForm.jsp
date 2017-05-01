@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=9" type="text/css" />   
 
 <script src="resource/ckeditor.js"></script>
 <html>
@@ -84,6 +84,24 @@
      	  
  	   });
  	   
+ 	   
+ 	   
+
+ $(document).ready(function()
+			{
+			    
+			    $('input[name=bm_end2]').change(function()
+			    {
+			    	
+			    	if($(':checkbox[name="bm_end2"]:checked').val()=='0')
+					{	    		
+						$('#bm_end').hide();
+			    			 
+					}
+			    });
+			    
+			 });
+		
 /* 
  $(document).ready(function()
 			{
@@ -324,25 +342,25 @@ function resetAll(){
                        	 	</td>
                    	 	</tr>
                     
-                    <tr id="Termless" style="display: none;" >
+                    <tr id="Termless" style=" display: ;" >
                     	<th id="isTermlessTR"  ><span class="text-point-b">*</span>업무기한</th>
 							<td>
-
+		
 								<input type="text" id="bm_start" name="bm_start"readonly value=${date } ><!-- readonly 칸에 글자못쓰게 막기-->
 
 								<input type="text" title="종료날짜" id="bm_end" value="${date }" name="bm_end" readonly>
                            		<span class="label-group ml10">
-								<input type="checkbox" title="기한없음" name="bm_end" value="0"><label>기한없음</label>
+								<input type="checkbox" title="기한없음" id="bm_end2" name="bm_end" value="0"><label>기한없음</label>
                              	</span>
                             </td>
                         </tr>
                  
-                        <tr id="incharge" style="display: none;">
+                        <tr id="incharge" >
                             <th id="incharge_name" scope="row">
                             	<span class="text-point-b">*</span>담당자</th>
                             <td>
                             
-								<input type="text" title="사용자" name="inchar_name"  value="${inchar_name}" placeholder="사용자" style="box-shadow:none;">
+								<input type="text" title="사용자" id = "inchar_name" name="inchar_name"  value="${inchar_name}" placeholder="사용자" readonly style="box-shadow:none;">
                                 <button type="button" class="btn input-group-addon btn-color5 br" onclick="openInchar()"><i class="icon man-plus">
                                 <span class="none">사용자</span></i></button>
      						</td>
@@ -351,19 +369,22 @@ function resetAll(){
                         <tr id="rec" style=" display: none;">
                         	<th id="rec_name" scope="row" ><span class="text-point-b">*</span>수신자</th>
                             <td>
-                      			<input type="text" title="사용자" name="rec_name"  value="${rec_name}" placeholder="사용자" style="box-shadow:none;">
-                                <button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()"><i class="icon man-plus">
+                    
+                            	<input type="text" title="사용자" name="rec_name"  value="${rec_name}" placeholder="사용자" readonly style="box-shadow:none;">
+								<button type="button" class="btn input-group-addon btn-color5 br"  onClick="openBms_rec()">
+								<i class="icon man-plus">
                                 <span class="none">사용자</span></i></button>
-                            
+                       
                             </td>
                         </tr>
                         
-                        <tr id="ref" style=" display: none;">
+                        <tr id="ref" >
                             <th id="ref_name" scope="row" ><span class="text-point-b">*</span>참조자
                             </th>
                             <td>
-                      			<input type="text" title="사용자" name="ref_name"  value="${ref_name}" placeholder="사용자" style="box-shadow:none;">
-                                <button type="button" class="btn input-group-addon btn-color5 br" onclick="openBm_ref()"><i class="icon man-plus">
+                      			<input type="text" title="사용자" name="ref_name"  value="${ref_name}" placeholder="사용자" readonly style="box-shadow:none;">
+                                <button type="button" class="btn input-group-addon btn-color5 br" onclick="openBm_ref()">
+                                <i class="icon man-plus">
                                 <span class="none">사용자</span></i></button>
 
                             </td>
@@ -400,8 +421,9 @@ function resetAll(){
 									</c:if>
 									<c:if test="${countBns_box > 0}">
 										<c:forEach var="Bns_box" items="${ListBns_box}">
+											<option name="bns_box" value="0" selected>없음</option>
 											<c:if test="${Bns_box.bns_num == bmdto.getBns_box()}">
-												<option value="${Bns_box.bns_num}" selected>${Bns_box.box_name}</option>
+												<option value="${Bns_box.bns_num}" >${Bns_box.box_name}</option>
 											</c:if>
 											<c:if test="${Bns_box.bns_num != bmdto.getBns_box()}">
 												<option value="${Bns_box.bns_num}">${Bns_box.box_name}</option>
@@ -413,13 +435,13 @@ function resetAll(){
                             </td>
                         </tr>
                       
-                        <tr id="categoryTR3">
+                       <%--  <tr id="categoryTR3">
                             <th scope="row" id=opencategoryTR3><label for="related_bns">관련업무</label></th>
                             <td>
                                 <button type="button" class="btn btn-color8 br"   value="${related_bns}"  onclick="related_bns();">관련업무 추가</button>
                                 <div id="addTask"></div>
                             </td>
-                        </tr>
+                        </tr> --%>
               </tbody>
               </table>
 		</div>           

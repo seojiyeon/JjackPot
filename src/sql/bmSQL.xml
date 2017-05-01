@@ -95,7 +95,7 @@
 		
 		<select id="getEmp_name" parameterClass="string" resultClass="bmdto">
 		
-			select  e.emp_name from business_manage b, emp e where e.emp_num = b.emp_num 
+			select emp_name from emp where emp_num=#emp_num#
 		
 		</select>
 		
@@ -137,10 +137,9 @@
 				
 			insert into business_manage (BM_NUM ,BM_TITLE,BM_CONTENT,BM_FORM,BM_START,BM_END,ENROLLMENT,REG_NOTICE,CMP_NOTICE,BNS_BOX,IMPORTANT,BM_STATE,EMP_NUM,BM_NAME,UPDATE_DAY)
 			values(
-					bm_seq,
+					bm_seq.nextval,
 					#bm_title#,
 					#bm_content#,
-					#bm_form#,
 					#bm_form#,
 					#bm_start#,
 					#bm_end#,
@@ -314,7 +313,7 @@
 		<select id="getBusinessCont" parameterClass= "bmdto" resultClass="bmdto">
 		select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_content,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2, bm.enrollment,bm.update_day
 		from business_manage bm,important i,bns_box bns, bm_state bs
-		where bm.emp_num=#emp_num# and bm.bm_num=#bm_num# and bm.important=i.imp_num and  bm.bm_state=bs.state_num 
+		where bm.bm_num=#bm_num# and bm.important=i.imp_num and  bm.bm_state=bs.state_num 
 
 		</select>
 		
@@ -333,9 +332,20 @@
 		<select id="sdasda" resultClass="bmdto" parameterClass="int">
             select * from  bns_box where bm_num=#bm_num#
         </select>
-         
-         
 
+<!-- Popup -->         
+         
+        <!-- 사원찾기 --> 
+		<select id="empFind" resultClass="empDTO" parameterClass="String">
+            select e.emp_num,e.emp_name,d.department department2 from emp e, department d where emp_name=#emp_num# and e.department=d.num
+ 
+        </select>
+        
+         <!-- 사원찾기count -->
+        <select id="empFindCnt" resultClass="int" parameterClass="String">
+            select count(*) from emp where emp_name=#emp_name#
+        </select>
+        
         
          
 
