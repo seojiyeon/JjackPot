@@ -100,7 +100,7 @@
  
     
      <li class="last">
-		        <ul>		        	
+		        <ul>		        	                                                                                                                                                                             
 		        	<li class="name" style="margin : 5 5;">
 					<font color="gray" size="2"	style="margin: 3px;">${article.emp_name}(${article.emp_num})&nbsp;&nbsp;&nbsp;${article.reg}</font>
 
@@ -119,6 +119,7 @@
 		            <li class="btn-mody" data-itemid="" data-linereplyid="">
 	                    <a href="javascript:void(0)" onclick="showUpdateForm('8624883UpdateForm','8501850');"><i class="fa fa-pencil" data-toggle="tooltip" title="수정" data-original-title="수정"></i></a>
 	                </li>
+	                
 	                
 	                
 	                <li class="btn-del" data-itemid="" data-linereplyid="">
