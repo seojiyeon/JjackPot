@@ -337,6 +337,7 @@ height: 200px;
     	<li><a href="/JackPot/listApproTodo.jp"><br/><br/>전자결재<br><img src="/JackPot/mainsave/전자결재.png"></a></li>
     	<li><a href="/JackPot/community.jp"><br/><br/>게시판<br><img src="/JackPot/mainsave/게시판.png"></a></li>
     	<li><a href="/JackPot/calendar.jp"><br/><br/>일정<br><img src="/JackPot/mainsave/업무관리.png"></a></li>
+    	<li><a href="/JackPot/bmList.jp"><br/><br/>업무관리 <br><img src="/JackPot/mainsave/업무관리.png"></a></li>
     	<li><a href=""><br/><br/>SNS<br><img src="/JackPot/mainsave/SNS.png"></a></li>
     	<li><a href="/JackPot/msgmain.jp"><br/><br/>쪽지<br><img src="/JackPot/mainsave/쪽지.png"></a></li>
     	<li><a href=""><br/><br/>거래처<br><img src="/JackPot/mainsave/거래처.png"></a></li>

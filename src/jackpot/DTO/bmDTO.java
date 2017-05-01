@@ -20,8 +20,14 @@ public class bmDTO {
 	private String emp_num;			/*작성자*/
 	private String bm_name;			/*작성자*/
 	private	String day;
+	private Timestamp update_day;	/*업무등록일*/
 	
-	
+	public Timestamp getUpdate_day() {
+		return update_day;
+	}
+	public void setUpdate_day(Timestamp update_day) {
+		this.update_day = update_day;
+	}
 	public String getBm_state2() {
 		return bm_state2;
 	}

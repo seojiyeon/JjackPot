@@ -14,7 +14,7 @@
 
 <script>
 	function checkIt() {
-		var memoModi = eval("document.forms.memoModi");
+		var memoModi = eval("document.forms.multiForm");
 		
 		if(!memoModi.memo_title.value) {
 			alert("제목을 입력하시요.");
@@ -33,7 +33,7 @@
 	        maxfile: 1024, //각 파일 최대 업로드 크기
     	    maxsize: 3024,  //전체 파일 최대 업로드 크기
         	STRING: { //Multi-lingual support : 메시지 수정 가능
-	            remove : "제거", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
+	            remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
     	        duplicate : "$file 은 이미 선택된 파일입니다.", 
         	    denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
 	            selected:'$file 을 선택했습니다.', 
@@ -48,15 +48,15 @@
 
 	/* 이미지 다중 업로드 */
 	$(document).ready(function(){
-	    
-    	//use jQuery MultiFile Plugin 
+
+		//use jQuery MultiFile Plugin 
 	    $('#multiform input[name=org_img]').MultiFile({
     	    max: 3, //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
         	accept: 'jpg|png|gif', //허용할 확장자(지정하지 않으면 모든 확장자 허용)
 	        maxfile: 1024, //각 파일 최대 업로드 크기
     	    maxsize: 3024,  //전체 파일 최대 업로드 크기
         	STRING: { //Multi-lingual support : 메시지 수정 가능
-	            remove : "제거", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
+        		remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
     	        duplicate : "$file 은 이미 선택된 파일입니다.", 
         	    denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
             	selected:'$file 을 선택했습니다.', 
@@ -66,6 +66,14 @@
 	        },
     	    list:"#img-list" //파일목록을 출력할 요소 지정가능
 	    });	
+	});
+	
+	$(document).ready(function() {
+		$('#imgList').click( function() {
+			$(this).hide(function() {
+				$(this).val('null');
+			});
+		});
 	});
 </script>
 
@@ -80,7 +88,7 @@
 			<h2 style="margin:5px; width:300px;">메모 수정</h2>
 		</div>
 		
-		<form name="memoModi" id="multiform" method="post" action="memoModifiyPro.jp" enctype="multipart/form-data"  onSubmit="return checkIt();">
+		<form name="multiForm" method="post" id="multiform" action="memoModifyPro.jp?memoGroup=${memoGroup}" enctype="multipart/form-data"  onSubmit="return checkIt();">
 		<div class="table">
 			<div class="listInfo">
 				<select name="memo_cate">
@@ -92,47 +100,54 @@
 							<c:if test="${memoCate.cate_num == dto.getMemo_cate()}">
 								<option value="${memoCate.cate_num}" selected>${memoCate.cate_title}</option>
 							</c:if>
-							
 							<c:if test="${memoCate.cate_num != dto.getMemo_cate()}">
 								<option value="${memoCate.cate_num}">${memoCate.cate_title}</option>
-							</c:if>		
+							</c:if>
 						</c:forEach>
 					</c:if>
 				</select>
 			</div>
-			<div class="inputFileNImg">
-				<input type="reset" value="새메모" />
-				<input type="file" name="org_img" value="이미지 첨부" id="imgInp" />
-				<input type="file" name="org_file" value="파일 첨부" id="fileInp" />
-			</div>
+		</div>
+		<div class="inputFileNImg">
+			<input type="reset" value="새메모" />
+			<input type="file" name="org_img" title="이미지 첨부" id="imgInp"/>
+			<input type="file" name="org_file" title="파일 첨부" id="fileInp" />
 		</div>
 		
 		<div class="content-write">
 			<table>
 				<tr>
 					<td>
-						<input type="checkbox" name="memo_state" value="2" >중요
-						<input type="text" name="memo_title" placeholder="제목을 입력하세요." value="${dto.memo_title}"/>
+						<input type="checkbox" name="memo_state" value="2">중요
+						<input type="text" name="memo_title" placeholder="제목을 입력하세요." value="${dto.memo_title}" />
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<textarea name="memo_content" rows="20" cols="100">${dto.memo_content}</textarea>
+						<textarea name="memo_content" rows="20" cols="100">${dto.memo_content}</textarea>			
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<div id="img-list"></div>
-						<div id="file-list"></div>  
+						<div id="img-list">
+							<c:if test="${imgCount > 0}">
+								<c:forEach var="img" items="${img}">
+									<a id="imgList"><img src='/JackPot/images/memo/delete-photo.png'/> ${img.org_img}</a>
+								</c:forEach>
+							</c:if>
+						</div>
+						<div id="file-list"></div>
 					</td>
 				</tr>
 			</table>
+			
 			<div>
-				<input type="submit" value="저장" />
-				<button type="button" onClick="window.location='memoList.jp?pageNum=${pageNum}'">취소</button>
+				<input type="submit" value="수정" />
+				<input type="hidden" value="${memoGroup}" name="memoGroup" />
+				<button type="button" onclick="window.location='memoList.jp?pageNum=${pageNum}&memoGroup=${memoGroup}'">취소</button>
 			</div>
 		</div>
-		</form>
+		</form> 
 	</div>
 </div>
 </body>

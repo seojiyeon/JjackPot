@@ -29,19 +29,10 @@ function setName(e)
 </script>
 
 <head>
-<title>담당자 </title>
+<title>참조자  </title>
 <div class="mask">
 <body class="methods-page" data-page="methods">
-
-
-  <!--  <div class="modal-content">
-    	<div class="modal-header">
-    		<h2 class="modal-title">
-    			<i class="icon modal-title-user"></i>사용자 선택</h2>
-   	 	<div class="modal-close"><a href="javascript:void(0)" data-dismiss="modal">
-    		<i class="icon pop-close"></i><span>Close</span></a>
-    	</div></div></div>-->
-					<tbody>
+			<tbody>
 						<tr>
 							<th scope="row"><label for="hrBasiMatrMngGridSearchForm_enplcCd"><span class="text-point-b" title='필수입력항목'>*</span>
 								사업장</label></th>
@@ -68,9 +59,17 @@ function setName(e)
 					</button>
 				</div>
 				</td>
-						
-						</tr>
-					</tbody> 
+			</tr>
+	 </tbody> 
+
+  <!--  <div class="modal-content">
+    	<div class="modal-header">
+    		<h2 class="modal-title">
+    			<i class="icon modal-title-user"></i>사용자 선택</h2>
+   	 	<div class="modal-close"><a href="javascript:void(0)" data-dismiss="modal">
+    		<i class="icon pop-close"></i><span>Close</span></a>
+    	</div></div></div>-->
+ 
    		<div class="modal-body">
    		
 			<div class="shuttleL">
@@ -108,8 +107,6 @@ function setName(e)
 
 
 </div></div>
-
-
 <!-- 
 	<c:if test="${count==0}">
 	</c:if>

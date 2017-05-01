@@ -82,11 +82,12 @@
 		<div class="content-head">
 			<h2 style="margin:5px; width: 300px;">모든 메모</h2>
 		</div>
-		<form>
+		<form name="multiForm" method="post">
 		<div class="content-write">
 			<div class="note-write">
 				<div class="note-write-head">
 					<div class="content-title" style="width:500px;">
+						<input type="hidden" name="memo_num" value="${dto.memo_num}" />
 						<input type="checkbox" name="memo_state">중요여부체크
 						&nbsp;
 						${dto.getMemo_title()}
@@ -130,15 +131,15 @@
 			</div>
 			<div class="btn-wrap">
 				<c:if test="${memoState > 0}">
-					<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memo_cate=${dto.memo_cate}'">수정</button>
+					<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memo_cate=${dto.memo_cate}&memoGroup=${memoGroup}'">수정</button>
 					<button type="button" class="btnMove">이동</button>
-					<button type="button" class="btnDelete" onclick="window.location='memoDeletePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">삭제</button>
+					<button type="button" class="btnDelete" onclick="window.location='memoDeletePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}'">삭제</button>
 				</c:if>
 				<c:if test="${memoState == 0}">
 					<button type="button" class="btnRecover">복구</button>
-					<button type="button" class="btnRomove" onclick="window.location='memoRemovePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}'">삭제</button>
+					<button type="button" class="btnRomove" onclick="window.location='memoRemovePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}'">삭제</button>
 				</c:if>
-				<button type="button" class="btnList" onclick="window.location='memoList.jp?pageNum=${pageNum}'">목록</button>
+				<button type="button" class="btnList" onclick="window.location='memoList.jp?pageNum=${pageNum}&memoGroup=${memoGroup}'">목록</button>
 			</div>
 		</div>
 		</form>

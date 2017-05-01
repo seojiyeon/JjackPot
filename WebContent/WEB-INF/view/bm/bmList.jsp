@@ -287,16 +287,18 @@ tbody {
                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                            ${bmdto.bm_title}
+                        	<a href="myBmYCHContent.jp?emp_num=${bmdto.emp_num}&bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                            	${bmdto.bm_title}
+                           	</a>
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_name}
                         </th>
                         <th style="width: 120px;">
-                          ${sdf.format(bmdto.bm_start)}
+                          ${bmdto.bm_start}
                         </th>
                         <th style="width: 120px;">
-                            ${sdf.format(bmdto.bm_end)}
+                            ${ bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_state2}
@@ -309,7 +311,7 @@ tbody {
 			
 		<div class="page-wrap">
 			<table>
-				<c:if test="${count > 0}">
+				<c:if test="${bmcount > 0}">
 				
 				<c:if test="${startPage > 10}">
 					<a href="bmList.jp?pageNum=${startPage-10}">[이전]</a>

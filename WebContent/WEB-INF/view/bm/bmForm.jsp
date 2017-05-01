@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />   
-<script src="https://code.jquery.com/jquery-latest.js"></script>
+
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
@@ -59,42 +59,91 @@
     				});
     	   
     	   
-    	   $(document).ready(function(){
-    		   
-    		   var datePicker = {
-    		   monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월' ],
-    		   dayNamesMin: ['일','월','화','수','목','금','토'],
-    		   weekHeader: 'Wk',
-    		   dateFormat: 'yymmdd',  // 날짜형식 = 20130329
-    		   autoSize: false,   // 자동리사이즈 (false 이면 상위 정의에 따름)
-    		   changeMonth: true,  // 월변경 가능
-    		   changeYear: true,  // 연변경 가능
-    		   showMonthAterYear: true, // 년 위에 월 표시
-    		   showOn: 'both',   // 엘리먼트와 이미지 동시사용 (both, button)
-    		   buttonImageOnly: true,  // 이미지 표시
-    		   buttonText: '달력',  // 버튼 텍스트 표시
-    		   buttonImage: '/images/new/icon_calendar.gif', // 이미지 주소
-    		   yearRange: 'c-99:c+99', // 1990~2020년 까지
-    		   maxDate: '+6Y',   // 오늘 부터 6년 후까지만.  +0d 오늘 이전 날짜만 선택
-    		   minDate: '-30d'                   // 30일 이전까지만 선택 가능            
-    		   }
-    		    
-    		    
-    		   $('#bm_start').trueDate($('#bm_start'));
-    		   $('#bm_end').trueDate('${bm_end}');
-    		    
-    		   $('img.ui-datepicker-trigger').attr('style','margin-left:5px; vertical-align:middle; cursor:pointer;');
-    		   $('#ui-datepicker-div').hide();
-    		    
-    		   });
- 
+/* 달력  */
+ $(function() {
+     	      $( "#bm_start,#bm_end").datepicker({
+     	    	    showOn: "button", 
+                     buttonImage:"/JackPot/images/calendar (1).png",
+                     buttonImageOnly: true ,
+                     buttonText: "Select date",
+                     buttonImageSize : "vertical-align: middle; margin: 10px 10px 10px 10px",
+     	    	 	dateFormat:'yy-mm-dd', 
+						showButtonPanel: true,
+						changeMonth: true, 
+						changeYear: true,
+						nextText: '다음 달',
+						prevText: '이전 달',
+						currentText:'오늘 날짜',
+						closeText: '닫기',
+						changeMonth: true, 
+						dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
+						monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+						
+					});
      	      
+     	  
+ 	   });
+ 	   
+/* 
+ $(document).ready(function()
+			{
+			    
+		 {checkIt(){
+	    var bminput = eval("document.bminput");
+	    if(!bminput.bm_start.value) {
+	        alert("시작일을 선택하세요");
+	        return false;
+	    }
+	    
+	    if(!bminput.bm_title.value) {
+	        alert("제목을 입력하세요");
+	        return false;
+	    }
+	    
+	    if(!bminput.bm_contents.value) {
+	        alert("내용을 입력하세요");
+	        return false;
+	    }
+	    
 
-    	   
-	</script>
+	    	if(bminput.bm_start.value>bminput.bm_end.value){
+	    		alert("종료일이 시작일보다 작을 수 없습니다.")
+	    		return false;
+	  	  }
+
+	    }
+	}
+
+
+ $(document).ready(function()
+			{
+			    
+	 checkIt2(){
+ 
+	    var bminput = eval("document.bminput");
+	    if(!bminput.bm_start.value) {
+	        alert("시작일을 선택하세요");
+	        return false;
+	    }
+	    if(!bminput.bm_title.value) {
+	        alert("제목을 입력하세요");
+	        return false;
+	    }
+
+	    if(!bminput.bm_contents.value) {
+	        alert("내용을 입력하세요");
+	        return false;
+	    }
+	    
+	   
+	    	if(bminput.bm_start.value>bminput.bm_end.value){
+	    		alert("종료일이 시작일보다 작을 수 없습니다.")
+	    		return false;
+	  	  }
+    } */
+
 	
-
-
+</script>
 
 <script>
 function openInchar(){
@@ -107,7 +156,12 @@ function openBms_rec(){
  	open(url, "bms_rec", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
    }   
    
+function openBm_ref(){
+	url = "/JackPot/refPop.jp"
+ 	open(url, "Bm_ref", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
+   }   
    
+ 
 function resetAll(){
 	  document.frm.reset();
 	 }
@@ -241,7 +295,7 @@ function resetAll(){
 
 
 <div id="main-contents">
-<form method="post" action="/JackPot/bmFormPro.jp" onSubmit="return checkIt();">
+<form name="bminput"method="post" action="/JackPot/bmFormPro.jp" onSubmit="return checkIt();">
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
 <div class="form-block">
@@ -273,14 +327,10 @@ function resetAll(){
                     <tr id="Termless" style="display: none;" >
                     	<th id="isTermlessTR"  ><span class="text-point-b">*</span>업무기한</th>
 							<td>
-								<fmf:parseDate value="${date }" var=" date1" pattern="yyyymmdd" scope="page"/><!-- String형을 받아서 원하는 포멧으로 Date형태로 변경  -->
-								<fmt:formatDate value="${date1 }" pattern="yyyy-MM-dd" var="date1"/> <!-- Date형을 받아서 원하는 포멧으로 날짜형태를 변경  -->
-								<input type="text" title="시작날짜" id="bm_start" value="${date1 }" name="bm_start" readonly="readonly" onchange="test(this.value)"><!-- readonly 칸에 글자못쓰게 막기-->
-                                
-                                <fmf:parseDate value="${date }" var=" date2" pattern="yyyymmdd" scope="page"/>
-               					<fmt:formatDate value="${date2 }" pattern="yyyy-MM-dd" var="date2"/>
-								
-								<input type="text" title="종료날짜" id="DateCalendar" value="${date2 }" name="bm_end" onchange="test(this.value)">
+
+								<input type="text" id="bm_start" name="bm_start"readonly value=${date } ><!-- readonly 칸에 글자못쓰게 막기-->
+
+								<input type="text" title="종료날짜" id="bm_end" value="${date }" name="bm_end" readonly>
                            		<span class="label-group ml10">
 								<input type="checkbox" title="기한없음" name="bm_end" value="0"><label>기한없음</label>
                              	</span>
@@ -301,21 +351,21 @@ function resetAll(){
                         <tr id="rec" style=" display: none;">
                         	<th id="rec_name" scope="row" ><span class="text-point-b">*</span>수신자</th>
                             <td>
-                      
-                                <input type="text" title="사용자" id="selectUser2_input"  value="${rec_name}" placeholder="사용자" style="box-shadow:none;">
-                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
-                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
+                      			<input type="text" title="사용자" name="rec_name"  value="${rec_name}" placeholder="사용자" style="box-shadow:none;">
+                                <button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()"><i class="icon man-plus">
+                                <span class="none">사용자</span></i></button>
+                            
                             </td>
                         </tr>
                         
                         <tr id="ref" style=" display: none;">
                             <th id="ref_name" scope="row" ><span class="text-point-b">*</span>참조자
                             </th>
-                            
                             <td>
-                            	<input type="text" title="사용자" id="selectUser2_input"  value="${ref_name}" placeholder="사용자" style="box-shadow:none;">
-                               	<button type="button" class="btn input-group-addon btn-color5 br" onclick="openBms_rec()">
-                                <i class="icon man-plus"><span class="none">사용자</span></i></button>
+                      			<input type="text" title="사용자" name="ref_name"  value="${ref_name}" placeholder="사용자" style="box-shadow:none;">
+                                <button type="button" class="btn input-group-addon btn-color5 br" onclick="openBm_ref()"><i class="icon man-plus">
+                                <span class="none">사용자</span></i></button>
+
                             </td>
                         </tr>
 
@@ -326,7 +376,7 @@ function resetAll(){
                         <tr id="alarmTR">
                             <th scope="row">등록 알림</th>
                             <td>
-                            <input type="hidden" name="bm_end" >
+                     
                                 <input name="reg_notice" type="checkbox" title="쪽지 발송" value="쪽지 발송"> 쪽지 발송&nbsp;&nbsp;
                                 <input name="reg_notice" type="checkbox" title="푸시 발송 " value="푸시 발송"> 푸시 발송 &nbsp;&nbsp;
                             </td>
@@ -335,8 +385,8 @@ function resetAll(){
                         <tr id="rAlarmTR">
                             <th scope="row">완료 알림</th>
                             <td>
-                            <input type="hidden" name="cmp_notice" >
-                                <input name="cmp_notice" type="checkbox" title="쪽지 발송" value="쪽지 발송"> 쪽지 발송&nbsp;&nbsp;
+
+                                <input name="cmp_notice" type="checkbox" title="쪽지 발송"  value="쪽지 발송"> 쪽지 발송&nbsp;&nbsp;
                                 <input name="cmp_notice" type="checkbox" title="푸시 발송 " value="푸시 발송 "> 푸시 발송 &nbsp;&nbsp;
                             </td>
                         </tr>
@@ -364,9 +414,9 @@ function resetAll(){
                         </tr>
                       
                         <tr id="categoryTR3">
-                            <th scope="row"><label for="related_bns">관련업무</label></th>
+                            <th scope="row" id=opencategoryTR3><label for="related_bns">관련업무</label></th>
                             <td>
-                                <button type="button" class="btn btn-color8 br" value="${related_bns}"  onclick="javascript:selectTodoViewPopup();">관련업무 추가</button>
+                                <button type="button" class="btn btn-color8 br"   value="${related_bns}"  onclick="related_bns();">관련업무 추가</button>
                                 <div id="addTask"></div>
                             </td>
                         </tr>
