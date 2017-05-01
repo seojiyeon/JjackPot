@@ -7,6 +7,7 @@
 <script src="/JackPot/js/jQuery.MultiFile.min.js"></script>
 
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
 
 <head>
 <title>메모</title>
@@ -101,7 +102,7 @@
 			</div>
 			<div class="inputFileNImg">
 				<input type="reset" value="새메모" />
-				<span class="imgButton"><input type="file" name="org_img" value="이미지 첨부" id="imgInp" /></span>
+				<input type="file" name="org_img" value="이미지 첨부" id="imgInp" />
 				<input type="file" name="org_file" value="파일 첨부" id="fileInp" />
 			</div>
 		</div>

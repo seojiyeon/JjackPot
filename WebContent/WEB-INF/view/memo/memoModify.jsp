@@ -7,6 +7,7 @@
 <script src="/JackPot/js/jQuery.MultiFile.min.js"></script>
 
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
 
 <head>
 <title>메모</title>
@@ -33,7 +34,8 @@
 	        maxfile: 1024, //각 파일 최대 업로드 크기
     	    maxsize: 3024,  //전체 파일 최대 업로드 크기
         	STRING: { //Multi-lingual support : 메시지 수정 가능
-	            remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
+        		file: '<em title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
+        		remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
     	        duplicate : "$file 은 이미 선택된 파일입니다.", 
         	    denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
 	            selected:'$file 을 선택했습니다.', 
@@ -64,17 +66,18 @@
     	        toomany: "업로드할 수 있는 최대 갯수는 $max개 입니다.",
         	    toobig: "$file 은 크기가 매우 큽니다. (max $size)"
 	        },
-    	    list:"#img-list" //파일목록을 출력할 요소 지정가능
+    	    list:"#img-list", //파일목록을 출력할 요소 지정가능
 	    });	
 	});
 	
 	$(document).ready(function() {
-		$('#imgList').click( function() {
-			$(this).hide(function() {
-				$(this).val('null');
-			});
+		$('.imgList').click(function() {
+			$(this).hide();
+			alert(this.text);
+			$("#multiform").append("<input type='hidden' name='cfile' value='"+this.text+"' />");
 		});
 	});
+
 </script>
 
 <html>
@@ -130,9 +133,11 @@
 				<tr>
 					<td>
 						<div id="img-list">
-							<c:if test="${imgCount > 0}">
+		 					<c:if test="${imgCount > 0}">
 								<c:forEach var="img" items="${img}">
-									<a id="imgList"><img src='/JackPot/images/memo/delete-photo.png'/> ${img.org_img}</a>
+									<a class="imgList"><img src='/JackPot/images/memo/delete-photo.png'/> ${img.org_img}</a><br/>
+									<input type="hidden" value="${img.sys_img}" name="sys_img" />
+									<input type="hidden" value="${img.img_num}" name="img_num" />
 								</c:forEach>
 							</c:if>
 						</div>
