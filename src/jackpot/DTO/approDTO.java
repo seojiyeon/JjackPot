@@ -21,17 +21,7 @@ public class approDTO {
 	private int branch;					//소속지점
 	private int department;				//소속부서
 	private int position;				//직급
-	
-	private String ap_dName1;			
-	private String ap_rankName1;		
-	private String ap_sawonName1;		
-	private String ap_sign1;			
-	private Timestamp ap_signdate1;		
-	private String ap_sawonRank1;		
-	private String ap_wPsC1;			
-	
-	
-	private int approver_step;			
+
 	private String situation;			
 	private String ap_count;			
 	private Timestamp ap_time;			//게시글이 업데이트 된 시간
@@ -50,6 +40,25 @@ public class approDTO {
 	private String temp_geuntae_cate;	//�ӽ�����. �����з�
 	private String temp_startDate;		//�ӽ�����. �ް�������.
 	private String temp_endDate;		//�ӽ�����. �ް���.
+	
+	private String approver_num;
+	private String dec_num;				//결재권자 번호
+	private String dec_name;			//결재권자 이름
+	private String dec_branch;			//결재권자 지점
+	private String dec_depart;			//결재권자 부서
+	private String dec_position;		//결재권자 직급
+	private String sign_img;			//결재권자 서명
+	private String dec_empnum;			//결재권자 사원번호
+	private Timestamp sign_date;		//결재권자 승인날짜
+	
+	private String ap_dName;				//결재자의 부서이름.
+	private String ap_rankName;			//결재자의 직급.
+	private String ap_sawonName;			//결재자의 이름.
+	private String ap_sign;				//결재자의 서명.
+	private Timestamp ap_signdate;			//결재날짜.
+	private String ap_sawonRank;			//결재사원의 직급레벨
+	private String ap_wPsC;				//결재자의 테이블이름,사원코드
+	
 		
 	public String getSituation() {
 		return situation;
@@ -153,21 +162,6 @@ public class approDTO {
 	public void setDoc_step(int doc_step) {
 		this.doc_step = doc_step;
 	}
-	public int getApprover_step() {
-		return approver_step;
-	}
-	public void setApprover_step(int approver_step) {
-		this.approver_step = approver_step;
-	}
-	private String dec_num;			//��ȣ
-	private String dec_name;		//������� �̸�(�������� �̸�)
-	private String dec_branch;		//������� ����
-	private String dec_depart;		//������� �μ�(�������� �μ��̸�)
-	private String dec_position;	//������� ����(�������� ����)
-	private String sign_img;		//������� ����(�������� ����)
-	private String dec_empnum;		//������� �����ȣ(�������� �ÿ��ڵ�)
-	private Timestamp sign_date;	//������� ���γ�¥(���糯¥)
-	
 	
 	public String getDoc_num() {
 		return doc_num;
@@ -314,49 +308,54 @@ public class approDTO {
 	public void setSign_date(Timestamp sign_date) {
 		this.sign_date = sign_date;
 	}
-	
-	public String getAp_dName1() {
-		return ap_dName1;
+	public String getAp_dName() {
+		return ap_dName;
 	}
-	public void setAp_dName1(String ap_dName1) {
-		this.ap_dName1 = ap_dName1;
+	public void setAp_dName(String ap_dName) {
+		this.ap_dName = ap_dName;
 	}
-	public String getAp_rankName1() {
-		return ap_rankName1;
+	public String getAp_rankName() {
+		return ap_rankName;
 	}
-	public void setAp_rankName1(String ap_rankName1) {
-		this.ap_rankName1 = ap_rankName1;
+	public void setAp_rankName(String ap_rankName) {
+		this.ap_rankName = ap_rankName;
 	}
-	public String getAp_sawonName1() {
-		return ap_sawonName1;
+	public String getAp_sawonName() {
+		return ap_sawonName;
 	}
-	public void setAp_sawonName1(String ap_sawonName1) {
-		this.ap_sawonName1 = ap_sawonName1;
+	public void setAp_sawonName(String ap_sawonName) {
+		this.ap_sawonName = ap_sawonName;
 	}
-	public String getAp_sign1() {
-		return ap_sign1;
+	public String getAp_sign() {
+		return ap_sign;
 	}
-	public void setAp_sign1(String ap_sign1) {
-		this.ap_sign1 = ap_sign1;
+	public void setAp_sign(String ap_sign) {
+		this.ap_sign = ap_sign;
 	}
-	public Timestamp getAp_signdate1() {
-		return ap_signdate1;
+	public Timestamp getAp_signdate() {
+		return ap_signdate;
 	}
-	public void setAp_signdate1(Timestamp ap_signdate1) {
-		this.ap_signdate1 = ap_signdate1;
+	public void setAp_signdate(Timestamp ap_signdate) {
+		this.ap_signdate = ap_signdate;
 	}
-	public String getAp_sawonRank1() {
-		return ap_sawonRank1;
+	public String getAp_sawonRank() {
+		return ap_sawonRank;
 	}
-	public void setAp_sawonRank1(String ap_sawonRank1) {
-		this.ap_sawonRank1 = ap_sawonRank1;
+	public void setAp_sawonRank(String ap_sawonRank) {
+		this.ap_sawonRank = ap_sawonRank;
 	}
-	public String getAp_wPsC1() {
-		return ap_wPsC1;
+	public String getAp_wPsC() {
+		return ap_wPsC;
 	}
-	public void setAp_wPsC1(String ap_wPsC1) {
-		this.ap_wPsC1 = ap_wPsC1;
+	public void setAp_wPsC(String ap_wPsC) {
+		this.ap_wPsC = ap_wPsC;
 	}
+	public String getApprover_num() {
+		return approver_num;
+	}
+	public void setApprover_num(String approver_num) {
+		this.approver_num = approver_num;
+	}	
 	
 	
 }

@@ -2,25 +2,47 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 
+
+
 <jsp:useBean id="toDay" class="java.util.Date" />
 <fmt:formatDate value="${toDay}" pattern="yyyy.MM.dd" var="tdate"/>
-<link href="/JackPot/css/appro.css?ver=2" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/appro.css?ver=3" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/basic.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/theme.css?ver=1" rel="stylesheet" type="text/css">
-<link href="/JackPot/css/common.css?ver=1" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/common.css?ver=2" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/quick.css?ver=1" rel="stylesheet" type="text/css">
 <html>
 <head>
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
-	<script src="resource/ckeditor.js"></script>
+	<script src="ckeditor_appro/ckeditor.js"></script>
 	<script src="/JackPot/js/jquery-3.1.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
  	<script src="/JackPot/js/jquery.bpopup.min.js"></script>
  	<script src="//code.jquery.com/jquery.min.js"></script>
  	
-<script type="text/javascript">
+<script>
+	function approver_find(){
+		
+		var input = document.getElementById("approver_test").value;
+		$.ajax({
+			type:"post",
+			url:"http://localhost:8080/JackPot/approverFind.jp",
+			data: {ap:input},
+			success: function(approver_info){ 
+				alert(approver_info);
+				approver_info.forEach(function(v,i){ // v <- object  i <- 횟수
+					alert(v.emp_num)
+				})
+				
+			},
+			error:function(){
+				alert("error");
+			}
+		});
+	}
+	
 
 	function layer_open(el){
-
 		var temp = $('#' + el);		//레이어의 id를 temp변수에 저장
 		var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
 
@@ -37,33 +59,95 @@
 			}else{
 				temp.fadeOut(); //'닫기'버튼을 클릭하면 레이어가 사라진다.
 			}
-			var value = $('#emp_choose').val();
-			alert(value);
-			$('#apprTitle').val(value);
-			$('#test1').val(chkSplit[0]);
+			document.approver_info.approver_test.value = "";
 			e.preventDefault();
-			document.getElementById("approForm").reset();
 		});
 
 		$('.layer .bg').click(function(e){
 			$('.layer').fadeOut();
 			e.preventDefault();
 		});
-
 	}
 	
-	 $(document).ready (function () {                
-     	$("#btn-show-checked").on("click", function() { //적용 버튼을 클릭시 체크박스의 체크된 부분을 ','기준으로 다같이 받아오는 부분. 
-         	var chk = $("input[name='emp_inf']:checked").map(function() {
-         		return $(this).val();
-         	}).get().join(" , ");
-     		var chkSplit = chk.split(',');
-         	$("#emp_choose").val(chkSplit[0]+','+chkSplit[1]+','+chkSplit[2]);
-         });
-         
-     }); // end ready  
+	function applyEvent(){
+		
+		var value = $('#approver').val();
+		$('#approver_name').val(value)
+		document.approver_info.approver_test.value = "";
+	}
      
-	</script>		
+     
+     function dialog() {
+
+    	    var dialogBox = $('.dialog'),
+    	        dialogTrigger = $('.dialog__trigger'),
+    	        dialogClose = $('.dialog__close'),
+    	        dialogTitle = $('.dialog__title'),
+    	        dialogContent = $('.dialog__content'),
+    	        dialogAction = $('.dialog__action');
+
+    	    // Open the dialog
+    	    dialogTrigger.on('click', function(e) {
+    	        dialogBox.toggleClass('dialog--active');
+    	        e.stopPropagation()
+    	    });
+
+    	    // Close the dialog - click close button
+    	    dialogClose.on('click', function() {
+    	        dialogBox.removeClass('dialog--active');
+    	    });
+
+    	    // Close the dialog - press escape key // key#27
+    	    $(document).keyup(function(e) {
+    	        if (e.keyCode === 27) {
+    	            dialogBox.removeClass('dialog--active');
+    	        }
+    	    });
+    	};
+    	
+    	$(document).ready(function() {
+
+    		//When page loads...
+    		$(".tab_content").hide(); //Hide all content
+    		$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+    		$(".tab_content:first").show(); //Show first tab content
+
+    		//On Click Event
+    		$("ul.tabs li").click(function() {
+
+    			$("ul.tabs li").removeClass("active"); //Remove any "active" class
+    			$(this).addClass("active"); //Add "active" class to selected tab
+    			$(".tab_content").hide(); //Hide all tab content
+
+    			var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+    			$(activeTab).fadeIn(); //Fade in the active ID content
+    			return false;
+    		});
+
+    	});
+	</script>	
+	
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $("#emp1").click(function(){
+        $("#emp_name").val("Dolly Duck");
+    });
+    
+    $("#emp2").click(function(){
+        $("#emp_name").val("");
+    });
+    
+});
+
+function setId(e)
+{		 
+	opener.document.userinput.msg_receive.value=e;
+	self.close(); 
+	}
+
+</script>
+		
 </head>
 
 <title>JackPot 전자결재_양식목록</title>
@@ -121,7 +205,7 @@
 	
     <div class="content-wrap approval responsive">
     <div class="content-write">
-    <form id="apprDocForm" name="apprDocForm" method="post" action="/JackPot/listApproDocPro.jp" enctype="multipart/form-data">
+    <form id="apprDocForm" name="apprDocForm" method="post" action="/JackPot/listApproDocPro.jp" enctype="multipart/form-data" onsubmit="return checkContents()">
 		<h2>기안용지</h2>
 				
 		<div id="formButtonDiv" class="btn-wrap pt10">
@@ -149,8 +233,12 @@
 									<tr id="apprLine0BTr">									
 									<td height="60">${emp_name}</td>
 									</tr>
+																		
 								</tbody>
+								
 							</table>
+							<input type="text" name="approver_name" id="approver_name" placeholder="결재권자">
+							<input type="text" name="approver_num" id="approver_num">
 						</div>
 												
 					</div>
@@ -204,7 +292,9 @@
 								<input type="hidden" name="department" 		value="${emp_department}">
 								<input type="hidden" name="temp_num" 		value="${temp_num}">
 								<input type="hidden" name="emp_num" 		value="${emp_num}">
-								<input type="hidden" name="branch" 		value="${edto.branch}">
+								<input type="hidden" name="branch" 			value="${edto.branch}">
+								<input type="hidden" name="doc_num" 		value="${doc_num}">
+								<input type="hidden" name="approver_num" 	value="">
 								</td>
 							</tr>
 							
@@ -229,7 +319,7 @@
 								<td colspan="3">
 									
 									            
-					    			        <input id="apprTitle" type="text" title="문서제목" name="apprTitle" value="" class="inputbox w100p" maxlength="65" placeholder="문서제목을 입력하세요. ">
+					    			        <input id="doc_title" type="text" title="문서제목" name="doc_title" value="" class="inputbox w100p" maxlength="65" placeholder="문서제목을 입력하세요. ">
 								</td>
 							</tr>
 														
@@ -237,11 +327,17 @@
 					</table>
 					<!--ckeditor 부분 -->
 					<div>
-						<textarea class="ckeditor" cols="1" id="editor" name="editor" rows="15"></textarea>
-						<script type="text/javascript">
-							CKEDITOR.replace('editor');
+						<textarea class="ckeditor" cols="1" id="editor" name="doc_content" rows="15"></textarea>
+						<script>
+							CKEDITOR.replace(
+									'editor',
+									{
+										toolbar:'Basic',
+										skin:'moonocolor'
+									}
+								);
+							
 						</script>
-						
 					</div>
 				</div>
 					<div id="formButtonDiv" class="btn-wrap pt10">
@@ -260,41 +356,42 @@
 </div>
 </div>
 	<div id="layer1" class="pop-layer">
-		<form id="approForm" action="*" method="post">
+		<form name="approver_form" method="post">
+			
+		
 			<div class="modal-header">
 					<h2 class="modal-title">결재선지정</h2>
 			</div>
-			<div>
-				<input type="checkbox" name="emp_inf" value="신성무 사장(부서장)" />신성무 사장(부서장)<br/>
-				<input type="checkbox" name="emp_inf" value="서지연 전무" />서지연 전무<br/>
-				<input type="checkbox" name="emp_inf" value="유준상 부서장" />유준상 부서장<br/>
-				<input type="checkbox" name="emp_inf" value="김민영 대리" />김민영 대리<br/>
-				<input type="checkbox" name="emp_inf" value="박혜진 대리" />박혜진 대리<br/>
-				<input type="checkbox" name="emp_inf" value="안진영 대리" />안진영 대리<br/>
-			</div>
 			
+			
+			<ul class="tabs">
+	   			<li><a href="#tab1">조직도</a></li>
+	    		<li><a href="#tab2">검색</a></li>
+			</ul>
+			<div class="tab_container">
+    			<div id="tab1" class="tab_content">
+	        		<!--Content-->
+	    		</div>
+		   		<div id="tab2" class="tab_content">
+		       		<!--Content-->
+		       		<form id="approver_info">
+			       		<input type="text" id="approver_test" name="approver_test" onkeypress="if(event.keyCode==13){approver_find();event.returnValue=false}"/>
+						<input type="button" value="검색" onclick="approver_find();"/>
+					</form>
+		    	</div>
+		    	
+			</div>
+			<div class="btn-r">
+				<input type="button" value="적용" onclick="applyEvent();">
+				<a href="#" class="cbtn">닫기</a>
+			</div>
+			</form>
+		</div>
 			<hr>
-			<div>
-				<input type="radio" name="appr_method" value="결재" checked="checked" />결재
-				<input type="radio" name="appr_method" value="합의" />합의
-			</div>
-			
-			<div>
-				<input id='btn-show-checked' type="button" name="add" value=">"><br/>
-				<input type="button" name="remove" value="<"><br/>
-			</div>
-			
-			<div>
-				<input id="emp_choose" type="text" name="emp_choose"><br/>
-			
-			</div>
-			<a href="#" class="cbtn"><input type="button" id="#" class="cbtn" value="적용"></a>
-		</form>
-		<div class="btn-r">
-			<a href="#" class="cbtn">닫기</a>
-		</div>
-		</div>
-		<input type="hidden" value="${temp_num}" name="temp_num" class="temp_num" />
-
+			<input type="hidden" value="${temp_num}" name="temp_num" class="temp_num" />
 </body>
 </html>
+
+<c:forEach var="a" items="${emp }">
+${a.emp_no}
+</c:forEach>
