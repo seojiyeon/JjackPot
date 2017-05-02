@@ -35,7 +35,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 <script type="text/javascript">
 function setName(e)
 {		 
-	opener.document.userinput.rec_name.value=e;
+	opener.document.bminput.rec_name.value=e;
 	self.close(); 
 	}
 

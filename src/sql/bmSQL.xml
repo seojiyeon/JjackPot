@@ -346,7 +346,11 @@
             select count(*) from emp where emp_name=#emp_name#
         </select>
         
+        <!-- 사원/업무담당자 이름/업무담당자 지점/업무담당자 부서/업무담당자 직급 -->
+        <select id= "empInf" resultClass="empDTO" parameterClass="String">
+        	select e.emp_num, e.emp_name,br.branch branch2,p.position position2 from emp e, branch br,position p where e.emp_num=#emp_num# and e.POSITION = p.num and e.branch =br.num
         
+        </select>
          
 
 </sqlMap>

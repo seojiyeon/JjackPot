@@ -35,7 +35,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 <script type="text/javascript">
 function setId(e)
 {		 
-	opener.document.userinput.ref_name.value=e;
+	opener.document.bminput.ref_name.value=e;
 	self.close(); 
 	}
 
