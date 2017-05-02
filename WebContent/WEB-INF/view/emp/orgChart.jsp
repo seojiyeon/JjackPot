@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link href="/JackPot/css/org.css?ver=8" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/org.css?ver=11" rel="stylesheet" type="text/css">
 <script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />   
 <link rel="stylesheet" href="/JackPot/css/org.css" type="text/css" /> 
@@ -113,7 +113,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 
 
 <div id="main-container">
-
+<div>
 
 <div class="con-header">
 	<h2>
@@ -122,71 +122,95 @@ style="position:relative; top:0; left:0;" dir="ltr">
 </div>
 			
 	
-	<div class="content-list">
-		<table class="table table-striped list-border"> 		
-<ul id="box1">
- <li style="text-align:right;width:900; margin-left:500px;">
- 	<form action="searchORG.jp" >
-	 	<select name="searchName">
+
+		
+<div class="table-header">
+		
+ 	   <form action="searchORG.jp">
+ <div class="table-search">
+	    <select name="searchName" title="검색타입" style="font-size: small;">	 	
 	 		<option value="emp_name">사원이름 검색</option>
 	 		<option value="phone">전화번호 검색</option>
 	 		<option value="address">주소 검색</option>
-	 	</select>
-  		<input type="text" name="searchValue" />
-    	<input  TYPE="submit" name="Submit" value="검색">
+       </select>
+     <div class="input-search">  
+     <input name="searchValue" id="searchKeyword" value="" title="검색어" type="text" class="w150" style="font-size: small;">
+    	  
+    	  <input type="image" src="/JackPot/save/search.png" width="25" height="25" value="submit" align="absmiddle">
+</div>
     </form>
-</li>
-</ul>    		
-	
-
-	
-<table border="1" width="900"  cellpadding="0" cellspacing="0" align="center" > 
-    			
-<form method="post"  actione="addfav.jp" name="orgchart" >
- 
- 
-<c:if test="${memId!=null}">
+</div>
+</div> 		
+ 		
 
 
+<div class="content-list">
+    <table class="table table-striped list-border"> 
+			<caption></caption>
+			<colgroup>
+				<col style="width:50%;">
+				<col style="width:50%">
+			</colgroup>
+
+
+													
+		<form method="post"  action="addfav.jp" name="orgchart" >
+	<c:if test="${memId!=null}">
    <c:forEach var="article" items="${articleList}" varStatus="status">
+   
+		
+ <tr style="background: rgb(249, 249, 249);">
    <c:if test="${status.index%2==0}" >
-   <tr></tr>
-   </c:if>
+   <div></div>
+   <div></div>
+   </c:if>	
  
-      <td align="center"  width="100" >
-       <img src="/JackPot/save/${article.profilephoto}" 
-         id="emp_num" title="profilephoto" width=90px, height=80px/> 
-      </td>
-      <td>
-      <font size="2.9">
-       
-       &nbsp;&nbsp;<input type="checkbox" name="emp_num" value="${article.emp_num}">
-       
-          <strong><input type="hidden" name="emp_name" value="${article.emp_name}">${article.emp_name}
-          <input type="hidden" name="position" value="${article.position}">${article.position} </strong> (${article.emp_num})
-          
-          <c:forEach items="${list}" var="list">
+
+					<td class="text-left">
+				
+					<div class="person-info-body" style="position: relative;">
+						<span class="person-info-check" style="position:absolute; margin-left: 5px;">
+							<input type="checkbox" title="checkbox" name="emp_num" id="chkDelMyPeople" value="${article.emp_num}">
+						
+						</span>
+		
+						<div class="person-info-photo">
+			<c:forEach items="${list}" var="list">
           	<c:if test="${article.emp_num eq list.emp_num }">
           		<img src="/JackPot/save/star.jpg" width="20" height="20">
           		</c:if>
           </c:forEach>
+          			
+          			<span class="per50" style="margin-left: 5px;">
+							   <img src="/JackPot/save/${article.profilephoto}" 
+         id="emp_num" title="profilephoto" width=90px, height=80px > 
+                   </span>
+                       </div>
+                       
+<div class="person-info">
+							<div class="name">
 
-          <br /> 
-        </font><br/>
-       <font size="2">
+          <strong><input type="hidden" name="emp_name" value="${article.emp_name}">${article.emp_name}
+          <input type="hidden" name="position" value="${article.position}">${article.position} </strong> (${article.emp_num})
+          <br/>
+           <br/>
+         
+      
+       <font size="2" color="gray">
        &nbsp;${article.phone} <input type="hidden" name="phone" value="${article.phone}"><br />
        &nbsp;${article.mail}  <input type="hidden" name="mail" value="${article.mail}"><br />
        &nbsp;${article.address} <input type="hidden" name="address" value="${article.address}"><br />
        </font><br/>
+</div>
+</div>
+</div>
+</td>
+</td>
+</tr>
 
-      <!-- ${article.address} <br />
-       ${article.position} <br />
-       ${article.department} 
-        -->
-       </font>
-       </td>
-   
-     </c:forEach>
+        </div>
+     </div>
+   </c:forEach>
  </c:if>    
 
   <table border="1" width="900"  cellpadding="0" cellspacing="0" align="center">
@@ -201,19 +225,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
    </tr>
   </table>
 
-    </form>
- 
- 
-   
-</div>
-</table>
-</div>
-</div>
-</div>
-   </body>
-     </head>
-       </html>
- 
+
   
   
   
