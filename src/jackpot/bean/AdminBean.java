@@ -21,10 +21,12 @@ public class AdminBean {
 	
 	@RequestMapping("/emplist.jp")
 	public String empList(empDTO dto, HttpSession session, Model model){
-		
+		int count = 0;
 		List articleList = null;
-		articleList = sqlMap.queryForList("employee.memberAll", articleList);		
-		model.addAttribute("articleList", articleList);		
+		articleList = sqlMap.queryForList("employee.memberAll", articleList);
+		count = (int) sqlMap.queryForObject("employee.userCnt", null);
+		model.addAttribute("articleList", articleList);
+		model.addAttribute("count", count);	
 		
 		return "/admin/empList";
 	}
