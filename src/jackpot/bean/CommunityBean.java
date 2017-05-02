@@ -115,9 +115,11 @@ public class CommunityBean {
 	public String CommentDEL(HttpServletRequest request,Model model,communityDTO dto){
 	    int step_num=Integer.parseInt(request.getParameter("step_num"));	
 	    int com_num=Integer.parseInt(request.getParameter("ref"));
-	  
+	   
+	    
+	   
            sqlMap.delete("comm.deleteReply", step_num);
-	    	
+	   
            model.addAttribute("com_num", com_num);
 		return "/community/CommentDEL";
        }
@@ -147,15 +149,24 @@ public class CommunityBean {
        }
 	
 	@RequestMapping("/trash.jp")
-	public String trash(HttpServletRequest request,Model model,communityDTO dto){	   
+	public String trash(HttpSession session,HttpServletRequest request,Model model,communityDTO dto){	   
+		 String emp_num=(String) session.getAttribute("memId");
 		 int rep_num=Integer.parseInt(request.getParameter("rep_num"));	
-		 int com_num=Integer.parseInt(request.getParameter("com_num"));
-	    System.out.println(rep_num);
-	    
-		 sqlMap.delete("comm.trash", rep_num);
+		 int com_num=Integer.parseInt(request.getParameter("com_num"));	
+		 String re_num=request.getParameter("re_num");
+
+		 int check = 0;
 		 
+		   if(re_num.equals(emp_num)) {
+	         check =1;
+		 sqlMap.delete("comm.trash", rep_num);
+		     }else{
+		     check =0;
+		     }
+		     
 		 model.addAttribute("rep_num",rep_num);
 		 model.addAttribute("com_num",com_num);
+		 model.addAttribute("check",check);
 		 
 		return "/community/trash";
        }

@@ -44,7 +44,7 @@
 
 	$(document).ready(function(){
 		//검은 마스크 배경과 레이어 팝업 띄운다.
-		$('.btnMove').click(function(e){
+		$('.btnMove, .btnRecover').click(function(e){
 			e.preventDefault();
 			wrapWindowByMask();
 		});
@@ -65,9 +65,14 @@
 	
 	
 	/* 메모 카테고리 선택 후 페이지 이동 */
-	function selectMove(memo_cate) {
-		document.multiForm.action="memoCateMove.jp?memo_cate="+memo_cate;
-		document.multiForm.submit();
+	function selectMove(a, memoGroup) {
+		if(memoGroup > 0) {   // 체크박스 체크 여부 확인 후 경고창 띄우는거도 하기
+			document.multiForm.action="memoCateMove.jp?memoGroup=${memoGroup}&memo_cate="+a;
+			document.multiForm.submit();
+		} else if(memoGroup == 0) {
+			document.multiForm.action="memoRecover.jp?memoGroup=${memoGroup}&memo_cate="+a;
+			document.multiForm.submit();
+		}
 	}
 </script>
 
@@ -77,19 +82,19 @@
 	<div id="subarea">
 		<div id="leftMenu">
 			<div class="leftMenuTop">
-				<h2><a href="memoList.jp">메모</a></h2>
+				<h2><a href="memoList.jp?memoGroup=1">메모</a></h2>
 			</div>
 			
 			<div id="leftMenuArea">
 				<ul class="menuList" style="margin:0;padding:0;list-style:none;">
 					<li class="list" style="text-align:center">
-						<button type="button" class="chMemoCate" id="notePopup" onclick="window.location='memoInsert.jp'">메모 등록</button>
+						<button type="button" class="chMemoCate" id="notePopup" onclick="window.location='memoInsert.jp?memoGroup=${memoGroup}'">메모 등록</button>
 					</li>
 					<li class="list">
-						<a href="memoList.jp">모든 메모 <font color="red">${count}</font></a>
+						<a href="memoList.jp?memoGroup=1">모든 메모 <font color="red">${count}</font></a>
 					</li>
 					<li class="list">
-						<a href="memoImp.jp">중요 메모 <font color="red">${impCount}</font></a>
+						<a href="memoList.jp?memoGroup=2">중요 메모 <font color="red">${impCount}</font></a>
 					</li>
 					<li class="listFolder">
 						<a style="display:inline-block;height:30px;">나의 폴더</a>
@@ -100,14 +105,14 @@
 								<c:if test="${memoCateCount > 0}">
 									<c:forEach var="memoCate" items="${memoCateList}">
 										<li>
-											<a href="memoViewList.jp?memo_cate=${memoCate.cate_num}">${memoCate.getCate_title()}</a>
+											<a href="memoList.jp?memo_cate=${memoCate.cate_num}&memoGroup=3">${memoCate.getCate_title()}</a>
 										</li>
 									</c:forEach>
 								</c:if>
 							</ul>
 					</li>
 					<li class="list">
-						<a href="memoRemoveList.jp">휴지통 <font color="red">${removeCount}</font></a>
+						<a href="memoList.jp?memoGroup=0">휴지통 <font color="red">${removeCount}</font></a>
 					</li>
 					<li class="list">
 						<a href="memoCateManage.jp">폴더 관리</a>
@@ -135,9 +140,9 @@
 			<ul style="list-style:none;">
 				<li>이동할 메모를 선택해 주세요.</li>
 				<c:forEach var="memoCate" items="${memoCateList}">
-					<li style=" height: 25px;">
+					<li style="height: 25px;">
 						<img alt="before" src="/JackPot/images/memo/right-arrow.png" />
-						<a onclick="selectMove(${memoCate.cate_num})">${memoCate.getCate_title()}</a>
+						<a onclick="selectMove(${memoCate.cate_num}, ${memoGroup})">${memoCate.getCate_title()}</a>
 						<input type="hidden" value="${memoCate.cate_num}" name="memo_cate" />
 					</li>
 				</c:forEach>

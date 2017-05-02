@@ -47,6 +47,7 @@
             select count(*)from reply where ref=#ref#       
         </select>
         
+     
         <delete id="deleteReply" parameterClass="int">
             delete  from reply where step_num=#step_num#
         </delete>

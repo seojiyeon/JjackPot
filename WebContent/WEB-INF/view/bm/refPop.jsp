@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+<script src="jquery-3.1.1.min.js"></script> 
 <!--  jQuery UI CSS파일 --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <!-- // jQuery 기본 js파일 -->
@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
+
 
 <style>
 table {
@@ -29,22 +30,12 @@ table {
 tr:nth-child(even){background-color: #f2f2f2}
 </style>
 
+
+<html>
 <script type="text/javascript">
-
-$(document).ready(function(){
-    $("#emp1").click(function(){
-        $("#emp_name").val("");
-    });
-    
-    $("#emp2").click(function(){
-        $("#emp_name").val("");
-    });
-    
-});
-
 function setId(e)
 {		 
-	opener.document.bminput.inchar_name.value=e;
+	opener.document.userinput.ref_name.value=e;
 	self.close(); 
 	}
 
@@ -54,13 +45,10 @@ function setId(e)
 </script>
 
 <head>
-<title>담당자  </title>
+<title>참조자  </title>
 
 
-
-
-
-<form name="incharPop" method="post" action="incharPop.jp" onSubmit="return checkIt()">
+<form name="refPop" method="post" action="refPop.jp" onSubmit="return checkIt()">
 <table width="350" border="0" cellspacing="0" cellpadding="5">
   <tr>
     <td align="center"> 
@@ -70,7 +58,6 @@ function setId(e)
        
     </td></tr></table>
 </form>
-
 
 <c:if test="${count==0}">
  
@@ -103,5 +90,8 @@ function setId(e)
     </div>
      
      </c:if>
+
+     </head>
+     
 
 </html>

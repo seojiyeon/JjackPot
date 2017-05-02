@@ -3,14 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
 
 <head>
 <title>메모</title>
 </head>
 
 <script>
+	// 메모 휴지통으로 이동
 	function selectDelete() {
-		document.multiForm.action="memoDeletePro.jp";
+		document.multiForm.action="memoDeletePro.jp?memoGroup=${memoGroup}";
+		document.multiForm.submit();
+	}
+	
+	
+	// 휴지통에 있는 메모 삭제
+	function selectRemove() {
+		document.multiForm.action="memoRemovePro.jp?memoGroup=${memoGroup}";
 		document.multiForm.submit();
 	}
 </script>
@@ -23,7 +32,18 @@
 <div class="main-container" id="main-layer">
 	<div class="content-wrap">
 		<div class="content-head">
-			<h2 style="margin:5px; width: 300px;">모든 메모</h2>
+			<c:if test="${memoGroup == 1}">
+				<h2 style="margin:5px; width: 300px;">모든 메모</h2>
+			</c:if>
+			<c:if test="${memoGroup == 2}">
+				<h2 style="margin:5px; width: 300px;">중요 메모</h2>
+			</c:if>
+			<c:if test="${memoGroup == 0 }">
+				<h2 style="margin:5px; width: 300px;">휴지통</h2>
+			</c:if>
+			<c:if test="${memoGroup == 3}">
+				<h2 style="margin:5px; width: 300px;">${memoCateName}</h2>
+			</c:if>
 		</div>
 		<div class="table-header">
 			<div class="listInfo">
@@ -36,7 +56,20 @@
 				</select>
 				
 				<div class="totalNum">
-					<font color="#BDBDBD">전체</font> <span><font color="red">${count}</font></span>
+					<font color="#BDBDBD">전체</font> 
+					
+					<c:if test="${memoGroup == 1}">
+						<span><font color="red">${count}</font></span>
+					</c:if>
+					<c:if test="${memoGroup == 2}">
+						<span><font color="red">${impCount}</font></span>
+					</c:if>
+					<c:if test="${memoGroup == 0}">
+						<span><font color="red">${removeCount}</font></span>
+					</c:if>
+					<c:if test="${memoGroup == 3}">
+						<span><font color="red">${viewCount}</font></span>
+					</c:if>
 				</div>
 				
 				<select class="mr10" name="sortWord">
@@ -55,65 +88,240 @@
 			</div>
 		</div>
 		
-		<form name="multiForm">
+		<form name="multiForm" method="post">
 		<div class="content-write" style="width:100%;">
-			<table>
-				<c:if test="${count == 0}">
-					<tr>
-						<td>등록된 메모가 없습니다.</td>
-					</tr>
-				</c:if>
+			<!-- 전체 메모 -->
+			<c:if test="${memoGroup == 1}">
+				<table>
+					<c:if test="${count == 0}">
+						<tr>
+							<td>등록된 메모가 없습니다.</td>
+						</tr>
+					</c:if>
 			
-				<c:if test="${count > 0}">
-				<c:forEach var="memoCont" items="${memoCont}"> 
-					<tr>
-						<td>
-							<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
-							<img alt="중요" src="/JackPot/images/memo/notImp.png" />
-							<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}">${memoCont.getMemo_title()}</a></font>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="memoNote">
-								<pre>${memoCont.getMemo_content()}</pre>
-							</div>
-						</td>
-					</tr>
-					<tr>	
-						<td> ${memoCont.getCate_title()} | 등록:${sdf.format(memoCont.getMemo_enroll())} | 수정:${sdf.format(memoCont.getMemo_modi())}</td>
-					</tr>
+					<c:if test="${count > 0}">
+					<c:forEach var="memoCont" items="${memoCont}"> 
+						<tr>
+							<td>
+								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" class="memoNum"/>
+								<i class="icon nonimp">	</i>
+								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="memoNote">
+									${memoCont.getMemo_content()}
+								</div>
+							</td>
+						</tr>
+						<tr>	
+							<td> ${memoCont.getCate_title()} | 등록:${sdf.format(memoCont.getMemo_enroll())} | 수정:${sdf.format(memoCont.getMemo_modi())}</td>
+						</tr>
+						</c:forEach>
+					</c:if>
+				</table>
+			</c:if>
+			
+			<!-- 중요메모 -->
+			<c:if test="${memoGroup == 2}">
+				<table>
+					<c:if test="${impCount == 0}">
+						<tr>
+							<td>등록된 메모가 없습니다.</td>
+						</tr>
+					</c:if>
+				
+					<c:if test="${impCount > 0}">
+					<c:forEach var="memoCont" items="${memoCont}"> 
+						<tr>
+							<td>
+								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
+								<i class="icon nonimp">	</i>
+								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.memo_title}</a></font>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="memoNote">
+									${memoCont.memo_content}
+								</div>
+							</td>
+						</tr>
+						<tr>	
+							<td> ${memoCont.getCate_title()} | 등록:${sdf.format(memoCont.getMemo_enroll())} | 수정:${sdf.format(memoCont.getMemo_modi())}</td>
+						</tr>
+						</c:forEach>
+					</c:if>
+				</table>
+			</c:if>
+			
+			<!-- 휴지통 -->
+			<c:if test="${memoGroup == 0}">
+				<table>
+					<c:if test="${removeCount == 0}">
+						<tr>
+							<td>휴지통이 비어있습니다.</td>
+						</tr>
+					</c:if>
+			
+					<c:if test="${removeCount > 0}">
+					<c:forEach var="memoCont" items="${memoCont}"> 
+						<tr>
+							<td>
+								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
+								<i class="icon nonimp">	</i>
+								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="memoNote">
+									${memoCont.getMemo_content()}
+								</div>
+							</td>
+						</tr>
+						<tr>	
+							<td> ${memoCont.getCate_title()} | 등록:${sdf.format(memoCont.getMemo_enroll())} | 수정:${sdf.format(memoCont.getMemo_modi())}</td>
+						</tr>
 					</c:forEach>
 					</c:if>
-			</table>
+				</table>
+			</c:if>
+			
+			<!-- 카테고리별 메모 -->
+			<c:if test="${memoGroup == 3}">
+				<table>
+					<c:if test="${viewCount == 0}">
+						<tr>
+							<td>등록된 메모가 없습니다.</td>
+						</tr>
+					</c:if>
+			
+					<c:if test="${viewCount > 0}">
+					<c:forEach var="memoCont" items="${memoCont}"> 
+						<tr>
+							<td>
+								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
+								<i class="icon nonimp">	</i>			
+								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="memoNote">
+									<pre>${memoCont.getMemo_content()}</pre>
+								</div>
+							</td>
+						</tr>
+						<tr>	
+							<td> ${memoCont.getCate_title()} | 등록:${sdf.format(memoCont.getMemo_enroll())} | 수정:${sdf.format(memoCont.getMemo_modi())}</td>
+						</tr>
+					</c:forEach>
+					</c:if>
+				</table>
+			</c:if>
 		</div>
 		</form>
 	</div>
 	
 	<div class="page-wrap">
-		<table>
-			<c:if test="${count > 0}">
-			
-			<c:if test="${startPage > 10}">
-				<a href="memoList.jp?pageNum=${startPage-10}">[이전]</a>
-			</c:if>
+		<!-- 전체 메모 페이지 -->
+		<c:if test="${memoGroup == 1}">
+			<table>
+				<c:if test="${count > 0}">
+				
+				<c:if test="${startPage > 10}">
+					<a href="memoList.jp?pageNum=${startPage-10}&memoGroup=${memoGroup}">[이전]</a>
+				</c:if>
 		
-			<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-				<a href="memoList.jp?pageNum=${i}">${i}&nbsp;</a>
-			</c:forEach>
+				<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+					<a href="memoList.jp?pageNum=${i}&memoGroup=${memoGroup}">${i}&nbsp;</a>
+				</c:forEach>
 		
-			<c:if test="${endPage < pageCount}">
-				<a href="memoList.jp?pageNum=${startPage+10}">[다음]</a>
-			</c:if>
+				<c:if test="${endPage < pageCount}">
+					<a href="memoList.jp?pageNum=${startPage+10}&memoGroup=${memoGroup}">[다음]</a>
+				</c:if>
 			
-			</c:if>
+				</c:if>
+			</table>
+		</c:if>
+		
+		<!-- 중요 메모 페이지 -->
+		<c:if test="${memoGroup == 2}">
+			<table>
+				<c:if test="${impCount > 0}">
+			
+				<c:if test="${startPage > 10}">
+					<a href="memoList.jp?pageNum=${startPage-10}&memoGroup=${memoGroup}">[이전]</a>
+				</c:if>
+		
+				<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+					<a href="memoList.jp?pageNum=${i}&memoGroup=${memoGroup}">${i}&nbsp;</a>
+				</c:forEach>
+		
+				<c:if test="${endPage < pageCount}">
+					<a href="memoList.jp?pageNum=${startPage+10}&memoGroup=${memoGroup}">[다음]</a>
+				</c:if>
+			
+				</c:if>
+			</table>
+		</c:if>
+		
+		<!-- 휴지통 페이지 -->
+		<c:if test="${memoGroup == 0}">
+			<table>
+				<c:if test="${removeCount > 0}">
+				
+				<c:if test="${startPage > 10}">
+					<a href="memoList.jp?pageNum=${startPage-10}&memoGroup=${memoGroup}">[이전]</a>
+				</c:if>
+			
+				<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+					<a href="memoList.jp?pageNum=${i}&memoGroup=${memoGroup}">${i}&nbsp;</a>
+				</c:forEach>
+			
+				<c:if test="${endPage < pageCount}">
+					<a href="memoList.jp?pageNum=${startPage+10}&memoGroup=${memoGroup}">[다음]</a>
+				</c:if>
+			
+				</c:if>
+			</table>
+		</c:if>
+		
+		<!-- 카테고리별 페이지 -->
+		<c:if test="${memoGroup == 3}">
+			<table>
+				<c:if test="${viewCount > 0}">
+				
+				<c:if test="${startPage > 10}">
+					<a href="memoList.jp?pageNum=${startPage-10}&memoGroup=${memoGroup}">[이전]</a>
+				</c:if>
+		
+				<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+					<a href="memoList.jp?pageNum=${i}&memoGroup=${memoGroup}">${i}&nbsp;</a>
+				</c:forEach>
+		
+				<c:if test="${endPage < pageCount}">
+					<a href="memoList.jp?pageNum=${startPage+10}&memoGroup=${memoGroup}">[다음]</a>
+				</c:if>
+			
+				</c:if>
 		</table>
+		</c:if>
 	</div>
 	
 	<div class="main-bottom">
-		<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp'">등록</button>
-		<button type="button" class="btnMove">이동</button>
-		<button type="button" class="btnDelete" onclick="selectDelete()">삭제</button>
+		<c:if test="${memoGroup > 0}">
+			<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp?memoGroup=${memoGroup}'">등록</button>
+			<button type="button" class="btnMove">이동</button>
+			<button type="button" class="btnDelete" onclick="selectDelete()">삭제</button>
+		</c:if>
+		
+		<c:if test="${memoGroup == 0}">
+			<button type="button" class="btnRecover">복구</button>
+			<button type="button" class="btnRemove" onclick="selectRemove()">삭제</button>
+		</c:if>
 	</div>
 </div>
 </body>

@@ -44,6 +44,13 @@
         
         </select>
         
+        
+        <select id="userCnt" resultClass="int" >
+            select count(*)from emp
+        
+        </select>
+        
+        
         <delete id="deletePro" parameterClass="dto">
         delete from emp where emp_num=#emp_num#
         

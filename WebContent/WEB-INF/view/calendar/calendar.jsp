@@ -182,6 +182,7 @@ function add_open(addform){
 
 </script>
 
+
 </head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <title>풀캘린더</title>

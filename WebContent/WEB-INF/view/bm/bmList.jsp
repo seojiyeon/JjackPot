@@ -214,10 +214,18 @@ tbody {
                      <div class="ui-step-wrap">
                          <div class="ui-step-todo">
                              <div class="step-bar"></div>
-                                 <label for="statusReject" style="left: 0%;"><input type="checkbox" name="bm_state" title="반려" id="statusReject" value="20" checked=""><span class="box"></span><span class="txt">반려</span></label><!-- 반려 -->
-                                 <label for="statusDelay" style="left: 33.3%;"><input type="checkbox" name="bm_state" title="지연" id="statusDelay" value="11" checked=""><span class="box"></span><span class="txt">지연</span></label><!-- 지연 -->
-                                 <label for="statusNotComplete" style="left: 66.6%;"><input type="checkbox" name="bm_state" title="미완료" id="statusNotComplete" value="12" checked=""><span class="box"></span><span class="txt">미완료</span></label><!-- 미완료 -->
-                                 <label for="statusComplete" style="left: 100%;"><input type="checkbox" name="bm_state" title="완료" id="statusComplete" value="1" checked=""><span class="box"></span><span class="txt">완료</span></label><!-- 완료 -->
+                                 <label for="statusReject" style="left: 0%;"><input type="checkbox" name="bm_state" title="반려" id="statusReject" value="20" checked="">
+                                 <span class="box"></span>
+                                 <span class="txt">반려</span></label><!-- 반려 -->
+                                 <label for="statusDelay" style="left: 33.3%;">
+                                 <input type="checkbox" name="bm_state" title="지연" id="statusDelay" value="11" checked="">
+                                 <span class="box"></span><span class="txt">지연</span></label><!-- 지연 -->
+                                 <label for="statusNotComplete" style="left: 66.6%;">
+                                 <input type="checkbox" name="bm_state" title="미완료" id="statusNotComplete" value="12" checked="">
+                                 <span class="box"></span><span class="txt">미완료</span></label><!-- 미완료 -->
+                                 <label for="statusComplete" style="left: 100%;">
+                                 <input type="checkbox" name="bm_state" title="완료" id="statusComplete" value="1" checked="">
+                                 <span class="box"></span><span class="txt">완료</span></label><!-- 완료 -->
                          </div>
                     </div>
                 </div>
@@ -245,6 +253,7 @@ tbody {
                 </div>
             </div>
         </div>
+        
    		<div class="content-list">
             <table class="table table-striped" id="tblList">	
 				<thead>
@@ -274,8 +283,8 @@ tbody {
                         </th>
                     </tr>
                 </thead>
+                
 		<tbody>
-		
 			<c:forEach var="bmdto"  items="${bmList}">
 				<tr>
                         <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
@@ -286,30 +295,34 @@ tbody {
                         <th style="width: 120px;">
                        		${bmdto.box_name}
                         </th>
+                        
                         <th style="min-width: 200px;">
-                            ${bmdto.bm_title}
+                        	<a href="myBmYCHContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                            	${bmdto.bm_title}
+                           	</a>
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_name}
                         </th>
                         <th style="width: 120px;">
-                          ${sdf.format(bmdto.bm_start)}
+                          ${bmdto.bm_start}
                         </th>
                         <th style="width: 120px;">
-                            ${sdf.format(bmdto.bm_end)}
+                            ${ bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_state2}
                         </th>
                     </tr>
 				</c:forEach>
-				</tbody>
-	
+				</tbody>	
 			</table>
 			
 		<div class="page-wrap">
 			<table>
-				<c:if test="${count > 0}">
+				<tr>
+				<td>
+				<c:if test="${bmcount > 0}">
 				
 				<c:if test="${startPage > 10}">
 					<a href="bmList.jp?pageNum=${startPage-10}">[이전]</a>
@@ -324,6 +337,8 @@ tbody {
 				</c:if>
 			
 				</c:if>
+				</td>
+				</tr>
 			</table>
 		</div>
 	</div>
@@ -335,6 +350,14 @@ tbody {
   		      <li><i class="fa fa-exclamation-circle"></i> 업무 상태를 클릭하시면 담당자 별 처리현황을 확인 할 수 있습니다.</li>
     		</ul>
 		</div>
+		
+			<div class="btn-wrap" >
+     
+    			<button type="button" onClick="window.location='myBmdelete.jp?num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+    			<button type="button" onClick="window.location='BmPerfec.jp?num=${bm_num}'"class="btn2 btn-color7 br">업무완료 </button>
+    			<button type="button" onClick="window.location='bmList.jp'"class="btn2 btn-color7 br">목록  </button>
+    
+    		</div>		
 		</div>
 </body>
 </html>

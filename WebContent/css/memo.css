@@ -220,8 +220,7 @@ table {
 	border-bottom-style:solid; 
 	border-bottom-width:2px;
 }
-
-
+    
 /* a태그 파란글자/밑줄 X */
 a:link {text-decoration:none; color:#000000;}
 a:visited {text-decoration:none; color:#121212;}

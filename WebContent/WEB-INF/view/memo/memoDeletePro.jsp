@@ -2,4 +2,4 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:redirect url="memoList.jp?pageNum=${pageNum}" />
+<c:redirect url="memoList.jp?pageNum=${pageNum}&memoGroup=${memoGroup}" />

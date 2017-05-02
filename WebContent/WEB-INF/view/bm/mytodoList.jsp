@@ -16,10 +16,93 @@
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="resource/ckeditor.js"></script>
+<style>
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+td, th {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center
+    
+}
+
+
+.con-header {
+    position: relative;
+    height: 65px;
+    /* margin: 0 20px; */
+    padding: 25px 0 0 0;
+    border-bottom: 1px solid #d1d1d1;
+    background: #fff;
+}
+/*  테이블   */
+.content-list {
+    border-top: 1px solid #d1d1d1;
+    /* margin: 0 20px; */
+    margin-top: -1px;
+}
+
+
+table {
+    border-spacing: 0;
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.content-list .table > thead > tr > th {
+    padding: 5px 5px 6px;
+    height: 38px;
+    line-height: 18px;
+    color: #111;
+    text-align: center;
+    font-weight: 600;
+    vertical-align: middle;
+    border-bottom: 1px solid #d1d1d1;
+    background: #fff;
+}
+
+.content-list .table > tbody > tr > td {
+    padding: 3px 5px;
+    height: 34px;
+    line-height: 18px;
+    color: #333;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #f9f9f9;
+}
+</style>
+
+
 <html>
-<head>
-<html>
-<title> 업무관리</title>
+<title> 나의 할일</title>
+
 </head>    
  <body>
 <!-- ========================================================사이드바======================================================================= -->		
@@ -210,10 +293,10 @@
                             ${bmdto.bm_name}
                         </th>
                         <th style="width: 120px;">
-                          ${sdf.format(bmdto.bm_start)}
+                          ${bmdto.bm_start}
                         </th>
                         <th style="width: 120px;">
-                            ${sdf.format(bmdto.bm_end)}
+                            ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_state2}

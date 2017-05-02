@@ -236,4 +236,15 @@ public class voteBean {
 		return "/vote/reply";
 	}
 	
+	@RequestMapping("/garbage.jp")
+	public String garbage(HttpSession session,voteDTO dto,Model model,HttpServletRequest request){
+			int comm_num=Integer.parseInt(request.getParameter("comm_num"));
+			int v_num=Integer.parseInt(request.getParameter("v_num"));
+			System.out.println(v_num);
+			sqlMap.delete("vote.garbage", comm_num);
+		 
+		model.addAttribute("v_num",v_num);
+		 return "/vote/garbage";
+		
+	}
 }  //end

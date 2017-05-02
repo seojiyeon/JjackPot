@@ -470,12 +470,14 @@ Dropzone.options.myDropzone = {
              
              
              <input type="hidden" name="rep_num" value="${article.rep_num}">
-             <input type="hidden" name="com_num" value="${article.ref}"/>
-             
-             <a href="/JackPot/CommentDEL.jp?ref=${article.ref}&step_num=${article.step_num}">
-				<img src="/JackPot/save/trash.png" width="20" height="20" >			   
-			</a>
-			
+             <input type="hidden" name="com_num" value="${article.ref}"/>   
+             <input type="hidden" name="com_num" value="${article.re_num}"/>   
+            
+            <c:if test="${sessionScope.memId ==article.re_num}">
+	             <a href="/JackPot/CommentDEL.jp?ref=${article.ref}&step_num=${article.step_num}">
+					<img src="/JackPot/save/trash.png" width="20" height="20" >			   
+				</a>
+			</c:if>
 			
 				
       <table  width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">		
@@ -532,6 +534,7 @@ Dropzone.options.myDropzone = {
      		<c:if test="${article.re_level== 1 }"  >	
 		  <input type="hidden" name="rep_num" value="${article.rep_num}"/>
 		   <input type="hidden" name="com_num" value="${dto.com_num}"/>
+		    <input type="hidden" name="re_num" value="${article.re_num}"/>
 		 <li class="content" style="margin:0 50 10 ;"><img src="/JackPot/save/reply.png" width="15" height="15" >
 		 
 		  <font color="gray" size="3" style="margin: 3px;"> [답글]</font>&nbsp;&nbsp;${article.content}	

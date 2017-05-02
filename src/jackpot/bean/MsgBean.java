@@ -167,7 +167,7 @@ public class MsgBean {
 		int count = (int) sqlMap.queryForObject("msg.msgAcnt", id);		
 				
 		if(count == 0){
-		a = "false";
+		a = "";
 		}else{
 	    model.addAttribute("count", count);
 		a =  "/msg/msgAlarm";	
@@ -191,7 +191,7 @@ public class MsgBean {
 		int count = (int) sqlMap.queryForObject("msg.msgAcnt2", id);		
 				
 		if(count == 0){
-		a = "false";
+		a = "";
 		}else{
 	    a =  "/msg/msgNew";
 	    sqlMap.update("msg.msgAL", id);

@@ -17,6 +17,7 @@
 			]]>
 	
 		</select>
+
 		
 	<!--  모든업무 리스트보기 -->
 		<select id="getBmList" parameterClass="bmdto" resultClass="bmdto" >
@@ -29,28 +30,72 @@
 		
 		<!--  나의할일 리스트보기 -->		
 		<select id="getMytodoList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2 from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
-			where bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
-			order by bm.bm_num desc		
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where emp_num=#emp_num# and bm_form =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
 		
 		<!--  나의할일 COUNT 리스트보기 -->	
 		<select id="getMytodoListcount" parameterClass="bmdto" resultClass="int" >
 			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
-			where bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
+			where emp_num=#emp_num#  and bm_form =1 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
 			order by bm.bm_num desc		
 		</select>
 		
 
 		<!-- 모든업무 갯수 -->
 		<select id="bmcount" parameterClass="bmdto" resultClass="int">
-			select count(*) from business_manage
+			select count(*) from business_manage where emp_num=#emp_num# 
+		</select>
+		
+		<!--  업무요청 리스트보기 -->		
+		<select id="getBmYchList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where emp_num=#emp_num# and bm_form =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  업무요청 COUNT 리스트보기 -->	
+		<select id="getBmYchListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where emp_num=#emp_num# and  bm_form =2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
+			order by bm.bm_num desc		
 		</select>
 		
 		
+		<!--  업무보고 리스트보기 -->		
+		<select id="getBmBgList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where emp_num=#emp_num# and bm_form =3 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  업무보고 COUNT 리스트보기 -->	
+		<select id="getBmBgListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where emp_num=#emp_num# and bm_form =3 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
+			order by bm.bm_num desc		
+		</select>
+		
+		
+		<!--  업무일지 리스트보기 -->		
+		<select id="getBmIgList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where emp_num=#emp_num# and bm_form =4 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  업무일지 COUNT 리스트보기 -->	
+		<select id="getBmIgListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where emp_num=#emp_num# and bm_form =4  and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
+			order by bm.bm_num desc		
+		</select>
+				
+		
 		<select id="getEmp_name" parameterClass="string" resultClass="bmdto">
 		
-			select  e.emp_name from business_manage b, emp e where e.emp_num = b.emp_num 
+			select emp_name from emp where emp_num=#emp_num#
 		
 		</select>
 		
@@ -71,7 +116,7 @@
 	<!--  업무입력  -->
 		<insert id="insertBusiness" parameterClass="bmdto">
 	
-				insert into business_manage(bm_num,bm_title,bm_content,bm_form,bm_start,bm_end,enrollment,reg_notice,cmp_notice,related_bns,bns_box,important,bm_state) values(
+			<!-- insert into business_manage(BM_NUM ,BM_TITLE,BM_CONTENT,BM_FORM,BM_START,BM_END,ENROLLMENT,REG_NOTICE,CMP_NOTICE,BNS_BOX,IMPORTANT,BM_STATE,EMP_NUM,BM_NAME,UPDATE_DAY) values(
 					bm_seq.nextval,
 					#bm_title#,
 					#bm_content#,
@@ -81,18 +126,39 @@
 					sysdate,
 					#reg_notice#,
 					#cmp_notice#,
-					#related_bns#,
 					#bns_box#,
 					#important#,
 					#bm_state#,
-					#emp_num#
-				)
+					#emp_num#,
+					#bm_name#,
+					sysdate
+					
+				) -->	
 				
+			insert into business_manage (BM_NUM ,BM_TITLE,BM_CONTENT,BM_FORM,BM_START,BM_END,ENROLLMENT,REG_NOTICE,CMP_NOTICE,BNS_BOX,IMPORTANT,BM_STATE,EMP_NUM,BM_NAME,UPDATE_DAY)
+			values(
+					bm_seq.nextval,
+					#bm_title#,
+					#bm_content#,
+					#bm_form#,
+					#bm_start#,
+					#bm_end#,
+					sysdate,
+					#reg_notice#,
+					#cmp_notice#,
+					#bns_box#,
+					#important#,
+					#bm_state#,
+					#emp_num#,
+					#bm_name#,
+					sysdate
+					
+				)
 		
 		</insert>
 		
-		<select id="showBmNum" resultClass="bmdto">
-			select max(*) from business_manage
+		<select id="showBmNum" resultClass="int">
+			select max(bm_num) from business_manage
 		</select>
 	
 	
@@ -183,13 +249,13 @@
 		</insert>
 		
 		<!--  업무보관함 count  -->
-		<select id="countBns_box" resultClass="int" parameterClass="bmdto">
+		<select id="countBns_box" resultClass="int" parameterClass ="bmdto"  >
             select count(*) from  bns_box
         </select>
         
         <!--  업무보관함 list  -->
 		<select id="ListBns_box" resultClass="bmdto" >
-            select * from  bns_box
+            select * from  bns_box 
         </select>
 		
 		 <!--  bm_form    -->
@@ -204,7 +270,7 @@
         </select> 
 		
 		<!--  사원 이름 불러오기  -->
-		<select id="emp_name" resultClass="String" parameterClass="String">
+		<select id="emp_name" resultClass="String" parameterClass="int">
             select emp_name from emp where emp_num=#emp_num#     
         </select>
 		
@@ -241,8 +307,44 @@
       		select e.emp_num, e.emp_name,d.department, e.position from emp e, position p ,department d where e.position=p.num and e.department=d.num and e.department=3 order by e.position desc
       	</select>
          
-         
+<!-- content -->
         
+        <!-- 업무내용불러오기 -->
+		<select id="getBusinessCont" parameterClass= "bmdto" resultClass="bmdto">
+		select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_content,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2, bm.enrollment,bm.update_day
+		from business_manage bm,important i,bns_box bns, bm_state bs
+		where bm.bm_num=#bm_num# and bm.important=i.imp_num and  bm.bm_state=bs.state_num 
+
+		</select>
+		
+		 <!--  업무보관함 -->
+		<select id="getBns_box" resultClass="bmdto" parameterClass="int">
+            select * from  bns_box where bm_num=#bm_num#
+        </select>
+        
+		<!--  업무보관함 list  -->
+		<select id="Lisdddns_box" resultClass="bmdto" parameterClass="int">
+            select * from  bns_box where bm_num=#bm_num#
+        </select>
+        
+        
+		 <!--  업무보관함 list  -->
+		<select id="sdasda" resultClass="bmdto" parameterClass="int">
+            select * from  bns_box where bm_num=#bm_num#
+        </select>
+
+<!-- Popup -->         
+         
+        <!-- 사원찾기 --> 
+		<select id="empFind" resultClass="empDTO" parameterClass="String">
+            select e.emp_num,e.emp_name,d.department department2 from emp e, department d where emp_name=#emp_num# and e.department=d.num
+ 
+        </select>
+        
+         <!-- 사원찾기count -->
+        <select id="empFindCnt" resultClass="int" parameterClass="String">
+            select count(*) from emp where emp_name=#emp_name#
+        </select>
         
         
          

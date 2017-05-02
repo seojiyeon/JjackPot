@@ -2,8 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>   
-
+<link href="/JackPot/css/org.css?ver=8" rel="stylesheet" type="text/css">
+<script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/org.css" type="text/css" /> 
+<html lang="ko">
 <script type="text/javascript">
 		
 
@@ -64,10 +67,63 @@ function favd(){
  }
 </style>
 <head>
-<title>부서 구성원</title>
-<h2 align="center">같은 부서 구성원</h2>
+
 <body>
-<div border="0" width="900">
+<div id="page-container" class="sub sidebar-mini sidebar-subarea">
+
+<div id="sidebar">
+<div class="sidebar-content"> 
+ <h1>
+		 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
+		   <img src="/JackPot/save/home.png" width=50px, height=50px style="margin:5;">
+   <span id="brand" class="brand none">  
+	</span>	 
+   </a>
+ </h1>
+</div>
+
+<div id="subarea">
+<div class="leftmenu">
+		<h1 class="blind">Left Menu</h1>
+<div class="leftmenu-top" >
+			<h2 style="margin:20;" >조직도</h2>
+</div>
+
+<div class="leftmenu-inner-scroll mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" 
+style="height: 100%; position: relative; overflow: visible;"><div id="mCSB_1" 
+class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" 
+style="max-height: none;" tabindex="0"><div id="mCSB_1_container" 
+class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" 
+style="position:relative; top:0; left:0;" dir="ltr">
+			<ul class="menulist">	
+				<li data-submenu="allList" class="current">
+					<a href="orgChart.jp" class="sidebar-nav-menu">같은 부서 구성원 목록</a>
+				</li>
+				
+				<li id="commGroupTree" data-submenu="commGroup" data-emitem="addr.organogram">
+					<a href="Allorg.jp" class="sidebar-nav-menu">전체 조직도<i class="fa fa-chevron-up"></i></a>
+					<ul style="display: none;">
+					</ul>
+			    </li>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="main-container">
+
+
+<div class="con-header">
+	<h2>
+	전체 구성원 목록
+	</h2>
+</div>
+			
+	
+	<div class="content-list">
+		<table class="table table-striped list-border"> 		
 <ul id="box1">
  <li style="text-align:right;width:900; margin-left:500px;">
  	<form action="searchORG.jp" >
@@ -81,10 +137,10 @@ function favd(){
     </form>
 </li>
 </ul>    		
-</table>	
+	
 
 	
-<table border="1" width="900"  cellpadding="0" cellspacing="0" align="center"> 
+<table border="1" width="900"  cellpadding="0" cellspacing="0" align="center" > 
     			
 <form method="post"  actione="addfav.jp" name="orgchart" >
  
@@ -146,8 +202,14 @@ function favd(){
   </table>
 
     </form>
+ 
+ 
    
-
+</div>
+</table>
+</div>
+</div>
+</div>
    </body>
      </head>
        </html>
