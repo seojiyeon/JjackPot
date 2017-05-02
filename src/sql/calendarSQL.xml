@@ -43,4 +43,9 @@
         <select id="getSysname" parameterClass="String" resultClass="String">
         	select cl_sys from calendar where cl_num=#cl_num#
         </select>
+        
+        <select id="getparticipants" resultClass="jackpot.DTO.participantsDTO">
+        	select e.emp_num,e.emp_name,b.branch ,p.position from emp e, position p,branch b where e.branch=b.num and e.position=p.num order by branch , position
+        </select>
+        
 </sqlMap>

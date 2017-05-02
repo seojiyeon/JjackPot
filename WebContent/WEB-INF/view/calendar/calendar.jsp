@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/calendar.css?ver=14" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/calendar.css?ver=1" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <html>
@@ -40,9 +40,23 @@ a:hover{none;}
         		insertForm.fadeIn();
         });
         
+        $(".branchlist>a").click(function(){
+        	 var branchlist = $(this).next("ul");
+        	 if(branchlist.is(":visible")){
+        		 branchlist.slideUp();
+        	 }else{
+        		 branchlist.slideDown();
+        	 }
+        });
         
-    });
-    
+        $(".namelist1>li>a").click(function(){
+        	var namelist = $(this);
+        	var name = $(this).text();
+        	$(".selected-list").append("<li>"+name+"</li>");
+        	namelist.css("background-color","turquoise");
+        });
+    }); 
+
 function updatebutton_click(id){
 	$.ajax({
 		type :"post",
@@ -155,6 +169,17 @@ function layer_open(el){
 	});
 
 }
+
+function add_open(addform){	
+	var temp = $('#' + addform);
+	temp.fadeIn();
+	temp.find('a.add-cbtn').click(function(e){
+		temp.fadeOut();
+		e.preventDefault();
+	});
+	
+}
+
 </script>
 
 </head>
@@ -296,7 +321,7 @@ function layer_open(el){
     					<input type="time" name="stime" step="1800" value="00:00"/></li></ul>
     					<ul><li>종료일    <input type="date" name="edate" />
     					<input type="time" name="etime" step="1800" /></li></ul>
-						<ul><li>참여자<br/><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a >추가</a></li></ul>
+						<ul><li>참여자<br/><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a></li></ul>
    						<ul><li><br/><textarea name="contents" placeholder=" 내용"style="width:398px;border-radius:3px;border:1px solid darkgray;"></textarea></li></ul>
   						<ul><li><input type="submit" value="전송"></li><li><input type="reset" value="취소"></li></ul>
     					<input type="hidden" name="writer" value=""/>
@@ -335,6 +360,111 @@ function layer_open(el){
 				</div>
 				</div>
 			</div>
+	</div>
+	
+	<div id="participants-Form">
+		<div class="participants-Form-container">
+			<div class="participants-Form-top">
+			</div>
+			<div class="participants-Form-contents">
+				<div class="participants-Form-con-tab">
+					<ul>
+						<li><a>조직도</a></li>
+						<li><a>주소록</a></li>
+						<li><a>거래처</a></li>
+					</ul>
+				</div>
+				<div class="participants-Form-con-contents">
+					<ul>
+					<li>
+						<ul>
+							<li class="branchlist"><a href="#" class="강남">강남지점</a>
+								<ul class="namelist1">
+								</ul>
+							</li>
+						</ul>
+						<ul>
+							<li class="branchlist"><a href="#" class="종로">종로지점</a>
+								<ul class="namelist2">
+								</ul>
+							</li>
+						</ul>
+						<ul>
+							<li class="branchlist"><a href="#" class="동작">동작지점</a>
+								<ul class="namelist3">
+								</ul>
+							</li>
+						</ul>
+						<ul>
+							<li class="branchlist"><a href="#" class="수지">수지지점</a>
+								<ul class="namelist4">
+								</ul>
+							</li>
+						</ul>
+						<ul>
+							<li class="branchlist"><a href="#" class="용인">용인지점</a>
+								<ul class="namelist5">
+								</ul>
+							</li>
+						</ul>
+						<ul>
+							<li class="branchlist"><a href="#" class="인천서구">인천서구지점</a>
+								<ul class="namelist6">
+								</ul>
+							</li>
+						</ul>
+					</li>
+					</ul>
+				</div>
+				
+<!-- 	$.ajax({
+		type :"post",
+		url :"http://localhost:8080/JackPot/addparticipants.jp",
+		success : function(participants){
+			participants.forEach(function(v, i){
+				if(v.branch=="강남"){
+					$(".namelist1").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
+				};
+				if(v.branch=="준상"){
+					$(".namelist2").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
+				};
+				if(v.branch=="진영"){
+					$(".namelist3").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
+				};
+				if(v.branch=="성무"){
+					$(".namelist4").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
+				};
+				if(v.branch=="용인"){
+					$(".namelist5").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
+				};
+				if(v.branch=="인천서구"){
+					$(".namelist6").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
+				};
+			})
+		}, 
+		error : function(){
+			alert("error");
+		}
+		}); -->
+				<div class="participants-Form-con-center-btn">
+					<ul style="top:45%;">
+					<li><a href="#">ㅡ></a></li>
+					</ul>
+					<ul style="top:50%;">
+					<li><a href="#"><ㅡ</a></li>
+					</ul>
+				</div>
+				<div class="participants-Form-con-selected">
+					<ul class="selected-list">
+					</ul>
+				</div>
+			</div>
+			<div class="participants-Form-btn">
+				<ul style="padding: 5 0 0 10px;list-style: none;">
+					<li style="display: inline-block;float:right;"><a href="#" class="add-cbtn">닫기</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>	
 </body>
