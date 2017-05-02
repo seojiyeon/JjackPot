@@ -218,7 +218,6 @@ public class MemoBean {
 		int memoNum = (int)sqlMap.queryForObject("memo.memoNumSelect", dto);
 		dto.setMemo_num(memoNum);
 		
-		Date day = new Date();
 		String path = request.getRealPath("save"); // 업로드 경로
 		
 		/* 이미지 업로드 */
@@ -235,7 +234,7 @@ public class MemoBean {
 				System.out.println(extImg);
 				imgName = imgName.substring(extImg+1);
 			
-				String fmImg = dto.getEmp_num()+"_"+multiImg+"."+imgName;
+				String fmImg = dto.getEmp_num()+"_"+dto.getMemo_num()+"."+imgName;
 			
 				File f = new File(path+"//"+fmImg);
 			
@@ -261,7 +260,7 @@ public class MemoBean {
 				dto.setOrg_file(fileName);
 				int extFile = fileName.lastIndexOf(".");
 				fileName = fileName.substring(extFile+1);
-				String fmFile = dto.getEmp_num()+"_"+day+"."+fileName;
+				String fmFile = dto.getEmp_num()+"_"+dto.getMemo_num()+"."+fileName;
 			
 				fmFile = fmFile.replace(" ", "");
 				fmFile = fmFile.replace(":", "");
@@ -552,20 +551,128 @@ public class MemoBean {
 	}
 	
 	@RequestMapping("/memoModifyPro.jp")
-	public String memoModifyPro(MultipartHttpServletRequest request ) {
-		String [] f = request.getParameterValues("cfile");
-		for(String a : f){
-			System.out.println("=============="+a);
+	public String memoModifyPro(MultipartHttpServletRequest request, Model model, String pageNum, int memoGroup) {
+		memoDTO dto = new memoDTO();
+		int memo_num = Integer.parseInt(request.getParameter("memo_num"));
+		dto.setMemo_num(memo_num);
+		dto.setMemo_title(request.getParameter("memo_title"));
+		dto.setMemo_content(request.getParameter("memo_content"));
+		dto.setMemo_cate(Integer.parseInt(request.getParameter("memo_cate")));
+		String memoState = request.getParameter("memo_state");
+
+		if(memoState == null) {
+			dto.setMemo_state(1);
+		} else if(memoState != null){
+			dto.setMemo_state(2);
+		}
+		
+		sqlMap.update("memo.memoUpdate", dto);
+		
+		String path = request.getRealPath("save"); // 업로드 경로
+		
+		/* hide()한 이미지 파일 삭제 */
+		String [] cimg = request.getParameterValues("cimg");
+		if(cimg != null) { 
+			for(int i=0; i<cimg.length; i++){
+				dto.setOrg_img(cimg[i]);
+				System.out.println("이미지 파일 : "+dto.getOrg_img());
+				
+				dto = (memoDTO)sqlMap.queryForObject("memo.memoOrgImg", dto);
+				
+				/* 서버에 저장된 곳에서 삭제 */
+				try{
+					
+					File imgF = new File(path+"\\"+dto.getSys_img());
+				
+					if(imgF.exists()) {
+						imgF.delete();
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			sqlMap.delete("memo.memoImgSelectDel", dto);
+			}
+						
+		}
+		
+		/* hide()한 파일 삭제 */
+		String [] cfile = request.getParameterValues("cfile");
+		if(cfile != null) {
+			for(int i=0; i<cfile.length; i++) {
+				dto.setOrg_file(cfile[i]);
+				System.out.println("파일 : "+dto.getOrg_file());
+			
+				/* 서버에 저장된 곳에서 삭제 */
+				try {
+				
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			
+			sqlMap.delete("memo.memoFileSelectDel", dto);
+			}
+		}
+		
+		/* 새로 입력한 파일 저장하기 */
+		/* 이미지 */
+		List<MultipartFile> mf = request.getFiles("org_img"); // 업로드 원본 파일
+		
+		for(MultipartFile multiImg : mf) {
+			String imgName = multiImg.getOriginalFilename();
+			
+			if(imgName != "") {
+				dto.setOrg_img(imgName);
+				System.out.println("2 : "+imgName);
+				int extImg = imgName.lastIndexOf(".");
+				System.out.println(extImg);
+				imgName = imgName.substring(extImg+1);
+			
+				String fmImg = dto.getEmp_num()+"_"+dto.getMemo_num()+"."+imgName;
+			
+				File f = new File(path+"//"+fmImg);
+			
+				try {
+					multiImg.transferTo(f);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+				dto.setSys_img(fmImg);
+			
+				sqlMap.insert("memo.memoInsImg", dto);
+			}
 		}
 		
 		
+		/* 파일 */
+		List<MultipartFile> fileMf = request.getFiles("org_file");
+		
+		for(MultipartFile multiFile : fileMf) {
+			String fileName = multiFile.getOriginalFilename();
+			
+			if(fileName != "") {
+				dto.setOrg_file(fileName);
+				int extFile = fileName.lastIndexOf(".");
+				fileName = fileName.substring(extFile+1);
+				String fmFile = dto.getEmp_num()+"_"+dto.getMemo_num()+"."+fileName;
+			
+				fmFile = fmFile.replace(" ", "");
+				fmFile = fmFile.replace(":", "");
+				File ff = new File(path+"//"+fmFile);
+		
+				try {
+					multiFile.transferTo(ff);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+				dto.setSys_file(fmFile);
+			
+				sqlMap.insert("memo.memoInsFile", dto);
+			}
+		}
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("memoGroup", memoGroup);
 		
 		return "/memo/memoModifyPro";
 	}
 }
-
-
-
-
-
-
