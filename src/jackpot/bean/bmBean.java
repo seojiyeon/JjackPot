@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
@@ -625,13 +626,12 @@ public class bmBean {
 	public String bmForm(Model model,bmDTO bmdto, HttpServletRequest request ,HttpSession session){
 		
 		String emp_num =(String)session.getAttribute("memId");
-		String bm_name = (String) sqlMap.queryForObject("bm.getEmp_name", emp_num);
+		String bm_name = (String)sqlMap.queryForObject("bm.empInf", emp_num);
 		
-	
-//		int bm_num = 0;
-//
-//		int countBm_num = (int) sqlMap.queryForObject("bm.showBmNum", bm_num);
-//		bmdto.setBm_num(bm_num);
+
+		
+		bmdto.setEmp_num(request.getParameter("emp_num"));
+		bmdto.setBm_name(request.getParameter("bm_name"));
 		bmdto.setBm_title(request.getParameter("bm_title"));
 		bmdto.setBm_content(request.getParameter("bm_content"));
 		bmdto.setBm_form(Integer.parseInt(request.getParameter("bm_form")));
@@ -649,17 +649,14 @@ public class bmBean {
 		
 		bmdto.setBns_box(Integer.parseInt(request.getParameter("bns_box")));
 		
-		String important = request.getParameter("important");
-		if(important == null) {
+		String important2 = request.getParameter("important2");
+		if(important2 == null) {
 			bmdto.setImportant(1);
-		} else if(important != null) {
-			bmdto.setImportant(Integer.parseInt(important));
+		} else if(important2 != null) {
+			bmdto.setImportant(Integer.parseInt(important2));
 		}
 			
 		bmdto.setBm_state(1); // 기본값 : 미완료
-		bmdto.setEmp_num(request.getParameter("emp_num"));
-		bmdto.setBm_name(request.getParameter("bm_name"));
-		
 		/*시작 끝 날짜 */
 		bmdto.setBm_start(request.getParameter("bm_start"));
 		bmdto.setBm_end(request.getParameter("bm_end"));
@@ -671,36 +668,61 @@ public class bmBean {
 	
 		
 		
-		/*담당자*/
-		
-		String Inchar = bmdto.getInchar_name();
+		/*담당자*//*각각 배열로 지정해주며 불러온다 (여러값이 들어가기 위한 것 )*/
+		bmdto.setBm_num(maxBmNum);
 		String inchar_name[] = request.getParameterValues("inchar_name");
+		String inchar_brunch[] = request.getParameterValues("inchar_brunch");
+		String inchar_depart[] = request.getParameterValues("inchar_depart");
+		String inchar_position[] = request.getParameterValues("inchar_position");
+
 		for(int i=0; i<inchar_name.length; i++ ) {
+			if(inchar_name != null){
 			bmdto.setInchar_name(inchar_name[i]);
+			bmdto.setInchar_brunch(inchar_brunch[i]);
+			bmdto.setInchar_depart(inchar_depart[i]);
+			bmdto.setInchar_position(inchar_position[i]);
+		
 			sqlMap.insert("bm.insertIncharge", bmdto);
 		}
+/*			bmdto.setInchar_name("");
+			bmdto.setInchar_brunch("");
+			bmdto.setInchar_depart("");
+			bmdto.setInchar_position("");*/
+		
+	}
+
 
 		/*참조자*/
-		String Bm_ref = bmdto.getRef_name();
-		bmdto.setEmp_num(emp_num);
-//		bmdto.setBm_num(bm_num);
 		bmdto.setBm_num(maxBmNum);
 		String ref_name[] = request.getParameterValues("ref_name");
+		String ref_branch[] = request.getParameterValues("ref_branch");
+		String ref_depart[] = request.getParameterValues("ref_depart");
+		String ref_position[] = request.getParameterValues("ref_position");
 		for(int i=0; i<ref_name.length; i++ ) {
 			bmdto.setRef_name(ref_name[i]);
+			bmdto.setRef_branch(ref_branch[i]);
+			bmdto.setRef_depart(ref_depart[i]);
+			bmdto.setRef_position(ref_position[i]);
+			
 			sqlMap.insert("bm.insertBm_ref", bmdto);
 		}
 		
 		
 		
 		/*수신자*/
-		String Bms_ref = bmdto.getRec_name();
-		bmdto.setEmp_num(emp_num);
-//		bmdto.setBm_num(bm_num);
+
 		bmdto.setBm_num(maxBmNum);
 		String rec_name[] = request.getParameterValues("rec_name");
+		String rec_branch[] = request.getParameterValues("rec_branch");
+		String rec_depart[] = request.getParameterValues("rec_depart");
+		String rec_position[] = request.getParameterValues("rec_position");
+		
 		for(int i=0; i<inchar_name.length; i++ ) {
 			bmdto.setRec_name(rec_name[i]);
+			bmdto.setRec_branch(rec_branch[i]);
+			bmdto.setRec_depart(rec_depart[i]);
+			bmdto.setRec_position(rec_position[i]);
+			
 			sqlMap.insert("bm.insertBms_rec", bmdto);
 		}
 		

@@ -3,9 +3,11 @@ package jackpot.bean;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,13 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import jackpot.DTO.apDocDTO;
+import jackpot.DTO.apDecDTO;
 import jackpot.DTO.approDTO;
 import jackpot.DTO.empDTO;
+import jackpot.DTO.msgDTO;
 import jackpot.DTO.workDTO;
 
 @Controller
@@ -27,16 +31,23 @@ public class ApproBean {
 	private SqlMapClientTemplate sqlMap;
 
 	@RequestMapping("/listApproDoc.jp")
-	public String listApproDoc(HttpServletRequest request, HttpSession session, Model model){
+	public String listApproDoc(HttpServletRequest request, HttpSession session, Model model, approDTO dto, msgDTO mdto){
 		String result = "/emp/loginform";
 		if(session.getAttribute("memId") != null){
-			String emp_num = (String) session.getAttribute("memId"); //session���� Id ���� �޾ƿͼ� emp_num�� ����. 
+			String emp_num = (String) session.getAttribute("memId"); //session���� Id ���� �޾ƿͼ� emp_num�� ����.
 			empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
 			int emp_position = edto.getPosition();
 			int emp_department = edto.getDepartment();
+			int count = (int)sqlMap.queryForObject("approSQL.approCnt", emp_num);
+			
+		
+			List articleList = null;
+			articleList = sqlMap.queryForList("msg.msgFind", emp_num);
 			String position_name = (String) sqlMap.queryForObject("approSQL.position", emp_position);
 			String department_name= (String) sqlMap.queryForObject("approSQL.department", emp_department);
 			String emp_name = edto.getEmp_name();
+			model.addAttribute("count",count);
+			model.addAttribute("articleList",articleList);
 			model.addAttribute("emp_num",emp_num);
 			model.addAttribute("emp_name",emp_name);
 			model.addAttribute("emp_position",emp_position);
@@ -44,20 +55,13 @@ public class ApproBean {
 			model.addAttribute("position_name",position_name);
 			model.addAttribute("department_name",department_name);
 			String temp_num = UUID.randomUUID().toString();
-			System.out.println(temp_num);
-			System.out.println(emp_num);
-			System.out.println(emp_name);
-			System.out.println(emp_position);
-			System.out.println(emp_department);
-			System.out.println(position_name);
-			System.out.println(department_name);
+			
 
 			//int doc_num = Integer.parseInt(request.getParameter("doc_num"));
 			
 			//int id = (Integer)session.getAttribute("memId"); 
 			//String workPlace = (String)session.getAttribute("workplace");
 			
-			apDocDTO dto = new apDocDTO();
 			workDTO workdto = new workDTO();
 			
 			workdto.setEmp_num(emp_num);
@@ -76,28 +80,53 @@ public class ApproBean {
 		
 		return result;
 	}
+	
+	
+	@RequestMapping("/approverFind.jp")
+	public @ResponseBody List approver_info(HttpServletRequest request,HttpServletResponse response ,empDTO edto){
+		String approver = request.getParameter("ap");
+		System.out.println(approver);
+		List <empDTO> approver_info = (List<empDTO>)sqlMap.queryForList("approSQL.approver_find", approver);
+	
+		System.out.println(approver_info);
+		return approver_info;
+		
+	}
 	@RequestMapping("/listApproDocPro.jp")
-	public String listApproDocPro(MultipartHttpServletRequest request, approDTO dto, HttpSession session) throws Exception {
+	public String listApproDocPro(MultipartHttpServletRequest request, approDTO dto,apDecDTO ddto, HttpSession session,Model model) throws Exception {
 		String result = "/emp/loginform";
 		if(session.getAttribute("memId") != null){
-			
-			int approver_step = 1;
+			String emp_num = (String) session.getAttribute("memId");
 			Date now = new Date();
 			SimpleDateFormat vans = new SimpleDateFormat("yyMMdd");
 			SimpleDateFormat van = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String ww = van.format(now);
+			String doc_content = request.getParameter("doc_content");
 			String wdate = vans.format(now);
 			String seqNum = (String)sqlMap.queryForObject("approSQL.seqNum", null);
 			String ap_Num = wdate + "-" + seqNum;
+			String dec_empnum = request.getParameter("approver_num");
 			
+			List approverInfo = null;
+			approverInfo = sqlMap.queryForList("approSQL.approver_info", dec_empnum);
 			
 			dto.setDoc_date(ww); 										//날짜
 			dto.setDoc_num(ap_Num);										//문서번호
-			dto.setApprover_step(approver_step);
+			dto.setDoc_content(doc_content);
 			dto.setAp_time(new Timestamp(System.currentTimeMillis()));
+			model.addAttribute("approverInfo",approverInfo);
+			
+			ddto.setDec_num(dec_empnum);
+		
+			System.out.println(ap_Num);
+			System.out.println(doc_content);
+			System.out.println(dec_empnum);
+			System.out.println(approverInfo);
 			
 			sqlMap.insert("approSQL.approInsert", dto);
+			//sqlMap.insert("approSQL.approDecisionInsert", ddto);
 			
+			//System.out.println(dec_empnum);
 			/*if(dto.getCategorize().equals("���½�û��")){
 				sqlMap.update("approvalSQL.ap_geuntaeUpdate",dto);
 			}*/
@@ -124,6 +153,8 @@ public class ApproBean {
 		
 		return result;
 	}
+
+	
 	
 	@RequestMapping("/listApproMyRequest.jp")
 	public String listApprMyRequest(){
@@ -136,12 +167,25 @@ public class ApproBean {
 	}
 	
 	@RequestMapping("/listApproTodo.jp")
-	public String listApprTodo(){
-		return "/appro/work/listApproTodo";
+	public String listApprTodo(approDTO adto,HttpSession session,Model model){
+		String result = "/emp/loginform";
+		if(session.getAttribute("memId") != null){
+			String emp_num = (String) session.getAttribute("memId");
+			
+			
+			return "/appro/work/listApproTodo";
+		}
+		return result;
+		
 	}
 	
 	@RequestMapping("/listApproForm.jp")
-	public String listApprForm(){
+	public String listApprForm(Model model,approDTO dto){
+		
+		List articleList = null;
+		
+		//articleList = sqlMap.queryForList(,dto);
+		model.addAttribute("list",articleList);
 		return "/appro/work/listApproForm";
 	}
 

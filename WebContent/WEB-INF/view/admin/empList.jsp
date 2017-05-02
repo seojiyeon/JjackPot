@@ -31,6 +31,7 @@ background-color: #e6e6e6;
 
 .main2 {
 background-color: #e6e6e6;
+width : 1000px;
 }
 
 .employee th, td {
@@ -65,8 +66,9 @@ background-color: #e6e6e6;
 .header, .footer {
     background-color: grey;
     color: white;
-    padding: 15px;
-    width: 1000px;
+    padding: 14px;
+    width: 974;
+    margin-bottom: 3;
 }
 
 .ins-box{
@@ -93,7 +95,7 @@ ul.tabs {
     height: 32px;
     border-bottom: 1px solid #eee;
     border-left: 1px solid #eee;
-    width: 100%;
+    width: 1004px;
     font-family:"dotum";
     font-size:12px;
 }
@@ -148,14 +150,46 @@ ul.tabs li.active {
 
 </style>
 
-<br />
-
-
-
-
 
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+    $("#emp1").click(function(){
+        $("#emp_name").val("Dolly Duck");
+    });
+    
+    $("#emp2").click(function(){
+       callMsg();
+    });
+    
+});
+
+function callMsg(){
+	 $.ajax({
+	        type: "post",
+	        url : "empmem.jp",
+	        success: test,	// 페이지요청 성공시 실행 함수
+	        error: whenError	//페이지요청 실패시 실행함수
+  	});
+}
+
+function test(aaa){	// 요청성공한 페이지정보가 aaa 변수로 콜백된다. 
+    $(".main").html(aaa);	//id가 ajaxReturn인 부분에 넣어라
+    
+}
+function whenError(){
+    
+}
+
+
+
+
+
+
+
+
+
 var selectedIndex= Number("") || 0;
 var $tabMenuItem = $("ul.nav-tabs6 li");
 var $tabContents = $(".tab-pane");
@@ -182,9 +216,6 @@ $(document).ready(function(){
 
 
 $(function () {
-
-
-
     $("ul.tabs li").click(function () {
         $("ul.tabs li").removeClass("active").css("color", "#333");
         //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
@@ -197,16 +228,7 @@ $(function () {
 
 
 
-$(document).ready(function(){
-    $("#emp1").click(function(){
-        $("#emp_name").val("Dolly Duck");
-    });
-    
-    $("#emp2").click(function(){
-       callMsg();
-    });
-    
-});
+
 
 
 $(function(){
@@ -223,23 +245,6 @@ $(function(){
 
 
 
-function callMsg(){
-	 $.ajax({
-	        type: "post",
-	        url : "empmem.jp",
-	        success: test,	// 페이지요청 성공시 실행 함수
-	        error: whenError	//페이지요청 실패시 실행함수
-  	});
-}
-function test(aaa){	// 요청성공한 페이지정보가 aaa 변수로 콜백된다. 
-    $(".main").html(aaa);	//id가 ajaxReturn인 부분에 넣어라
-    
-}
-function whenError(){
-    
-}
-
-
 
 </script>
 
@@ -251,6 +256,7 @@ function whenError(){
 <title>인사정보</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
+<body>
 <input type="button" value="메인으로" onClick="window.location='main.jp'">
 
 <div class="con-header">
@@ -313,9 +319,8 @@ function whenError(){
 
 
 <div class="header">
-<body>
-<center><b>사원 목록(전체 사원:${count})</b>  
-<input type="button" value="Excel로 저장" onClick="window.location='#'">
+
+<center><b>사원 목록(전체 사원:${count})</b></center>  
 </div>
 
 
@@ -331,7 +336,7 @@ function whenError(){
 
 
 <div class="employee">
-<%-- <c:if test="${count > 0}"> --%>
+
 <table border="0" width="1000" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30"  > 
      <th align="center"  width="100"  > <b>사원번호</b></th> 
@@ -359,15 +364,10 @@ function whenError(){
     <td align="center"  width="50"> ${article.mail} </td>
   </tr>
   </c:forEach>
-</div>
+
 </table>
 </div>
 
-
-
-
-
-<%-- </c:if> --%>
 
 
 

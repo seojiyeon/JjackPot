@@ -362,7 +362,7 @@ img { border:0; vertical-align:middle; }
 .fa-reply { font-size:11px; color:#aaa; }
 
 /* heading */
-h1, h2, h3, h4, h5, h6 { padding:15px 0 0 0; margin:0; font-weight:bold; line-height:1.1; vertical-align: middle; }
+h1, h2, h3, h4, h5, h6 { padding:0 0 0 0; margin:0; font-weight:bold; line-height:1.1; vertical-align: middle; }
 
 /* form style */
 input, button, select, textarea { vertical-align:middle; }
