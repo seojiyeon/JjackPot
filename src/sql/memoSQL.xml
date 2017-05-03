@@ -60,8 +60,8 @@
 			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, r from (
 			select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, rownum r from
 			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num
-				from memo m, memo_cate mc where m.memo_state>0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc, m.memo_num desc)
-			order by memo_enroll desc, memo_num desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc, memo_num desc
+				from memo m, memo_cate mc where m.memo_state>0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
 		]]>
 	</select>
 	
@@ -71,8 +71,8 @@
 			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, r from (
 			select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, rownum r from
 			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num
-				from memo m, memo_cate mc where m.memo_state=0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc, m.memo_num desc)
-			order by memo_enroll desc, memo_num desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc, memo_num desc
+				from memo m, memo_cate mc where m.memo_state=0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
 		]]>
 	</select>
 	
@@ -82,8 +82,8 @@
 			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, r from (
 			select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, rownum r from
 			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num
-				from memo m, memo_cate mc where m.memo_state=2 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc, m.memo_num desc)
-			order by memo_enroll desc, memo_num desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc, memo_num desc
+				from memo m, memo_cate mc where m.memo_state=2 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
 		]]>
 	</select>
 	
@@ -93,8 +93,8 @@
 			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, r from (
 			select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, rownum r from
 			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num
-				from memo m, memo_cate mc where m.memo_state>0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# and m.memo_cate=#memo_cate# order by m.memo_enroll desc, m.memo_num desc)
-			order by memo_enroll desc, memo_num desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc, memo_num desc
+				from memo m, memo_cate mc where m.memo_state>0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# and m.memo_cate=#memo_cate# order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
 		]]>
 	</select>
 	
@@ -150,9 +150,23 @@
 		select * from memo m, memo_cate mc where m.memo_num=#memo_num# and memo_cate=cate_num
 	</select>
 	
-	<!-- 메모 상태 불러오기 -->
-	<select id="memoState" parameterClass="mdto" resultClass="int">
-		select memo_state from memo where emp_num=#emp_num# and memo_num=#memo_num#
+	<!-- 메모 제목 검색 -->
+	<select id="memoAllSearch" parameterClass="java.util.HashMap" resultClass="mdto">
+		<![CDATA[
+			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, r from
+			(select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, rownum r from
+			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num 
+				from memo m, memo_cate mc where m.memo_state>0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# and m.memo_title like '%#searchWord#%' order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
+		]]>
+	</select>
+	
+	<select id="memoImpSearch" parameterClass="java.util.HashMap" resultClass="mdto">
+	
+	</select>
+	
+	<select id="memoTrSearch" parameterClass="java.util.HashMap" resultClass="mdto">
+	
 	</select>
 	
 	<!-- 메모 카테고리 이동 -->
@@ -185,6 +199,10 @@
 	
 	<select id="memoFileCount" parameterClass="mdto" resultClass="int">
 		select count(*) from memo_file where memo_num=#memo_num#
+	</select>
+	
+	<select id="memoOrgFile" parameterClass="mdto" resultClass="mdto">
+		select * from memo_file where memo_num=#memo_num# and org_file=#org_file#
 	</select>
 	
 	<!-- hide()한 메모 이미지 삭제 -->

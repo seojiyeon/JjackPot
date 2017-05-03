@@ -74,7 +74,6 @@
 	$(document).ready(function() {
 		$('.imgList').click(function() {
 			$(this).hide();
-			alert(this.text);
 			$("#multiform").append("<input type='hidden' name='cimg' value='"+this.text+"' />");
 		});
 	});
@@ -83,7 +82,6 @@
 	$(document).ready(function() {
 		$('.fileList').click(function() {
 			$(this).hide();
-			alert(this.text);
 			$("#multiform").append("<input type='hidden' name='cfile' value='"+this.text+"' />");
 		});
 	});
