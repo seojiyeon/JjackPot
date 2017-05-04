@@ -99,6 +99,9 @@ h1, h2, h3, h4, h5, h6 {
 #main-container {
     height: 100%;margin-right: 50px;  padding: 20px;padding-top: 0;
 }
+#mainmain {
+    height: 100%;margin-right: 50px;  padding: 20px;padding-top: 0; width:125%;overflow:auto;
+}
 .con-header {
     position: relative;height: 65px;/* margin: 0 20px; */ padding: 25px 0 0 0; border-bottom: 1px solid #d1d1d1; background: #fff;
 }
@@ -109,7 +112,7 @@ h1, h2, h3, h4, h5, h6 {
     vertical-align: middle;
 }
 .content-list {
-    border-top: 1px solid #d1d1d1;/* margin: 0 20px; */margin-top: -1px;
+    border-top: 1px solid #d1d1d1;/* margin: 0 20px; */margin-top: -1px; 
 }
 .content-list .table {
     border-bottom: 1px solid #eee;
@@ -239,10 +242,18 @@ button, input, optgroup, select, textarea {
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
     background-color: #f9f9f9;
 }
-.text-left {
-   
+.pagination {
+    display: inline-block;
 }
-
-
-
-
+.text-left { text-align: left !important;}
+.pagination-wrap {
+    padding: 6px 0 7px;margin-top: -1px; height: 39px; text-align: center; border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;background: #fff;
+}
+ul:not(.itemContentLi), ol:not(.itemContentLi), dl, dt, dd, p {
+    margin: 0;
+    padding: 0;
+}
+li:not(.itemContentLi) {
+    list-style: none;
+}

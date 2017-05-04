@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link href="/JackPot/css/org.css?ver=11" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/org.css?ver=12" rel="stylesheet" type="text/css">
 <script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />   
 <link rel="stylesheet" href="/JackPot/css/org.css" type="text/css" /> 
@@ -116,7 +116,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 <div>
 
 <div class="con-header">
-	<h2>
+	<h2 style="margin:15 40;">
 	전체 구성원 목록
 	</h2>
 </div>
@@ -143,52 +143,33 @@ style="position:relative; top:0; left:0;" dir="ltr">
 </div> 		
  		
 
+<form method="post"  action="addfav.jp" name="orgchart" >
+   <c:if test="${memId!=null}">
+<div class="content-list" style="border-bottom: 2px solid #e5a1a1;">
+ <c:forEach var="article" items="${articleList}" varStatus="status">
 
-<div class="content-list">
-    <table class="table table-striped list-border"> 
-			<caption></caption>
-			<colgroup>
-				<col style="width:50%;">
-				<col style="width:50%">
-			</colgroup>
-
-
-													
-		<form method="post"  action="addfav.jp" name="orgchart" >
-	<c:if test="${memId!=null}">
-   <c:forEach var="article" items="${articleList}" varStatus="status">
-   
-		
- <tr style="background: rgb(249, 249, 249);">
-   <c:if test="${status.index%2==0}" >
-   <div></div>
-   <div></div>
-   </c:if>	
+    <div class="person-info-body" style="position: relative; border-right: 1px dotted #ddd;
+        height: 120; width:625px; display: inline-block; border-bottom: 1px solid #e5e5e5;"/>
  
-
-					<td class="text-left">
-				
-					<div class="person-info-body" style="position: relative;">
-						<span class="person-info-check" style="position:absolute; margin-left: 5px;">
-							<input type="checkbox" title="checkbox" name="emp_num" id="chkDelMyPeople" value="${article.emp_num}">
-						
-						</span>
-		
-						<div class="person-info-photo">
-			<c:forEach items="${list}" var="list">
-          	<c:if test="${article.emp_num eq list.emp_num }">
-          		<img src="/JackPot/save/star.jpg" width="20" height="20">
-          		</c:if>
-          </c:forEach>
-          			
+	<span class="person-info-check" style="position:absolute; margin-left: 5px;">
+	<input type="checkbox" title="checkbox" name="emp_num" id="chkDelMyPeople" value="${article.emp_num}">
+	</span>
+	
+	<div class="person-info-photo">
+	<c:forEach items="${list}" var="list">
+	    <c:if test="${article.emp_num == list.emp_num }">
+	    	<img src="/JackPot/save/star.jpg" width="20" height="20" >
+	    </c:if>	
+	        			
+    </c:forEach>
           			<span class="per50" style="margin-left: 5px;">
 							   <img src="/JackPot/save/${article.profilephoto}" 
          id="emp_num" title="profilephoto" width=90px, height=80px > 
                    </span>
-                       </div>
+    </div>
                        
 <div class="person-info">
-							<div class="name">
+	<div class="name" style="margin: 10 30;">
 
           <strong><input type="hidden" name="emp_name" value="${article.emp_name}">${article.emp_name}
           <input type="hidden" name="position" value="${article.position}">${article.position} </strong> (${article.emp_num})
@@ -204,28 +185,33 @@ style="position:relative; top:0; left:0;" dir="ltr">
 </div>
 </div>
 </div>
-</td>
-</td>
-</tr>
+ </c:forEach>
+   
+   
+    </c:if>
 
-        </div>
-     </div>
-   </c:forEach>
- </c:if>    
+</form>
+</div>
 
-  <table border="1" width="900"  cellpadding="0" cellspacing="0" align="center">
+
+   <div class="pagination-wrap">
+   <ul class="pagination">
     <tr>
-     <Td align="center" >
+     <li align="center" style="font-size: 15;">
         <input type="button" value="즐겨찾기 추가"  onclick="fav()">
         <input type="button" value="즐겨찾기 해제"  onclick="favd()">&nbsp;&nbsp;&nbsp;
         <input type="button" value="전체구성원 보기" onclick="window.location='Allorg.jp'">&nbsp;&nbsp;
-        <input type="button" value="메인" onclick="window.location='main.jp'">
- 
+        <input type="image" src="/JackPot/save/house.png" width="30" height="30" value="메인" onclick="window.location='main.jp'">
+      </li>
     </Td>
    </tr>
-  </table>
+ </ul>
 
-
+</div>
+</div>
+</div>
+</body>
+</html>
   
   
   
