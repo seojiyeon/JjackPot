@@ -17,7 +17,7 @@
 	
 
     	   $(function() {
-        	      $( "#work_date").datepicker({
+        	      $("#work_date").datepicker({
         	    	    showOn: "button", 
                         buttonImage:"/JackPot/images/calendar (1).png",
                         buttonImageOnly: true ,
@@ -39,6 +39,13 @@
         	      
         	  
     	   });
+    	   
+    	   $(document).ready(function() { 
+        	   $("#work_date").val($.datepicker.formatDate($.datepicker.ATOM, new Date()));    
+        		   });
+        		
+        	   
+        	   
            
     	   function test(test){
     		   $.ajax({
