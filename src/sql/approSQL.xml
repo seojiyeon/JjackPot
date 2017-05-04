@@ -48,15 +48,27 @@
 			select appro_seq.NEXTVAL seq_num FROM dual
 		</select>
 		
+		<select id="doc_content" parameterClass="String" resultClass="String">
+			select doc_content from appro where emp_num=#emp_num# and doc_num=#doc_num#
+		</select>
+		
 		<insert id ="approInsert" parameterClass="adto">
-			insert into appro(doc_date,doc_num,approver_step,ap_time,emp_name,emp_num,
-							  position,department,branch)
+			insert into appro(doc_date,doc_num,ap_time,emp_name,emp_num,
+							  position,department,branch,doc_content,doc_title)
 			
-			values(#doc_date#,#doc_num#,#approver_step#,#ap_time#,#emp_name#,#emp_num#,
-				   #position#,#department#,#branch#)
-			
+			values(#doc_date#,#doc_num#,#ap_time#,#emp_name#,#emp_num#,
+				   #position#,#department#,#branch#,#doc_content#,#doc_title#)
 		</insert>
 		
+	<!-- 	<insert id ="approDecisionInsert" parameterClass="adto">
+			insert into appro(dec_num,dec_name,dec_branch,dec_depart,dec_position,sign_img,
+							  dec_empnum,sign_date);
+			
+			values(#doc_date#,#doc_num#,#approver_num#,#ap_time#,#emp_name#,#emp_num#,
+				   #position#,#department#,#branch#,#doc_content#,#doc_title#,#approver_num#)
+		
+		</insert> 		    
+		-->
 		<!-- <insert id="approInsert" parameterClass="jackpot.DTO.approDTO">
 		insert into ap_article(ap_num,ap_date,reportEnd,categorize,formName,
 		workPlace,dName,sawonCode,sawonName,docuSubject,ir1,re_sCwP,re_codeTable,point_check,
@@ -78,11 +90,23 @@
 	</insert> -->
 	
 	<insert id="approalarm" parameterClass="jackpot.DTO.approDTO">
-		insert into approalarm(ap_wPsC,ap_report,ap_cate) values(#ap_wPsC1#,#doc_num#,'1')
+		insert into approalarm(ap_wPsC,ap_report,ap_cate) values(#ap_wPsC#,#doc_num#,'1')
 	</insert>
 	
 	<insert id="impend_alarmInsert1" parameterClass="jackpot.DTO.approDTO">
-		insert into approalarm(ap_wPsC,ap_impend,ap_cate) values(#ap_wPsC1#,#doc_num#,'2')
+		insert into approalarm(ap_wPsC,ap_impend,ap_cate) values(#ap_wPsC#,#doc_num#,'2')
 	</insert>
+	
+	<select id="approCnt" resultClass="int" parameterClass="String">
+	        select count(*) from emp where emp_name=#emp_name#
+	</select>
+	
+	<select id="approver_info" resultClass="jackpot.DTO.empDTO" parameterClass="String">
+		select*from emp where emp_num=#dec_empnum#
+	</select>
+	
+	<select id="approver_find" resultClass="jackpot.DTO.empDTO" parameterClass="String">
+		select*from emp where emp_name=#approver#
+	</select>
         
 </sqlMap>

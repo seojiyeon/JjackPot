@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 
-<link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
 
 <head>
 <title>메모</title>
@@ -42,7 +43,7 @@
 				<div class="note-write-head">
 					<div class="content-title" style="width:500px;">
 						<input type="hidden" name="memo_num" value="${dto.memo_num}" />
-						<input type="checkbox" name="memo_state">중요여부체크
+						<i class="icon nonimp">	</i>
 						&nbsp;
 						${dto.getMemo_title()}
 					</div>
@@ -83,13 +84,13 @@
 					</div>
 				</c:if>		
 			</div>
-			<div class="btn-wrap">
-				<c:if test="${memoState > 0}">
+			<div class="main-bottom">
+				<c:if test="${memoGroup > 0}">
 					<button type="button" class="btnModify" onclick="window.location='memoModify.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memo_cate=${dto.memo_cate}&memoGroup=${memoGroup}'">수정</button>
 					<button type="button" class="btnMove">이동</button>
 					<button type="button" class="btnDelete" onclick="window.location='memoDeletePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}'">삭제</button>
 				</c:if>
-				<c:if test="${memoState == 0}">
+				<c:if test="${memoGroup == 0}">
 					<button type="button" class="btnRecover">복구</button>
 					<button type="button" class="btnRomove" onclick="window.location='memoRemovePro.jp?memo_num=${dto.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}'">삭제</button>
 				</c:if>

@@ -20,7 +20,9 @@ public class empDTO {
 	private String department2;
 	private int rank;
 	private int branch;
+	private int branch2;
 	private int position;
+	private int position2;
 	
 	
 	public String getDepartment2() {

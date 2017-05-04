@@ -58,6 +58,60 @@
 								</div>
 							</div>
 							
+		<table class="table table-striped">  
+		<caption></caption> 
+		<colgroup>
+		<col style="width: 50px;">
+		<col style="width: 300px;">
+		<col style="width: 160px;">
+		<col style="min-width:200px;">
+		<col style="width: 200px;">
+		<col style="width: 90px;">
+		<col style="width: 75px;">
+		<col style="width: 75px;">
+		</colgroup>
+	
+			<thead>
+	
+				<tr>
+					<th >
+						NO
+					</th>
+					
+					<th >
+				     	시스템						
+					</th>
+					
+					
+					<th >
+						서식함
+					</th>
+					<th >
+						양식명
+					</th>
+					<th >
+						담당부서
+					</th>
+					<th>
+					    담당자
+					</th>
+					
+				</tr>
+			
+			</thead>
+				<tbody>
+					<c:forEach var="acticle" items="">
+					
+					
+					
+					
+					</c:forEach>
+				</tbody>
+		</table>
+		
+		
+							
+							
 							<div class="content-list approval">
 								<input type="button" value="기안문작성" onclick="window.location='listApproDoc.jp'"/>
 							</div>

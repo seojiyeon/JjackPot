@@ -88,7 +88,6 @@
 								<col width="13%">
 								<col width="13%">
 								</colgroup>
-							<thead>
 							<tr>
 								<th scope="col">No</th>
 								<th scope="col">서식함</th>
@@ -99,12 +98,18 @@
 								<th scope="col">기안일</th>
 								<th scope="col">배정일</th>
 							</tr>
-							</thead>
-							<tbody>
-							<tr>
-								<td colspan ="8" align="center">검색 결과가 존재하지 않습니다.</td>
-							</tr>
-							</tbody>
+							
+							<c:forEach var="acticle" items="${articleList}">
+									<tr>
+										<th align="center">no</th>
+										<td align="center">서식함</td>
+										<td align="center">유형</td>
+										<td align="center">문서제목</td>
+										<td align="center">기안자</td>
+										<td align="center">기안부서</td>
+										<td align="center">배정일</td>
+									</tr>
+								</c:forEach>
 			    			</table>
 						</div>
     				</div>

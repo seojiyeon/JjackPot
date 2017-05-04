@@ -97,39 +97,151 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;color: #222;background: #f7f7f7;
 }
 #main-container {
-    height: 100%; /* margin-right: 50px; */ padding: 20px;padding-top: 0;
+    height: 100%;margin-right: 50px;  padding: 20px;padding-top: 0;
 }
 .con-header {
     position: relative;height: 65px;/* margin: 0 20px; */ padding: 25px 0 0 0; border-bottom: 1px solid #d1d1d1; background: #fff;
 }
+.con-header h2 {
+    padding-left: 10px;font-size: 18px;font-weight: 600;color: #111;
+}
+.con-header * {
+    vertical-align: middle;
+}
 .content-list {
-    border-top: 1px solid #d1d1d1;
-    /* margin: 0 20px; */
-    margin-top: -1px;
+    border-top: 1px solid #d1d1d1;/* margin: 0 20px; */margin-top: -1px;
 }
 .content-list .table {
     border-bottom: 1px solid #eee;
 }
 table {
-    border-spacing: 0;
-    width: 100%;
-    max-width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-    background-color: #fff;
+    border-spacing: 0; width: 100%;max-width: 100%;table-layout: fixed; border-collapse: collapse;background-color: #fff;
+}
+.sidebar-mini.sidebar-subarea #main-container {
+    margin-left: 220px; position: absolute;width:600%;
+}
+.sidebar-mini #main-container {
+    margin-left: 70px;
+}
+#sidebar, #submenu, #totalsearch, #subarea, #subarea-wrap, #main-container {
+    -webkit-transition: all 0.1s ease-out; transition: all 0.1s ease-out;
+}
+form {
+    display: block; margin-top: 0em;
+}
+.table-header {
+    border-bottom: 2px solid #c0c0c0;
+}
+.table-header {
+    position: relative;height: 50px;/* margin: 0 20px; */border-bottom: 2px solid #e5a1a1;background: #fff;
+}
+.content-list .table {
+    border-bottom: 1px solid #eee;
+}
+.table-header {
+    border-bottom: 2px solid #c0c0c0;
+}
+.table-header {
+    position: relative;height: 50px;/* margin: 0 20px; */ border-bottom: 2px solid #e5a1a1;background: #fff;
+}
+.table-search {
+    position: absolute;top: 11px; right: 0;
+}
+.table-search select {
+    float: left;margin-right: 5px;
+}
+button, input, optgroup, select, textarea {
+    color: inherit;font: inherit;margin: 0;
+}
+select {
+    height: 27px; padding: 3px;color: #111;border: 1px solid #c3c6c9;border-radius: 2px;
+}
+input, button, select, textarea {
+    vertical-align: middle;
+}
+.table-search .input-search {
+    position: relative;float: left;
+}
+.table-search .input-search input {
+    padding-right: 8px;
+}
+.input-search input {
+    position: relative;padding-right: 36px;
+}
+tbody {
+    display: table-row-group; vertical-align: middle;border-color: inherit;
+}
+element.style {
+    background: rgb(249, 249, 249);
+}
+tr {
+    display: table-row;vertical-align: inherit;border-color: inherit;
+}
+.content-list .table.list-border td {
+    border-bottom: 1px solid #e5e5e5;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+.content-list .table > tbody > tr > td {
+    padding: 3px 5px; height: 34px;line-height: 18px;
+    color: #333; text-align: center; vertical-align: middle;
+}
+element.style {
+    position: relative;
+}
+.content-list .person-info-check {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    margin-top: -12px;
+}
+.content-list .person-info-body .person-info-photo {
+    position: absolute;
+    top: 50%;
+    left: 38px;
+    margin-top: -25px;
+}
+.content-list .table {
+    border-bottom: 1px solid #eee;
+}
+table caption {
+    display: none;
+}
+.content-list .person-info-body .person-info-photo {
+    position: absolute;
+    top: 50%;
+    left: 38px;
+    margin-top: -25px;
+}
+.per50 {
+    display: inline-block;margin-right: 5px; vertical-align: middle; width: 50px; height: 50px;background-size: cover;background-image: url(../images/placeholders/avatars/avatar82.png);border-radius: 50%;
+}
+.content-list .person-info-check input {
+    position: relative; z-index: 1;
+}
+input[type="checkbox"] {
+    margin: 0;
+}
+button, input, optgroup, select, textarea {
+    color: inherit;font: inherit; margin: 0;
+}
+.content-list .person-info-body .person-info {
+    margin: 10px 0px 10px 120px;
+}
+.content-list .person-info-body .person-info .name {
+    margin: 0 0 10px 0; font-size: 14px; color: #111; font-weight: 600;
+}
+.content-list .table.list-border td {
+    border-bottom: 1px solid #e5e5e5;
+}
+.content-list .table > tbody > tr > td {
+    padding: 3px 5px; height: 34px;line-height: 18px;color: #333;text-align: center;vertical-align: middle;
+}
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #f9f9f9;
+}
+.text-left {
+   
+}
 
 
 

@@ -70,14 +70,21 @@
 	    });	
 	});
 	
+	/* 선택한 이미지 파일 지우기 */
 	$(document).ready(function() {
 		$('.imgList').click(function() {
 			$(this).hide();
-			alert(this.text);
+			$("#multiform").append("<input type='hidden' name='cimg' value='"+this.text+"' />");
+		});
+	});
+	
+	/* 선택한 파일 지우기 */
+	$(document).ready(function() {
+		$('.fileList').click(function() {
+			$(this).hide();
 			$("#multiform").append("<input type='hidden' name='cfile' value='"+this.text+"' />");
 		});
 	});
-
 </script>
 
 <html>
@@ -121,6 +128,7 @@
 			<table>
 				<tr>
 					<td>
+						<input type="hidden" name="memo_num" value="${dto.memo_num}" />
 						<input type="checkbox" name="memo_state" value="2">중요
 						<input type="text" name="memo_title" placeholder="제목을 입력하세요." value="${dto.memo_title}" />
 					</td>
@@ -135,13 +143,17 @@
 						<div id="img-list">
 		 					<c:if test="${imgCount > 0}">
 								<c:forEach var="img" items="${img}">
-									<a class="imgList"><img src='/JackPot/images/memo/delete-photo.png'/> ${img.org_img}</a><br/>
-									<input type="hidden" value="${img.sys_img}" name="sys_img" />
-									<input type="hidden" value="${img.img_num}" name="img_num" />
+									<a class="imgList"><img src='/JackPot/images/memo/delete-photo.png'/>${img.org_img}</a><br/>
 								</c:forEach>
 							</c:if>
 						</div>
-						<div id="file-list"></div>
+						<div id="file-list">
+							<c:if test="${fileCount > 0}">
+								<c:forEach var="file" items="${file}">
+									<a class="fileList"><img src='/JackPot/images/memo/delete-photo.png'/>${file.org_file}</a><br/>
+								</c:forEach>
+							</c:if>
+						</div>
 					</td>
 				</tr>
 			</table>

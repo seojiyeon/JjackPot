@@ -79,13 +79,15 @@
 					<option value="TITLE:DESC">등록일(내림)</option>
 				</select>
 			</div>
+			<form action="memoList.jp?memoGroup=${memoGroup}" method="post" name="searchForm">
 			<div class="table-search">
 				<select name="tableSch" title="검색타입">
 					<option value="1">제목</option>
 				</select>
 				<input type="text" title="검색어" name="searchWord" />
-				<button type="button">검색</button> 
+				<input type="submit" value="검색" />
 			</div>
+			</form>
 		</div>
 		
 		<form name="multiForm" method="post">
@@ -104,7 +106,7 @@
 						<tr>
 							<td>
 								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" class="memoNum"/>
-								<i class="icon nonimp">	</i>
+								<a onclick="memoStateChange.jp?memo_num=${memoCont.memo_num}&memoGroup=${memoGroup}&pageNum=${pageNum}"><i class="icon nonimp"></i></a>
 								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
 							</td>
 						</tr>
