@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jackpot.DTO.calendarDTO;
 import jackpot.DTO.empDTO;
+import jackpot.DTO.participantsDTO;
 
 @Controller
 public class CalendarBean {
@@ -36,7 +37,9 @@ public class CalendarBean {
 	private SqlMapClientTemplate sqlMap;   
 
 	@RequestMapping("/calendar.jp")
-	public String main(){
+	public String main(Model model){
+		List<participantsDTO> participants = sqlMap.queryForList("calendar.getparticipants", null);
+		model.addAttribute("participants" , participants);
 		return "/calendar/calendar";
 	}
 	
@@ -185,5 +188,11 @@ public class CalendarBean {
 		File f = new File(dir+"//"+fileName);
 		ModelAndView mv = new ModelAndView("down", "downloadFile", f);
 		return mv;
+	}
+	
+	@RequestMapping("/addparticipants.jp")
+	public @ResponseBody List<participantsDTO> addparticipants(HttpServletResponse response ,participantsDTO dto){
+		List<participantsDTO> participants = sqlMap.queryForList("calendar.getparticipants", null);
+		return participants;
 	}
 }
