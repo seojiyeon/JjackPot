@@ -154,7 +154,7 @@ ul.tabs li.active {
 
 <script type="text/javascript">
 
-$(document).ready(function(){
+/* $(document).ready(function(){
     $("#emp1").click(function(){
         $("#emp_name").val("Dolly Duck");
     });
@@ -162,20 +162,34 @@ $(document).ready(function(){
     $("#emp2").click(function(){
        callMsg();
     });
+  
+}); */
+
+
+$(document).on('click','#emp1', function(){
+
+		   callMsg();
+
     
+  
 });
+
+
+
+
 
 function callMsg(){
 	 $.ajax({
 	        type: "post",
 	        url : "empmem.jp",
-	        success: test,	// 페이지요청 성공시 실행 함수
-	        error: whenError	//페이지요청 실패시 실행함수
+	        dataType : "html",
+	        success: test,	
+	        error: whenError	
   	});
 }
 
-function test(aaa){	// 요청성공한 페이지정보가 aaa 변수로 콜백된다. 
-    $(".main").html(aaa);	//id가 ajaxReturn인 부분에 넣어라
+function test(aaa){	
+    $(".main").html(aaa);	
     
 }
 function whenError(){
@@ -355,7 +369,7 @@ $(function(){
     <td align="center"  width="50" >
 	  ${article.emp_num}
 	</td>
-    <td  width="130"> ${article.emp_name} </td>	
+    <a href="#bar"><td  width="130" id="bar"> ${article.emp_name} </td></a>	
 	<td width="100" align="center"> ${article.rank}	</td>
 	<td align="center">${article.department} </td>
 	<td align="center">${article.hiredate}</td>	
@@ -372,7 +386,7 @@ $(function(){
 
 
 
-<div class="main">
+<div class="main" data-role="page">
 
 </div>
 		

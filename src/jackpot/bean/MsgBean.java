@@ -181,7 +181,7 @@ public class MsgBean {
 	@RequestMapping("/msgTest.jp")
 	public String msgTest(msgDTO dto, HttpSession session, Model model){
 						
-		return "/msg/main";
+		return "/test/test";
 	}
 	
 	@RequestMapping("/msgNew.jp")
