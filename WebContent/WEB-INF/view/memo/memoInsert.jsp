@@ -101,9 +101,9 @@
 				</select>
 			</div>
 			<div class="inputFileNImg">
-				<input type="reset" value="새메모" />
-				<input type="file" name="org_img" value="이미지 첨부" id="imgInp" />
-				<input type="file" name="org_file" value="파일 첨부" id="fileInp" />
+				<input type="reset" value="새메모" /><br/>
+				이미지 : <input type="file" name="org_img" value="이미지 첨부" id="imgInp" />
+				파일 : <input type="file" name="org_file" value="파일 첨부" id="fileInp" />
 			</div>
 		</div>
 		

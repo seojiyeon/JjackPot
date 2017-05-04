@@ -71,13 +71,6 @@
 						<span><font color="red">${viewCount}</font></span>
 					</c:if>
 				</div>
-				
-				<select class="mr10" name="sortWord">
-					<option value="REGIST_DATE:DESC" selected="selected">등록일(최신순)</option>
-					<option value="REGIST_DATE:ASC">등록일(최신순)</option>
-					<option value="TITLE:ASC">등록일(오름)</option>
-					<option value="TITLE:DESC">등록일(내림)</option>
-				</select>
 			</div>
 			<form action="memoList.jp?memoGroup=${memoGroup}" method="post" name="searchForm">
 			<div class="table-search">

@@ -119,9 +119,9 @@
 			</div>
 		</div>
 		<div class="inputFileNImg">
-			<input type="reset" value="새메모" />
-			<input type="file" name="org_img" title="이미지 첨부" id="imgInp"/>
-			<input type="file" name="org_file" title="파일 첨부" id="fileInp" />
+			<input type="reset" value="새메모" onclick="window.location='memoInsert.jp?memoGroup=${memoGroup}'"/><br/>
+			이미지 : <input type="file" name="org_img" title="이미지 첨부" id="imgInp"/>
+			파일 : <input type="file" name="org_file" title="파일 첨부" id="fileInp" />
 		</div>
 		
 		<div class="content-write">

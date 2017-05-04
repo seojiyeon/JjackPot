@@ -64,19 +64,11 @@ public class MemoBean {
 			endPage = pageCount;
 		}
 		
-		String searchWord = request.getParameter("searchWord");
-		int tableSch = Integer.parseInt(request.getParameter("tableSch"));
-		
-		if(Integer.toString(tableSch) == "" || Integer.toString(tableSch) == null) {
-			tableSch = 0;
-		}
-		
 		HashMap params = new HashMap();
 		params.put("startRow", startRow);
 		params.put("endRow", endRow);
 		params.put("emp_num", emp_num);
 		params.put("memo_cate", dto.getMemo_cate());
-		params.put("searchWord", searchWord);
 				
 		/* 메모 카테고리 내용 */
 		List memoCateList = sqlMap.queryForList("memo.memoCate", emp_num);
@@ -94,12 +86,6 @@ public class MemoBean {
 			memoCont = sqlMap.queryForList("memo.memoRemoveSh", params);
 		} else if(memoGroup == 3) {
 			memoCont = sqlMap.queryForList("memo.memoView", params);
-		} else if(tableSch == 1 && memoGroup == 1) {
-			memoCont = sqlMap.queryForList("memo.memoAllSearch", params);
-		} else if(tableSch == 1 && memoGroup == 2) {
-			memoCont = sqlMap.queryForList("memo.memoImpSearch", params);
-		} else if(tableSch == 1 && memoGroup == 0) {
-			memoCont = sqlMap.queryForList("memo.memoTrSearch", params);
 		}
 				
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -405,7 +391,21 @@ public class MemoBean {
 		model.addAttribute("removeCount", removeCount);
 		model.addAttribute("impCount", impCount);
 		
+		
 		return "/memo/memoCateManage";
+	}
+	
+	@RequestMapping("/memoCateInsert.jp")
+	public String memoCateInsert(HttpSession session, HttpServletRequest request, memoDTO dto) {
+		
+		dto.setEmp_num((String)session.getAttribute("memId"));
+		String cate_title [] = request.getParameterValues("cate_title");
+		
+		for(int i=0; i<cate_title.length; i++) {
+			dto.setCate_title(cate_title[i]);
+			sqlMap.insert("memo.memoCateInsert", dto);
+		}
+		return "/memo/memoCateInsert";
 	}
 	
 	@RequestMapping("/memoCateMove.jp")

@@ -7,7 +7,7 @@
 	
 	<!-- 메모 카테고리 -->
 	<select id="memoCate" parameterClass="String" resultClass="mdto">
-		select * from memo_cate where emp_num=#emp_num#
+		select * from memo_cate where emp_num=#emp_num# order by cate_num asc
 	</select>
 	
 	<select id="memoCateCount" parameterClass="String" resultClass="int">
@@ -17,6 +17,14 @@
 	<select id="memoCateName" parameterClass="mdto" resultClass="String">
 		select cate_title from memo_cate where emp_num=#emp_num# and cate_num=#cate_num#
 	</select>
+	
+	<insert id="memoCateInsert" parameterClass="mdto">
+		insert into memo_cate values(
+			memo_cate_seq.NEXTVAL,
+			#cate_title#,
+			#emp_num#
+		)
+	</insert>
 	
 	
 	<!-- 메모 -->
@@ -148,25 +156,6 @@
 	<!-- 메모 내용 -->
 	<select id="memoContent" parameterClass="mdto" resultClass="mdto">
 		select * from memo m, memo_cate mc where m.memo_num=#memo_num# and memo_cate=cate_num
-	</select>
-	
-	<!-- 메모 제목 검색 -->
-	<select id="memoAllSearch" parameterClass="java.util.HashMap" resultClass="mdto">
-		<![CDATA[
-			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, r from
-			(select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, rownum r from
-			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num 
-				from memo m, memo_cate mc where m.memo_state>0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# and m.memo_title like '%#searchWord#%' order by m.memo_enroll desc)
-			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
-		]]>
-	</select>
-	
-	<select id="memoImpSearch" parameterClass="java.util.HashMap" resultClass="mdto">
-	
-	</select>
-	
-	<select id="memoTrSearch" parameterClass="java.util.HashMap" resultClass="mdto">
-	
 	</select>
 	
 	<!-- 메모 카테고리 이동 -->
