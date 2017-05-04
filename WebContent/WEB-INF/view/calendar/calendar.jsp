@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/calendar.css?ver=1" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/calendar.css?ver=3" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <html>
@@ -13,6 +13,8 @@ a:hover{none;}
 </style>
 
 <script>
+var idlist = new Array();
+
     $(document).ready(function(){
         $(".departmentmenu>a").click(function(){
             var submenu = $(this).next("ul");
@@ -49,13 +51,37 @@ a:hover{none;}
         	 }
         });
         
-        $(".namelist1>li>a").click(function(){
+        $(".namelist>li>a").click(function(){
         	var namelist = $(this);
+        	var id = $(this).attr('id');
         	var name = $(this).text();
-        	$(".selected-list").append("<li>"+name+"</li>");
+        	var selectedlist = $(".selected-list");
+        	var exist = false;
+    		for(i = 0 ; i < idlist.length;i++){
+    			if(idlist[i] == id){
+    				exist = true;
+    				break;
+    			}
+    		} 
+    		if(! exist){
+    			$(".selected-list").append("<li class="+id+"><a href=# onClick=selected_click("+id+")>"+name+"</a></li>");
+    			idlist.push(id);
+    		}
         	namelist.css("background-color","turquoise");
         });
-    }); 
+    });
+    
+    function selected_click(id){
+    	var select = id.getAttribute('id');
+    	$("."+select).remove();
+    	$("#"+select).css("background-color","white");
+    	for(i=0;i < idlist.length; i++){
+    		if(idlist[i] == select){
+    			idlist.splice(i,1);
+    		}
+    	}
+    	console.log(idlist);
+    }  
 
 function updatebutton_click(id){
 	$.ajax({
@@ -144,7 +170,6 @@ function checkIt2(){
 <script type="text/javascript">
 
 function layer_open(el){
-	
 	var temp = $('#' + el);		//레이어의 id를 temp변수에 저장
 	var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
 	
@@ -177,6 +202,9 @@ function add_open(addform){
 		temp.fadeOut();
 		e.preventDefault();
 	});
+	temp.find('a.add-addbtn').click(function(e){
+		alert("asd");
+	})
 	
 }
 
@@ -380,79 +408,65 @@ function add_open(addform){
 					<li>
 						<ul>
 							<li class="branchlist"><a href="#" class="강남">강남지점</a>
-								<ul class="namelist1">
+								<ul class="namelist">
+								<c:forEach var="participantsDTO" items="${participants}">
+								<c:if test="${participantsDTO.branch eq '강남'}">
+								 <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+								</c:if></c:forEach>	
 								</ul>
 							</li>
 						</ul>
 						<ul>
 							<li class="branchlist"><a href="#" class="종로">종로지점</a>
-								<ul class="namelist2">
+								<ul class="namelist">
+								<c:forEach var="participantsDTO" items="${participants}">
+								<c:if test="${participantsDTO.branch eq '종로'}">
+								 <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+								</c:if></c:forEach>
 								</ul>
 							</li>
 						</ul>
 						<ul>
 							<li class="branchlist"><a href="#" class="동작">동작지점</a>
-								<ul class="namelist3">
+								<ul class="namelist">
+								<c:forEach var="participantsDTO" items="${participants}">
+								<c:if test="${participantsDTO.branch eq '동작'}">
+								 <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+								</c:if></c:forEach>
 								</ul>
 							</li>
 						</ul>
 						<ul>
 							<li class="branchlist"><a href="#" class="수지">수지지점</a>
-								<ul class="namelist4">
+								<ul class="namelist">
+								<c:forEach var="participantsDTO" items="${participants}">
+								<c:if test="${participantsDTO.branch eq '수지'}">
+								 <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+								</c:if></c:forEach>
 								</ul>
 							</li>
 						</ul>
 						<ul>
 							<li class="branchlist"><a href="#" class="용인">용인지점</a>
-								<ul class="namelist5">
+								<ul class="namelist">
+								<c:forEach var="participantsDTO" items="${participants}">
+								<c:if test="${participantsDTO.branch eq '용인'}">
+								 <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+								</c:if></c:forEach>
 								</ul>
 							</li>
 						</ul>
 						<ul>
 							<li class="branchlist"><a href="#" class="인천서구">인천서구지점</a>
-								<ul class="namelist6">
+								<ul class="namelist">
+								<c:forEach var="participantsDTO" items="${participants}">
+								<c:if test="${participantsDTO.branch eq '인천서구'}">
+								 <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+								</c:if></c:forEach>
 								</ul>
 							</li>
 						</ul>
 					</li>
-					</ul>
-				</div>
-				
-<!-- 	$.ajax({
-		type :"post",
-		url :"http://localhost:8080/JackPot/addparticipants.jp",
-		success : function(participants){
-			participants.forEach(function(v, i){
-				if(v.branch=="강남"){
-					$(".namelist1").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
-				};
-				if(v.branch=="준상"){
-					$(".namelist2").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
-				};
-				if(v.branch=="진영"){
-					$(".namelist3").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
-				};
-				if(v.branch=="성무"){
-					$(".namelist4").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
-				};
-				if(v.branch=="용인"){
-					$(".namelist5").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
-				};
-				if(v.branch=="인천서구"){
-					$(".namelist6").append("<li><a href=#>"+v.emp_name+" "+v.position+"</a></li>");
-				};
-			})
-		}, 
-		error : function(){
-			alert("error");
-		}
-		}); -->
-				<div class="participants-Form-con-center-btn">
-					<ul style="top:45%;">
-					<li><a href="#">ㅡ></a></li>
-					</ul>
-					<ul style="top:50%;">
-					<li><a href="#"><ㅡ</a></li>
 					</ul>
 				</div>
 				<div class="participants-Form-con-selected">
@@ -462,6 +476,7 @@ function add_open(addform){
 			</div>
 			<div class="participants-Form-btn">
 				<ul style="padding: 5 0 0 10px;list-style: none;">
+					<li style="display:inline-block;float:right;"><a href="#" class="add-addbtn">추가</a></li>
 					<li style="display: inline-block;float:right;"><a href="#" class="add-cbtn">닫기</a></li>
 				</ul>
 			</div>

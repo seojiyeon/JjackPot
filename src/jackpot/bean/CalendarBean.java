@@ -40,8 +40,6 @@ public class CalendarBean {
 	public String main(Model model){
 		List<participantsDTO> participants = sqlMap.queryForList("calendar.getparticipants", null);
 		model.addAttribute("participants" , participants);
-		
-		
 		return "/calendar/calendar";
 	}
 	

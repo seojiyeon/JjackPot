@@ -6,7 +6,14 @@ public class participantsDTO {
 	private String emp_name;
 	private String branch;
 	private String position;
+	private String department;
 	
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
 	public String getEmp_num() {
 		return emp_num;
 	}
