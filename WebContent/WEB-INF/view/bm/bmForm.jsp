@@ -450,7 +450,7 @@ function resetAll(){
 							<!--ckeditor 부분 -->
 					<div>
 					
-						<textarea class="ckeditor" cols="1" id="bm_content" name="${bm_content}" rows="15"></textarea>
+						<textarea class="ckeditor" cols="1" id="bm_content" name="bm_content" rows="15"></textarea>
 						
 						
 					</div>

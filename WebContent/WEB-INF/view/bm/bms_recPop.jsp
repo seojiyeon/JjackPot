@@ -33,8 +33,19 @@ tr:nth-child(even){background-color: #f2f2f2}
 
 <html>
 <script type="text/javascript">
-function setName(e)
-{		 
+
+$(document).ready(function(){
+    $("#emp1").click(function(){
+        $("#emp_name").val("");
+    });
+    
+    $("#emp2").click(function(){
+        $("#emp_name").val("");
+    });
+    
+});
+function setId(e)
+{	
 	opener.document.bminput.rec_name.value=e;
 	self.close(); 
 	}

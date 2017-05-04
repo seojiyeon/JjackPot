@@ -623,15 +623,16 @@ public class bmBean {
 	
 	/*업무FormPro*/
 	@RequestMapping("/bmFormPro.jp")
-	public String bmForm(Model model,bmDTO bmdto, HttpServletRequest request ,HttpSession session){
+	public String bmForm(Model model,empDTO empdto,bmDTO bmdto, HttpServletRequest request ,HttpSession session){
 		
 		String emp_num =(String)session.getAttribute("memId");
-		String bm_name = (String)sqlMap.queryForObject("bm.empInf", emp_num);
-		
+		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name", emp_num);
+		empDTO edto1 = (empDTO)sqlMap.queryForObject("bm.empInf",emp_num);
+
 
 		
 		bmdto.setEmp_num(request.getParameter("emp_num"));
-		bmdto.setBm_name(request.getParameter("bm_name"));
+		bmdto.setBm_name(edto1.getEmp_name());
 		bmdto.setBm_title(request.getParameter("bm_title"));
 		bmdto.setBm_content(request.getParameter("bm_content"));
 		bmdto.setBm_form(Integer.parseInt(request.getParameter("bm_form")));
@@ -671,41 +672,59 @@ public class bmBean {
 		/*담당자*//*각각 배열로 지정해주며 불러온다 (여러값이 들어가기 위한 것 )*/
 		bmdto.setBm_num(maxBmNum);
 		String inchar_name[] = request.getParameterValues("inchar_name");
-		String inchar_brunch[] = request.getParameterValues("inchar_brunch");
-		String inchar_depart[] = request.getParameterValues("inchar_depart");
-		String inchar_position[] = request.getParameterValues("inchar_position");
-
-		for(int i=0; i<inchar_name.length; i++ ) {
-			if(inchar_name != null){
-			bmdto.setInchar_name(inchar_name[i]);
-			bmdto.setInchar_brunch(inchar_brunch[i]);
-			bmdto.setInchar_depart(inchar_depart[i]);
-			bmdto.setInchar_position(inchar_position[i]);
+/*		System.out.println("===inchar_name !==========="+inchar_name.length);*/
 		
-			sqlMap.insert("bm.insertIncharge", bmdto);
+		if(inchar_name.length > 0){
+			for(String s : inchar_name){
+/*				System.out.println("--->"+s);*/
+			}
 		}
+		
+/*		String inchar_depart[] = request.getParameterValues("inchar_depart");
+		String inchar_position[] = request.getParameterValues("inchar_position");
+*/
+		if(!inchar_name[0].equals("")){
+			
+			for(int i=0; i<inchar_name.length; i++ ) {
+				bmdto.setInchar_name(inchar_name[i]);
+				empDTO edto = (empDTO)sqlMap.queryForObject("bm.empInfpop",emp_num);
+				System.out.println(inchar_name[i]);
+				bmdto.setInchar_branch(edto.getBranch2());
+				System.out.println(edto.getBranch2());
+				bmdto.setInchar_depart(edto.getDepartment2());
+				bmdto.setInchar_position(edto.getPosition2());
+				
+				sqlMap.insert("bm.insertIncharge", bmdto);
+			}
+		}
+		
 /*			bmdto.setInchar_name("");
 			bmdto.setInchar_brunch("");
 			bmdto.setInchar_depart("");
 			bmdto.setInchar_position("");*/
 		
-	}
 
 
 		/*참조자*/
 		bmdto.setBm_num(maxBmNum);
 		String ref_name[] = request.getParameterValues("ref_name");
-		String ref_branch[] = request.getParameterValues("ref_branch");
-		String ref_depart[] = request.getParameterValues("ref_depart");
-		String ref_position[] = request.getParameterValues("ref_position");
+		
+		if(ref_name.length > 0){
+			for(String s : ref_name){
+				System.out.println("--->"+s);
+			}
+		}
+		if(!ref_name[0].equals("")){
 		for(int i=0; i<ref_name.length; i++ ) {
 			bmdto.setRef_name(ref_name[i]);
-			bmdto.setRef_branch(ref_branch[i]);
-			bmdto.setRef_depart(ref_depart[i]);
-			bmdto.setRef_position(ref_position[i]);
+			empDTO edto = (empDTO)sqlMap.queryForObject("bm.empInfpop",emp_num);
+			bmdto.setRef_branch(edto.getBranch2());
+			bmdto.setRef_depart(edto.getDepartment2());
+			bmdto.setRef_position(edto.getPosition2());
 			
 			sqlMap.insert("bm.insertBm_ref", bmdto);
 		}
+	}
 		
 		
 		
@@ -713,20 +732,24 @@ public class bmBean {
 
 		bmdto.setBm_num(maxBmNum);
 		String rec_name[] = request.getParameterValues("rec_name");
-		String rec_branch[] = request.getParameterValues("rec_branch");
-		String rec_depart[] = request.getParameterValues("rec_depart");
-		String rec_position[] = request.getParameterValues("rec_position");
 		
-		for(int i=0; i<inchar_name.length; i++ ) {
+		if(rec_name.length > 0){
+			for(String s : rec_name){
+				System.out.println("--->"+s);
+			}
+		}
+		if(!rec_name[0].equals("")){
+		for(int i=0; i<rec_name.length; i++ ) {
 			bmdto.setRec_name(rec_name[i]);
-			bmdto.setRec_branch(rec_branch[i]);
-			bmdto.setRec_depart(rec_depart[i]);
-			bmdto.setRec_position(rec_position[i]);
-			
+			empDTO edto = (empDTO)sqlMap.queryForObject("bm.empInfpop",emp_num);
+			bmdto.setRec_branch(edto.getBranch2());
+			bmdto.setRec_depart(edto.getDepartment2());
+			bmdto.setRec_position(edto.getPosition2());
 			sqlMap.insert("bm.insertBms_rec", bmdto);
 		}
-		
-		/*업무내역 등록*/
+	}
+/*	
+		업무내역 등록
 		String his_process = bmdto.getHis_process();
 		String his_content = bmdto.getHis_content();
 		bmdto.setEmp_num(emp_num);
@@ -735,8 +758,12 @@ public class bmBean {
 		bmdto.setHis_process(his_process);
 		bmdto.setHis_content(his_content);
 		sqlMap.insert("bm.insertHistory", bmdto);
+		*/
 		
 		/*업무파일 등록*/
+		
+		
+		
 		String org_file = bmdto.getOrg_file();
 		String sys_file = bmdto.getSys_file();
 //		bmdto.setBm_num(bm_num);

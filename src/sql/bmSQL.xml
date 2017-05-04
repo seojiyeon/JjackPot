@@ -188,12 +188,12 @@
 		<!-- 담당자 등록  -->
 		<insert id="insertIncharge" parameterClass="bmdto">
 	
-			insert into incharge(num,bm_num,emp_num,inchar_name,inchar_brunch,inchar_depart,inchar_position) values(
+			insert into incharge(num,bm_num,emp_num,inchar_name,inchar_branch,inchar_depart,inchar_position) values(
 				INCHARGE_SEQ.nextval,
 				#bm_num#,
 				#emp_num#,
 				#inchar_name#,
-				#inchar_brunch#,
+				#inchar_branch#,
 				#inchar_depart#,
 				#inchar_position#
 			)
@@ -284,6 +284,7 @@
         <select id="bm_de_department" resultClass="bpdto">
         	  select * from department 
         </select> 
+
         
         <select id="emp_department" resultClass="dto">
         	  select department from emp 
@@ -336,8 +337,8 @@
 <!-- Popup -->         
          
         <!-- 사원찾기 --> 
-		<select id="empFind" resultClass="empDTO" parameterClass="String">
-            select e.emp_num,e.emp_name,d.department department2 from emp e, department d where emp_name=#emp_num# and e.department=d.num
+		<select id="empFind" resultClass="dto" parameterClass="String">
+            select e.emp_num,e.emp_name,d.department department2 from emp e, department d where emp_name=#emp_name# and e.department=d.num
  
         </select>
         
@@ -347,11 +348,17 @@
         </select>
         
         <!-- 사원/업무담당자 이름/업무담당자 지점/업무담당자 부서/업무담당자 직급 -->
-        <select id= "empInf" resultClass="empDTO" parameterClass="String">
+        <select id= "empInf" resultClass="dto" parameterClass="String">
         	select e.emp_num, e.emp_name,br.branch branch2,p.position position2 from emp e, branch br,position p where e.emp_num=#emp_num# and e.POSITION = p.num and e.branch =br.num
         
         </select>
-         
+        
+       <!-- 사원/업무담당자 이름/업무담당자 지점/업무담당자 부서/업무담당자 직급 -->
+        <select id= "empInfpop" resultClass="dto" parameterClass="dto">
+        	select e.emp_num,e.emp_name,d.department department2,b.branch branch2, p.position position2 from position p,emp e, branch b,department d 
+			where emp_num=#emp_num# and e.department=d.num and e.branch=b.num and p.num = e.position
+        </select>
+        
 
 </sqlMap>
 
