@@ -173,7 +173,14 @@
                             </td>                            
                             
                         </tr>
-	                  
+	                   <tr>
+							<th scope="row">지시자 </th>
+                            <td>
+                                <div>
+                                	${bmdto.bm_name }
+                                </div>
+                   	 	</tr>
+                        
 						<tr>
 							<th scope="row">업무기한 </th>
                             <td>
@@ -218,6 +225,21 @@
                    	 	</tr>
                     
                  
+						<tr>
+							<th scope="row">담당자  </th>
+                            <td>
+                                <div>
+                                	${bmdto.inchar_name }
+                                </div>
+                   	 	</tr>
+                        
+						<tr>
+							<th scope="row">참조자  </th>
+                            <td>
+                                <div>
+                                	${bmdto.ref_name }
+                                </div>
+                   	 	</tr>
                         
   						<tr>
 							<th scope="row">업무보관함    </th>
