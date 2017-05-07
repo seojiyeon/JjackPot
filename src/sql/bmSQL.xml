@@ -92,8 +92,13 @@
 			order by bm.bm_num desc		
 		</select>
 				
+		<select id="getEmp_name1" parameterClass="String" resultClass="String">
 		
-		<select id="getEmp_name" parameterClass="string" resultClass="bmdto">
+			select emp_name from emp where emp_num=#emp_num#
+		
+		</select>
+		
+		<select id="getEmp_name2" parameterClass="String" resultClass="bmdto">
 		
 			select emp_name from emp where emp_num=#emp_num#
 		
@@ -354,7 +359,7 @@
         </select>
         
        <!-- 사원/업무담당자 이름/업무담당자 지점/업무담당자 부서/업무담당자 직급 -->
-        <select id= "empInfpop" resultClass="dto" parameterClass="dto">
+        <select id= "empInfpop" resultClass="dto" parameterClass="String">
         	select e.emp_num,e.emp_name,d.department department2,b.branch branch2, p.position position2 from position p,emp e, branch b,department d 
 			where emp_num=#emp_num# and e.department=d.num and e.branch=b.num and p.num = e.position
         </select>
