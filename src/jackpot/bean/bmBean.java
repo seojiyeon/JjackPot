@@ -167,7 +167,7 @@ public class bmBean {
 		List myBmYCHList = null;
 		
 
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
+		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", bmdto);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		myBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
 		
@@ -608,7 +608,7 @@ public class bmBean {
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
 		List ListBns_box = sqlMap.queryForList("bm.ListBns_box", null);
-		bmdto = (bmDTO)sqlMap.queryForObject("bm.getEmp_name", emp_num);	
+		bmdto = (bmDTO)sqlMap.queryForObject("bm.getEmp_name2", emp_num);	
 	
 		model.addAttribute("bmdto",bmdto);
 		model.addAttribute("emp_num",emp_num);
@@ -626,7 +626,7 @@ public class bmBean {
 	public String bmForm(Model model,empDTO empdto,bmDTO bmdto, HttpServletRequest request ,HttpSession session){
 		
 		String emp_num =(String)session.getAttribute("memId");
-		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name", emp_num);
+		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
 		empDTO edto1 = (empDTO)sqlMap.queryForObject("bm.empInf",emp_num);
 
 

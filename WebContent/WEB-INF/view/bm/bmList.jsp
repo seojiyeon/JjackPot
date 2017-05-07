@@ -203,46 +203,13 @@ tbody {
                 
                 <div class="totalnum">전체 <span>${bmcount }</span></div>
             </div>
-            <div class="table-search" style="right:250px;">
-                <div class="input-unread">
-                    <label><i class="icon imp"></i> 중요</label>
-                    
-                        <input type="checkbox" id="checkboxPriority" title="중요" value="1">
-                    
-                </div>
-                <div class="input-unread w180">
-                     <div class="ui-step-wrap">
-                         <div class="ui-step-todo">
-                             <div class="step-bar"></div>
-                                 <label for="statusReject" style="left: 0%;"><input type="checkbox" name="bm_state" title="반려" id="statusReject" value="20" checked="">
-                                 <span class="box"></span>
-                                 <span class="txt">반려</span></label><!-- 반려 -->
-                                 <label for="statusDelay" style="left: 33.3%;">
-                                 <input type="checkbox" name="bm_state" title="지연" id="statusDelay" value="11" checked="">
-                                 <span class="box"></span><span class="txt">지연</span></label><!-- 지연 -->
-                                 <label for="statusNotComplete" style="left: 66.6%;">
-                                 <input type="checkbox" name="bm_state" title="미완료" id="statusNotComplete" value="12" checked="">
-                                 <span class="box"></span><span class="txt">미완료</span></label><!-- 미완료 -->
-                                 <label for="statusComplete" style="left: 100%;">
-                                 <input type="checkbox" name="bm_state" title="완료" id="statusComplete" value="1" checked="">
-                                 <span class="box"></span><span class="txt">완료</span></label><!-- 완료 -->
-                         </div>
-                    </div>
-                </div>
-                
-                <input id="startDate" type="text" title="날짜시작" name="" class="input-datepicker w100" placeholder="From" value="" readonly="readonly">
-                	<button type="button" class="btn btn-color7 br tbl-inner"><i class="icon calendar"></i></button>
-                <span>~</span>
-                <input id="endDate" type="text" title="날짜끝" name="" class="input-datepicker w100" placeholder="To" value="" readonly="readonly">
-                	<button type="button" class="btn btn-color7 br tbl-inner">
-                		<i class="icon calendar"></i>
-                	</button>
-            </div>
+            
             <div class="table-search">
                 
                     <select name="searchColumn" title="검색타입">
                         <option value="emp_name" selected="selected">요청자</option>
                         <option value="searchTitle">제목</option>
+                    
                     </select>
                 
                 <div class="input-search">
