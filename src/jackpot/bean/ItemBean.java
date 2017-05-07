@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jackpot.DTO.ItemCateDTO;
 import jackpot.DTO.ItemDTO;
 
 @Controller
@@ -20,18 +19,14 @@ public class ItemBean {
 	
 	@RequestMapping("/itemEnroll.jp")
 	public String itemEroll(ItemDTO dto, Model model) {
-		List itemList = sqlMap.queryForList("item.itemList", null);
-		int itemCount = (int) sqlMap.queryForObject("item.itemListCount", null);
-		
-		model.addAttribute("itemList", itemList);
-		model.addAttribute("itemCount", itemCount);
-		
+				
 		return "/item/itemEnroll";
 	}
 	
 	@RequestMapping("/itemEnrollPro.jp")
 	public String itemEnrollPro(ItemDTO dto) {
 		sqlMap.insert("item.itemInsert", dto);
+	
 		return "/item/itemEnrollPro";
 	}
 	
@@ -51,7 +46,7 @@ public class ItemBean {
 		return "/item/itemCate";
 	}
 	
-	@RequestMapping("/bigCatePro.jp")
+/*	@RequestMapping("/bigCatePro.jp")
 	public String bigCatePro(HttpServletRequest request) {
 		String [] big_cate = request.getParameterValues("big_cate");
 		String [] big_name = request.getParameterValues("big_name"); 
@@ -66,4 +61,4 @@ public class ItemBean {
 		}
 		return "/item/bigCatePro";
 	}
-}
+*/}

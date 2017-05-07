@@ -128,4 +128,97 @@ public class ItemDTO {
 	public void setNote(String note) {
 		this.note = note;
 	}
+	
+	// 대분류
+	private int big_num;
+	private String big_code;
+	private String big_name;
+	private String big_use;
+	
+	public int getBig_num() {
+		return big_num;
+	}
+	public void setBig_num(int big_num) {
+		this.big_num = big_num;
+	}
+	public String getBig_code() {
+		return big_code;
+	}
+	public void setBig_code(String big_code) {
+		this.big_code = big_code;
+	}
+	public String getBig_name() {
+		return big_name;
+	}
+	public void setBig_name(String big_name) {
+		this.big_name = big_name;
+	}
+	public String getBig_use() {
+		return big_use;
+	}
+	public void setBig_use(String big_use) {
+		this.big_use = big_use;
+	}
+
+	// 중분류
+	private int middle_num;
+	private String middle_code;
+	private String middle_name;
+	private String middle_use;
+		
+	public int getMiddle_num() {
+		return middle_num;
+	}
+	public void setMiddle_num(int middle_num) {
+		this.middle_num = middle_num;
+	}
+	public String getMiddle_code() {
+		return middle_code;
+	}
+	public void setMiddle_code(String middle_code) {
+		this.middle_code = middle_code;
+	}
+	public String getMiddle_name() {
+		return middle_name;
+	}
+	public void setMiddle_name(String middle_name) {
+		this.middle_name = middle_name;
+	}
+	public String getMiddle_use() {
+		return middle_use;
+	}
+	public void setMiddle_use(String middle_use) {
+		this.middle_use = middle_use;
+	}
+
+	// 소분류
+	private int small_num;
+	private String small_code;
+	private String small_name;
+	private String small_use;
+
+	public int getSmall_num() {
+		return small_num;
+	}
+	public void setSmall_num(int small_num) {
+		this.small_num = small_num;
+	}
+	public String getSmall_code() {
+		return small_code;
+	}
+	public void setSmall_code(String small_code) {
+		this.small_code = small_code;
+	}
+	public String getSmall_name() {
+		return small_name;
+	}
+	public void setSmall_name(String small_name) {
+		this.small_name = small_name;
+	}
+	public String getSmall_use() {
+		return small_use;
+	}
+	public void setSmall_use(String small_use) {
+		this.small_use = small_use;
+	}
 }
