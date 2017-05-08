@@ -200,7 +200,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
      <li align="center" style="font-size: 15;">
         <input type="button" value="즐겨찾기 추가"  onclick="fav()">
         <input type="button" value="즐겨찾기 해제"  onclick="favd()">&nbsp;&nbsp;&nbsp;
-        <input type="button" value="전체구성원 보기" onclick="window.location='Allorg.jp'">&nbsp;&nbsp;
+        <input type="button" value="전체구성원 보기" onclick="window.location='Allorg.jp'">&nbsp;&nbsp;&nbsp;
         <input type="image" src="/JackPot/save/house.png" width="30" height="30" value="메인" onclick="window.location='main.jp'">
       </li>
     </Td>

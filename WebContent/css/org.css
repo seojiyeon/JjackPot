@@ -257,3 +257,6 @@ ul:not(.itemContentLi), ol:not(.itemContentLi), dl, dt, dd, p {
 li:not(.itemContentLi) {
     list-style: none;
 }
+.pagination-button {
+    padding: 6px 0 7px;margin-top: -1px; height: 39px; background: #fff;
+}
