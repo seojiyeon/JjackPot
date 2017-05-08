@@ -6,11 +6,11 @@
 
 <jsp:useBean id="toDay" class="java.util.Date" />
 <fmt:formatDate value="${toDay}" pattern="yyyy.MM.dd" var="tdate"/>
-<link href="/JackPot/css/appro.css?ver=3" rel="stylesheet" type="text/css">
-<link href="/JackPot/css/basic.css?ver=1" rel="stylesheet" type="text/css">
-<link href="/JackPot/css/theme.css?ver=1" rel="stylesheet" type="text/css">
-<link href="/JackPot/css/common.css?ver=2" rel="stylesheet" type="text/css">
-<link href="/JackPot/css/quick.css?ver=1" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/appro.css?ver=8" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/basic.css?ver=2" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/theme.css?ver=3" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/common.css?ver=4" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/quick.css?ver=5" rel="stylesheet" type="text/css">
 <html>
 <head>
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -22,7 +22,7 @@
  	
 <script>
 	function approver_find(){
-		
+		//$('.find_test').show();
 		var input = document.getElementById("approver_test").value;
 		$.ajax({
 			type:"post",
@@ -30,10 +30,12 @@
 			data: {ap:input},
 			success: function(approver_info){ 
 				alert(approver_info);
-				approver_info.forEach(function(v,i){ // v <- object  i <- 횟수
-					alert(v.emp_num)
-				})
-				
+				$('.find_test').empty();
+				$.each(approver_info,function(i,v){
+					$('.findtest'+i).html("<td>" + v.emp_name + "</td><td>" + v.position + "</td><td>"+v.department+"</td>");
+					$('.findtest'+i).fadeIn();
+				});
+						
 			},
 			error:function(){
 				alert("error");
@@ -67,6 +69,7 @@
 			$('.layer').fadeOut();
 			e.preventDefault();
 		});
+		//$('.find_test').hide();
 	}
 	
 	function applyEvent(){
@@ -77,33 +80,6 @@
 	}
      
      
-     function dialog() {
-
-    	    var dialogBox = $('.dialog'),
-    	        dialogTrigger = $('.dialog__trigger'),
-    	        dialogClose = $('.dialog__close'),
-    	        dialogTitle = $('.dialog__title'),
-    	        dialogContent = $('.dialog__content'),
-    	        dialogAction = $('.dialog__action');
-
-    	    // Open the dialog
-    	    dialogTrigger.on('click', function(e) {
-    	        dialogBox.toggleClass('dialog--active');
-    	        e.stopPropagation()
-    	    });
-
-    	    // Close the dialog - click close button
-    	    dialogClose.on('click', function() {
-    	        dialogBox.removeClass('dialog--active');
-    	    });
-
-    	    // Close the dialog - press escape key // key#27
-    	    $(document).keyup(function(e) {
-    	        if (e.keyCode === 27) {
-    	            dialogBox.removeClass('dialog--active');
-    	        }
-    	    });
-    	};
     	
     	$(document).ready(function() {
 
@@ -356,36 +332,42 @@ function setId(e)
 </div>
 </div>
 	<div id="layer1" class="pop-layer">
-		<form name="approver_form" method="post">
-			
-		
-			<div class="modal-header">
+		<div class="modal-header">
+			<form name="approver_form" method="post">
 					<h2 class="modal-title">결재선지정</h2>
-			</div>
-			
-			
-			<ul class="tabs">
-	   			<li><a href="#tab1">조직도</a></li>
-	    		<li><a href="#tab2">검색</a></li>
-			</ul>
+			</form>
+		</div>
+		
 			<div class="tab_container">
+				<ul class="tabs">
+	   				<li><a href="#tab1">조직도</a></li>
+	    			<li><a href="#tab2">검색</a></li>
+				</ul>
     			<div id="tab1" class="tab_content">
 	        		<!--Content-->
 	    		</div>
 		   		<div id="tab2" class="tab_content">
 		       		<!--Content-->
-		       		<form id="approver_info">
+		       		<form id="approver_info" class="approver_info">
 			       		<input type="text" id="approver_test" name="approver_test" onkeypress="if(event.keyCode==13){approver_find();event.returnValue=false}"/>
 						<input type="button" value="검색" onclick="approver_find();"/>
 					</form>
+					
+					<table id="find_test" class="find_test">
+					<thead>
+						<tr class="findtest0"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
+						<tr class="findtest1"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
+						<tr class="findtest2"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
+						<tr class="findtest3"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
+						<tr class="findtest4"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
+					</thead>
+				</table>
 		    	</div>
-		    	
 			</div>
 			<div class="btn-r">
 				<input type="button" value="적용" onclick="applyEvent();">
 				<a href="#" class="cbtn">닫기</a>
 			</div>
-			</form>
 		</div>
 			<hr>
 			<input type="hidden" value="${temp_num}" name="temp_num" class="temp_num" />
