@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
-<link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/memo.css?ver=1" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
 
 <head>
@@ -120,7 +120,6 @@ ul.tabs li.active {
 			}
 		}
 	}
-
 </script>
 
 <html>
@@ -164,18 +163,35 @@ ul.tabs li.active {
 					</form>
 				</div>
 				<div id="tab2" class="tab_content">
-					<div class="tab-main">
-						<ul>
-							<c:if test="${memoCateCount == 0}">
-								<li>등록된 폴더가 없습니다.</li>
-							</c:if>
-							<c:if test="${memoCateCount > 0}">
-								<c:forEach var="memoCate" items="${memoCateList}">
-									<li>${memoCate.cate_title}</li>
-								</c:forEach>
-							</c:if>
-						</ul>
-					</div>
+					<form method="post" action="">
+						<div class="tab-main">
+							<div class="tab-left">
+								<ul>
+									<c:if test="${memoCateCount == 0}">
+										<li>등록된 폴더가 없습니다.</li>
+									</c:if>
+									<c:if test="${memoCateCount > 0}">
+										<c:forEach var="memoCate" items="${memoCateList}">
+											<li class="cateName">${memoCate.cate_title}</li>
+										</c:forEach>
+									</c:if>
+								</ul>
+							</div>
+							<div class="tab-right">
+								<ul style="list-diplay:none;">
+									<li>
+										<c:forEach var="memoCate" items="${memoCateList}">
+											<input type="text" name="cate_title" value="${memoCate.cate_title}" class="cateTitle"/>
+										</c:forEach>
+									</li>
+									<li>
+										<input type="submit" value="수정" />
+										<button type="button">삭제</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

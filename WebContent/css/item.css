@@ -28,6 +28,11 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:auto; margin:0px;}
 
 .item-table th {background-color: #f3f3f3;}
 
+
+.big_cate{width: 300px; position: absolute;}
+.middle-cate{position: absolute; left: 350px; width: 300px;}
+.small-cate{position: absolute; left: 700px; width: 300px;}
+
 /* a태그 파란글자/밑줄 X */
 a:link {text-decoration:none; color:#000000;}
 a:visited {text-decoration:none; color:#121212;}

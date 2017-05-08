@@ -48,7 +48,7 @@
 		<div class="table-header">
 			<div class="listInfo">
 				<select name="pageSize">
-					<option value="10" selected="selected">10</option>
+					<option value="10" selected>10</option>
 					<option value="20">20</option>
 					<option value="30">30</option>
 					<option value="40">40</option>

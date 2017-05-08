@@ -32,7 +32,7 @@ public class ItemBean {
 	
 	@RequestMapping("/itemCate.jp")
 	public String itemCate(Model model) {
-		List bigCateList = sqlMap.queryForList("item.bigItemList", null);
+/*		List bigCateList = sqlMap.queryForList("item.bigItemList", null);
 		int bigCateCount = (int) sqlMap.queryForObject("item.bigItemListCount", null);
 		
 		List middleCateList = sqlMap.queryForList("item.middleItemList", null);
@@ -42,7 +42,7 @@ public class ItemBean {
 		model.addAttribute("bigCateCount", bigCateCount);
 		model.addAttribute("middleCateList", middleCateList);
 		model.addAttribute("middleCateCount", middleCateCount);
-		
+*/		
 		return "/item/itemCate";
 	}
 	
