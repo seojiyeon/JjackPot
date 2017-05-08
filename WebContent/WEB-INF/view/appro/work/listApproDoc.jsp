@@ -6,7 +6,7 @@
 
 <jsp:useBean id="toDay" class="java.util.Date" />
 <fmt:formatDate value="${toDay}" pattern="yyyy.MM.dd" var="tdate"/>
-<link href="/JackPot/css/appro.css?ver=8" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/appro.css?ver=1" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/basic.css?ver=2" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/theme.css?ver=3" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/common.css?ver=4" rel="stylesheet" type="text/css">
@@ -20,22 +20,74 @@
  	<script src="/JackPot/js/jquery.bpopup.min.js"></script>
  	<script src="//code.jquery.com/jquery.min.js"></script>
  	
-<script>
+<script type="text/javascript">
+var idlist = new Array();
+var idlistname = new Array();
+
+$(document).ready(function() {
+
+	//When page loads...
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+
+	//On Click Event
+	$("ul.tabs li").click(function() {
+
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active ID content
+		return false;
+	});
+	
+	$(".branchlist>a").click(function(){
+	    var branchlist = $(this).next("ul");
+	    if(branchlist.is(":visible")){
+	       branchlist.slideUp();
+	    }else{
+	       branchlist.slideDown();
+	    }
+	});
+
+	$(".namelist>li>a").click(function(){
+	    var namelist = $(this);
+	    var id = $(this).attr('id');
+	    var name = $(this).text();
+	    var name2 = name.substring(0,3);
+	    var selectedlist = $(".selected-list");
+	    
+	    var exist = false;
+	   for(i = 0 ; i < idlist.length;i++){
+	      if(idlist[i] == id){
+	         exist = true;
+	         break;
+	      }
+	   } 
+	   if(! exist){
+	      $(".selected-list").append("<li class="+id+"><a href=# onClick=selected_click("+id+")>"+name+"</a></li>");
+	      idlist.push(id);
+	      idlistname.push(name2);
+	   }
+	    namelist.css("background-color","turquoise");
+	 });
+});
+
 	function approver_find(){
-		//$('.find_test').show();
+		$('.find_test').show();
+		$('.find_form').show();
 		var input = document.getElementById("approver_test").value;
 		$.ajax({
 			type:"post",
 			url:"http://localhost:8080/JackPot/approverFind.jp",
 			data: {ap:input},
-			success: function(approver_info){ 
-				alert(approver_info);
-				$('.find_test').empty();
+			success: function(approver_info){
 				$.each(approver_info,function(i,v){
-					$('.findtest'+i).html("<td>" + v.emp_name + "</td><td>" + v.position + "</td><td>"+v.department+"</td>");
-					$('.findtest'+i).fadeIn();
+					$('.find_result'+i).html("<th>"+v.emp_name +"</th><th> "+ v.position +"</th><th> "+ v.department+"</th>"+"<br/>");
+					$('.find_result'+i).show();
 				});
-						
 			},
 			error:function(){
 				alert("error");
@@ -43,8 +95,23 @@
 		});
 	}
 	
+	
+	
+	 function selected_click(id){
+	       var select = id.getAttribute('id');
+	       $("."+select).remove();
+	       $("#"+select).css("background-color","white");
+	       for(i=0;i < idlist.length; i++){
+	          if(idlist[i] == select){
+	             idlist.splice(i,1);
+	             idlistname.splice(i,1);
+	          }
+	       }
+	    }  
 
 	function layer_open(el){
+		document.all.approver_test.value = "";
+		
 		var temp = $('#' + el);		//레이어의 id를 temp변수에 저장
 		var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
 
@@ -61,7 +128,7 @@
 			}else{
 				temp.fadeOut(); //'닫기'버튼을 클릭하면 레이어가 사라진다.
 			}
-			document.approver_info.approver_test.value = "";
+			
 			e.preventDefault();
 		});
 
@@ -69,7 +136,9 @@
 			$('.layer').fadeOut();
 			e.preventDefault();
 		});
-		//$('.find_test').hide();
+		$('.find_test').hide();
+		$('.find_form').hide();
+		
 	}
 	
 	function applyEvent(){
@@ -78,51 +147,25 @@
 		$('#approver_name').val(value)
 		document.approver_info.approver_test.value = "";
 	}
-     
-     
     	
-    	$(document).ready(function() {
-
-    		//When page loads...
-    		$(".tab_content").hide(); //Hide all content
-    		$("ul.tabs li:first").addClass("active").show(); //Activate first tab
-    		$(".tab_content:first").show(); //Show first tab content
-
-    		//On Click Event
-    		$("ul.tabs li").click(function() {
-
-    			$("ul.tabs li").removeClass("active"); //Remove any "active" class
-    			$(this).addClass("active"); //Add "active" class to selected tab
-    			$(".tab_content").hide(); //Hide all tab content
-
-    			var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
-    			$(activeTab).fadeIn(); //Fade in the active ID content
-    			return false;
-    		});
-
-    	});
+    	function add_open(addform){   
+    		   var temp = $('#' + addform);
+    		   temp.fadeIn();
+    		   temp.find('a.add-cbtn').click(function(e){
+    		      temp.fadeOut();
+    		      e.preventDefault();
+    		   });
+    		   temp.find('a.add-addbtn').click(function(e){
+    		      temp.fadeOut();
+    		      $('.approver_add').html("<input type=text id=participants readonly value="+idlistname+"></input><input type=hidden name=participants value="+idlist+"></input>")
+    		     //값을 넣어줄 부분  
+    		     
+    		      e.preventDefault();
+    		   })
+    		   
+    		}
 	</script>	
 	
-<script type="text/javascript">
-
-$(document).ready(function(){
-    $("#emp1").click(function(){
-        $("#emp_name").val("Dolly Duck");
-    });
-    
-    $("#emp2").click(function(){
-        $("#emp_name").val("");
-    });
-    
-});
-
-function setId(e)
-{		 
-	opener.document.userinput.msg_receive.value=e;
-	self.close(); 
-	}
-
-</script>
 		
 </head>
 
@@ -341,10 +384,15 @@ function setId(e)
 			<div class="tab_container">
 				<ul class="tabs">
 	   				<li><a href="#tab1">조직도</a></li>
+	   				
 	    			<li><a href="#tab2">검색</a></li>
 				</ul>
     			<div id="tab1" class="tab_content">
 	        		<!--Content-->
+	        		<div class="approver_add">
+	        		<input type="text" readonly>
+	        		</div>
+	        		<a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a>
 	    		</div>
 		   		<div id="tab2" class="tab_content">
 		       		<!--Content-->
@@ -355,13 +403,23 @@ function setId(e)
 					
 					<table id="find_test" class="find_test">
 					<thead>
-						<tr class="findtest0"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
-						<tr class="findtest1"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
-						<tr class="findtest2"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
-						<tr class="findtest3"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
-						<tr class="findtest4"><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
+						<tr><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
 					</thead>
-				</table>
+					</table>
+					
+					<table id="find_form" class="find_form">
+						<tr class="find_result0" style="color: blue;">
+						</tr>
+						<tr class="find_result1" style="color: blue;">
+						</tr>
+						<tr class="find_result2" style="color: blue;">
+						</tr>
+						<tr class="find_result3" style="color: blue;">
+						</tr>
+						<tr class="find_result4" style="color: blue;">
+						</tr>
+					</table>
+				
 		    	</div>
 			</div>
 			<div class="btn-r">
@@ -369,6 +427,98 @@ function setId(e)
 				<a href="#" class="cbtn">닫기</a>
 			</div>
 		</div>
+		   <div id="participants-Form">
+      <div class="participants-Form-container">
+         <div class="participants-Form-top">
+         </div>
+         <div class="participants-Form-contents">
+            <div class="participants-Form-con-tab">
+               <ul>
+                  <li><a>조직도</a></li>
+                  <li><a>주소록</a></li>
+                  <li><a>거래처</a></li>
+               </ul>
+            </div>
+            <div class="participants-Form-con-contents">
+               <ul>
+               <li>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="강남">강남지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '강남'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>   
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="종로">종로지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '종로'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="동작">동작지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '동작'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="수지">수지지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '수지'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="용인">용인지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '용인'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="인천서구">인천서구지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '인천서구'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               </ul>
+            </div>
+            <div class="participants-Form-con-selected">
+               <ul class="selected-list">
+               </ul>
+            </div>
+         </div>
+         <div class="participants-Form-btn">
+            <ul>
+               <li><a href="#" class="add-cbtn">닫기</a></li>
+               <li><a href="#" class="add-addbtn">추가</a></li>
+            </ul>
+         </div>
+      </div>
+   </div>
+		
 			<hr>
 			<input type="hidden" value="${temp_num}" name="temp_num" class="temp_num" />
 </body>

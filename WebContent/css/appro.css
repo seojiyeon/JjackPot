@@ -882,3 +882,26 @@ a:link {
   margin: 0;
   font-size: 1rem;
 }
+
+#participants-Form{position:fixed;width:850px;top:0px;left:27%;background-color:white;display:none;margin:196px auto 0px;z-index: 11; border: 1px solid darkslategray;}
+.participants-Form-top{position:relative;height:40px;border:1px solid black;background-color:#555154;}
+.participants-Form-con-top{display:inline-block;width:480px;}
+.participants-Form-con-tab{width:472px;display:inline-block;}
+.participants-Form-con-tab ul{list-style:none;padding:0;margin:20 0 0 10;border-bottom:1px solid;}
+.participants-Form-con-tab li{margin: 0px;width: 70px;display: inline-block;text-align: center;background-color: white;line-height: 35px;border: 1px solid darkgray;border-radius: 5px 5px 0px 0px;border-bottom: none;}
+.participants-Form-contents{margin:1 0 0 0;min-height: 260px;}
+.participants-Form-con-contents {width:460px;display:inline-block;margin:10 0 0 10;border:1px solid lightgray;}
+.participants-Form-con-contents ul{padding:0 0 0 0px;list-style: none;}
+.participants-Form-con-contents li{margin: 3 0 3 10;}
+.participants-Form-con-center-btn{position:absolute;width:100px;top:0px;left:475px;height:100%;}
+.participants-Form-con-center-btn ul{position:fixed;list-style: none;padding: 0 0 0 10;margin: 0 0 0 0;}
+.branchlist ul{display:none;}
+.branchlist a{}
+.branchlist a:hover{background:turquoise;}
+.branchlist a:active{color:black;}
+.branchlist a::visited{background:turquoise;}
+.add-cbtn{margin: 0 40 0 0;}
+.participants-Form-con-selected{position: relative;float: right;border: 1px solid lightgray;width: 250px;min-height:200px;margin: 10 50 0 0;}
+.selected-list li{list-style:none;}
+.participants-Form-btn ul{padding: 5 0 0 10px;list-style: none;}
+.participants-Form-btn li{display: inline-block;float: right;padding: 0 10 0 0;}

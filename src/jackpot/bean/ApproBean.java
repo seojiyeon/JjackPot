@@ -22,6 +22,7 @@ import jackpot.DTO.apDecDTO;
 import jackpot.DTO.approDTO;
 import jackpot.DTO.empDTO;
 import jackpot.DTO.msgDTO;
+import jackpot.DTO.participantsDTO;
 import jackpot.DTO.workDTO;
 
 @Controller
@@ -55,6 +56,9 @@ public class ApproBean {
 			model.addAttribute("position_name",position_name);
 			model.addAttribute("department_name",department_name);
 			String temp_num = UUID.randomUUID().toString();
+			
+		      List<participantsDTO> participants = sqlMap.queryForList("calendar.getparticipants", null);
+		      model.addAttribute("participants" , participants);
 			
 
 			//int doc_num = Integer.parseInt(request.getParameter("doc_num"));
