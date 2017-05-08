@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  
+
 
 
 <style>
@@ -152,7 +152,7 @@ ul.tabs li.active {
 
 
 
-<script type="text/javascript">
+<script type="text/javascript" defer>
 
 /* $(document).ready(function(){
     $("#emp1").click(function(){
@@ -169,10 +169,10 @@ ul.tabs li.active {
 $(document).on('click','#emp1', function(){
 
 		   callMsg();
-
-    
-  
+		   
 });
+
+
 
 
 
@@ -195,12 +195,6 @@ function test(aaa){
 function whenError(){
     
 }
-
-
-
-
-
-
 
 
 
@@ -255,8 +249,6 @@ $(function(){
 		return false;
 	});
 });
-
-
 
 
 
