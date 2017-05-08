@@ -9,7 +9,7 @@ html,BODY { height:100%;overflow-x:hidden; margin:0px;}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
 
 #leftmenu{position:fixed;top:0;width:210px;height:100%;}
-.leftmenu-top{height:10%;width:210px;background: #363636;text-align:center;display:inline-block;}
+.leftmenu-top{height:60px;width:210px;background: #363636;text-align:center;display:inline-block;}
 .leftmenu-top a{color:white;text-decoration:none;}
 
 #leftmenuarea{position:relative;height:100%;display: inline-block;width: 210px;}
@@ -246,4 +246,13 @@ html { font-size: 62.5%; }
 body { margin:0; font-family: 'Nanum Gothic', 'NanumGothic', ë‚˜ëˆ”ê³ ë”•, NanumGothic, ng, 'ë‹ì›€',Dotum,Helvetica,'Apple SD Gothic Neo',Sans-serif; color:#111; font-size:1.2em;font-weight: normal; line-height: 1.42857143; }
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box }
 *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box }
+.fileup_t {position: relative;   padding: 12px 0 7px 10px;  border-bottom: 1px solid #E5E5E5;}
+.plupload_wrapper {
+    font: normal 11px Verdana,sans-serif;
+    width: 100%;
+    min-width: 520px;
+    line-height: 12px;
+}
+
+
 

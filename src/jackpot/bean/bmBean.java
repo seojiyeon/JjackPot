@@ -1,5 +1,6 @@
 package jackpot.bean;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import jackpot.DTO.bmDTO;
 import jackpot.DTO.empDTO;
@@ -43,6 +45,8 @@ public class bmBean {
 		int bmcount = (int) sqlMap.queryForObject("bm.bmcount", bmdto);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+		
+		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
@@ -142,6 +146,11 @@ public class bmBean {
 		/*int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", bmdto);*/
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+		/* 메모 파일 불러오기 */
+		List file = sqlMap.queryForList("memo.memoFile", bmdto);
+		int fileCount = (int)sqlMap.queryForObject("memo.memoFileCount", bmdto);
+		
+		
 /*		myBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);*/
 		
 /*		model.addAttribute("pageNum", pageNum);*/
@@ -166,7 +175,6 @@ public class bmBean {
 	
 		List myBmYCHList = null;
 		
-
 		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", bmdto);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		myBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
@@ -216,12 +224,17 @@ public class bmBean {
  
 	/*	List myBmYCHList = null;*/
 
+		
 		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBusinessCont", bmdto);
 	/*	sqlMap.queryForObject("bm.getBns_box", bm_num);*/
 		
 		/*int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", bmdto);*/
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+		/* 메모 파일 불러오기 */
+		List file = sqlMap.queryForList("memo.memoFile", bmdto);
+		int fileCount = (int)sqlMap.queryForObject("memo.memoFileCount", bmdto);
+		
 /*		myBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);*/
 		
 /*		model.addAttribute("pageNum", pageNum);*/
@@ -244,8 +257,7 @@ public class bmBean {
 		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SSBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
-		
+
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
@@ -265,6 +277,7 @@ public class bmBean {
 			endPage = pageCount;
 		}
 		
+			
 		model.addAttribute("pageNum", pageNum);  //page 넘길 때 
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -288,7 +301,6 @@ public class bmBean {
 		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		ChZBGBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
@@ -378,6 +390,10 @@ public class bmBean {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SSBGBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
 		
+		/* 메모 파일 불러오기 */
+		List file = sqlMap.queryForList("memo.memoFile", bmdto);
+		int fileCount = (int)sqlMap.queryForObject("memo.memoFileCount", bmdto);
+		
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
@@ -421,6 +437,10 @@ public class bmBean {
 		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		ChZBGBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		
+		/* 메모 파일 불러오기 */
+		List file = sqlMap.queryForList("memo.memoFile", bmdto);
+		int fileCount = (int)sqlMap.queryForObject("memo.memoFileCount", bmdto);
 		
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
@@ -470,6 +490,10 @@ public class bmBean {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		myBmWriteList = sqlMap.queryForList("bm.getMytodoList", bmdto);
 		
+		/* 메모 파일 불러오기 */
+		List file = sqlMap.queryForList("memo.memoFile", bmdto);
+		int fileCount = (int)sqlMap.queryForObject("memo.memoFileCount", bmdto);
+		
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
@@ -516,6 +540,10 @@ public class bmBean {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SSBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
 		
+		/* 메모 파일 불러오기 */
+		List file = sqlMap.queryForList("memo.memoFile", bmdto);
+		int fileCount = (int)sqlMap.queryForObject("memo.memoFileCount", bmdto);
+				
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
@@ -623,7 +651,7 @@ public class bmBean {
 	
 	/*업무FormPro*/
 	@RequestMapping("/bmFormPro.jp")
-	public String bmForm(Model model,empDTO empdto,bmDTO bmdto, HttpServletRequest request ,HttpSession session){
+	public String bmForm(Model model,empDTO empdto,bmDTO bmdto,HttpSession session, MultipartHttpServletRequest request){
 		
 		String emp_num =(String)session.getAttribute("memId");
 		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
@@ -760,25 +788,53 @@ public class bmBean {
 		sqlMap.insert("bm.insertHistory", bmdto);
 		*/
 		
+		
 		/*업무파일 등록*/
-		
-		
-		
-		String org_file = bmdto.getOrg_file();
-		String sys_file = bmdto.getSys_file();
-//		bmdto.setBm_num(bm_num);
 		bmdto.setBm_num(maxBmNum);
+		String path = request.getRealPath("save"); // 업로드 경로
+		System.out.println("1");
+		List<MultipartFile> fileMf = request.getFiles("org_file");
+		System.out.println("2");
+		for(MultipartFile multiFile : fileMf) {
+			String fileName = multiFile.getOriginalFilename();
+			
+			if(fileName != "") {
+				bmdto.setOrg_file(fileName);
+				int extFile = fileName.lastIndexOf(".");
+				fileName = fileName.substring(extFile+1);
+				String fmFile = bmdto.getEmp_num()+"_"+bmdto.getBm_num()+"."+fileName;
+			
+				fmFile = fmFile.replace(" ", "");
+				fmFile = fmFile.replace(":", "");
+				File ff = new File(path+"//"+fmFile);
+		
+				try {
+					multiFile.transferTo(ff);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}//서버에 파일 저장
+				bmdto.setSys_file(fmFile);
+			
+				sqlMap.insert("bm.inserBm_file", bmdto);
+			}
+			
+		}
+		System.out.println("3");
+		
+		
+/*		String org_file = bmdto.getOrg_file();
+		String sys_file = bmdto.getSys_file();
 		bmdto.setOrg_file(org_file);
 		bmdto.setSys_file(sys_file);
-		sqlMap.insert("bm.inserBm_file", bmdto);
-		
-		/*업무형태 등록*/
+		sqlMap.insert("bm.inserBm_file", bmdto);*/
+/*		
+		업무형태 등록
 		int bm_form = bmdto.getBm_form();
-//		bmdto.setBm_num(bm_num);
+		bmdto.setBm_num(bm_num);
 		bmdto.setBm_num(maxBmNum);
 		bmdto.setBm_form(bm_form);
 		sqlMap.insert("bm.insertBusiness", bmdto);
-		
+
 /*		업무보관함 등록
 		bmdto.setBm_num(bmNum);
 		sqlMap.insert("bm.insertBns_box", bmdto);*/
@@ -890,7 +946,20 @@ public class bmBean {
 
 	}	
 	
-	
-	
+/*------------------------------------------------------------------------------------------*/		
+	/*삭제(휴지통)*/
+	@RequestMapping("/bm_delete1.jp")
+	public String bm_delete1(Model model,empDTO dto,HttpSession session){
+		return "/bm/bm_delete1";
+	}
+
+	/*삭제(완전삭제)*/
+	@RequestMapping("/bm_delete2.jp")
+	public String bm_delete2(Model model,empDTO dto,HttpSession session){
+		
+		return "/bm/bm_delete2";
+	}
+
 	
 }
+

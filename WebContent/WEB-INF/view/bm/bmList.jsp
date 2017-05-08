@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=7" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=9" type="text/css" />   
 
 <style>
 tr {
@@ -107,9 +107,20 @@ tbody {
  <body>
 <!-- ========================================================사이드바======================================================================= -->		
 
-	<div id="page-container">
+	<div id="page-container" >
+		
 		<div id="sidebar">
-			</div>
+		<div class="sidebar-content"> 
+		 <h1 style=" background-color: white;">
+      	 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
+         <img src="/JackPot/save/home.png" width=50px, height=50px style="margin:5;">
+  		 <span id="brand" class="brand none">  
+  		 </span>    
+  		 </a>
+ 		</h1>
+		</div>
+
+
 			<div id="subarea">	
 				<div id="leftmenu-jp">
 					<div class="leftmenu-top">
@@ -174,6 +185,7 @@ tbody {
 						</li>
 					</ul>
 				</div>
+			</div>
 			</div>
 			</div>
 			</div>
