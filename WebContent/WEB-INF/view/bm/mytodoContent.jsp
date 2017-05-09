@@ -257,7 +257,7 @@
 </tbody></table></div>
 			<div class="btn-wrap" >
      		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
-    			<button type="button" onClick="window.location='myBmdelete.jp?num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+    			<button type="button" onClick="window.location='Bmdelete1.jp?num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
     			<button type="button" onClick="window.location='bmList.jp'"class="btn2 btn-color7 br">목록  </button>
     
     		</div>

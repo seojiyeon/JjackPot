@@ -243,6 +243,11 @@
 			)
 		</insert>
 		
+		<!-- 업무파일 등록  -->		
+		<select id="Bm_file" parameterClass="bmdto" resultClass="bmdto">
+			select * from bm_file where bm_num=#bm_num#
+		</select>
+	
 		
 		<!-- 업무보관함 등록  -->
 		<insert id="insertBns_box" parameterClass="bmdto">
@@ -364,6 +369,38 @@
 			where emp_num=#emp_num# and e.department=d.num and e.branch=b.num and p.num = e.position
         </select>
         
+        
+        
+        
+  <!-- ========== 업무삭제============-->
+
+	<!-- business_manage삭제  -->
+    <delete id="bmdelete" parameterClass="int">
+		delete from business_manage where bm_num=#bm_num#
+	</delete>
+	
+	<!-- bmdelete_file삭제  -->
+	<delete id="bmdelete_file" parameterClass="int">
+		delete from bm_file where bm_num=#bm_num#
+	</delete>
+	
+	<!-- incharge삭제  -->
+    <delete id="bmdelete_incharge" parameterClass="int">
+		delete from incharge where bm_num=#bm_num#
+	</delete>
+	
+	<!-- bms_rec삭제  -->	
+	<delete id="bmdelete_bms_rec" parameterClass="int">
+		delete from bms_rec where bm_num=#bm_num#
+	</delete>	
+
+	<!-- bm_ref삭제  -->
+	<delete id="bmdelete_bm_ref" parameterClass="int">
+		delete from bm_ref where bm_num=#bm_num#
+	</delete>	
+
+		
+		
         
 
 </sqlMap>

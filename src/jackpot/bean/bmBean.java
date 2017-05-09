@@ -84,6 +84,42 @@ public class bmBean {
 
 	}
 	
+	/*삭제 */
+	@RequestMapping("bm_delete1.jp")
+	public String memoDeletePro(bmDTO bmdto, String pageNum,  Model model, HttpServletRequest request) { 
+		String bm_num[] = request.getParameterValues("bm_num");
+		String path = request.getRealPath("save");
+
+		for(int i=0; i<bm_num.length; i++) {
+			bmdto.setBm_num(Integer.parseInt(bm_num[i]));
+
+			
+			/* 파일 삭제 */
+			List sys_file = sqlMap.queryForList("bm.Bm_file", bmdto);
+			for(int b=0; b<sys_file.size(); b++) {
+				try {
+					bmDTO bmdto2 = (bmDTO)sys_file.get(b);
+					File fileF = new File(path+"\\"+bmdto2.getSys_file());
+					
+					if(fileF.exists()) {
+						fileF.delete();
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			sqlMap.delete("bm.bmdelete_file", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete_incharge", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete_bms_rec", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete_bm_ref", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete", bmdto.getBm_num());
+		}
+		
+		
+		return "/bm/bm_delete1";
+	}
+	
 /*-----------------------------todo-------------------------------------------------------------*/		
 	
 	/*나의 할일*/
