@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
-<link rel="stylesheet" href="/JackPot/css/item.css" type="text/css" />    
+<link rel="stylesheet" href="/JackPot/css/item.css?ver=2" type="text/css" />    
 
 <head>
 <title>재고 관리</title>
