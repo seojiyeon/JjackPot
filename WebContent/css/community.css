@@ -4,17 +4,137 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 
 #page-container{position: relative;min-height: 100%; min-width: 1200px; background:#fff;}
 
-#sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
 
+.sidebar-mini #sidebar {
+    width: 60px; overflow: hidden;
+}
+#sidebar {
+    background: #363636;
+}
+#page-container.sub {
+    position: relative; min-height: 100%;min-width: 1200px;background: #fff;
+}
+img {
+    border: 0;vertical-align: middle;
+}
+.sidebar-content {
+    height: 100%;
+}
+.sidebar-mini .sidebar-brand {
+    display: block;height: 65px;color: #d3292c;white-space: nowrap;background: #fff;
+}
+.sidebar-mini.sidebar-subarea #subarea, .sidebar-mini.sidebar-subarea #subarea-wrap, .leftmenu-inner-scroll, .leftmenu ul.menulist > li > a {
+    background-color: #f7f7f7;
+}
+
+element.style {
+    margin: 20;
+}
+.leftmenu-top h2 {
+    display: inline-block;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    vertical-align: middle;
+}
+.leftmenu-top {
+    background: #363636;
+}
+
+.leftmenu-top h2 {
+    padding: 0 10px;
+    color: #fff;
+}
+#subarea .leftmenu-inner-scroll {
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+}
+
+.mCustomScrollbar.mCS_no_scrollbar, .mCustomScrollbar.mCS_touch_action {
+    -ms-touch-action: auto;
+    touch-action: auto;
+}
+
+.leftmenu-inner-scroll {
+    background: #f7f7f7;
+}
+.sidebar-mini.sidebar-subarea #subarea, .sidebar-mini.sidebar-subarea #subarea-wrap {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 60px;
+    z-index: 5;
+    width: 210px;
+    height: 100%;
+}
+.mCustomScrollBox {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    max-width: 100%;
+    outline: 0;
+    direction: ltr;
+}
+ul:not(.itemContentLi), ol:not(.itemContentLi), dl, dt, dd, p {
+    margin: 0;
+    padding: 0;
+}
+ul:not(.itemContentLi), ol:not(.itemContentLi), dl, dt, dd, p {
+    margin: 0;
+    padding: 0;
+}
+.leftmenu ul.menulist > li {
+    border-top: 1px solid #e6e6e6;
+}
+li:not(.itemContentLi) {
+    list-style: none;
+}
+
+org.css?ver=13:113
+.leftmenu ul.menulist > li > a {
+    position: relative;
+    display: block;
+    min-height: 42px;
+    padding: 12px 0 12px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #f7f7f7;
+}
+#sidebar {
+    position: fixed; width: 190px;height: 100%;
+    /* overflow: hidden; */ top: 0;left: 0; z-index: 6;
+    /* background: #7e7e7e; */
+}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
 
-#leftmenu{position:fixed;top:0;width:210px;height:100%;}
-.leftmenu-top{height:10%;width:210px;background: #363636;text-align:center;display:inline-block;}
-.leftmenu-top a{color:white;text-decoration:none;}
+.leftmenu {
+    position: fixed;
+    top: 0;
+    /* left: 0; */
+    padding-bottom: 56px;
+    width: 210px;
+    height: 100%;
+    z-index: 15;
+}
 
-#leftmenuarea{position:relative;height:100%;display: inline-block;width: 210px;}
-.boardmenu a{cursor:pointer;}
-.boardmenu .hide{display:none;}
+.blind {
+    position: absolute;
+    left: -10000px;
+    top: -10000px;
+    width: 0;
+    height: 0;
+    font-size: 0;
+}
+.leftmenu-top {
+    background: #363636;
+}
+.leftmenu-top {
+    position: relative;
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
+    background: #636363;
+}
 
 #main-container{height:100%;padding:20px;padding-top:0; width:1000px;} 
 

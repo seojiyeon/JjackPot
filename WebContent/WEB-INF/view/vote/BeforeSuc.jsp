@@ -40,7 +40,7 @@
     	
     </script>
     
-    
+   
     
 <body>
 <div id="page-container" class="sub sidebar-mini sidebar-subarea">
@@ -111,7 +111,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
   <input type="hidden" name="v_num" value="${article.v_num}">
   <input type="hidden" name="emp_num" value="${article.emp_num }">
   
-     <div class="person-info-photo" style="margin: 0 550 120;">
+     <div class="person-info-photo" style="margin: 0 550 50;">
      
   
     <img src="/JackPot/save/vote2.png" width="50" height="50"> 
@@ -129,7 +129,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
     </td>
     </tr>
     
-          <div class="pagination-button" style="margin: 30 30;">
+          <div class="pagination-button" style="margin:0 50;">
 <c:if test="${article.notice==0}"> <br/>    
       <ul class="pagination">
     <li align="center" style="font-size: 15;">     
@@ -150,9 +150,9 @@ style="position:relative; top:0; left:0;" dir="ltr">
 
 <c:if test="${article.notice==2}">   
    <ul class="pagination">      
-    <li align="center" style="font-size: 15;">   
-   <h1>투표마감</h1>
-   <input type="button" value="결과" onclick="test4('${article.v_num}');"style="margin: 0 50;">
+    <li>   
+   <h2 style="color:#d3292c;">투표마감</h2>
+   <input type="button" value="결과" onclick="test4('${article.v_num}');" style="margin: 12 20; font-size: 15;">
    </li>
    </ul>
 </c:if>

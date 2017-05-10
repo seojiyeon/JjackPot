@@ -99,12 +99,15 @@ style="position:relative; top:0; left:0;" dir="ltr">
     ${article.jilmoon} </td>
       <tr></tr>
   
-       <td width="100" align="center"><br/>(1)&nbsp;${article.monhang} <br/>
+       <td width="100" align="center" ><br/>
+       
+       (1)&nbsp;<font size="4">${article.monhang}</font> <br/>
        <img src="/JackPot/save/${article.up_img}" id="up_img"  width=200px, height=200px />
     </tr>  
-     
+     <br/>
          <tr>
-       <td width="100" align="center"><br/>(2)&nbsp;${article.monhang2}<br/>
+       <td width="100" align="center"><br/><font size="4">
+       (2)&nbsp;<font size="4">${article.monhang2}</font><br/>
          <img src="/JackPot/save/${article.up_img2}" id="up_img2"  width=200px, height=200px />
     </td>
     </tr>
