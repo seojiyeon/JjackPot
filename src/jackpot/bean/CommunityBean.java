@@ -34,12 +34,50 @@ public class CommunityBean {
 		
 		return "/community/community";
 	}
+	
+	@RequestMapping("/gongji.jp")
+	public String gongji(Model model,communityDTO dto){
+		
+		List articleList = null;
+		articleList =sqlMap.queryForList("comm.gongji", dto);
+		System.out.println(articleList.size());
+		model.addAttribute("articleList",articleList);
+
+		return "/community/gongji";
+	}
+	
+	@RequestMapping("/free.jp")
+	public String free(Model model,communityDTO dto){
+		List list=null;
+		list=sqlMap.queryForList("comm.free", dto);
+		model.addAttribute("list",list);
+
+		return "/community/free";
+	}
+	
+	@RequestMapping("/etc.jp")
+	public String etc(Model model,communityDTO dto){
+		
+		List list=null;
+		list=sqlMap.queryForList("comm.etc", dto);
+		model.addAttribute("list",list);
+
+		
+		
+		return "/community/etc";
+	}
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping("/commInsert.jp")
 	public String commInsert(HttpSession session,communityDTO dto){
 		String emp_num=(String) session.getAttribute("memId");
 		
-		System.out.println(emp_num);
+		
 		dto.setEmp_num(emp_num);
 		
 		sqlMap.insert("comm.insertComm", dto);

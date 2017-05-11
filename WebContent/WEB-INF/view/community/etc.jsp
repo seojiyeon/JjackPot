@@ -13,8 +13,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>게시판</title>
-
-			<script src="resource/ckeditor.js"></script> 
+<script src="resource/ckeditor.js"></script> 
 			<script type="text/javascript" >
 
 			// image-upload plugin에서 사용되는 변수
@@ -292,8 +291,7 @@ Dropzone.options.myDropzone = {
 		  }
 		};
 
-</script>
-
+</script>	
 <body>
 <div id="page-container"  class="sub sidebar-mini sidebar-subarea">
 	<div id="sidebar">
@@ -343,7 +341,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 					 <ul style="margin: 0 40; font-size: 17; text-decoration:none;">
 					 
 					
-					 <i class="jstree-icon jstree-ocl" role="presentation"></i>
+	 <i class="jstree-icon jstree-ocl" role="presentation"></i>
 					 
 								     <a class="jstree-anchor" href="gongji.jp" tabindex="-1" id="7860780_anchor">
 								     <i class="jstree-icon jstree-themeicon" role="presentation">
@@ -368,35 +366,11 @@ style="position:relative; top:0; left:0;" dir="ltr">
 		</div>
 	</div>
 </div>
-
 	<div id="main-container" style="position: fixed;top: 0;left: 500; width:1000px;">
 
-
-<form id="searchBoardItemForm" method="post" action="commInsert.jp">
-
-<input name="sortColumn" type="hidden" value="">
- 		
-
-<input name="sortType" type="hidden" value="">
- 
-
-<input name="boardId" type="hidden" value="">
-  
-
-<input name="layoutType" type="hidden" value="layoutNormal">
-   
-
-<input name="actionType" type="hidden" value="">
-      
-
-<input name="popupYn" type="hidden" value="false">
-
-
-<input name="boardRootId" type="hidden" value="0">
-
-	<div class="con-header">
+<div class="con-header">
 	<h2>
-		최근게시글
+		기타
 	</h2>
 	
 	<div id="navText" class="breadcrumb-line"></div>
@@ -417,7 +391,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 		<table class="table table-striped" style="margin: 20;">   
 		<caption></caption> 
 		<colgroup>
-		<col style="width: 50px;">
+		
 		<col style="width: 280px;">
 		<col style="width: 150px;">
 		<col style="min-width:200px;">
@@ -431,9 +405,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 	<thead>
 	
 			<tr>
-				<th scope="col">
-					번호
-				</th>
+				
 				
 				<th scope="col">
 			      제목						
@@ -458,41 +430,39 @@ style="position:relative; top:0; left:0;" dir="ltr">
 		
 		<tbody>				
 
+
+<tr class="boardItemLine" style="background: rgb(249, 249, 249);">
+
+	<c:forEach var="list" items="${list}" varStatus="status">
 	
-	<tr class="boardItemLine" style="background: rgb(249, 249, 249);">
-	<c:forEach var="article" items="${list}" varStatus="status">
-	
-						
-						<td align="center">
-					        ${article.com_num }  
-						</td>
 						
 						<td>
-							<a style="text-decoration-line: initial;" title="${article.title}" class="boardItem" href="/JackPot/content.jp?com_num=${article.com_num}">${article.title }</a>
+							<a style="text-decoration-line: initial;" title="${list.title}" 
+							class="boardItem" href="/JackPot/content.jp?com_num=${list.com_num}">${list.title }</a>
 						</td>
 						
 						
 						<td align="center"> 
-					<div class="ellipsis">${article.writer} </div>
+					<div class="ellipsis">${list.writer} </div>
 							</td>	 
 							
 						</td>
 						<td align="center">
-						<div class="ellipsis">${article.reg_date}</div></td>
+						<div class="ellipsis">${list.reg_date}</div></td>
 						
 						<td align="center">
-								   ${article.readcount}
+								   ${list.readcount}
 														
 						</td>
 						<td align="center"><div class="ellipsis">
-									${article.recommend}
+									${list.recommend}
 								</div>							
 						</td>
 						
 					</tr>
+	</c:forEach>
 					
 				
-	</c:forEach>
 	</tbody>
 	
 		</tr>
@@ -525,7 +495,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li>
 															
 															<select name="btype" style="width:130px; height: 27px;">
-   														 <option value="1">공지사항</option>
+   														  <option value="1">공지사항</option>
    														 <option value="2">자유게시판</option>
  													     <option value="3">기타</option>
 															</select>
@@ -580,3 +550,8 @@ style="position:relative; top:0; left:0;" dir="ltr">
 </div>
 </body>
 </html>
+
+
+
+
+	
