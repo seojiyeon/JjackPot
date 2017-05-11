@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
@@ -11,11 +9,11 @@
 <!-- // jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" /> 
-<link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
+<link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
+<link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=9" type="text/css" />   
-
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
+<script src="resource/ckeditor.js"></script>
 <style>
 tr {
     display: table-row;
@@ -100,16 +98,15 @@ tbody {
 </style>
 
 
-
 <html>
-<title> 업무관리</title>
+<title> 나의 할일</title>
 
 </head>    
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
-<div id="main-contents">
+	<div id="main-contents">
 		<div class="con-header">
-   			<h2>수신 업무 요청</h2>
+   			<h2>나의 할일</h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
@@ -132,13 +129,14 @@ tbody {
                 
                 <div class="totalnum">전체 <span>${bmcount }</span></div>
             </div>
-            
+            <div class="table-search" style="right:250px;">
+               
+            </div>
             <div class="table-search">
                 
                     <select name="searchColumn" title="검색타입">
                         <option value="emp_name" selected="selected">요청자</option>
                         <option value="searchTitle">제목</option>
-                    
                     </select>
                 
                 <div class="input-search">
@@ -149,8 +147,7 @@ tbody {
                 </div>
             </div>
         </div>
-        
-   		
+	
    		<div class="content-list">
             <table class="table table-striped" id="tblList">	
 				<thead>
@@ -180,12 +177,10 @@ tbody {
                         </th>
                     </tr>
                 </thead>
-                
-        <form name="bmList" method="post">       
 		<tbody>
-			<c:forEach var="bmdto"  items="${bmList}">
+			<c:forEach var="bmdto"  items="${mytodook}">
 				<tr>
-                        <th style="width: 40px;"><input type="checkbox" value="${bmcount}" name="bm_num" class="bm_num"/></th>
+                        <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
                         <th style="width: 40px;">${bmdto.bm_num }</th>
                         <th style="width: 50px;">
                             ${bmdto.important2}
@@ -193,11 +188,10 @@ tbody {
                         <th style="width: 120px;">
                        		${bmdto.box_name}
                         </th>
-                        
                         <th style="min-width: 200px;">
-                        	<a href="myBmYCHContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="mytodoContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
-                           	</a>
+                            </a>	
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_name}
@@ -206,57 +200,55 @@ tbody {
                           ${bmdto.bm_start}
                         </th>
                         <th style="width: 120px;">
-                            ${ bmdto.bm_end}
+                            ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_state2}
                         </th>
                     </tr>
 				</c:forEach>
-				</tbody>	
+				</tbody>
+	
 			</table>
 			
-		<div class="page-wrap">
-			<table>
-				<tr>
-				<td>
-				<c:if test="${bmcount > 0}">
 				
-				<c:if test="${startPage > 10}">
-					<a href="bmList.jp?pageNum=${startPage-10}">[이전]</a>
-				</c:if>
-		
-				<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-					<a href="bmList.jp?pageNum=${i}">${i}&nbsp;</a>
-				</c:forEach>
-		
-				<c:if test="${endPage < pageCount}">
-					<a href="bmList.jp?pageNum=${startPage+10}">[다음]</a>
-				</c:if>
+			<div class="page-wrap">
+				<table>
+					<c:if test="${count > 0}">
 			
-				</c:if>
-				</td>
-				</tr>
-			</table>
-		</form>
+						<c:if test="${startPage > 10}">
+							<a href="mytodook.jp?pageNum=${startPage-10}" >[이전]</a>
+						</c:if>
+			
+						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+							<a href="mytodook.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+						</c:forEach>
+		
+						<c:if test="${endPage < pageCount}">
+							<a href="mytodook.jp?pageNum=${startPage+10}">[다음]</a>
+						</c:if>
+					</c:if>
+				</table>
+			</div>
+	        
+	        <div class="btn-wrap">
+	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
+	            <button type="button" onClick="window.location='bm_delete1.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+	            
 		</div>
-	</div>
-		
-		
-		
+
 		<div class="ins-box">
 		    <ul>
   		      <li><i class="fa fa-exclamation-circle"></i> 업무 상태를 클릭하시면 담당자 별 처리현황을 확인 할 수 있습니다.</li>
     		</ul>
-		</div>
-		
-			<div class="btn-wrap" >
-     
-    			<button type="button" onClick="window.location='bm_delete1.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-    			<button type="button" onClick="window.location='BmPerfec.jp?num=${bm_num}'"class="btn2 btn-color7 br">업무완료 </button>
-    			<button type="button" onClick="window.location='bmList.jp'"class="btn2 btn-color7 br">목록  </button>
-    
-    		</div>		
-		</div>
-</body>
+	    </div>
+
+
+
+
+</div>
+</div>
+
+
+
 </html>
