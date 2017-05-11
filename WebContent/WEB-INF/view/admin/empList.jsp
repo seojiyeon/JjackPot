@@ -55,7 +55,6 @@ width : 1000px;
     font-size : 12px;
 }
 
-.employee tr:hover{background-color: #ffe6ff}
 
 
 .form-group th{
@@ -146,6 +145,11 @@ ul.tabs li.active {
     margin: 0 auto;
 }
 
+.highlighted {
+    color: #261F1D;
+    background-color: #E5C37E;
+}
+
 
 
 </style>
@@ -166,9 +170,35 @@ ul.tabs li.active {
 }); */
 
 
-$(document).on('click','#emp1', function(){
 
-		   callMsg();
+
+
+
+$(document).ready(function(){
+	  $("tr").click(function() {
+	    $(this).closest("tr").siblings().removeClass("highlighted");
+	    $(this).toggleClass("highlighted");
+	  })
+	});
+
+
+
+
+
+$(document).on('click','#emp', function(){
+	
+	var MyRows = $('table#htmlTable').find('tbody').find('tr');
+	
+	var trNum = $(this).closest('tr').prevAll().length;
+	
+	var id = $(MyRows[trNum]).find('td:eq(0)').html();
+	/* 
+	var MyRows = $('table#htmlTable').find('tbody').find('tr');
+	for (var i = 0; i < MyRows.length; i++) {
+	var id = $(MyRows[i]).find('td:eq(0)').html();
+	}	 */
+     
+		   callMsg(id);
 		   
 });
 
@@ -178,10 +208,10 @@ $(document).on('click','#emp1', function(){
 
 
 
-function callMsg(){
+function callMsg(id){
 	 $.ajax({
 	        type: "post",
-	        url : "empmem.jp",
+	        url : "empmem.jp?id="+id,
 	        dataType : "html",
 	        success: test,	
 	        error: whenError	
@@ -343,9 +373,9 @@ $(function(){
 
 <div class="employee">
 
-<table border="0" width="1000" cellpadding="0" cellspacing="0" align="center"> 
+<table id="htmlTable" border="0" width="1000" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30"  > 
-     <th align="center"  width="100"  > <b>사원번호</b></th> 
+     <th align="center"  width="100" > <b>사원번호</b></th> 
       <th align="center"  width="100" ><b>성명</b></th> 
       <th align="center"  width="50" ><b>직책</b></th>
       <th align="center"  width="100" ><b>부서</b></th>
@@ -357,7 +387,7 @@ $(function(){
 
 
  <c:forEach var="article" items="${articleList}" varStatus="st">
-   <tr height="30" id="emp${st.count}">
+   <tr height="30" id="emp">
     <td align="center"  width="50" >
 	  ${article.emp_num}
 	</td>

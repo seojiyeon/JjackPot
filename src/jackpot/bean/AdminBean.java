@@ -2,6 +2,7 @@ package jackpot.bean;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,14 @@ public class AdminBean {
 	
 	
 	@RequestMapping("/empmem.jp")
-	public String empmem(empDTO dto, HttpSession session, Model model){
+	public String empmem(HttpServletRequest request, empDTO dto, HttpSession session, Model model){
+		String id = request.getParameter("id");
+		System.out.println(id);
 		
 		List articleList = null;
-		articleList = sqlMap.queryForList("employee.memberAll", articleList);		
-		model.addAttribute("articleList", articleList);		
+		articleList = sqlMap.queryForList("employee.member", id);		
+		System.out.println(articleList);
+		model.addAttribute("article", articleList);		
 		
 		return "/admin/empMember";
 	}	
@@ -49,10 +53,25 @@ public class AdminBean {
 		
 		List articleList = null;
 		articleList = sqlMap.queryForList("employee.memberAll", articleList);		
+		
 		model.addAttribute("articleList", articleList);		
 		
 		return "/admin/wage";
 	}
+	
+	
+	
+	@RequestMapping("/test2.jp")
+	public String test(empDTO dto, HttpSession session, Model model){
+		
+		List articleList = null;
+		articleList = sqlMap.queryForList("employee.memberAll", articleList);		
+		model.addAttribute("articleList", articleList);		
+		
+		return "/admin/test";
+	}
+	
+	
 	
 	
 }
