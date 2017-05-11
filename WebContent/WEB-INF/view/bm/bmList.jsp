@@ -99,15 +99,7 @@ tbody {
 }
 </style>
 
-	<script type="text/javascript">
-		function Bmdelete1(index){
-			
-			document.bmList.action="Bmdelete1.jp";
-			document.cartForm.submit();
-		}
-	
-		
-	</script>
+
 
 <html>
 <title> 업무관리</title>
@@ -277,7 +269,7 @@ tbody {
 		<tbody>
 			<c:forEach var="bmdto"  items="${bmList}">
 				<tr>
-                        <th style="width: 40px;"><input type="checkbox" value="${bmcount.bm_num}" name="bm_num" class="bm_num"/></th>
+                        <th style="width: 40px;"><input type="checkbox" value="${bmcount}" name="bm_num" class="bm_num"/></th>
                         <th style="width: 40px;">${bmdto.bm_num }</th>
                         <th style="width: 50px;">
                             ${bmdto.important2}
@@ -344,7 +336,7 @@ tbody {
 		
 			<div class="btn-wrap" >
      
-    			<button type="button" onClick="delCart();"class="btn2 btn-color7 br">삭제 </button>
+    			<button type="button" onClick="window.location='bm_delete1.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
     			<button type="button" onClick="window.location='BmPerfec.jp?num=${bm_num}'"class="btn2 btn-color7 br">업무완료 </button>
     			<button type="button" onClick="window.location='bmList.jp'"class="btn2 btn-color7 br">목록  </button>
     

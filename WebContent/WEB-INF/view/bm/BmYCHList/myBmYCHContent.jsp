@@ -259,7 +259,7 @@
                    	 	
                    	 	<tr>
 							<th scope="row">첨부파일    </th>
-							<c:if test="${bmdto.sys_file == null }">
+							<c:if test="${fileCount == 0}">
                             <td>
                                 <div>
                              		첨부파일이 없습니다.
@@ -267,10 +267,13 @@
 						    </td>
 							</c:if>
                    	 	
-                   	 		<c:if test="${bmdto.sys_file != null }">
+                   	 		<c:if test="${fileCount > 0}">
                             <td>
-                                <div>
-                                	${bmdto.sys_file }
+								<div>
+                                	<a>첨부 파일</a>
+                                	<c:forEach var="Bm_file" items="${Bm_file}">
+										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
+									</c:forEach>
                                 </div>
 						    </td>
 							</c:if>
@@ -278,8 +281,8 @@
 
 </tbody></table></div>
 			<div class="btn-wrap" >
-     		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
-    			<button type="button" onClick="window.location='myBmdelete.jp?num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+     		   	<button type="button" onClick="window.location='myBmModify.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
+    			<button type="button" onClick="window.location='bm_delete1.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
     			<button type="button" onClick="window.location='bmList.jp'"class="btn2 btn-color7 br">목록  </button>
     
     		</div>

@@ -162,13 +162,13 @@
                             <th scope="row">제목</th>
                             <td>
                                 <div>
-                                	${bmdto.bm_title }
+                                	${mytodo.bm_title }
                                 </div>
                             </td>
                             <th scope="row">상태</th>
                             <td>
                                 <div>
-                                	${bmdto.bm_state2}
+                                	${mytodo.bm_state2}
                                 </div>
                             </td>                            
                             
@@ -178,14 +178,14 @@
 							<th scope="row">업무기한 </th>
                             <td>
                                 <div>
-                                	${bmdto.bm_start } ~ ${bmdto.bm_end }
+                                	${mytodo.bm_start } ~ ${mytodo.bm_end }
                                 </div>
                    	 	</tr>
                    	 	
                    	 	<tr>
 							<th scope="row">업무등록일  </th>
 							
-							<c:if test="${bmdto.enrollment == null }">
+							<c:if test="${mytodo.enrollment == null }">
  							<td>
                                 <div>
                                   
@@ -193,25 +193,25 @@
                             </td>                   
  							</c:if>
  							
- 							<c:if test="${bmdto.enrollment != null }">
+ 							<c:if test="${mytodo.enrollment != null }">
                             <td>
                                 <div>
-                                	${sdf.format(bmdto.enrollment) }
+                                	${sdf.format(mytodo.enrollment) }
                                 </div>
                                 </td>
                                 </c:if>
                                 
  							<th scope="row">수정일  </th>
  							
- 							<c:if test="${bmdto.update_day == null }">
+ 							<c:if test="${mytodo.update_day == null }">
  							<td>
                                 <div> </div>                               
  							</c:if>
  							
-                            <c:if test="${bmdto.update_day != null }">
+                            <c:if test="${mytodo.update_day != null }">
                             <td>
                                 <div>
-                                  	${sdf.format(bmdto.update_day) }
+                                  	${sdf.format(mytodo.update_day) }
                                 </div>           
 				      	 	 </td>     
 							</c:if>               
@@ -223,7 +223,7 @@
 							<th scope="row">업무보관함    </th>
                             <td>
                                 <div>
-                                	${bmdto.box_name }
+                                	${mytodo.box_name }
                                 </div>
                    	 	</tr>
                    	 	
@@ -231,13 +231,13 @@
 							<th scope="row">업무내용  </th>
                             <td>
                                 <div>
-                                	${bmdto.bm_content }
+                                	${mytodo.bm_content }
                                 </div>
                    	 	</tr>
                    	 	
                    	 	<tr>
 							<th scope="row">첨부파일    </th>
-							<c:if test="${bmdto.sys_file == null }">
+							<c:if test="${fileCount == 0}">
                             <td>
                                 <div>
                              		첨부파일이 없습니다.
@@ -245,14 +245,18 @@
 						    </td>
 							</c:if>
                    	 	
-                   	 		<c:if test="${bmdto.sys_file != null }">
+                   	 		<c:if test="${fileCount > 0}">
                             <td>
-                                <div>
-                                	${bmdto.sys_file }
+								<div>
+
+                                	<c:forEach var="Bm_file" items="${Bm_file}">
+										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
+									</c:forEach>
                                 </div>
 						    </td>
 							</c:if>
                    	 	</tr>
+
 
 </tbody></table></div>
 			<div class="btn-wrap" >
