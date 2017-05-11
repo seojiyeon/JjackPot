@@ -572,7 +572,22 @@ public class MemoBean {
 	}
 	
 	@RequestMapping("memoStateChange.jp")
-	public String memoStateChange(int memoGroup, memoDTO dto, String pageNum) {
-		return "memoList.jp";
+	public String memoStateChange(HttpServletRequest request, memoDTO dto, Model model) {
+		String pageNum = request.getParameter("pageNum");
+		int memoGroup = Integer.parseInt(request.getParameter("memoGroup")); 
+		int memo_state = Integer.parseInt(request.getParameter("memo_state"));
+		
+		if(memo_state == 1) {
+			dto.setMemo_state(2);
+		} else if(memo_state == 2) {
+			dto.setMemo_state(1);
+		}
+		
+		sqlMap.update("memo.memoStateChange", dto);
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("memoGroup", memoGroup);
+				
+		return "/memo/memoStateChange";
 	}
 }

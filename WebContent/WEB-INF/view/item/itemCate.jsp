@@ -65,15 +65,15 @@
 	$(document).ready(function() {
 		$(".modifyName").dblclick(function() {
 			var con = this.innerHTML;
-			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>";
+			this.innerHTML="<input type='text' name='big_name' value="+con+" style='width:100px; height:20px;'>";
 		});		
-		
+			
 		$(".modifyUse").dblclick(function() {
 			var conUse = this.innerHTML;
 			this.innerHTML ="<select name='big_use'>"
-			 + "<option value='사용'>사용</option>"
-			 + "<option value='미사용'>미사용</option>"
-			 + "</select>";
+				 + "<option value='사용'>사용</option>"
+				 + "<option value='미사용'>미사용</option>"
+			 	 + "</select>";
 		});
 	});
 </script>
@@ -155,13 +155,13 @@
 					
 					<c:forEach var="bigCate" items="${bigCateList}">
 					<tr>
-						<td style="width:40px; height:20px;">${bigCate.big_code}
-						<input type="hidden" name="check" value="2" />
+						<td class="modify" style="width:40px; height:20px;">
+							${bigCate.big_code}
+							<input type="hidden" name="big_num" value="${bigCate.big_num}" />
+							<input type="hidden" name="check" value="2" />
 						</td>			
 						<td class="modifyName" style="width:100px; height:20px;">${bigCate.big_name}</td>
-						<td class="modifyUse">${bigCate.big_use}
-						<input type="hidden" name="big_num" value="${bigCate.big_num}" />
-						</td>
+						<td class="modifyUse">${bigCate.big_use}</td>
 					</tr>
 					</c:forEach>
 					

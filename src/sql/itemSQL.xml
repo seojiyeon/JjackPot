@@ -26,7 +26,7 @@
 	</insert>
 	
 	<select id="bigCateList" resultClass="idto">
-		select * from big_cate order by big_num desc
+		select * from big_cate order by big_code asc
 	</select>
 	<select id="bigCateCount" resultClass="int">
 		select count(*) from big_cate

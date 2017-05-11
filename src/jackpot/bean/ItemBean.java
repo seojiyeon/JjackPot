@@ -79,10 +79,20 @@ public class ItemBean {
 		for(int a=0; a<check.length; a++) {
 			if(Integer.parseInt(check[a]) == 1) {
 				for(int i=0; i<big_code.length; i++) {
+					dto.setBig_code(big_code[i]);
+					dto.setBig_name(big_name[i]);
+					dto.setBig_use(big_use[i]);
+					
+					sqlMap.insert("item.bigCateInsert", dto);
 					System.out.println("저장");
 				}
 			} else if(Integer.parseInt(check[a]) == 2) {
 				for(int i=0; i<big_num.length; i++) {
+					dto.setBig_num(Integer.parseInt(big_num[i]));
+					dto.setBig_name(big_name[i]);
+					dto.setBig_use(big_use[i]);
+					
+					sqlMap.update("item.bigCateUpdate", dto);
 					System.out.println("수정");
 				}
 			}
