@@ -43,6 +43,12 @@ public class ItemBean {
 		model.addAttribute("middleCateList", middleCateList);
 		model.addAttribute("middleCateCount", middleCateCount);
 */		
+		List bigCateList = sqlMap.queryForList("item.bigCateList", null);
+		int bigCateCount = (int) sqlMap.queryForObject("item.bigCateCount", null);
+		
+		model.addAttribute("bigCateList", bigCateList);
+		model.addAttribute("bigCateCount", bigCateCount);
+		
 		return "/item/itemCate";
 	}
 	
@@ -61,4 +67,53 @@ public class ItemBean {
 		}
 		return "/item/bigCatePro";
 	}
-*/}
+*/
+	@RequestMapping("/bigCatePro.jp")
+	public String bigCatePro(HttpServletRequest request, ItemDTO dto) {
+		String [] big_code = request.getParameterValues("big_code");
+		String [] big_name = request.getParameterValues("big_name");
+		String [] big_use = request.getParameterValues("big_use");
+		String [] big_num = request.getParameterValues("big_num");
+		String [] check = request.getParameterValues("check");
+		
+		for(int a=0; a<check.length; a++) {
+			if(Integer.parseInt(check[a]) == 1) {
+				for(int i=0; i<big_code.length; i++) {
+					System.out.println("저장");
+				}
+			} else if(Integer.parseInt(check[a]) == 2) {
+				for(int i=0; i<big_num.length; i++) {
+					System.out.println("수정");
+				}
+			}
+		}
+		
+		
+		
+		/*for(int a=0; a<big_name.length; a++) {
+			System.out.println(big_name[a]);
+			if(big_num[a] == null) {
+				for(int i=0; i<big_code.length; i++) {
+					dto.setBig_code(big_code[i]);
+					dto.setBig_name(big_name[i]);
+					dto.setBig_use(big_use[i]);
+					System.out.println("1");
+					sqlMap.insert("item.bigCateInsert", dto);
+				}
+			} else if(big_num[a] != null) {
+				dto.setBig_num(Integer.parseInt(big_num[a]));
+				
+				for(int i=0; i<big_code.length; i++) {
+					dto.setBig_code(big_code[i]);
+					dto.setBig_name(big_name[i]);
+					dto.setBig_use(big_use[i]);
+					System.out.println("2");
+					sqlMap.update("item.bigCateUpdate", dto);
+				}
+			}
+		}*/
+		
+		return "/item/bigCatePro";
+	}
+
+}

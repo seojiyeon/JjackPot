@@ -33,7 +33,7 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:auto; margin:0px;}
 .middle-cate{position: absolute; left: 350px; width: 300px;}
 .small-cate{position: absolute; left: 700px; width: 300px;}
 
-.btn-wrap{width: 300px; position: absolute;}
+.btn-wrap{width: 600px; position: absolute;}
 
 /* a태그 파란글자/밑줄 X */
 a:link {text-decoration:none; color:#000000;}

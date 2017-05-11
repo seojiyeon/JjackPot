@@ -4,9 +4,79 @@
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/item.css?ver=2" type="text/css" />    
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
 <head>
 <title>재고 관리</title>
 </head>
+
+<script>
+	/* 동적으로 행추가*/
+	/* 대분류 */
+	var oTable;
+	
+	function insBigRow() {
+		oTable = document.getElementById("itemBigCate");
+		var oRow = oTable.insertRow();
+		oRow.onmouseover = function() {oTable.clickedRowIndex=this.rowInex};
+		var oCell1 = oRow.insertCell();
+		var oCell2 = oRow.insertCell();
+		var oCell3 = oRow.insertCell();
+		var oCell4 = oRow.insertCell();
+		
+		var frmTag1 = "<input tpye='text' name='big_code' style='width:40px; height:20px;' />";
+		var frmTag2 = "<input type='text' name='big_name' style='width:100px; height:20px;' />";
+		var frmTag3 = "<select name='big_use'>";
+		frmTag3 += "<option value='사용'>사용</option>";
+		frmTag3 += "<option value='미사용'>미사용</option>";
+		frmTag3 += "</select>";
+		var frmTag4 = "<input type='hidden' name='check' value='1' />"
+		
+		oCell1.innerHTML = frmTag1;
+		oCell2.innerHTML = frmTag2;
+		oCell3.innerHTML = frmTag3;
+		oCell4.innerHTML = frmTag4;
+	}
+	
+	/* 내용 비어있는지 확인 */
+	/* 대분류 */
+	function bigFrmCheck() {
+		var frm = document.bigForm;
+		
+		for(var i = 0; i <= frm.elements.length-1; i++) {
+			if(frm.elements[i].name == "big_code") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+			if(frm.elements[i].name == "big_name") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+		}
+	}
+	
+	/* 더블클릭시 input type="text" */
+	$(document).ready(function() {
+		$(".modifyName").dblclick(function() {
+			var con = this.innerHTML;
+			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>";
+		});		
+		
+		$(".modifyUse").dblclick(function() {
+			var conUse = this.innerHTML;
+			this.innerHTML ="<select name='big_use'>"
+			 + "<option value='사용'>사용</option>"
+			 + "<option value='미사용'>미사용</option>"
+			 + "</select>";
+		});
+	});
+</script>
 
 <html>
 <body>
@@ -51,8 +121,10 @@
 								<option value="미사용">미사용</option>
 								<option value="전체">전체</option>
 							</select>
+						</td>
 					</tr>
 				</table>
+				
 				</div>
 				<div class="search-btn" style="position: absolute; width: 200px; left: 350px; top: 90px;">
 					<input type="submit" value="검색" />
@@ -62,14 +134,14 @@
 		
 		<!-- 대분류 -->
 		<div class="big-cate">
-			<form name="big-category">
+			<form name="big-category" method="post" action="bigCatePro.jp" onSubmit="return bigFrmCheck();">
 				<div class="subtitle">
 					<ul style="list-display:none;">
 						<li>
-							<h3>대분류&nbsp;<font color="red">숫자</font></h3>
+							<h3>대분류&nbsp;<font color="red">${bigCateCount}</font></h3>
 						</li>
 						<li style="text-align:right;">
-							<button type="button">행추가</button>
+							<button type="button" onclick="insBigRow();">행추가</button>
 							<button type="button">행삭제</button>
 						</li>
 					</ul>
@@ -80,9 +152,27 @@
 						<th>명칭</th>
 						<th>사용여부</th>
 					</tr>
+					
+					<c:forEach var="bigCate" items="${bigCateList}">
 					<tr>
+						<td style="width:40px; height:20px;">${bigCate.big_code}
+						<input type="hidden" name="check" value="2" />
+						</td>			
+						<td class="modifyName" style="width:100px; height:20px;">${bigCate.big_name}</td>
+						<td class="modifyUse">${bigCate.big_use}
+						<input type="hidden" name="big_num" value="${bigCate.big_num}" />
+						</td>
+					</tr>
+					</c:forEach>
+					
+					<tr>
+						<td colspan="3">
+							<table id="itemBigCate">
+							</table>
+						</td>
+					</tr>						
 				</table>
-				<div class="btn-wrap">
+				<div class="btn-wrap" style="width:300px;">
 					<button type="submit">저장</button>
 				</div>
 			</form>
@@ -110,7 +200,7 @@
 					</tr>
 					<tr>
 				</table>
-				<div class="btn-wrap">
+				<div class="btn-wrap" style="width:300px;">
 					<button type="submit">저장</button>
 				</div>
 			</form>
@@ -138,7 +228,7 @@
 					</tr>
 					<tr>
 				</table>
-				<div class="btn-wrap">
+				<div class="btn-wrap" style="width:300px;">
 					<button type="submit">저장</button>
 				</div>
 			</form>
