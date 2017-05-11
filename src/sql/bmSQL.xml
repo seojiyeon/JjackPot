@@ -27,45 +27,356 @@
 	
 		</select>
 		
-		
+<!-- ============================mytodo=========================== -->			
 		<!--  나의할일 리스트보기 -->		
 		<select id="getMytodoList" parameterClass="String" resultClass="bmdto" >
 			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm_name=#bm_name# and bm_form =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+			where bm_name=#bm_name# and bm_form =1 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
 		 </select>
 		
 		<!--  나의할일 COUNT 리스트보기 -->	
 		<select id="getMytodoListcount" parameterClass="String" resultClass="int" >
-			select count(*) from business_manage  where bm_form=1 and bm_name=#bm_name# 	
+			select count(*) from business_manage  where bm_form=1 and bm_state !=2 and bm_name=#bm_name# 	
 		</select>
 		
 		<!--  나의할일 countent 보기-->	
 		<select id="getMytodoListcont" parameterClass="String" resultClass="bmdto" >
 			select * from business_manage where bm_form=1 and bm_name=#bm_name# 		
 		</select>
+
+		<!--  나의할일 완성 리스트보기 -->		
+		<select id="mytodook" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where bm_name=#bm_name# and bm_form =1 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  나의할일 COUNT 완성 리스트보기 -->	
+		<select id="getmytodookcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage  where bm_form=1 and bm_state = 2 and bm_name=#bm_name# 	
+		</select>		 
+
+<!-- ===================================================================================== -->
+
+<!-- ============================업무요청 =========================== -->			
+		<!--  내가 한 업무요청 리스트보기 -->		
+		<select id="getMyBmYchList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where bm_name=#bm_name# and bm_form =2 and bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
 		
+		<!--  내가 한 업무요청 COUNT 리스트보기 -->	
+		<select id="getBmYchListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where bm_name=#bm_name# 
+			and  bm_form =2 and bm_state !=2 and bm.important=i.imp_num and 
+			bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and 
+			bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
 		
+		<!--  내가 한 업무요청 countent 보기-->	
+		<select id="getBmYchcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage where bm_form=2 and bm_name=#bm_name# 		
+		</select>
+		
+		<!--  내가 한 업무요청 완성 리스트보기 -->		
+		<select id="getMyBmYchListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where ic.bm_name=#bm_name# and bm.bm_form =2 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  내가 한 업무요청 COUNT 완성 리스트보기 -->	
+		<select id="getMyBmYchListokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage  where bm_form=2 and bm_state = 2 and bm_name=#bm_name# 	
+		</select>		 
+		
+		<!--  수신 업무요청 리스트보기 -->		
+		<select id="getSSBmYCHList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
+			where ic.inchar_name=#bm_name# and bm_form =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  수신 업무요청 COUNT 리스트보기 -->	
+		<select id="getSSBmYCHListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	,incharge ic
+			where ic.inchar_name=#bm_name# and  bm_form =2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!--  수신 업무요청 countent 보기-->	
+		<select id="getSSBmYCHcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage ,incharge where bm_form=2 and inchar_name=#bm_name# 		
+		</select>
+		
+		<!--  수신업무 완성 리스트보기 -->		
+		<select id="SSBmYCHListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
+			where ic.inchar_name=#bm_name# and bm_form =2 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  수신업무완료 COUNT 완성 리스트보기 -->	
+		<select id="getSSBmYCHokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage, incharge  where bm_form=2 and bm_state = 2 and inchar_name=#bm_name#
+		</select>		 
+		
+		<!--  참조 업무요청 리스트보기 -->		
+		<select id="getChZBGBmYCHList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef
+			where bef.bef_name=#bm_name# and bm_form =2 and bm.bm_state != 2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  참조 업무요청 COUNT 리스트보기 -->	
+		<select id="getChZBGBmYCHListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf ,bm_ref bef	
+			where bef.bef_name=#bm_name# and  bm_form =2 and bm.bm_state != 2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!-- 참조 업무요청 countent 보기-->	
+		<select id="getSChZBGBmYCHcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage where bm_form=2 	
+		</select>
+		
+		<!--  참조 업무요청 완성 리스트보기 -->		
+		<select id="ChZBGBmYCHListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
+			where bef.bef_name=#bm_name# and bm_form =2and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  참조 업무요청 COUNT 완성 리스트보기 -->	
+		<select id="getChZBGBmYCHokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage, bm_ref  where bm_form=2 and bm_state = 2 and bef_name=#bm_name# 	
+		</select>		 
+
+<!-- ===================================================================================== -->
+
+
+<!-- ============================업무요청 =========================== -->			
+		<!--  내가 한 업무보고 리스트보기 -->		
+		<select id="getMyBmYchList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where bm_name=#bm_name# and bm_form =3 and bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  내가 한 업무보고 COUNT 리스트보기 -->	
+		<select id="getBmYchListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where bm_name=#bm_name# 
+			and  bm_form =3 and bm_state !=2 and bm.important=i.imp_num and 
+			bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and 
+			bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!--  내가 한 업무보고 countent 보기-->	
+		<select id="getBmYchcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage where bm_form=3 and bm_name=#bm_name# 		
+		</select>
+		
+		<!--  내가 한  업무보고 완성 리스트보기 -->		
+		<select id="getMyBmYchListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where ic.bm_name=#bm_name# and bm.bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  내가 한 업무보고  COUNT 완성 리스트보기 -->	
+		<select id="getMyBmYchListokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage  where bm_form=3 and bm_state = 2 and bm_name=#bm_name# 	
+		</select>		 
+		
+		<!--  수신 업무보고 리스트보기 -->		
+		<select id="getSSBmYCHList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
+			where ic.inchar_name=#bm_name# and bm_form =3 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  수신 업무업무보고 COUNT 리스트보기 -->	
+		<select id="getSSBmYCHListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	,incharge ic
+			where ic.inchar_name=#bm_name# and  bm_form =3 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!--  수신 업무업무보고 countent 보기-->	
+		<select id="getSSBmYCHcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage ,incharge where bm_form=3 and inchar_name=#bm_name# 		
+		</select>
+		
+		<!--  수신업무보고 완성 리스트보기 -->		
+		<select id="SSBmYCHListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
+			where ic.inchar_name=#bm_name# and bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  수신업무보고완료 COUNT 완성 리스트보기 -->	
+		<select id="getSSBmYCHokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage, incharge  where bm_form=3 and bm_state = 2 and inchar_name=#bm_name#
+		</select>		 
+		
+		<!--  참조 업무보고리스트보기 -->		
+		<select id="getChZBGBmYCHList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef
+			where bef.bef_name=#bm_name# and bm_form =3 and bm.bm_state != 2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  참조 업무보고 COUNT 리스트보기 -->	
+		<select id="getChZBGBmYCHListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf ,bm_ref bef	
+			where bef.bef_name=#bm_name# and  bm_form =3 and bm.bm_state != 2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!-- 참조 업무요청 countent 보기-->	
+		<select id="getSChZBGBmYCHcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage where bm_form=3 	
+		</select>
+		
+		<!--  참조 업무보고 완성 리스트보기 -->		
+		<select id="ChZBGBmYCHListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
+			where bef.bef_name=#bm_name# and bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  참조 업무보고 COUNT 완성 리스트보기 -->	
+		<select id="getChZBGBmYCHokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage, bm_ref  where bm_form=3 and bm_state = 2 and bef_name=#bm_name# 	
+		</select>		 
+
+<!-- ===================================================================================== -->
+
+
+
+<!-- ============================업무일지 =========================== -->			
+		<!--  내가 한 업무일지 리스트보기 -->		
+		<select id="getMyBmYchList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where bm_name=#bm_name# and bm_form =4 and bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  내가 한 업무일지 COUNT 리스트보기 -->	
+		<select id="getBmYchListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
+			where bm_name=#bm_name# 
+			and  bm_form =4 and bm_state !=2 and bm.important=i.imp_num and 
+			bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and 
+			bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!--  내가 한 업무일지 countent 보기-->	
+		<select id="getBmYchcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage where bm_form=4 and bm_name=#bm_name# 		
+		</select>
+		
+		<!--  내가 한  업무일지 완성 리스트보기 -->		
+		<select id="getMyBmYchListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where ic.bm_name=#bm_name# and bm.bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  내가 한 업무일지  COUNT 완성 리스트보기 -->	
+		<select id="getMyBmYchListokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage  where bm_form=4 and bm_state = 2 and bm_name=#bm_name# 	
+		</select>		 
+		
+		<!--  수신 업무일지 리스트보기 -->		
+		<select id="getSSBmYCHList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
+			where ic.inchar_name=#bm_name# and bm_form =4 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  수신 업무일지 COUNT 리스트보기 -->	
+		<select id="getSSBmYCHListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	,incharge ic
+			where ic.inchar_name=#bm_name# and  bm_form =4 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!--  수신 업무일지 countent 보기-->	
+		<select id="getSSBmYCHcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage ,incharge where bm_form=4 and inchar_name=#bm_name# 		
+		</select>
+		
+		<!--  수신 업무일지 완성 리스트보기 -->		
+		<select id="SSBmYCHListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
+			where ic.inchar_name=#bm_name# and bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  수신 업무일지 완료 COUNT 완성 리스트보기 -->	
+		<select id="getSSBmYCHokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage, incharge  where bm_form=4 and bm_state = 2 and inchar_name=#bm_name#
+		</select>		 
+		
+		<!--  참조 업무일지 리스트보기 -->		
+		<select id="getChZBGBmYCHList" parameterClass="bmdto" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef
+			where bef.bef_name=#bm_name# and bm_form =4 and bm.bm_state != 2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		</select>
+		
+		<!--  참조 업무일지 COUNT 리스트보기 -->	
+		<select id="getChZBGBmYCHListcount" parameterClass="bmdto" resultClass="int" >
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf ,bm_ref bef	
+			where bef.bef_name=#bm_name# and  bm_form =4 and bm.bm_state != 2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			order by bm.bm_num desc		
+		</select>
+		
+		<!-- 참조 업무일지 countent 보기-->	
+		<select id="getSChZBGBmYCHcont" parameterClass="String" resultClass="bmdto" >
+			select * from business_manage where bm_form=4 	
+		</select>
+		
+		<!--  참조 업무일지 완성 리스트보기 -->		
+		<select id="ChZBGBmYCHListok" parameterClass="String" resultClass="bmdto" >
+			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
+			where bef.bef_name=#bm_name# and bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		 	
+		 </select>		
+		 
+		<!--  참조 업무일지 COUNT 완성 리스트보기 -->	
+		<select id="getChZBGBmYCHokcount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage, bm_ref  where bm_form=4 and bm_state = 2 and bef_name=#bm_name# 	
+		</select>		 
+
+<!-- ===================================================================================== -->
+
 
 		<!-- 모든업무 갯수 -->
 		<select id="bmcount" parameterClass="bmdto" resultClass="int">
 			select count(*) from business_manage where emp_num=#emp_num# 
 		</select>
 		
-		<!--  업무요청 리스트보기 -->		
-		<select id="getBmYchList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where emp_num=#emp_num# and bm_form =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
-		</select>
-		
-		<!--  업무요청 COUNT 리스트보기 -->	
-		<select id="getBmYchListcount" parameterClass="bmdto" resultClass="int" >
-			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
-			where emp_num=#emp_num# and  bm_form =2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
-			order by bm.bm_num desc		
-		</select>
+
 		
 		
 		<!--  업무보고 리스트보기 -->		
@@ -390,8 +701,10 @@
 	<delete id="bmdelete_bm_ref" parameterClass="int">
 		delete from bm_ref where bm_num=#bm_num#
 	</delete>	
-
-		
+  <!-- ========== bm_state update============-->
+	<update id="mytodo_state_update" parameterClass="int">
+		update business_manage set bm_state = 2 where bm_num=#bm_num#
+	</update>
 		
         
 
