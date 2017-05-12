@@ -120,6 +120,7 @@ ul.tabs li.active {
 			}
 		}
 	}
+
 </script>
 
 <html>
@@ -166,7 +167,7 @@ ul.tabs li.active {
 					<form method="post" action="">
 						<div class="tab-main">
 							<div class="tab-left">
-								<ul>
+								<ul id="memoFolder">
 									<c:if test="${memoCateCount == 0}">
 										<li>등록된 폴더가 없습니다.</li>
 									</c:if>
@@ -180,9 +181,7 @@ ul.tabs li.active {
 							<div class="tab-right">
 								<ul style="list-diplay:none;">
 									<li>
-										<c:forEach var="memoCate" items="${memoCateList}">
-											<input type="text" name="cate_title" value="${memoCate.cate_title}" class="cateTitle"/>
-										</c:forEach>
+										<input type="text" name="cate_title" class="cateTitle"/>
 									</li>
 									<li>
 										<input type="submit" value="수정" />

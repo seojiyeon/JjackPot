@@ -9,6 +9,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jackpot.DTO.ItemDTO;
 
@@ -31,18 +32,7 @@ public class ItemBean {
 	}
 	
 	@RequestMapping("/itemCate.jp")
-	public String itemCate(Model model) {
-/*		List bigCateList = sqlMap.queryForList("item.bigItemList", null);
-		int bigCateCount = (int) sqlMap.queryForObject("item.bigItemListCount", null);
-		
-		List middleCateList = sqlMap.queryForList("item.middleItemList", null);
-		int middleCateCount = (int) sqlMap.queryForObject("item.middleItemListCount", null);
-		
-		model.addAttribute("bigCateList", bigCateList);
-		model.addAttribute("bigCateCount", bigCateCount);
-		model.addAttribute("middleCateList", middleCateList);
-		model.addAttribute("middleCateCount", middleCateCount);
-*/		
+	public String itemCate(Model model) {	
 		List bigCateList = sqlMap.queryForList("item.bigCateList", null);
 		int bigCateCount = (int) sqlMap.queryForObject("item.bigCateCount", null);
 		
@@ -89,41 +79,36 @@ public class ItemBean {
 			} else if(Integer.parseInt(check[a]) == 2) {
 				for(int i=0; i<big_num.length; i++) {
 					dto.setBig_num(Integer.parseInt(big_num[i]));
-					dto.setBig_name(big_name[i]);
-					dto.setBig_use(big_use[i]);
-					
-					sqlMap.update("item.bigCateUpdate", dto);
-					System.out.println("수정");
+		
+					if(big_name[i] != null) {
+						for(int x=0; x<big_name.length; x++) {
+							dto.setBig_name(big_name[x]);
+							sqlMap.update("item.bigCateUpdate", dto);
+							System.out.println("수정");
+						}
+					} else if(big_use[i] != null) {
+						for(int y=0; y<big_use.length; y++) {
+							dto.setBig_use(big_use[i]);
+							sqlMap.update("item.bigCateUpdate", dto);
+							System.out.println("수정");
+						}
+					} else {
+						dto.setBig_name(big_name[i]);
+						dto.setBig_use(big_use[i]);
+
+						sqlMap.update("item.bigCateUpdate", dto);
+						System.out.println("수정");
+					}
 				}
 			}
 		}
-		
-		
-		
-		/*for(int a=0; a<big_name.length; a++) {
-			System.out.println(big_name[a]);
-			if(big_num[a] == null) {
-				for(int i=0; i<big_code.length; i++) {
-					dto.setBig_code(big_code[i]);
-					dto.setBig_name(big_name[i]);
-					dto.setBig_use(big_use[i]);
-					System.out.println("1");
-					sqlMap.insert("item.bigCateInsert", dto);
-				}
-			} else if(big_num[a] != null) {
-				dto.setBig_num(Integer.parseInt(big_num[a]));
-				
-				for(int i=0; i<big_code.length; i++) {
-					dto.setBig_code(big_code[i]);
-					dto.setBig_name(big_name[i]);
-					dto.setBig_use(big_use[i]);
-					System.out.println("2");
-					sqlMap.update("item.bigCateUpdate", dto);
-				}
-			}
-		}*/
-		
 		return "/item/bigCatePro";
+	}
+	
+	@RequestMapping("/showMiddleCate.jp")
+	public @ResponseBody List showMiddleCate(HttpServletRequest request, ItemDTO dto) {
+		List middleCate = sqlMap.queryForList("item.middleCateList", dto);
+		return middleCate;
 	}
 
 }

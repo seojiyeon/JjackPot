@@ -34,5 +34,11 @@
 	<update id="bigCateUpdate" parameterClass="idto">
 		update big_cate set big_name=#big_name#, big_use=#big_use# where big_num=#big_num#
 	</update>
+	
+	<!-- 중분류 -->
+	<select id="middleCateList" resultClass="idto" parameterClass="idto">
+		select * from middle_cate order by middle_code desc where big_num=#big_num#
+	</select>
+	
 
 </sqlMap>

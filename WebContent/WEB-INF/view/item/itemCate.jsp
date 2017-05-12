@@ -37,6 +37,29 @@
 		oCell3.innerHTML = frmTag3;
 		oCell4.innerHTML = frmTag4;
 	}
+	/* 중분류 */
+	function insMiddleRow() {
+		oTable = document.getElementById("itemMiddleCate");
+		var oRow = oTable.insertRow();
+		oRow.onmouseover = function() {oTable.clickedRowIndex=this.rowInex};
+		var oCell1 = oRow.insertCell();
+		var oCell2 = oRow.insertCell();
+		var oCell3 = oRow.insertCell();
+		var oCell4 = oRow.insertCell();
+		
+		var frmTag1 = "<input tpye='text' name='middle_code' style='width:40px; height:20px;' />";
+		var frmTag2 = "<input type='text' name='middle_name' style='width:100px; height:20px;' />";
+		var frmTag3 = "<select name='middle_use'>";
+		frmTag3 += "<option value='사용'>사용</option>";
+		frmTag3 += "<option value='미사용'>미사용</option>";
+		frmTag3 += "</select>";
+		var frmTag4 = "<input type='hidden' name='check' value='1' />"
+		
+		oCell1.innerHTML = frmTag1;
+		oCell2.innerHTML = frmTag2;
+		oCell3.innerHTML = frmTag3;
+		oCell4.innerHTML = frmTag4;
+	}
 	
 	/* 내용 비어있는지 확인 */
 	/* 대분류 */
@@ -60,22 +83,62 @@
 			}
 		}
 	}
+	/* 중분류 */
+	function middleFrmCheck() {
+		var frm = document.middleForm;
+		
+		for(var i = 0; i <= frm.elements.length-1; i++) {
+			if(frm.elements[i].name == "middle_code") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+			if(frm.elements[i].name == "middle_name") {
+				if(!frm.elements[i].value) {
+					alert("값을 입력하세요.");
+					frm.elements[i].foucus();
+					return;
+				}
+			}
+		}
+	}
 	
 	/* 더블클릭시 input type="text" */
+	/* 대분류 */
 	$(document).ready(function() {
 		$(".modifyName").dblclick(function() {
 			var con = this.innerHTML;
-			this.innerHTML="<input type='text' name='big_name' value="+con+" style='width:100px; height:20px;'>";
+			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>";
 		});		
-			
+		
 		$(".modifyUse").dblclick(function() {
 			var conUse = this.innerHTML;
 			this.innerHTML ="<select name='big_use'>"
-				 + "<option value='사용'>사용</option>"
-				 + "<option value='미사용'>미사용</option>"
-			 	 + "</select>";
+			 + "<option value='사용'>사용</option>"
+			 + "<option value='미사용'>미사용</option>"
+			 + "</select>";
 		});
 	});
+	
+	$(document).on('click', '#big-cate', function() {
+		showMiddleCate(big_num);
+	});
+	
+	function showMiddleCate(big_num) {
+		$.ajax({
+			type: "POST",
+			url: " showMiddleCate.jp",
+			data: {big_num:big_num},
+			success: function(middleCate) {
+				$(".")
+			},
+			error: function() {
+				alert("error");
+			}
+		});
+	}
 </script>
 
 <html>
@@ -152,25 +215,24 @@
 						<th>명칭</th>
 						<th>사용여부</th>
 					</tr>
-					
-					<c:forEach var="bigCate" items="${bigCateList}">
-					<tr>
-						<td class="modify" style="width:40px; height:20px;">
-							${bigCate.big_code}
-							<input type="hidden" name="big_num" value="${bigCate.big_num}" />
-							<input type="hidden" name="check" value="2" />
-						</td>			
-						<td class="modifyName" style="width:100px; height:20px;">${bigCate.big_name}</td>
-						<td class="modifyUse">${bigCate.big_use}</td>
-					</tr>
-					</c:forEach>
-					
 					<tr>
 						<td colspan="3">
 							<table id="itemBigCate">
 							</table>
 						</td>
-					</tr>						
+					</tr>
+					
+					<c:forEach var="bigCate" items="${bigCateList}">
+					<tr id="big-cate">
+						<td style="width:40px; height:20px;">${bigCate.big_code}
+						<input type="hidden" name="check" value="2" />
+						</td>			
+						<td class="modifyName" style="width:100px; height:20px;">${bigCate.big_name}</td>
+						<td class="modifyUse">${bigCate.big_use}
+						<input type="hidden" name="big_num" value="${bigCate.big_num}" />
+						</td>
+					</tr>
+					</c:forEach>
 				</table>
 				<div class="btn-wrap" style="width:300px;">
 					<button type="submit">저장</button>
@@ -180,14 +242,14 @@
 		
 		<!-- 중분류 -->
 		<div class="middle-cate">
-			<form name="middle-category">
+			<form name="middle-category" method="post" action="" onSubmit="return middleFrmCheck();">
 				<div class="subtitle">
 					<ul style="list-display:none;">
 						<li>
 							<h3>중분류&nbsp;<font color="red">숫자</font></h3>
 						</li>
 						<li style="text-align:right;">
-							<button type="button">행추가</button>
+							<button type="button" onclick="insMiddleRow();">행추가</button>
 							<button type="button">행삭제</button>
 						</li>
 					</ul>
@@ -199,6 +261,21 @@
 						<th>사용여부</th>
 					</tr>
 					<tr>
+						<td colspan="3">
+							<table id="itemMiddleCate">
+							</table>
+						</td>
+					</tr>
+					
+					<c:forEach var="middleCate" items="${middleCateList}">
+					<tr>
+						<td style="width:40px; height:20px;">
+						</td>
+						<td class="middleModiName" style="width:100px; height:20px;">
+						</td>
+						<td class="middleModiUse"></td>
+					</tr>
+					</c:forEach>
 				</table>
 				<div class="btn-wrap" style="width:300px;">
 					<button type="submit">저장</button>
