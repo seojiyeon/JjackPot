@@ -187,16 +187,9 @@ $(document).ready(function(){
 
 $(document).on('click','#emp', function(){
 	
-	var MyRows = $('table#htmlTable').find('tbody').find('tr');
-	
-	var trNum = $(this).closest('tr').prevAll().length;
-	
+	var MyRows = $('table#htmlTable').find('tbody').find('tr');	
+	var trNum = $(this).closest('tr').prevAll().length;	
 	var id = $(MyRows[trNum]).find('td:eq(0)').html();
-	/* 
-	var MyRows = $('table#htmlTable').find('tbody').find('tr');
-	for (var i = 0; i < MyRows.length; i++) {
-	var id = $(MyRows[i]).find('td:eq(0)').html();
-	}	 */
      
 		   callMsg(id);
 		   

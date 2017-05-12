@@ -26,6 +26,7 @@ public class AdminBean {
 		List articleList = null;
 		articleList = sqlMap.queryForList("employee.memberAll", articleList);
 		count = (int) sqlMap.queryForObject("employee.userCnt", null);
+	
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("count", count);	
 		
@@ -36,12 +37,14 @@ public class AdminBean {
 	@RequestMapping("/empmem.jp")
 	public String empmem(HttpServletRequest request, empDTO dto, HttpSession session, Model model){
 		String id = request.getParameter("id");
+		id = id.trim();
+		
 		System.out.println(id);
 		
 		List articleList = null;
-		articleList = sqlMap.queryForList("employee.member", id);		
-		System.out.println(articleList);
-		model.addAttribute("article", articleList);		
+		dto = (empDTO) sqlMap.queryForObject("employee.member", id);		
+		System.out.println(dto);
+		model.addAttribute("dto", dto);		
 		
 		return "/admin/empMember";
 	}	
