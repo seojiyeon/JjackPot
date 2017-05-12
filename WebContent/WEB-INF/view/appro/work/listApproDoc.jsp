@@ -6,7 +6,7 @@
 
 <jsp:useBean id="toDay" class="java.util.Date" />
 <fmt:formatDate value="${toDay}" pattern="yyyy.MM.dd" var="tdate"/>
-<link href="/JackPot/css/appro.css?ver=1" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/appro.css?ver=9" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/basic.css?ver=2" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/theme.css?ver=3" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/common.css?ver=4" rel="stylesheet" type="text/css">
@@ -23,7 +23,8 @@
 <script type="text/javascript">
 var idlist = new Array();
 var idlistname = new Array();
-
+var positionlist = new Array();
+var positionlistck =new Array();
 $(document).ready(function() {
 
 	//When page loads...
@@ -57,6 +58,7 @@ $(document).ready(function() {
 	    var id = $(this).attr('id');
 	    var name = $(this).text();
 	    var name2 = name.substring(0,3);
+	    var position = name.substring(4,6);
 	    var selectedlist = $(".selected-list");
 	    
 	    var exist = false;
@@ -70,6 +72,7 @@ $(document).ready(function() {
 	      $(".selected-list").append("<li class="+id+"><a href=# onClick=selected_click("+id+")>"+name+"</a></li>");
 	      idlist.push(id);
 	      idlistname.push(name2);
+	      positionlist.push(position);
 	   }
 	    namelist.css("background-color","turquoise");
 	 });
@@ -105,6 +108,7 @@ $(document).ready(function() {
 	          if(idlist[i] == select){
 	             idlist.splice(i,1);
 	             idlistname.splice(i,1);
+	             positionlist.splice(i,1);
 	          }
 	       }
 	    }  
@@ -131,7 +135,30 @@ $(document).ready(function() {
 			
 			e.preventDefault();
 		});
-
+		
+		temp.find('.apbtn').click(function(e){
+			var exist = false;
+			console.log(idlist);
+			console.log(positionlistck);
+			for (i=0; i <idlist.length;i++){
+				if(idlist[i] == positionlistck[i])
+					exist = true;
+					break;
+			}
+				if(! exist){
+				$('#apprLine0BTr').append("<td height=60 id="+idlist[i]+">"+idlistname[i]+"</td>");
+				$('#apprLine0TTr').append("<th style=width:80px; id="+idlist[i]+">"+positionlist[i]+"</th>");
+				positionlistck.push(idlist[i]);
+			} 
+			if(bg){
+				$('.layer').fadeOut();
+			}else{
+				
+				temp.fadeOut();
+			} 
+			e.preventDefault();
+		});
+		
 		$('.layer .bg').click(function(e){
 			$('.layer').fadeOut();
 			e.preventDefault();
@@ -140,29 +167,9 @@ $(document).ready(function() {
 		$('.find_form').hide();
 		
 	}
-	
-	function applyEvent(){
-		
-		var value = $('#approver').val();
-		$('#approver_name').val(value)
-		document.approver_info.approver_test.value = "";
-	}
     	
-    	function add_open(addform){   
-    		   var temp = $('#' + addform);
-    		   temp.fadeIn();
-    		   temp.find('a.add-cbtn').click(function(e){
-    		      temp.fadeOut();
-    		      e.preventDefault();
-    		   });
-    		   temp.find('a.add-addbtn').click(function(e){
-    		      temp.fadeOut();
-    		      $('.approver_add').html("<input type=text id=participants readonly value="+idlistname+"></input><input type=hidden name=participants value="+idlist+"></input>")
-    		     //값을 넣어줄 부분  
-    		     
-    		      e.preventDefault();
-    		   })
-    		   
+    	function add_apply(){   
+    		      $('#approver_add').html("<input type=text id=participants readonly value="+idlistname+"></input><input type=hidden name=participants value="+idlist+"></input>")
     		}
 	</script>	
 	
@@ -234,54 +241,53 @@ $(document).ready(function() {
 	    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
 	    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
     	</div>
-				<div class="appline-wrap">
-					<div class="fright" id="apprLine0Tr" style="display: block;">
-						<div class="fleft">	
-							<table class="appline-lst">
-								<caption></caption>
-								<tbody>
-									<tr id="apprLine0TTr">
-										<th rowspan="2">
-											
-												결<br><br class="last">재
-											
-												         
-										</th>
-										<th class="apprLine">기 안</th>
-									</tr>
-									<tr id="apprLine0BTr">									
-									<td height="60">${emp_name}</td>
-									</tr>
-																		
-								</tbody>
-								
-							</table>
-							<input type="text" name="approver_name" id="approver_name" placeholder="결재권자">
-							<input type="text" name="approver_num" id="approver_num">
-						</div>
-												
+			<div class="appline-wrap">
+				<div class="fright" id="apprLine0Tr" style="display: block;">
+					<div class="fleft">	
+						<table class="appline-lst">
+							<caption></caption>
+							<tbody>
+								<tr id="apprLine0TTr">
+									<th rowspan="2">
+										
+											결<br><br class="last">재
+										
+											         
+									</th>
+								<th class="apprLine">기 안</th>
+								</tr>
+								<tr id="apprLine0BTr">									
+								<td height="60">${emp_name}</td>
+								</tr>
+																	
+							</tbody>
+							
+						</table>
+						
 					</div>
-					<br/>
-
-					<div class="clearfix">
-						<div class="fright" id="apprLine1Tr" style="display: none; width: 0px;">
-							<table class="appline-lst">
-								<caption></caption>
-								<tbody>	
-									</tbody><tbody>	
-									<tr id="apprLine1TTr">	
-										<th rowspan="2">					
-										합<br><br>의
-										</th>
-									</tr>
-									<tr id="apprLine1BTr">									
-									</tr>
-								
-								</tbody>
-							</table>						
-						</div>						
-					</div>
+											
 				</div>
+				<br/>
+
+				<div class="clearfix">
+					<div class="fright" id="apprLine1Tr" style="display: none; width: 0px;">
+						<table class="appline-lst">
+							<caption></caption>
+							<tbody>	
+								</tbody><tbody>	
+								<tr id="apprLine1TTr">	
+									<th rowspan="2">					
+									합<br><br>의
+									</th>
+								</tr>
+								<tr id="apprLine1BTr">									
+								</tr>
+							
+							</tbody>
+						</table>						
+					</div>						
+				</div>
+			</div>
 								
 				<div class="form-block bdr-t">
 
@@ -367,10 +373,8 @@ $(document).ready(function() {
 	    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
     </div>
      </form>
-	</div>
-			</div>
-
-   
+				</div>
+		</div>
 	</div>
 </div>
 </div>
@@ -389,56 +393,9 @@ $(document).ready(function() {
 				</ul>
     			<div id="tab1" class="tab_content">
 	        		<!--Content-->
-	        		<div class="approver_add">
-	        		<input type="text" readonly>
-	        		</div>
-	        		<a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a>
-	    		</div>
-		   		<div id="tab2" class="tab_content">
-		       		<!--Content-->
-		       		<form id="approver_info" class="approver_info">
-			       		<input type="text" id="approver_test" name="approver_test" onkeypress="if(event.keyCode==13){approver_find();event.returnValue=false}"/>
-						<input type="button" value="검색" onclick="approver_find();"/>
-					</form>
-					
-					<table id="find_test" class="find_test">
-					<thead>
-						<tr><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
-					</thead>
-					</table>
-					
-					<table id="find_form" class="find_form">
-						<tr class="find_result0" style="color: blue;">
-						</tr>
-						<tr class="find_result1" style="color: blue;">
-						</tr>
-						<tr class="find_result2" style="color: blue;">
-						</tr>
-						<tr class="find_result3" style="color: blue;">
-						</tr>
-						<tr class="find_result4" style="color: blue;">
-						</tr>
-					</table>
-				
-		    	</div>
-			</div>
-			<div class="btn-r">
-				<input type="button" value="적용" onclick="applyEvent();">
-				<a href="#" class="cbtn">닫기</a>
-			</div>
-		</div>
-		   <div id="participants-Form">
+	        		<div id="participants-Form">
       <div class="participants-Form-container">
-         <div class="participants-Form-top">
-         </div>
          <div class="participants-Form-contents">
-            <div class="participants-Form-con-tab">
-               <ul>
-                  <li><a>조직도</a></li>
-                  <li><a>주소록</a></li>
-                  <li><a>거래처</a></li>
-               </ul>
-            </div>
             <div class="participants-Form-con-contents">
                <ul>
                <li>
@@ -510,14 +467,52 @@ $(document).ready(function() {
                </ul>
             </div>
          </div>
-         <div class="participants-Form-btn">
+           <div class="participants-Form-btn">
             <ul>
-               <li><a href="#" class="add-cbtn">닫기</a></li>
-               <li><a href="#" class="add-addbtn">추가</a></li>
+               <li><a href="#" onclick="add_apply();">결재선 추가</a></li>
             </ul>
          </div>
+         <div id="approver_add" style="margin-left: 10px">
+	        <input type="text" readonly  style="width: 440px;">
+	     </div>
+       
       </div>
    </div>
+	        
+	    		</div>
+		   		<div id="tab2" class="tab_content">
+		       		<!--Content-->
+		       		<form id="approver_info" class="approver_info">
+			       		<input type="text" id="approver_test" name="approver_test" onkeypress="if(event.keyCode==13){approver_find();event.returnValue=false}"/>
+						<input type="button" value="검색" onclick="approver_find();"/>
+					</form>
+					
+					<table id="find_test" class="find_test">
+					<thead>
+						<tr><th scope="col">이름</th><th scope="col">직급</th><th scope="col">부서</th></tr>
+					</thead>
+					</table>
+					
+					<table id="find_form" class="find_form">
+						<tr class="find_result0" style="color: blue;">
+						</tr>
+						<tr class="find_result1" style="color: blue;">
+						</tr>
+						<tr class="find_result2" style="color: blue;">
+						</tr>
+						<tr class="find_result3" style="color: blue;">
+						</tr>
+						<tr class="find_result4" style="color: blue;">
+						</tr>
+					</table>
+				
+		    	</div>
+			</div>
+			<div class="btn-r">
+				<input type="button" class = "apbtn" value="적용">
+				<a href="#" class="cbtn">닫기</a>
+			</div>
+		</div>
 		
 			<hr>
 			<input type="hidden" value="${temp_num}" name="temp_num" class="temp_num" />
