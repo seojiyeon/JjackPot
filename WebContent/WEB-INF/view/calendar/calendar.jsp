@@ -361,6 +361,7 @@ function add_open(addform){
    						<ul class="title-selected-branch" style="display:none;"><li>
    						<select name="branch">
    						<optgroup label="지점등록">
+   						<option value="0" selected="selected">지점을 등록하세요.</option>
    						<option value="1">강남</option>
    						<option value="2">종로</option>
    						<option value="3">동작</option>
@@ -372,6 +373,7 @@ function add_open(addform){
    						<ul class="title-selected-department" style="display:none;"><li>
    						<select name="department">
    						<optgroup label="부서등록">
+   						<option value="0" selected="selected">부서를 등록하세요.</option>
    						<option value="1">서비스</option>
    						<option value="2">제조,화학</option>
    						<option value="3">it,웹,통신</option>
@@ -386,7 +388,7 @@ function add_open(addform){
     					<input type="time" name="stime" step="1800" value="00:00"/></li></ul>
     					<ul><li>종료일    <input type="date" name="edate" />
     					<input type="time" name="etime" step="1800" /></li></ul>
-						<ul><li class="layer1-participants">참여자<br/><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a></li></ul>
+						<ul><li class="layer1-participants">참여자<br/><input type="text" name="name" readonly id="participants"/></li><li id="addparticipants"><a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a></li></ul>
    						<ul><li><br/><textarea name="contents" placeholder=" 내용"style="width:398px;border-radius:3px;border:1px solid darkgray;"></textarea></li></ul>
   						<ul><li><input type="submit" value="전송"></li><li><input type="reset" value="취소"></li></ul>
     					<input type="hidden" name="writer" value=""/>
