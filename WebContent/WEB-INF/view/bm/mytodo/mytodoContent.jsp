@@ -22,8 +22,8 @@
 
 
 
+
 <!-- 
-<script>
    function wrapWindowByMask(){
       //화면의 높이와 너비를 구한다.
       var maskHeight = $(document).height();  
@@ -66,96 +66,36 @@
           $('.window').hide();  
       });      
    });
+ -->
+ <script type="text/javascript">
+$(document).ready(function(){
+		$("#bmupdatebutton").click(function(){
+				var result = confirm('업무완료 처리하시겠습니까?');
+					if(bm_state != 2){
+						window.location="/JackPot/mytodo_state_update.jp?bm_num=${bm_num}";
+					}else if(bm_state == 2){
+						
+					}
+				});
+			});
+
+
+
 </script>
 
- -->
 
-<title> 업무관리  </title>
+<title> 내가한 업무 요청 조회 </title>
 </head>    
  <body>
-<!-- ========================================================사이드바======================================================================= -->		
-
-	<div id="page-container">
-		<div id="sidebar">
-			</div>
-			<div id="subarea">	
-				<div id="leftmenu-jp">
-					<div class="leftmenu-top">
-						<h2><a href="/JackPot/bmList.jp">업무관리 </a></h2>
-					</div>
-					
-					<div id="leftmenuarea">
-					<ul class="menulist" style="margin:0;padding:0;list-style:none;">
-						<li >
-							<a href="/JackPot/bmForm.jp">업무등록 </a><br>
-						</li>
-						<li><hr color=" lightgrey " size="1"></li>
-			
-						
-					
-						<li >
-							<a style="display:inline-block;height:20px;">To - Do</a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-							   		<li style="text-align:center;"><a href="/JackPot/mytodoList.jp">나의 할일 </a></li>
-							   		<li><hr color=" lightgrey " size="1"></li>
-							   	</ul>
-						</li>
-							  
-							
-						<li >
-							<a style="display:inline-block;height:20px;">업무요청 </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmYCHList.jp">내가 한 업무 요청</a> </li>
-								      <li><a href="/JackPot/SSBmYCHList.jp">수신  업무 요청</a></li>
-								      <li><a href="/JackPot/ChZBGBmYCHList.jp">참조  업무 요청</a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li>
-							<a style="display:inline-block;height:20px;">업무보고  </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmBGList.jp">내가 한 보고 </a> </li>
-								      <li><a href="/JackPot/SSBGBmList.jp">수신  업무 보고 </a></li>
-								      <li><a href="/JackPot/ChZBGBmList.jp">참조  업무 보고 </a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li >
-							<a style="display:inline-block;height:20px;">업무일지  </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmWriteList.jp">내가 작성한 업무 일지  </a> </li>
-								      <li><a href="/JackPot/SSBmList.jp">수신  업무 일지  </a></li>
-								      <li><a href="/JackPot/ChZBmList.jp">참조  업무 일지 </a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li>
-							<a >업무보관함   </a>
-						</li>
-						<li><hr color=" lightgrey " size="1"></li>
-						
-						<li>
-							<a >업무보관함 관리    </a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			</div>
-			</div>
-<!-- ================================================================================================================================================= -->		
-
-
+<jsp:include page="bm_sidebar.jsp" flush="false" />
 <div id="main-contents">
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
 <div class="con-header">
     <h2>나의 할 일 조회</h2>
-</div>
+    </div>
+<form id="mytodocont">
 <div class="form-block">
-
                 <table class="table">
                     <caption></caption>
                     <tbody>
@@ -175,53 +115,101 @@
                             
                         </tr>
 	                  
-                        
 						<tr>
 							<th scope="row">업무기한 </th>
-                            <td>
+                            <td colspan="3">
                                 <div>
                                 	${bmdto.bm_start } ~ ${bmdto.bm_end }
                                 </div>
                    	 	</tr>
-
-  						<tr>
-							<th scope="row">업무보관함    </th>
+                   	 	
+                   	 	<tr>
+							<th scope="row">업무등록일  </th>
+							
+							<c:if test="${bmdto.enrollment == null }">
+ 							<td>
+                                <div>
+                                  
+                                </div>            
+                            </td>                   
+ 							</c:if>
+ 							
+ 							<c:if test="${bmdto.enrollment != null }">
                             <td>
                                 <div>
-                                	${bmdto.box_name }
+                                	${sdf.format(bmdto.enrollment) }
                                 </div>
+                                </td>
+                                </c:if>
+                                
+ 							<th scope="row">수정일  </th>
+ 							
+ 							<c:if test="${bmdto.update_day == null }">
+ 							<td>
+                                <div> </div>                               
+ 							</c:if>
+ 							
+                            <c:if test="${bmdto.update_day != null }">
+                            <td>
+                                <div>
+                                  	${sdf.format(bmdto.update_day) }
+                                </div>           
+				      	 	 </td>     
+							</c:if>               
+                   	 	</tr>
+                    
+                 
+                        
+  						<tr>
+							<th scope="row">업무보관함    </th>
+                            <td colspan="3">
+                          
+                                	${bmdto.box_name }
+                               
                    	 	</tr>
                    	 	
-  						<tr>
+  						<tr style=" height: 500px;">
 							<th scope="row">업무내용  </th>
-                            <td>
+                            <td colspan="3">
                                 <div>
                                 	${bmdto.bm_content }
                                 </div>
                    	 	</tr>
                    	 	
-  						<tr>
+                   	 	<tr>
 							<th scope="row">첨부파일    </th>
-							<c:if test="${bmdto.sysfile == null }">
-                            <td>
+							<c:if test="${fileCount == 0}">
+                            <td colspan="3">
                                 <div>
                              		첨부파일이 없습니다.
                                 </div>
 						    </td>
 							</c:if>
                    	 	
-                   	 		<c:if test="${bmdto.sysfile != null }">
-                            <td>
-                                <div>
-                                	${bmdto.sys_file }
+                   	 		<c:if test="${fileCount > 0}">
+                            <td colspan="3">
+								<div>
+
+                                	<c:forEach var="Bm_file" items="${Bm_file}">
+										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
+									</c:forEach>
                                 </div>
 						    </td>
 							</c:if>
                    	 	</tr>
-                   	 	
 
 
-</tbody></table></div></div></div>
+</tbody></table></div>
+			<div class="btn-wrap" >
+			<c:if test="${bm_state != 2 }">
+				<button type="button" id="bmupdatebutton" class="btn2 btn-color7 br">업무완료 </button>
+     		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
+    			</c:if>
+    			<button type="button" onClick="window.location='my_bm_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+    			<button type="button" onClick="window.location='mytodoList.jp'"class="btn2 btn-color7 br">목록  </button>
+    
+    		</div>
+</form></div></div>
 </div>
 </body>
 </html>

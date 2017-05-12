@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/community.css?ver=11" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=19" rel="stylesheet" type="text/css">
+
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
@@ -178,7 +179,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    $(".boardmenu>a").click(function(){
+    $("#menuTreeTitle>a").click(function(){
         var boardmenu = $(this).next("ul");
         if( boardmenu.is(":visible") ){
             boardmenu.slideUp();
@@ -292,40 +293,81 @@ Dropzone.options.myDropzone = {
 		};
 
 </script>
-</head>
 
 <body>
-<div id="page-container">
+<div id="page-container"  class="sub sidebar-mini sidebar-subarea">
 	<div id="sidebar">
+<div class="sidebar-content"> 
+ <h1>
+		 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
+		   <img src="/JackPot/save/home.png" width=50px, height=50px style="margin:5;">
+   <span id="brand" class="brand none">  
+	</span>	 
+   </a>
+ </h1>
+</div>
 
-	</div>
 	<div id="subarea">	
-		<div id="leftmenu">
+		<div class="leftmenu">
+		<h1 class="blind">Left Menu</h1>
 			<div class="leftmenu-top">
-				<h2><a href="/JackPot/community.jp">게시판</a></h2>
-			</div>
-			<div id="leftmenuarea">
-				<ul class="menulist" style="margin:0;padding:0;list-style:none;">
-					<li style="text-align:center;height:40px;border-style:solid;border-width:thin;border-color:lightgray;">
-						<a href="#" class="btn-example" onclick="layer_open('layer1');return false;">게시물 등록</a>
+				<h2 style="margin:20;" >게시판</h2>
+</div>
+			
+	<div class="leftmenu-inner-scroll mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" 
+style="height: 100%; position: relative; overflow: visible;"><div id="mCSB_1" 
+class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" 
+style="max-height: none;" tabindex="0"><div id="mCSB_1_container" 
+class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" 
+style="position:relative; top:0; left:0;" dir="ltr">
+				<ul class="menulist" >
+				<li>
+		<div class="btn-wrap-leftMenu row">
+					
+					<button type="button" class="btn btn-color7 br w100p" onclick="layer_open('layer1');return false;">게시물 등록</button>
+						
+					
+					</div>		
 					</li>
-					<li style="text-align:center;height:40px;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
-					<a href="/JackPot/community.jp" style="text-decoration:none;">최근게시글</a></li>
-					<li class="boardmenu" style="width:208px;display:inline-block;text-align:center;border-style:solid;border-top-style:none;border-width:thin;border-color:lightgray;">
-					<a style="display:inline-block;height:40px;">게시판 목록</a>
-								   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li>공지사항</li>
-								      <li>자유게시판</li>
-								      <li>게시판1</li>
-								      <li>게시판2</li>
-								      <li>게시판3</li>
+					
+		<li data-submenu="listAllBoardItem" class="current">
+					<a href="community.jp" class="sidebar-nav-menu">최근게시글</a>
+					
+				</li>
+				
+				<li id="menuTreeTitle">
+		
+					<a style="display:inline-block;height:40px;">게시판 목록 <img src="/JackPot/save/arrow.png" width="20" height="20" style="margin: 0 49;">	</a>		
+			<ul style="display: block;">
+						
+					 <ul style="margin: 0 40; font-size: 17; text-decoration:none;">
+					 
+					
+					 <i class="jstree-icon jstree-ocl" role="presentation"></i>
+					 
+								     <a class="jstree-anchor" href="gongji.jp" tabindex="-1" id="7860780_anchor">
+								     <i class="jstree-icon jstree-themeicon" role="presentation">
+								     </i> <img src="/JackPot/save/folder.png" width="15" height="15"> &nbsp;공지사항</a>  <br/>
+								     
+								     <a class="jstree-anchor" href="free.jp" tabindex="-1" id="7860780_anchor">
+								     <i class="jstree-icon jstree-themeicon" role="presentation">
+								     </i><img src="/JackPot/save/folder.png" width="15" height="15"> &nbsp;자유게시판</a> <br/>
+								     
+								     <a class="jstree-anchor" href="etc.jp" tabindex="-1" id="7860780_anchor">
+								     <i class="jstree-icon jstree-themeicon" role="presentation">
+								     </i><img src="/JackPot/save/folder.png" width="15" height="15"> &nbsp;기타</a>
+								     
+								   
 								   </ul>
-					</li>
+					</li>				
+				
+			
+							
 				</ul>
 			</div>
 		</div>
 	</div>
-
+</div>
 
 	<div id="main-container" style="position: fixed;top: 0;left: 500; width:1000px;">
 
@@ -372,12 +414,12 @@ Dropzone.options.myDropzone = {
 <caption></caption>
 		
 	<div class="content-list">			
-		<table class="table table-striped">   
+		<table class="table table-striped" style="margin: 20;">   
 		<caption></caption> 
 		<colgroup>
 		<col style="width: 50px;">
-		<col style="width: 300px;">
-		<col style="width: 160px;">
+		<col style="width: 280px;">
+		<col style="width: 150px;">
 		<col style="min-width:200px;">
 		<col style="width: 200px;">
 		<col style="width: 90px;">
@@ -396,7 +438,6 @@ Dropzone.options.myDropzone = {
 				<th scope="col">
 			      제목						
 				</th>
-				
 				
 				<th scope="col">
 					등록자
@@ -467,7 +508,7 @@ Dropzone.options.myDropzone = {
 								<div class="pop-container">
 									<div class="pop-conts">
 										<a href="#" class="btn-example2" onclick="layer_open('layer2');return false;">게시판</a>
-											<div id="layer2" class="pop-layer2">
+											<div id="layer2" class="pop-layer2" style="display: block; margin-top: -301px; margin-left: -250px;">
 										<div class="contents">	
 								  			<div class="pop-top2">
 											게시판 <a href="#" class="cbtn2"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
@@ -481,7 +522,16 @@ Dropzone.options.myDropzone = {
 													<div>
 														<form action="commInsert.jp" name="insert" method="post">
 														<ul>
-															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li><li style="width:80%;">자유게시판<input type="hidden" name="btype"></li>
+															<li style="width:20%;background-color:#f5f5f5;">게시판 명</li>
+															
+															<select name="btype" style="width:130px; height: 27px;">
+   														 <option value="1">공지사항</option>
+   														 <option value="2">자유게시판</option>
+ 													     <option value="3">기타</option>
+															</select>
+															
+															<li style="width:80%;">
+															
 														</ul>
 														<ul>
 															<li style="width:20%;background-color:#f5f5f5;">*제목</li><li style="width:80%;"><input type="text" name="title" ></li>
@@ -512,7 +562,7 @@ Dropzone.options.myDropzone = {
 												</div>
 											</div>
 										<div class="btn-r2">
-											<a href="#" class="cbtn2">닫기</a>
+											<a href="#" class="cbtn">닫기</a>
 										</div>
 									</div>
 									</div>

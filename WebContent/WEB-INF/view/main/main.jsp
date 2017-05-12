@@ -243,8 +243,14 @@ height: 200px;
 		 
 		
 		<ul style="list-style:none">
-		
 
+<c:if test="${memId == null}">
+ <div class="m-box coworker">
+     <h2 align="right"><a href="loginform.jp">로그인 해주세요</a></h2>
+ </div>
+</c:if>
+
+<c:if test="${memId != null}">
   <div class="m-box coworker">
 		
 
@@ -278,6 +284,8 @@ height: 200px;
     </div>
     
     </div>                    
+  </c:if>
+  
   
    </div>
    </ul>
@@ -287,11 +295,7 @@ height: 200px;
 </div>
 
   
-	
-   
 
-  
-	
    
 	
 <form name="myform" action="loginPro.jp" method="post" onSubmit="return checkIt()">

@@ -16,7 +16,7 @@
         
         
         <select id="member" resultClass="dto" parameterClass="String">
-            select * from emp where emp_num=#emp_num# 
+            select * from emp where EMP_NUM=#EMP_NUM# 
         </select>
         
         <select id="memberAll" resultClass="dto" >

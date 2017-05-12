@@ -13,12 +13,18 @@
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=9" type="text/css" />   
-
+<script src="/JackPot/js/jquery.form.min.js"></script><!-- 파일업로드 (jquery plug-in) -->
+<script src="/JackPot/js/jQuery.MultiFile.min.js"></script>
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
-
-
+<style type="text/css">
+.plupload_wrapper {
+    font-family: "Nanum Gothic", NanumGothic, 나눔고딕, NanumGothic, ng, 돋움, Dotum, Helvetica, "Apple SD Gothic Neo", sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+}
+</style>
 
 <script type="text/javascript">
 	 
@@ -78,7 +84,7 @@
 						changeMonth: true, 
 						dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
 						monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-						
+						minDate : 'd',
 					});
      	      
      	  
@@ -160,8 +166,43 @@
 	  	  }
     } */
 
+
+	function checkIt() {
+		var bminput = eval("document.forms.bminput"); //forms : 전체폼중에서 bminput을 사용한다.
+		
+		if(!bminput.bm_title.value) {
+			alert("제목을 입력하시요.");
+			return false;
+		}
+	}
+	
+	
+	/* 파일 다중 업로드 */
+	$(document).ready(function(){
+    
+    	//use jQuery MultiFile Plugin 
+	    $('#inputfile input[name=org_file]').MultiFile({
+    	    max: 3, //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
+        	accept: '',
+	        maxfile: 1024, //각 파일 최대 업로드 크기
+    	    maxsize: 3024,  //전체 파일 최대 업로드 크기
+        	STRING: { //Multi-lingual support : 메시지 수정 가능
+	            remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
+    	        duplicate : "$file 은 이미 선택된 파일입니다.", 
+        	    denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
+	            selected:'$file 을 선택했습니다.', 
+    	        toomuch: "업로드할 수 있는 최대크기를 초과하였습니다.($size)", 
+        	    toomany: "업로드할 수 있는 최대 갯수는 $max개 입니다.",
+	            toobig: "$file 은 크기가 매우 큽니다. (max $size)"
+    	    },
+        	list:"#file-list" //파일목록을 출력할 요소 지정가능
+	    });
+	});
+	
+
 	
 </script>
+
 
 <script>
 function openInchar(){
@@ -237,83 +278,9 @@ function resetAll(){
 <title> 업무관리</title>
 </head>    
  <body>
-<!-- ========================================================사이드바======================================================================= -->		
-
-	<div id="page-container">
-		<div id="sidebar">
-			</div>
-			<div id="subarea">	
-				<div id="leftmenu-jp">
-					<div class="leftmenu-top">
-						<h2><a href="/JackPot/bmList.jp">업무관리 </a></h2>
-					</div>
-					
-					<div id="leftmenuarea">
-					<ul class="menulist" style="margin:0;padding:0;list-style:none;">
-						<li >
-							<a href="/JackPot/bmForm.jp">업무등록 </a><br>
-						</li>
-						<li><hr color=" lightgrey " size="1"></li>
-			
-						
-					
-						<li >
-							<a style="display:inline-block;height:20px;">To - Do</a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-							   		<li style="text-align:center;"><a href="/JackPot/mytodoList.jp">나의 할일 </a></li>
-							   		<li><hr color=" lightgrey " size="1"></li>
-							   	</ul>
-						</li>
-							  
-							
-						<li >
-							<a style="display:inline-block;height:20px;">업무요청 </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmYCHList.jp">내가 한 업무 요청</a> </li>
-								      <li><a href="/JackPot/SSBmYCHList.jp">수신  업무 요청</a></li>
-								      <li><a href="/JackPot/ChZBGBmYCHList.jp">참조  업무 요청</a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li>
-							<a style="display:inline-block;height:20px;">업무보고  </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmBGList.jp">내가 한 보고 </a> </li>
-								      <li><a href="/JackPot/SSBGBmList.jp">수신  업무 보고 </a></li>
-								      <li><a href="/JackPot/ChZBGBmList.jp">참조  업무 보고 </a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li >
-							<a style="display:inline-block;height:20px;">업무일지  </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmWriteList.jp">내가 작성한 업무 일지  </a> </li>
-								      <li><a href="/JackPot/SSBmList.jp">수신  업무 일지  </a></li>
-								      <li><a href="/JackPot/ChZBmList.jp">참조  업무 일지 </a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li>
-							<a >업무보관함   </a>
-						</li>
-						<li><hr color=" lightgrey " size="1"></li>
-						
-						<li>
-							<a >업무보관함 관리    </a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			</div>
-			</div>
-<!-- ================================================================================================================================================= -->		
-
-
+<jsp:include page="bm_sidebar.jsp" flush="false" />
 <div id="main-contents">
-<form name="bminput"method="post" action="/JackPot/bmFormPro.jp" onSubmit="return checkIt();">
+<form name="bminput"method="post" id="inputfile" action="/JackPot/bmFormPro.jp" enctype="multipart/form-data"  onSubmit="return checkIt();">
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
 <div class="form-block">
@@ -443,22 +410,32 @@ function resetAll(){
                             </td>
                         </tr> --%>
               </tbody>
-              </table>
-		</div>           
+              </table></div></div></div>
+              
+              
+		<!--ckeditor 부분 -->
+			
+		<div>
+			<textarea class="ckeditor" cols="1" id="bm_content" name="bm_content" rows="15"></textarea>
 		</div>
-		</div>
-							<!--ckeditor 부분 -->
-					<div>
 					
-						<textarea class="ckeditor" cols="1" id="bm_content" name="${bm_content}" rows="15"></textarea>
-						
-						
-					</div>
-	<div class="btn-wrap" >
-		<input type="submit" value="저장" class="btn btn-color5 br" />
-        <button type="button" onClick="window.location='bmForm.jp'"class="btn2 btn-color7 br">취소</button>
+		<!--파일 부분 -->	
+		<div class="fileup">
+			<div class="fileup_t">
+				<h3>파일 업로드</h3>
+			</div>
+			
+			<div class="plupload_wrapper">
+		
+			파일 : <input type="file" name="org_file" value="파일 첨부" id="fileInp" />
+			<div id="file-list"></div>
+		</div>
+		
+		<div class="btn-wrap" >
+			<input type="submit" value="저장" class="btn btn-color5 br" />
+        	<button type="button" onClick="window.location='bmForm.jp'"class="btn2 btn-color7 br">취소</button>
     
-    </div>
+    	</div>
 </form>
 </div>
 </body>

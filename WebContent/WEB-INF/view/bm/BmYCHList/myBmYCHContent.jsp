@@ -73,80 +73,7 @@
 <title> 내가한 업무 요청 조회 </title>
 </head>    
  <body>
-<!-- ========================================================사이드바======================================================================= -->		
-
-	<div id="page-container">
-		<div id="sidebar">
-			</div>
-			<div id="subarea">	
-				<div id="leftmenu-jp">
-					<div class="leftmenu-top">
-						<h2><a href="/JackPot/bmList.jp">업무관리 </a></h2>
-					</div>
-					
-					<div id="leftmenuarea">
-					<ul class="menulist" style="margin:0;padding:0;list-style:none;">
-						<li >
-							<a href="/JackPot/bmForm.jp">업무등록 </a><br>
-						</li>
-						<li><hr color=" lightgrey " size="1"></li>
-			
-						
-					
-						<li >
-							<a style="display:inline-block;height:20px;">To - Do</a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-							   		<li style="text-align:center;"><a href="/JackPot/mytodoList.jp">나의 할일 </a></li>
-							   		<li><hr color=" lightgrey " size="1"></li>
-							   	</ul>
-						</li>
-							  
-							
-						<li >
-							<a style="display:inline-block;height:20px;">업무요청 </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmYCHList.jp">내가 한 업무 요청</a> </li>
-								      <li><a href="/JackPot/SSBmYCHList.jp">수신  업무 요청</a></li>
-								      <li><a href="/JackPot/ChZBGBmYCHList.jp">참조  업무 요청</a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li>
-							<a style="display:inline-block;height:20px;">업무보고  </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmBGList.jp">내가 한 보고 </a> </li>
-								      <li><a href="/JackPot/SSBGBmList.jp">수신  업무 보고 </a></li>
-								      <li><a href="/JackPot/ChZBGBmList.jp">참조  업무 보고 </a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li >
-							<a style="display:inline-block;height:20px;">업무일지  </a>
-							   <ul style="-webkit-padding-start:0px;width:208px;">
-								      <li><a href="/JackPot/myBmWriteList.jp">내가 작성한 업무 일지  </a> </li>
-								      <li><a href="/JackPot/SSBmList.jp">수신  업무 일지  </a></li>
-								      <li><a href="/JackPot/ChZBmList.jp">참조  업무 일지 </a></li>
-								      <li><hr color=" lightgrey " size="1"></li>
-								   </ul>
-						</li>
-						
-						<li>
-							<a >업무보관함   </a>
-						</li>
-						<li><hr color=" lightgrey " size="1"></li>
-						
-						<li>
-							<a >업무보관함 관리    </a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			</div>
-			</div>
-<!-- ================================================================================================================================================= -->		
-
+<jsp:include page="bm_sidebar.jsp" flush="false" />
 
 <div id="main-contents">
 <div class="content-wrap">
@@ -259,7 +186,7 @@
                    	 	
                    	 	<tr>
 							<th scope="row">첨부파일    </th>
-							<c:if test="${bmdto.sys_file == null }">
+							<c:if test="${fileCount == 0}">
                             <td>
                                 <div>
                              		첨부파일이 없습니다.
@@ -267,10 +194,13 @@
 						    </td>
 							</c:if>
                    	 	
-                   	 		<c:if test="${bmdto.sys_file != null }">
+                   	 		<c:if test="${fileCount > 0}">
                             <td>
-                                <div>
-                                	${bmdto.sys_file }
+								<div>
+                                	<a>첨부 파일</a>
+                                	<c:forEach var="Bm_file" items="${Bm_file}">
+										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
+									</c:forEach>
                                 </div>
 						    </td>
 							</c:if>
@@ -278,8 +208,8 @@
 
 </tbody></table></div>
 			<div class="btn-wrap" >
-     		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
-    			<button type="button" onClick="window.location='myBmdelete.jp?num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+     		   	<button type="button" onClick="window.location='myBmModify.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
+    			<button type="button" onClick="window.location='bm_delete1.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
     			<button type="button" onClick="window.location='bmList.jp'"class="btn2 btn-color7 br">목록  </button>
     
     		</div>

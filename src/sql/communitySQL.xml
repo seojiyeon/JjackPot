@@ -9,10 +9,21 @@
             select com_num,title,content,writer,reg_date,readcount,recommend from community order by com_num desc
 	</select>
 
+       <select id="gongji" resultClass="codto">        
+          select com_num,title,content,writer,reg_date,readcount,recommend from community where btype='1' order by com_num desc
+       </select>
+       
+         <select id="free" resultClass="codto">        
+             select com_num,title,content,writer,reg_date,readcount,recommend from community where btype='2' order by com_num desc
+       </select>
+       
+         <select id="etc" resultClass="codto">        
+  select com_num,title,content,writer,reg_date,readcount,recommend from community where btype='3' order by com_num desc
+       </select>
 
        <insert id="insertComm" parameterClass="codto">
      insert into community(com_num,title,content,writer,readcount,recommend,btype,emp_num) 
-            values(community_seq.nextval,#title#,#content#,#writer#,0,0,1,#emp_num#)
+            values(community_seq.nextval,#title#,#content#,#writer#,0,0,#btype#,#emp_num#)
        </insert>
 
       <update id="readCount" parameterClass="int">

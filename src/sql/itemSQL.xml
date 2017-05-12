@@ -4,9 +4,8 @@
 
 <sqlMap namespace="item">
 	<typeAlias alias="idto" type="jackpot.DTO.ItemDTO"/>
-	<typeAlias alias="icdto" type="jackpot.DTO.ItemCateDTO"/>
 	
-	<!-- 재고 관련 -->
+	<!-- 재고 -->
 	<insert id="itemInsert" parameterClass="idto">
 		insert into item values(
 			item_seq.NEXTVAL, #pro_code#, #barcode#, #pro_name#, #item_division#,
@@ -15,38 +14,25 @@
 		)
 	</insert>
 	
-	<select id="itemListCount" resultClass="int">
-		select count(*) from item
-	</select>
-	
-	<select id="itemList" resultClass="idto">
-		select * from item
-	</select>
-	
-	<!-- 카테고리 관련 -->
+	<!-- 카테고리 -->
 	<!-- 대분류 -->
-	<insert id="bigCateInsert" parameterClass="icdto">
+	<insert id="bigCateInsert" parameterClass="idto">
 		insert into big_cate values(
-			big_cate_seq.NEXTVAL, #big_cate#, #big_use#, #big_name#
+			big_cate_seq.NEXTVAL,
+			#big_code#,
+			#big_name#,
+			#big_use#
 		)
 	</insert>
 	
-	<select id="bigItemList" resultClass="icdto">
-		select * from big_cate
-	</select> 
-	
-	<select id="bigItemListCount" resultClass="int">
+	<select id="bigCateList" resultClass="idto">
+		select * from big_cate order by big_code asc
+	</select>
+	<select id="bigCateCount" resultClass="int">
 		select count(*) from big_cate
 	</select>
-	
-	<!-- 중분류 -->
-	<select id="middleItemList" resultClass="icdto">
-		select * from middle_cate
-	</select>
-	
-	<select id="middleItemListCount" resultClass="int">
-		select count(*) from middle_cate
-	</select>
+	<update id="bigCateUpdate" parameterClass="idto">
+		update big_cate set big_name=#big_name#, big_use=#big_use# where big_num=#big_num#
+	</update>
 
 </sqlMap>
-

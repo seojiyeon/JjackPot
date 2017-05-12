@@ -220,6 +220,11 @@ table {
 	border-bottom-style:solid; 
 	border-bottom-width:2px;
 }
+
+
+.tab-left{width: 300px; position: absolute;}
+.tab-right{position: absolute; left: 300px; text-align:right;}
+
     
 /* a태그 파란글자/밑줄 X */
 a:link {text-decoration:none; color:#000000;}

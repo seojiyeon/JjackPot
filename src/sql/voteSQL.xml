@@ -33,12 +33,15 @@
             delete  from comm where comm_num=#comm_num#
         </delete>  
     
-       <update id="EndVote" parameterClass="int">
-      
-      	update vote set notice=2,v_end=sysdate where v_num=#v_num#
-      
+       <update id="EndVote" parameterClass="int">     
+      	update vote set notice=2,v_end=sysdate where v_num=#v_num#      
       </update>
-     
+      
+      <select id="endList" resultClass="vdto" parameterClass="vdto">
+        select * from vote where notice=2 order by notice asc
+      </select>
+      
+      
       
       <select id="UpVote" resultClass="vdto" parameterClass="vdto">
         select * from vote where notice=1

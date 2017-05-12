@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  
+
 
 
 <style>
@@ -55,7 +55,6 @@ width : 1000px;
     font-size : 12px;
 }
 
-.employee tr:hover{background-color: #ffe6ff}
 
 
 .form-group th{
@@ -146,15 +145,20 @@ ul.tabs li.active {
     margin: 0 auto;
 }
 
+.highlighted {
+    color: #261F1D;
+    background-color: #E5C37E;
+}
+
 
 
 </style>
 
 
 
-<script type="text/javascript">
+<script type="text/javascript" defer>
 
-$(document).ready(function(){
+/* $(document).ready(function(){
     $("#emp1").click(function(){
         $("#emp_name").val("Dolly Duck");
     });
@@ -162,31 +166,58 @@ $(document).ready(function(){
     $("#emp2").click(function(){
        callMsg();
     });
-    
+  
+}); */
+
+
+
+
+
+
+$(document).ready(function(){
+	  $("tr").click(function() {
+	    $(this).closest("tr").siblings().removeClass("highlighted");
+	    $(this).toggleClass("highlighted");
+	  })
+	});
+
+
+
+
+
+$(document).on('click','#emp', function(){
+	
+	var MyRows = $('table#htmlTable').find('tbody').find('tr');	
+	var trNum = $(this).closest('tr').prevAll().length;	
+	var id = $(MyRows[trNum]).find('td:eq(0)').html();
+     
+		   callMsg(id);
+		   
 });
 
-function callMsg(){
+
+
+
+
+
+
+function callMsg(id){
 	 $.ajax({
 	        type: "post",
-	        url : "empmem.jp",
-	        success: test,	// 페이지요청 성공시 실행 함수
-	        error: whenError	//페이지요청 실패시 실행함수
+	        url : "empmem.jp?id="+id,
+	        dataType : "html",
+	        success: test,	
+	        error: whenError	
   	});
 }
 
-function test(aaa){	// 요청성공한 페이지정보가 aaa 변수로 콜백된다. 
-    $(".main").html(aaa);	//id가 ajaxReturn인 부분에 넣어라
+function test(aaa){	
+    $(".main").html(aaa);	
     
 }
 function whenError(){
     
 }
-
-
-
-
-
-
 
 
 
@@ -241,8 +272,6 @@ $(function(){
 		return false;
 	});
 });
-
-
 
 
 
@@ -337,9 +366,9 @@ $(function(){
 
 <div class="employee">
 
-<table border="0" width="1000" cellpadding="0" cellspacing="0" align="center"> 
+<table id="htmlTable" border="0" width="1000" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30"  > 
-     <th align="center"  width="100"  > <b>사원번호</b></th> 
+     <th align="center"  width="100" > <b>사원번호</b></th> 
       <th align="center"  width="100" ><b>성명</b></th> 
       <th align="center"  width="50" ><b>직책</b></th>
       <th align="center"  width="100" ><b>부서</b></th>
@@ -351,11 +380,11 @@ $(function(){
 
 
  <c:forEach var="article" items="${articleList}" varStatus="st">
-   <tr height="30" id="emp${st.count}">
+   <tr height="30" id="emp">
     <td align="center"  width="50" >
 	  ${article.emp_num}
 	</td>
-    <td  width="130"> ${article.emp_name} </td>	
+    <a href="#bar"><td  width="130" id="bar"> ${article.emp_name} </td></a>	
 	<td width="100" align="center"> ${article.rank}	</td>
 	<td align="center">${article.department} </td>
 	<td align="center">${article.hiredate}</td>	
@@ -372,7 +401,7 @@ $(function(){
 
 
 
-<div class="main">
+<div class="main" data-role="page">
 
 </div>
 		

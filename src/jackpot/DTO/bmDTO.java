@@ -143,7 +143,7 @@ public class bmDTO {
 	/*업무담당자(incharge)*/
 	private int num;		/*번호*/
 	private String inchar_name;		/*업무담당자 이름*/
-	private String inchar_brunch;	/*업무담당자 지점*/
+	private String inchar_branch;	/*업무담당자 지점*/
 	private String inchar_depart;	/*업무담당자 부서*/
 	private String inchar_position;	/*업무담당자 직급*/
 
@@ -160,11 +160,11 @@ public class bmDTO {
 	public void setInchar_name(String inchar_name) {
 		this.inchar_name = inchar_name;
 	}
-	public String getInchar_brunch() {
-		return inchar_brunch;
+	public String getInchar_branch() {
+		return inchar_branch;
 	}
-	public void setInchar_brunch(String inchar_brunch) {
-		this.inchar_brunch = inchar_brunch;
+	public void setInchar_branch(String inchar_branch) {
+		this.inchar_branch = inchar_branch;
 	}
 	public String getInchar_depart() {
 		return inchar_depart;

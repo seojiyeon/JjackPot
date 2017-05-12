@@ -48,7 +48,7 @@
 		<div class="table-header">
 			<div class="listInfo">
 				<select name="pageSize">
-					<option value="10" selected="selected">10</option>
+					<option value="10" selected>10</option>
 					<option value="20">20</option>
 					<option value="30">30</option>
 					<option value="40">40</option>
@@ -71,13 +71,6 @@
 						<span><font color="red">${viewCount}</font></span>
 					</c:if>
 				</div>
-				
-				<select class="mr10" name="sortWord">
-					<option value="REGIST_DATE:DESC" selected="selected">등록일(최신순)</option>
-					<option value="REGIST_DATE:ASC">등록일(최신순)</option>
-					<option value="TITLE:ASC">등록일(오름)</option>
-					<option value="TITLE:DESC">등록일(내림)</option>
-				</select>
 			</div>
 			<form action="memoList.jp?memoGroup=${memoGroup}" method="post" name="searchForm">
 			<div class="table-search">
@@ -106,7 +99,14 @@
 						<tr>
 							<td>
 								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" class="memoNum"/>
-								<a onclick="memoStateChange.jp?memo_num=${memoCont.memo_num}&memoGroup=${memoGroup}&pageNum=${pageNum}"><i class="icon nonimp"></i></a>
+								<span onclick="window.location='memoStateChange.jp?memoGroup=${memoGroup}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memo_state=${memoCont.memo_state}'">
+									<c:if test="${memoCont.memo_state == 1}">
+										<i class="icon nonimp"></i>
+									</c:if>
+									<c:if test="${memoCont.memo_state == 2}">
+										<i class="icon imp"></i>
+									</c:if>
+								</span>
 								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
 							</td>
 						</tr>
@@ -139,7 +139,14 @@
 						<tr>
 							<td>
 								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
-								<i class="icon nonimp">	</i>
+								<span onclick="window.location='memoStateChange.jp?memoGroup=${memoGroup}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memo_state=${memoCont.memo_state}'">
+									<c:if test="${memoCont.memo_state == 1}">
+										<i class="icon nonimp"></i>
+									</c:if>
+									<c:if test="${memoCont.memo_state == 2}">
+										<i class="icon imp"></i>
+									</c:if>
+								</span>
 								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.memo_title}</a></font>
 							</td>
 						</tr>
@@ -172,7 +179,6 @@
 						<tr>
 							<td>
 								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
-								<i class="icon nonimp">	</i>
 								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
 							</td>
 						</tr>
@@ -205,7 +211,14 @@
 						<tr>
 							<td>
 								<input type="checkbox" value="${memoCont.memo_num}" name="memo_num" />
-								<i class="icon nonimp">	</i>			
+								<span onclick="window.location='memoStateChange.jp?memoGroup=${memoGroup}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memo_state=${memoCont.memo_state}'">
+									<c:if test="${memoCont.memo_state == 1}">
+										<i class="icon nonimp"></i>
+									</c:if>
+									<c:if test="${memoCont.memo_state == 2}">
+										<i class="icon imp"></i>
+									</c:if>
+								</span>			
 								<font size="3"><a href="memoContent.jp?emp_num=${memoCont.emp_num}&memo_num=${memoCont.memo_num}&pageNum=${pageNum}&memoGroup=${memoGroup}">${memoCont.getMemo_title()}</a></font>
 							</td>
 						</tr>

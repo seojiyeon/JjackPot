@@ -247,4 +247,18 @@ public class voteBean {
 		 return "/vote/garbage";
 		
 	}
+	
+	@RequestMapping("/listVote.jp")
+	public String listVote(voteDTO dto,HttpServletRequest request,Model model){
+		
+		List articleList=null;
+		
+		articleList=sqlMap.queryForList("vote.endList", dto);
+		model.addAttribute("articleList",articleList);
+		
+		 
+		return "/vote/listVote";
+	}
+	
+	
 }  //end

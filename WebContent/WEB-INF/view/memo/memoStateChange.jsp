@@ -2,8 +2,4 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<head>
-<title>재고관리</title>
-</head>
-
-<c:redirect url="itemCate.jp" />
+<c:redirect url="memoList.jp?pageNum=${pageNum}&memoGroup=${memoGroup}"></c:redirect>
