@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -101,6 +102,12 @@ public class CalendarBean {
 	public @ResponseBody calendarDTO contents(HttpServletRequest request,HttpServletResponse response ,calendarDTO cdto){
 		String id = request.getParameter("id");
 		calendarDTO contents = (calendarDTO) sqlMap.queryForObject("calendar.getcontents", id);
+		String participants ="";
+		StringTokenizer st = new StringTokenizer(contents.getCl_participants(), ",");
+		while(st.hasMoreTokens()){
+			participants = participants + sqlMap.queryForObject("calendar.getparticipantsname", st.nextToken()) +", ";
+		};
+		contents.setCl_participants(participants);
 		return contents;
 	}
 
@@ -133,10 +140,15 @@ public class CalendarBean {
 		  cdto.setCl_stime(multi.getParameter("stime"));
 		  cdto.setCl_edate(multi.getParameter("edate"));
 		  cdto.setCl_etime(multi.getParameter("etime"));
-		  cdto.setCl_participants(edto.getBranch()+" "+edto.getEmp_name()+" "+edto.getPosition());
+		  cdto.setCl_participants(multi.getParameter("participants"));
 		  cdto.setCl_contents(multi.getParameter("contents" ));
 		  cdto.setCl_writer(edto.getEmp_name());
-		
+		  cdto.setBranch(Integer.parseInt(multi.getParameter("branch")));
+		  cdto.setDepartment(Integer.parseInt(multi.getParameter("department")));
+		  cdto.setCl_private(multi.getParameter("cl_private"));
+		  System.out.println(cdto.getCl_private());
+		  System.out.println(cdto.getBranch());
+		  System.out.println(cdto.getDepartment());
 		  if(cl_num==null){
 			  sqlMap.insert("calendar.insertCalendar",cdto);
 		  }
@@ -159,8 +171,7 @@ public class CalendarBean {
 		      sqlMap.update("calendar.updateCalendar2", cdto);	  
 			  }
 		  }
-		  
-		return "/calendar/calendar";
+		return "/calendar/calendarReFresh";
 	}
 	
 	
@@ -179,7 +190,7 @@ public class CalendarBean {
 			e.printStackTrace();
 		}
 		sqlMap.delete("calendar.delete", cl_num);
-		return "/calendar/calendar";
+		return "/calendar/calendarReFresh";
 	}
 	
 	@RequestMapping("/calendarFiledown.jp")

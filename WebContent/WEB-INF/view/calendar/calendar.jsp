@@ -12,8 +12,10 @@ a:link{color:black;}
 a:hover{none;}
 </style>
 
-<script>
+<script type="text/javascript">
+
 var idlist = new Array();
+var idlistname = new Array();
 
     $(document).ready(function(){
         $(".departmentmenu>a").click(function(){
@@ -55,7 +57,9 @@ var idlist = new Array();
         	var namelist = $(this);
         	var id = $(this).attr('id');
         	var name = $(this).text();
+        	var name2 = name.substring(0,3);
         	var selectedlist = $(".selected-list");
+        	
         	var exist = false;
     		for(i = 0 ; i < idlist.length;i++){
     			if(idlist[i] == id){
@@ -66,11 +70,24 @@ var idlist = new Array();
     		if(! exist){
     			$(".selected-list").append("<li class="+id+"><a href=# onClick=selected_click("+id+")>"+name+"</a></li>");
     			idlist.push(id);
+    			idlistname.push(name2);
     		}
         	namelist.css("background-color","turquoise");
         });
+        
+        $('#select').change(function(){
+        	var state = $('#select option:selected').val();
+        	if(state == '지점일정'){
+        		$('.title-selected-branch').fadeIn();
+        	} else { $('.title-selected-branch').hide(); }
+        	if(state == '부서일정'){
+        		$('.title-selected-department').fadeIn();
+        	} else { $('.title-selected-department').hide(); }
+        	if(state == '개인업무'){
+        		$('.title-selected-private').fadeIn();
+        	} else { $('.title-selected-private').hide(); }
+        });
     });
-    
     function selected_click(id){
     	var select = id.getAttribute('id');
     	$("."+select).remove();
@@ -78,9 +95,9 @@ var idlist = new Array();
     	for(i=0;i < idlist.length; i++){
     		if(idlist[i] == select){
     			idlist.splice(i,1);
+    			idlistname.splice(i,1);
     		}
     	}
-    	console.log(idlist);
     }  
 
 function updatebutton_click(id){
@@ -100,9 +117,6 @@ function updatebutton_click(id){
        		
        		$(".insertForm-contents-li2").html("<textarea name=contents class=insertForm-contents placeholder= 내용 >"+contents.cl_contents+"</textarea>");
        		$(".insertForm-hidden").html("<input type=hidden name=num value="+contents.cl_num+"></input>");
- 		/*       	
-				<li class="insertForm-name">참여자</li><li><input type="text" name="name" id="participants" class="participants"/></li><li id="addparticipants"><a>추가</a></li>
-		*/
 		}, 
 		error : function(){
 			alert("error");
@@ -136,6 +150,8 @@ function checkIt(){
     		}
     	}
     }
+    idlist.splice(0,idlist.length);
+    idlistname.splice(0,idlistname.length);
 }
 
 function checkIt2(){
@@ -165,9 +181,6 @@ function checkIt2(){
     	}
     }
 }
-</script>
-
-<script type="text/javascript">
 
 function layer_open(el){
 	var temp = $('#' + el);		//레이어의 id를 temp변수에 저장
@@ -203,7 +216,9 @@ function add_open(addform){
 		e.preventDefault();
 	});
 	temp.find('a.add-addbtn').click(function(e){
-		alert("asd");
+		temp.fadeOut();
+		$('.layer1-participants').html("<input type=text id=participants readonly value="+idlistname+"></input><input type=hidden name=participants value="+idlist+"></input>")
+		e.preventDefault();
 	})
 	
 }
@@ -324,14 +339,14 @@ function add_open(addform){
         <div id="layer1" class="pop-layer">
 			<div id="calendarform">
 				<div class="calendarformTop">
-				  일정 <a href='javascript:window.close();'><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
+				  일정
 				</div>
 			<div class="calendarform">
     			<form action="calendarPro.jp" name="userinput" method="post" enctype="multipart/form-data" onSubmit="return checkIt()">
   					<ul>
-  						<li><select name="title">
+  						<li><select id="select" name="title">
    						<optgroup label="업무일정">
-  						<option value="회사일정">회사일정</option>
+  						<option value="회사일정" selected="selected">회사일정</option>
   						<option value="지점일정">지점일정</option>
   						<option value="부서일정">부서일정</option>
   						<option value="개인업무">개인업무</option>
@@ -342,15 +357,36 @@ function add_open(addform){
     					</optgroup>
   						</select>
     					</li>
-    					<li><input type="text" placeholder=" 제목" name="subject" style="width:300px"></li>
-    				</ul>
+    					<li><input type="text" placeholder=" 제목" name="subject" style="width:300px"></li></ul>
+   						<ul class="title-selected-branch" style="display:none;"><li>
+   						<select name="branch">
+   						<optgroup label="지점등록">
+   						<option value="1">강남</option>
+   						<option value="2">종로</option>
+   						<option value="3">동작</option>
+   						<option value="4">수지</option>
+   						<option value="5">용인</option>
+   						<option value="6">인천서구</option>
+   						</optgroup>
+   						</select></li></ul>
+   						<ul class="title-selected-department" style="display:none;"><li>
+   						<select name="department">
+   						<optgroup label="부서등록">
+   						<option value="1">서비스</option>
+   						<option value="2">제조,화학</option>
+   						<option value="3">it,웹,통신</option>
+   						</optgroup>
+   						</select></li></ul>
+   						<ul class="title-selected-private" style="display:none;"><li>
+   						<label><input type="checkbox" name="private" value="private" style="margin:0;vertical-align:middle;">비공개</label><br>* 일정을 참여자 외 다른 직원과 공유하지 않을 경우 비공개를 <br>  선택하시기 바랍니다.
+   						</li></ul>   					
    						<ul><li><input type="text" placeholder=" 장소" name="place" style="width:398px"></li></ul>
    						<ul style="margin: 7 0 10 0;"><li style="width:398px">파일첨부<br/><input type="file" name="file" style="width:65%;padding-left: 0px;"></li></ul>
    						<ul><li>시작일    <input type="date" name="sdate" id="sdate" />
     					<input type="time" name="stime" step="1800" value="00:00"/></li></ul>
     					<ul><li>종료일    <input type="date" name="edate" />
     					<input type="time" name="etime" step="1800" /></li></ul>
-						<ul><li>참여자<br/><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a></li></ul>
+						<ul><li class="layer1-participants">참여자<br/><input type="text" name="name" id="participants"/></li><li id="addparticipants"><a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a></li></ul>
    						<ul><li><br/><textarea name="contents" placeholder=" 내용"style="width:398px;border-radius:3px;border:1px solid darkgray;"></textarea></li></ul>
   						<ul><li><input type="submit" value="전송"></li><li><input type="reset" value="취소"></li></ul>
     					<input type="hidden" name="writer" value=""/>
@@ -365,7 +401,7 @@ function add_open(addform){
 			<div id="layer2" class="pop-layer2">
 				<div class="contents">	
 					<div class="contentsTop">
-						일정 <a href='javascript:window.close();'><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
+						일정
 					</div>
 					<div class="contentsbody">
 						<div class="contents-date">
@@ -475,9 +511,9 @@ function add_open(addform){
 				</div>
 			</div>
 			<div class="participants-Form-btn">
-				<ul style="padding: 5 0 0 10px;list-style: none;">
-					<li style="display:inline-block;float:right;"><a href="#" class="add-addbtn">추가</a></li>
-					<li style="display: inline-block;float:right;"><a href="#" class="add-cbtn">닫기</a></li>
+				<ul>
+					<li><a href="#" class="add-cbtn">닫기</a></li>
+					<li><a href="#" class="add-addbtn">추가</a></li>
 				</ul>
 			</div>
 		</div>

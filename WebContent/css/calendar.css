@@ -83,7 +83,7 @@ a{text-decoration:none;}
 .contents-writer li{display:inline-block;padding-right:35px;margin:0 0 5 0;}
 .contents-conts{border-top:1px solid lightgray;}
 
-#participants-Form{position:fixed;width:850px;top:0px;left:27%;background-color:white;display:none;margin:196px auto 0px;}
+#participants-Form{position:fixed;width:850px;top:0px;left:27%;background-color:white;display:none;margin:196px auto 0px;border: 1px solid darkgray;}
 .participants-Form-top{position:relative;height:40px;border:1px solid black;background-color:#555154;}
 .participants-Form-con-top{display:inline-block;width:480px;}
 .participants-Form-con-tab{width:472px;display:inline-block;}
@@ -103,4 +103,6 @@ a{text-decoration:none;}
 .add-cbtn{margin: 0 40 0 0;}
 .participants-Form-con-selected{position: relative;float: right;border: 1px solid lightgray;width: 250px;min-height:200px;margin: 10 50 0 0;}
 .selected-list li{list-style:none;}
+.participants-Form-btn ul{padding: 5 0 0 10px;list-style: none;}
+.participants-Form-btn li{display: inline-block;float: right;padding: 0 10 0 0;}
 
