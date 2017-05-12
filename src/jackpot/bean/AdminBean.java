@@ -38,12 +38,9 @@ public class AdminBean {
 	public String empmem(HttpServletRequest request, empDTO dto, HttpSession session, Model model){
 		String id = request.getParameter("id");
 		id = id.trim();
-		
-		System.out.println(id);
-		
 		List articleList = null;
 		dto = (empDTO) sqlMap.queryForObject("employee.member", id);		
-		System.out.println(dto);
+	
 		model.addAttribute("dto", dto);		
 		
 		return "/admin/empMember";

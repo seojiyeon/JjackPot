@@ -310,7 +310,7 @@ $(function(){
 							<tr>
 								<th scope="row"><label for="hrBasiMatrMngForm_birthYmd">생년월일</label></th>
 								<!-- 생년월일 -->
-								<td><input type="text" class="w100" id="hrBasiMatrMngForm_birthYmd" name="birthYmd" /></td>
+								<td><input type="text" class="w100" id="hrBasiMatrMngForm_birthYmd" value="${dto.getBirthday() }"name="birthYmd" /></td>
 
 								<th scope="row"><label for="hrBasiMatrMngForm_solarLunar">양력
 										음력</label></th>
@@ -346,20 +346,6 @@ $(function(){
 							<col width="100">
 							<col>
 						</colgroup>
-						
-							<tr>
-								<th scope="row"><label for="hrBasiMatrMngForm_officeTelNo">회사전화</label></th>
-								<!-- 회사전화 -->
-								<td><input type="text" class="w100" id="hrBasiMatrMngForm_officeTelNo" name="officeTelNo" /></td>
-								<th scope="row"><label for="hrBasiMatrMngForm_homeTelNo">자택전화</label></th>
-								<!-- 자택전화 -->
-								<td><input type="text" class="w130" id="hrBasiMatrMngForm_homeTelNo" name="homeTelNo" /></td>
-								<th scope="row"><label for="hrBasiMatrMngForm_mobileTelNo">핸드폰</label></th>
-								<!-- 핸드폰 -->
-								
-								<td><input type="text" class="w130" id="hrBasiMatrMngForm_mobileTelNo" name="mobileTelNo" /></td>
-							</tr>
-						
 							<tr>
 								<th scope="row"><label for="hrBasiMatrMngForm_emailId2">이메일</label></th>
 								<td colspan="5"><input type="text" class="w763" value="${dto.getMail()}" id="hrBasiMatrMngForm_emailId2" name="emailId2" /></td>
@@ -391,6 +377,25 @@ $(function(){
 							<col width="100" />
 							<col />
 						</colgroup>
+					
+					
+					
+					<tr>
+	<th scope="row"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_enplcCd">회사전화</label></th>
+    <td><input type="text" value="${dto.getPhone()}" class="w120" id="hrBasiMatrMngForm_tel1" name="enplcCd">
+	</td>
+	<th scope="row"><label for="hrBasiMatrMngForm_deptNm">자택전화</label></th>
+    <td><input type="text" class="w120" id="hrBasiMatrMngForm_tel2" name="deptNm" /></td>
+	<th scope="row"><label>핸드폰</label></th>			
+	<td id="engSuggest"><input type="text" class="w170 disabled"  id="hrBasiMatrMngForm_tel3" name="deptEngNm"  />
+	</td>
+	</tr>
+					
+					
+					
+					
+					
+					
 					
 							<tr>
 								<th scope="row"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_enplcCd">사업장</label></th>
@@ -449,91 +454,50 @@ $(function(){
 								<!-- 직책명 -->
 								<td><input type="text" class="w120" id="hrBasiMatrMngForm_responNm" name="responNm" readonly="readonly" /></td>
 
-								<th scope="row"><label for="hrBasiMatrMngForm_payGrade">호봉</label></th>
+								<th scope="row"><label for="payGrade">호봉</label></th>
 								<!-- 호봉 -->
 								<td>
-									<select class="w120" id="hrBasiMatrMngForm_payGrade" name="payGrade">
-									
-										<option value="1">1</option>
-									
-										<option value="2">2</option>
-									
-										<option value="3">3</option>
-									
-										<option value="4">4</option>
-									
-										<option value="5">5</option>
-									
-										<option value="6">6</option>
-									
-										<option value="7">7</option>
-									
-										<option value="8">8</option>
-									
-										<option value="9">9</option>
-									
-										<option value="10">10</option>
-									
-										<option value="11">11</option>
-									
-										<option value="12">12</option>
-									
-										<option value="13">13</option>
-									
-										<option value="14">14</option>
-									
-										<option value="15">15</option>
-									
-										<option value="16">16</option>
-									
-										<option value="17">17</option>
-									
-										<option value="18">18</option>
-									
-										<option value="19">19</option>
-									
-										<option value="20">20</option>
-									
-										<option value="21">21</option>
-									
-										<option value="22">22</option>
-									
-										<option value="23">23</option>
-									
-										<option value="24">24</option>
-									
-										<option value="25">25</option>
-									
-										<option value="26">26</option>
-									
-										<option value="27">27</option>
-									
-										<option value="28">28</option>
-									
-										<option value="29">29</option>
-									
-										<option value="30">30</option>
-									
-										<option value="31">31</option>
-									
-										<option value="32">32</option>
-									
-										<option value="33">33</option>
-									
-										<option value="34">34</option>
-									
-										<option value="35">35</option>
-									
-										<option value="36">36</option>
-									
-										<option value="37">37</option>
-									
-										<option value="38">38</option>
-									
-										<option value="39">39</option>
-									
-										<option value="40">40</option>
-									
+									<select class="w120" id="payGrade" name="payGrade">									
+										<option value="1">1</option>									
+										<option value="2">2</option>										
+										<option value="3">3</option>									
+										<option value="4">4</option>									
+										<option value="5">5</option>									
+										<option value="6">6</option>									
+										<option value="7">7</option>									
+										<option value="8">8</option>									
+										<option value="9">9</option>									
+										<option value="10">10</option>									
+										<option value="11">11</option>									
+										<option value="12">12</option>									
+										<option value="13">13</option>									
+										<option value="14">14</option>									
+										<option value="15">15</option>									
+										<option value="16">16</option>									
+										<option value="17">17</option>									
+										<option value="18">18</option>									
+										<option value="19">19</option>									
+										<option value="20">20</option>									
+										<option value="21">21</option>									
+										<option value="22">22</option>									
+										<option value="23">23</option>									
+										<option value="24">24</option>									
+										<option value="25">25</option>									
+										<option value="26">26</option>									
+										<option value="27">27</option>									
+										<option value="28">28</option>									
+										<option value="29">29</option>									
+										<option value="30">30</option>									
+										<option value="31">31</option>									
+										<option value="32">32</option>									
+										<option value="33">33</option>									
+										<option value="34">34</option>									
+										<option value="35">35</option>									
+										<option value="36">36</option>									
+										<option value="37">37</option>									
+										<option value="38">38</option>									
+										<option value="39">39</option>									
+										<option value="40">40</option>									
 									</select>
 								</td>
 							</tr>
@@ -568,40 +532,21 @@ $(function(){
 				<br />
 
 				<div class="btn-wrap fright w30p">
-					
-						<button type="button" id="hrBasiMatrMngForm_uploadSample" class="btn btn-color7 br mb5">
-							업로드 양식
-						</button>
-						<button type="button" id="hrBasiMatrMngForm_excelupload" class="btn btn-color13 br mb5">
-							엑셀 업로드
-						</button>
-						<button type="button" id="hrBasiMatrMngForm_retire_reg" class="btn btn-color13 br mb5">
-							퇴사자 등록
-						</button>
-						<!-- 삭제 -->
-					
-					
 						<button type="button" id="hrBasiMatrMngFormDelete" class="btn btn-color7 br mb5">
 							삭제
 						</button>
-						<!-- 삭제 -->
-					
-					
+				
 						<button type="button" id="hrBasiMatrMngFormUpdate" class="btn btn-color5 br mb5">
 							저장
 						</button>
-						<!-- 저장 -->
-					
 				</div>
-
+			</div>
+			</div>
+			</div>
+			
+			
+			
 				
-
-			</div>
-			</div>
-			<!-- //id="tabs-1" -->
-			
-			</div>
-			
 			
 			
 			<div id="tab2" class="tab_content" style="display:none;">
