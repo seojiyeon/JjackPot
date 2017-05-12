@@ -9,7 +9,7 @@
 <!-- // jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
+<link rel="stylesheet" href="/JackPot/css/common.css?ver=4" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
@@ -95,8 +95,32 @@ tbody {
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
     background-color: #f9f9f9;
 }
+
+
+i.icon.imp{width:13px;height:13px;margin:0 0 2px 0;background-position:-83px -55px;}
+i.icon.nonimp{width:13px;height:13px;margin:0 0 2px 0;background-position:-83px -41px;}
 </style>
 
+<script>
+
+
+function changeImp_click(bm_num){
+	
+	var abc = "."+bm_num;  //주석
+	$.ajax({
+		type :"post",
+		url :"MybmImportantChange.jp",
+		data : {bm_num:bm_num},
+		success : function(important){
+       		$(abc).html("123213");
+		}, 
+		error : function(){
+			alert("error");
+		}
+		});
+}
+
+</script>
 
 <html>
 <title> 나의 할일</title>
@@ -150,7 +174,7 @@ tbody {
 	
    		<div class="content-list">
             <table class="table table-striped" id="tblList">	
-				<thead>
+				<thead >
                     <tr>
                         <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
                         <th style="width: 40px;">번호</th>
@@ -169,7 +193,7 @@ tbody {
                         <th style="width: 120px;">
                             <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
-                        <th style="width: 120px;">
+                        <th style="width: 120px;" >
                             <a data-sortcolumn="DUEDATE" href="#">마감일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 100px;">
@@ -183,9 +207,16 @@ tbody {
 			<c:forEach var="bmdto"  items="${mytodoList}">
 				<tr>
                         <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
-                        <th style="width: 40px;">${bmdto.bm_num }</th>
-                        <th style="width: 50px;">
-                            ${bmdto.important2}
+                        <th style="width: 40px;">${bmdto.bm_num}</th>
+                        <th style="width: 50px;" class="${bmdto.bm_num}">
+                        	<span onclick="changeImp_click(${bmdto.bm_num})">
+								<c:if test="${bmdto.important == 1}">
+									<i class="icon nonimp"></i>
+								</c:if>
+								<c:if test="${bmdto.important == 2}">
+									<i class="icon imp"></i>
+								</c:if> 
+							</span>
                         </th>
                         <th style="width: 120px;">
                        		${bmdto.box_name}

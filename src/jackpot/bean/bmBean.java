@@ -16,6 +16,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -1025,6 +1026,7 @@ public class bmBean {
 		
 		return "/bm/mytodo/mytodo_state_update";
 	}
+	
 	/*나의업무 완료 리스트 */
 	@RequestMapping("/mytodook.jp")
 	public String mytodook(bmDTO bmdto, HttpSession session, Model model,String pageNum){
@@ -1068,7 +1070,92 @@ public class bmBean {
 		model.addAttribute("count", count);			
 		return "/bm/mytodo/mytodook";
 	}	
+	
+/*--------------업무중요체크----------------------------------------------------------------------------*/
+	
+	/*나의업무*/
+	@RequestMapping("MybmImportantChange.jp")
+	public @ResponseBody int Imp(HttpServletRequest request, bmDTO bmdto, Model model) {
 		
+		/*String pageNum = request.getParameter("pageNum");*/
+		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+		int important = (int)sqlMap.queryForObject("bm.getimp",bm_num);
+		System.out.println(bm_num);
+		System.out.println(important);
+		
+		
+			sqlMap.update("bm.bmImportantChange1", bm_num);
+		
+		
+
+		/*model.addAttribute("pageNum", pageNum);*/
+
+				
+		return bm_num;
+	}		
+	
+
+	/*업무요청*/
+	@RequestMapping("bmYCHImportantChange.jp")
+	public String bmYCHImportantChange(HttpServletRequest request, bmDTO bmdto, Model model) {
+		
+		String pageNum = request.getParameter("pageNum");
+		int important = Integer.parseInt(request.getParameter("important"));
+		if(important == 1) {
+			bmdto.setImportant(2);
+		} else if(important == 2) {
+			bmdto.setImportant(1);
+		}
+		
+		sqlMap.update("bm.bmStateChange", bmdto);
+		
+		model.addAttribute("pageNum", pageNum);
+
+				
+		return "/bm/BmYCHList/bmYCHImportantChange";
+	}
+	
+	/*업무일지*/
+	@RequestMapping("bmIjImportantChange.jp")
+	public String bmIjImportantChange(HttpServletRequest request, bmDTO bmdto, Model model) {
+		
+		String pageNum = request.getParameter("pageNum");
+		int important = Integer.parseInt(request.getParameter("important"));
+		if(important == 1) {
+			bmdto.setImportant(2);
+		} else if(important == 2) {
+			bmdto.setImportant(1);
+		}
+		
+		sqlMap.update("bm.bmStateChange", bmdto);
+		
+		model.addAttribute("pageNum", pageNum);
+
+				
+		return "/bm/BmList/bmIjImportantChange";
+	}	
+	
+	/*업무보고*/
+	@RequestMapping("bmBgImportantChange.jp")
+	public String bmBgImportantChange(HttpServletRequest request, bmDTO bmdto, Model model) {
+		
+		String pageNum = request.getParameter("pageNum");
+		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+		int important = Integer.parseInt(request.getParameter("important"));
+		if(important == 1) {
+			bmdto.setImportant(2);
+		} else if(important == 2) {
+			bmdto.setImportant(1);
+		}
+		
+		sqlMap.update("bm.bmStateChange", bmdto);
+		
+		model.addAttribute("pageNum", pageNum);
+
+				
+		return "/bm/BmBGList/MybmImportantChange";
+	}		
+
 	
 }
 

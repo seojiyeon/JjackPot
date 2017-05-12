@@ -21,7 +21,7 @@
 		
 	<!--  모든업무 리스트보기 -->
 		<select id="getBmList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2, bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 	
@@ -30,7 +30,7 @@
 <!-- ============================mytodo=========================== -->			
 		<!--  나의할일 리스트보기 -->		
 		<select id="getMytodoList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where bm_name=#bm_name# and bm_form =1 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -48,7 +48,7 @@
 
 		<!--  나의할일 완성 리스트보기 -->		
 		<select id="mytodook" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where bm_name=#bm_name# and bm_form =1 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -64,7 +64,7 @@
 <!-- ============================업무요청 =========================== -->			
 		<!--  내가 한 업무요청 리스트보기 -->		
 		<select id="getMyBmYchList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where bm_name=#bm_name# and bm_form =2 and bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -86,7 +86,7 @@
 		
 		<!--  내가 한 업무요청 완성 리스트보기 -->		
 		<select id="getMyBmYchListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where ic.bm_name=#bm_name# and bm.bm_form =2 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -99,7 +99,7 @@
 		
 		<!--  수신 업무요청 리스트보기 -->		
 		<select id="getSSBmYCHList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
 			where ic.inchar_name=#bm_name# and bm_form =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -118,7 +118,7 @@
 		
 		<!--  수신업무 완성 리스트보기 -->		
 		<select id="SSBmYCHListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
 			where ic.inchar_name=#bm_name# and bm_form =2 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -131,7 +131,7 @@
 		
 		<!--  참조 업무요청 리스트보기 -->		
 		<select id="getChZBGBmYCHList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef
 			where bef.bef_name=#bm_name# and bm_form =2 and bm.bm_state != 2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -150,7 +150,7 @@
 		
 		<!--  참조 업무요청 완성 리스트보기 -->		
 		<select id="ChZBGBmYCHListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
 			where bef.bef_name=#bm_name# and bm_form =2and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -167,7 +167,7 @@
 <!-- ============================업무요청 =========================== -->			
 		<!--  내가 한 업무보고 리스트보기 -->		
 		<select id="getMyBmBgList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where bm_name=#bm_name# and bm_form =3 and bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -189,7 +189,7 @@
 		
 		<!--  내가 한  업무보고 완성 리스트보기 -->		
 		<select id="getMyBmBgListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where ic.bm_name=#bm_name# and bm.bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -202,7 +202,7 @@
 		
 		<!--  수신 업무보고 리스트보기 -->		
 		<select id="getSSBmBgList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
 			where ic.inchar_name=#bm_name# and bm_form =3 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -221,7 +221,7 @@
 		
 		<!--  수신업무보고 완성 리스트보기 -->		
 		<select id="SSBmBgListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
 			where ic.inchar_name=#bm_name# and bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -234,7 +234,7 @@
 		
 		<!--  참조 업무보고리스트보기 -->		
 		<select id="getChZBGBmList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef
 			where bef.bef_name=#bm_name# and bm_form =3 and bm.bm_state != 2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -253,7 +253,7 @@
 		
 		<!--  참조 업무보고 완성 리스트보기 -->		
 		<select id="ChZBGBmListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
 			where bef.bef_name=#bm_name# and bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -271,7 +271,7 @@
 <!-- ============================업무일지 =========================== -->			
 		<!--  내가 한 업무일지 리스트보기 -->		
 		<select id="getMyBmIjList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where bm_name=#bm_name# and bm_form =4 and bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -293,7 +293,7 @@
 		
 		<!--  내가 한  업무일지 완성 리스트보기 -->		
 		<select id="getMyBmIjListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs 
 			where ic.bm_name=#bm_name# and bm.bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -306,7 +306,7 @@
 		
 		<!--  수신 업무일지 리스트보기 -->		
 		<select id="getSSBmIjList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
 			where ic.inchar_name=#bm_name# and bm_form =4 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -325,7 +325,7 @@
 		
 		<!--  수신 업무일지 완성 리스트보기 -->		
 		<select id="SSBmIjListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,incharge ic
 			where ic.inchar_name=#bm_name# and bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -338,7 +338,7 @@
 		
 		<!--  참조 업무일지 리스트보기 -->		
 		<select id="getChZBGBmIjList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef
 			where bef.bef_name=#bm_name# and bm_form =4 and bm.bm_state != 2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
 		</select>
@@ -357,7 +357,7 @@
 		
 		<!--  참조 업무일지 완성 리스트보기 -->		
 		<select id="ChZBGBmIjListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
 			where bef.bef_name=#bm_name# and bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
 		 	
@@ -647,7 +647,7 @@
             select * from  bns_box where bm_num=#bm_num#
         </select>
 
-<!-- Popup -->         
+<!-- ========================================Popup======================================================= -->         
          
         <!-- 사원찾기 --> 
 		<select id="empFind" resultClass="dto" parameterClass="String">
@@ -671,8 +671,23 @@
         	select e.emp_num,e.emp_name,d.department department2,b.branch branch2, p.position position2 from position p,emp e, branch b,department d 
 			where emp_num=#emp_num# and e.department=d.num and e.branch=b.num and p.num = e.position
         </select>
-        
-        
+  	    
+  	    <!-- 업무중요도  -->
+        <select id= "getimp" resultClass="int" parameterClass="int">
+        	select important from business_manage where bm_num=#bm_num#
+        </select>
+  	    
+  	      
+		<!-- 업무 중요도상태 변화 -->
+		<update id="bmImportantChange1" parameterClass="int">
+			update business_manage  set important=2 where bm_num=#bm_num#
+		</update>
+		
+		<!-- 업무 중요도상태 변화 -->
+		<update id="bmImportantChange2" parameterClass="int">
+			update business_manage  set important=1 where bm_num=#bm_num#
+		</update>
+	        
         
         
   <!-- ========== 업무삭제============-->
@@ -703,7 +718,7 @@
 	</delete>	
   <!-- ========== bm_state update============-->
 	<update id="mytodo_state_update" parameterClass="int">
-		update business_manage set bm_state = 2 where bm_num=#bm_num#
+		update business_manage set bm_state =2 where bm_num=#bm_num# 
 	</update>
 		
         
