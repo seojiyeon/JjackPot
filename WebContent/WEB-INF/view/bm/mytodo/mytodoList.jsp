@@ -12,9 +12,21 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=4" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
-<style>
+<html>
+<head>
+<style type="text/css">
+
+body {
+    font-family: "Nanum Gothic", NanumGothic, 나눔고딕, NanumGothic, ng, 돋움, Dotum, Helvetica, "Apple SD Gothic Neo", sans-serif;
+    color: rgb(17, 17, 17);
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 1;
+    margin: 0px;
+}
+
 tr {
     display: table-row;
     vertical-align: inherit;
@@ -28,9 +40,7 @@ td, th {
 }
 
 
-.con-header {
-    position: relative;
-    height: 65px;
+.con-header {  position: relative; height: 65px;
     /* margin: 0 20px; */
     padding: 25px 0 0 0;
     border-bottom: 1px solid #d1d1d1;
@@ -112,7 +122,7 @@ function changeImp_click(bm_num){
 		url :"MybmImportantChange.jp",
 		data : {bm_num:bm_num},
 		success : function(important){
-       		$(abc).html("123213");
+       		$(abc).html("중요 ");
 		}, 
 		error : function(){
 			alert("error");
@@ -122,36 +132,19 @@ function changeImp_click(bm_num){
 
 </script>
 
-<html>
+
 <title> 나의 할일</title>
 
-</head>    
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
-	<div id="main-contents">
+	<div id="main-contents" style="   font-family: serif;">
 		<div class="con-header">
    			<h2>나의 할일</h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
                 
-                    <select id="pagePerRecord" name="pagePerRecord" title="[ui.lightpack.todo.common.searchCondition.pagePerRecord] 가 없습니다. 확인해주세요.">
-                    
-                        <option value="10">10</option>
-                    
-                        <option value="15">15</option>
-                    
-                        <option value="20">20</option>
-                    
-                        <option value="30">30</option>
-                    
-                        <option value="40">40</option>
-                    
-                        <option value="50" selected="selected">50</option>
-                    
-                    </select>
-                
-                <div class="totalnum">전체 <span>${bmcount }</span></div>
+                <div class="totalnum">전체 <span>${count }</span></div>
             </div>
             <div class="table-search" style="right:250px;">
                
@@ -219,7 +212,7 @@ function changeImp_click(bm_num){
 							</span>
                         </th>
                         <th style="width: 120px;">
-                       		${bmdto.box_name}
+                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
                        		<a href="mytodoContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
@@ -255,7 +248,7 @@ function changeImp_click(bm_num){
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="mytodoList.jp?pageNum=${i}">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
@@ -287,3 +280,4 @@ function changeImp_click(bm_num){
 
 
 </html>
+</head>

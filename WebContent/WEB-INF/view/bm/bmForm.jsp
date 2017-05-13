@@ -108,63 +108,7 @@
 			    
 			 });
 		
-/* 
- $(document).ready(function()
-			{
-			    
-		 {checkIt(){
-	    var bminput = eval("document.bminput");
-	    if(!bminput.bm_start.value) {
-	        alert("시작일을 선택하세요");
-	        return false;
-	    }
-	    
-	    if(!bminput.bm_title.value) {
-	        alert("제목을 입력하세요");
-	        return false;
-	    }
-	    
-	    if(!bminput.bm_contents.value) {
-	        alert("내용을 입력하세요");
-	        return false;
-	    }
-	    
 
-	    	if(bminput.bm_start.value>bminput.bm_end.value){
-	    		alert("종료일이 시작일보다 작을 수 없습니다.")
-	    		return false;
-	  	  }
-
-	    }
-	}
-
-
- $(document).ready(function()
-			{
-			    
-	 checkIt2(){
- 
-	    var bminput = eval("document.bminput");
-	    if(!bminput.bm_start.value) {
-	        alert("시작일을 선택하세요");
-	        return false;
-	    }
-	    if(!bminput.bm_title.value) {
-	        alert("제목을 입력하세요");
-	        return false;
-	    }
-
-	    if(!bminput.bm_contents.value) {
-	        alert("내용을 입력하세요");
-	        return false;
-	    }
-	    
-	   
-	    	if(bminput.bm_start.value>bminput.bm_end.value){
-	    		alert("종료일이 시작일보다 작을 수 없습니다.")
-	    		return false;
-	  	  }
-    } */
 
 
 	function checkIt() {
@@ -174,6 +118,26 @@
 			alert("제목을 입력하시요.");
 			return false;
 		}
+		
+		if(!bminput.bm_content.value) {
+			alert("내용을 입력하시요.");
+			return false;
+		}
+/* 		
+		if(!bminput.ref_name.value) {
+			alert("참조자를 선택하시요.");
+			return false;
+		}
+		
+		if(!bminput.inchar_name.value) {
+			alert("담당자를 선택하시요.");
+			return false;
+		}
+		
+		if(!bminput.rec_name.value) {
+			alert("수신자를 선택하시요.");
+			return false;
+		} */
 	}
 	
 	
@@ -200,11 +164,6 @@
 	});
 	
 
-	
-</script>
-
-
-<script>
 function openInchar(){
 	url = "/JackPot/incharPop.jp"
  	open(url, "inchar", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
@@ -387,8 +346,8 @@ function resetAll(){
 										<option value="0">폴더 없음</option>
 									</c:if>
 									<c:if test="${countBns_box > 0}">
-										<c:forEach var="Bns_box" items="${ListBns_box}">
 											<option name="bns_box" value="0" selected>없음</option>
+										<c:forEach var="Bns_box" items="${ListBns_box}">
 											<c:if test="${Bns_box.bns_num == bmdto.getBns_box()}">
 												<option value="${Bns_box.bns_num}" >${Bns_box.box_name}</option>
 											</c:if>
@@ -402,13 +361,6 @@ function resetAll(){
                             </td>
                         </tr>
                       
-                       <%--  <tr id="categoryTR3">
-                            <th scope="row" id=opencategoryTR3><label for="related_bns">관련업무</label></th>
-                            <td>
-                                <button type="button" class="btn btn-color8 br"   value="${related_bns}"  onclick="related_bns();">관련업무 추가</button>
-                                <div id="addTask"></div>
-                            </td>
-                        </tr> --%>
               </tbody>
               </table></div></div></div>
               
@@ -416,7 +368,7 @@ function resetAll(){
 		<!--ckeditor 부분 -->
 			
 		<div>
-			<textarea class="ckeditor" cols="1" id="bm_content" name="bm_content" rows="15"></textarea>
+			<textarea class="ckeditor" cols="1" id="bm_content"  value="${bm_content}"  name="bm_content" rows="15"></textarea>
 		</div>
 					
 		<!--파일 부분 -->	

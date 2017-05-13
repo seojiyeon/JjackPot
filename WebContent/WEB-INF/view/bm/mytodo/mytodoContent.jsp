@@ -70,6 +70,7 @@
  <script type="text/javascript">
 $(document).ready(function(){
 		$("#bmupdatebutton").click(function(){
+				var bm_state;
 				var result = confirm('업무완료 처리하시겠습니까?');
 					if(bm_state != 2){
 						window.location="/JackPot/mytodo_state_update.jp?bm_num=${bm_num}";

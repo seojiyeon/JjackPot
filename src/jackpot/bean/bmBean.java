@@ -128,25 +128,23 @@ public class bmBean {
 	/*나의 할일*/
 @RequestMapping("/mytodoList.jp")
 	public String mytodoList(bmDTO bmdto, HttpSession session, Model model,String pageNum){
-		
+
 		String emp_num = (String)session.getAttribute("memId");	
 		bmdto.setEmp_num(emp_num);
 		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		List mytodoList = null;
-		mytodoList = sqlMap.queryForList("bm.getMytodoList", bm_name);
 		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", bm_name);
-
+		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
-		if(pageNum == null) {
+		if(pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
 		
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage-1)*pageSize+1;
 		int endRow = currentPage*pageSize;
-		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int pageCount =0;
 		int startPage = (int)(currentPage/10)*10+1;
 		int pageBlock = 10;
 		int endPage = startPage+pageBlock-1;
@@ -154,8 +152,16 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
+		pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
 		
-		System.out.println(mytodoList);
+		HashMap params = new HashMap();
+		params.put("startRow", startRow);
+		params.put("endRow", endRow);
+		params.put("bm_name", bm_name);
+
+		List mytodoList = null;
+		mytodoList = sqlMap.queryForList("bm.getMytodoList", bm_name);
+
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
@@ -166,7 +172,9 @@ public class bmBean {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("mytodoList", mytodoList);
 		model.addAttribute("count", count);			
+
 		return "/bm/mytodo/mytodoList";
+		
 	}	
 	
 	/*나의 업무요청 내용 보기*/
@@ -178,7 +186,7 @@ public class bmBean {
 		bmdto.setBm_num(bm_num);
 
 		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBusinessCont", bmdto);
+		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBusinessCont", bm_num);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		/*  파일 불러오기 */
@@ -188,7 +196,7 @@ public class bmBean {
 		model.addAttribute("bmdto", bmdto);
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("bm_num", bm_num);
-		model.addAttribute("BusinessCont", bmdto);
+		model.addAttribute("bmdto", bmdto);
 		model.addAttribute("sdf", sdf);		
 		model.addAttribute("Bm_file", Bm_file);		
 		model.addAttribute("fileCount", fileCount);	
@@ -227,24 +235,25 @@ public class bmBean {
 			sqlMap.delete("bm.bmdelete", bmdto.getBm_num());
 		}
 		
-		return "/bm/my_bm_delete";
+		return "/bm/mytodo/my_bm_delete";
 	}
 	
 /*-------------------------------------업무요청-----------------------------------------*/	
-	/*나의 업무요청리스트보기*/
+	/*내가 한 업무요청리스트보기*/
 	@RequestMapping("/myBmYCHList.jp")
 	public String myBmYCHList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
 		
-		String emp_num = (String)session.getAttribute("memId");
+		
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		List MyBmYchList = null;
+		MyBmYchList = sqlMap.queryForList("bm.getMyBmYchList", bm_name);
+		int count = (int) sqlMap.queryForObject("bm.getBmYchListcount", bm_name);
 	
-		List myBmYCHList = null;
-		
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", bmdto);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		myBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
-		/*페이지 수 */
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
+	
+
 		if(pageNum == null) {
 			pageNum = "1";
 		}
@@ -256,17 +265,12 @@ public class bmBean {
 		int startPage = (int)(currentPage/10)*10+1;
 		int pageBlock = 10;
 		int endPage = startPage+pageBlock-1;
-
+		
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
-		HashMap params = new HashMap();
-		params.put("startRow", startRow);
-		params.put("endRow", endRow);
-
-		/*페이지 수 여기까지 */
-		
+	
+		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -274,9 +278,10 @@ public class bmBean {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("myBmYCHList", myBmYCHList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);		
+		model.addAttribute("MyBmYchList", MyBmYchList);
+		model.addAttribute("count", count);			
+	
+	
 		return "/bm/BmYCHList/myBmYCHList";
 		
 	}
@@ -284,52 +289,79 @@ public class bmBean {
 	/*나의 업무요청 내용 보기*/
 	@RequestMapping("/myBmYCHContent.jp")
 	public String myBmYCHcontent(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session,bmDTO bdto){
-		
-		String emp_num = (String)session.getAttribute("memId");
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
-		
+		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
 		bmdto.setBm_num(bm_num);
- 
-	/*	List myBmYCHList = null;*/
+	
+		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBmYchcont", bm_num);
 
-		
-		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBusinessCont", bmdto);
-	/*	sqlMap.queryForObject("bm.getBns_box", bm_num);*/
-		
-		/*int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", bmdto);*/
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		/*  파일 불러오기 */
 		List Bm_file = sqlMap.queryForList("bm.Bm_file", bmdto);
 		int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount", bmdto);
+	
 		
 		
-/*		myBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);*/
-		
-/*		model.addAttribute("pageNum", pageNum);*/
 		model.addAttribute("bmdto", bmdto);
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("bm_num", bm_num);
-		model.addAttribute("BusinessCont", bmdto);
-	/*	model.addAttribute("myBmYCHList", myBmYCHList);*/
-/*		model.addAttribute("count", count);		*/
+		model.addAttribute("bmdto", bmdto);
+		model.addAttribute("bmdto", bmdto);
 		model.addAttribute("sdf", sdf);		
 		model.addAttribute("Bm_file", Bm_file);		
 		model.addAttribute("fileCount", fileCount);	
 		
+		
+		
 		return "/bm/BmYCHList/myBmYCHContent";
 		
+	}
+	/*나의할일 삭제 */
+	@RequestMapping("my_bmYCHDel.jp")
+	public String my_bmYCHDel(bmDTO bmdto, String pageNum,  Model model, HttpServletRequest request) { 
+		String bm_num[] = request.getParameterValues("bm_num");
+		String path = request.getRealPath("save");
+		 System.out.println(bm_num);
+		for(int i=0; i<bm_num.length; i++) {
+			bmdto.setBm_num(Integer.parseInt(bm_num[i]));
+
+			/* 파일 삭제 */
+			List sys_file = sqlMap.queryForList("bm.Bm_file", bmdto);
+			for(int b=0; b<sys_file.size(); b++) {
+				try {
+					bmDTO bmdto2 = (bmDTO)sys_file.get(b);
+					File fileF = new File(path+"\\"+bmdto2.getSys_file());
+					
+					if(fileF.exists()) {
+						fileF.delete();
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			sqlMap.delete("bm.bmdelete_file", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete_incharge", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete_bms_rec", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete_bm_ref", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete", bmdto.getBm_num());
+			sqlMap.delete("bm.bmdelete_History", bmdto.getBm_num());
+		}
+		
+		return "/bm/BmYCHList/my_bmYCHDel";
 	}
 	
 	/*수신업무요청리스트보기*/
 	@RequestMapping("/SSBmYCHList.jp")
 	public String SSBmYCHList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");
-		List SSBmYCHList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		SSBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String rec_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		List SBmYCHList = null;
+		SBmYCHList = sqlMap.queryForList("bm.getSSBmYCHList", rec_name);
+		int count = (int) sqlMap.queryForObject("bm.getSSBmYCHListcount", rec_name);
 
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
@@ -349,19 +381,19 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
-			
-		model.addAttribute("pageNum", pageNum);  //page 넘길 때 
+	
+		model.addAttribute("emp_num", emp_num);
+		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("SSBmYCHList", SSBmYCHList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);		
-		return "/bm//BmYCHList/SSBmYCHList";
+		model.addAttribute("SBmYCHList", SBmYCHList);
+		model.addAttribute("count", count);			
+	
+		return "/bm/BmYCHList/SSBmYCHList";
 		
 	}
 	
@@ -369,12 +401,13 @@ public class bmBean {
 	@RequestMapping("/ChZBGBmYCHList.jp")
 	public String ChZBGBmYCHList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
 		
-		String emp_num = (String)session.getAttribute("memId");
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String ref_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
 		List ChZBGBmYCHList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		ChZBGBmYCHList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
+		ChZBGBmYCHList = sqlMap.queryForList("bm.getChZBGBmYCHList", ref_name);
+		int count = (int) sqlMap.queryForObject("bm.getChZBGBmYCHListcount", ref_name);
+
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
@@ -393,7 +426,8 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
+	
+		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -402,9 +436,9 @@ public class bmBean {
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("ChZBGBmYCHList", ChZBGBmYCHList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);		
-		return "/bm//BmYCHList/ChZBGBmYCHList";
+		model.addAttribute("count", count);	
+		
+		return "/bm/BmYCHList/ChZBGBmYCHList";
 		
 	}
 
@@ -413,12 +447,13 @@ public class bmBean {
 	/*내가 한 업무보고리스트보기*/
 	@RequestMapping("/myBmBGList.jp")
 	public String myBmBGList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");
-		List myBmBGList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		myBmBGList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		List MyBmBgList = null;
+		MyBmBgList = sqlMap.queryForList("bm.getMyBmBgList", bm_name);
+		int count = (int) sqlMap.queryForObject("bm.getMyBmBgListcount", bm_name);
+
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
@@ -437,7 +472,8 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
+	
+		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -445,9 +481,9 @@ public class bmBean {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("myBmBGList", myBmBGList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);		
+		model.addAttribute("MyBmBgList", MyBmBgList);
+		model.addAttribute("count", count);	
+		
 		return "/bm/BmBGList/myBmBGList";
 
 	}
@@ -456,14 +492,13 @@ public class bmBean {
 	/*수신 업무보고리스트보기*/
 	@RequestMapping("/SSBGBmList.jp")
 	public String SSBGBmList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");
-		List SSBGBmList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		SSBGBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String rec_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		List SSBmBgList = null;
+		SSBmBgList = sqlMap.queryForList("bm.getSSBmBgList", rec_name);
+		int count = (int) sqlMap.queryForObject("bm.getSSBmBgListcount", rec_name);
 
-		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
@@ -482,7 +517,8 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
+	
+		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -490,9 +526,9 @@ public class bmBean {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("SSBGBmList", SSBGBmList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);		
+		model.addAttribute("SSBmBgList", SSBmBgList);
+		model.addAttribute("count", count);	
+		
 		return "/bm/BmBGList/SSBGBmList";
 
 	}
@@ -501,14 +537,13 @@ public class bmBean {
 	/*참조 업무보고리스트보기*/
 	@RequestMapping("/ChZBGBmList.jp")
 	public String ChZBGBmList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String ref_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
 		List ChZBGBmList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		ChZBGBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
+		ChZBGBmList = sqlMap.queryForList("bm.getChZBGBmList", ref_name);
+		int count = (int) sqlMap.queryForObject("bm.getChZBGBmListcount", ref_name);
 
-		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
@@ -527,7 +562,8 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
+	
+		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -536,32 +572,25 @@ public class bmBean {
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("ChZBGBmList", ChZBGBmList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);	
-
+		model.addAttribute("count", count);	
+		
 		return "/bm/BmBGList/ChZBGBmList";
 
 	}
 	
-/*------------------------------------------------------------------------------------------*/	
 /*-----------------------------업무일지-------------------------------------------------------------*/		
 	
 	/*내가 작성 한 업무일지리스트보기*/
 	@RequestMapping("/myBmWriteList.jp")
 	public String myBmWriteList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
 		
-		String emp_num = (String)session.getAttribute("memId");
-		List myBmWriteList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		myBmWriteList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
-		/*  파일 불러오기 */
-		List file = sqlMap.queryForList("bm.Bm_file", bmdto);
-		int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount", bmdto);
-		
-		
-		
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		List MyBmIjList = null;
+		MyBmIjList = sqlMap.queryForList("bm.getMyBmIjList", bm_name);
+		int count = (int) sqlMap.queryForObject("bm.getBmIjListcount", bm_name);
+
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
@@ -580,7 +609,8 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
+	
+		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -588,11 +618,8 @@ public class bmBean {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("myBmWriteList", myBmWriteList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);	
-
-		
+		model.addAttribute("MyBmIjList", MyBmIjList);
+		model.addAttribute("count", count);	
 		
 		return "/bm/BmList/myBmWriteList";
 
@@ -602,11 +629,12 @@ public class bmBean {
 	@RequestMapping("/SSBmList.jp")
 	public String SSBmList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
 		
-		String emp_num = (String)session.getAttribute("memId");
-		List SSBmList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		SSBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String rec_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		List SSBmIjList = null;
+		SSBmIjList = sqlMap.queryForList("bm.getSSBmIjList", rec_name);
+		int count = (int) sqlMap.queryForObject("bm.getChZBGBmListcount", rec_name);
 
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
@@ -626,7 +654,8 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
+	
+		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -634,10 +663,8 @@ public class bmBean {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("SSBmList", SSBmList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);		
-
+		model.addAttribute("SSBmIjList", SSBmIjList);
+		model.addAttribute("count", count);	
 		
 		
 		return "/bm/BmList/SSBmList";
@@ -648,13 +675,13 @@ public class bmBean {
 	@RequestMapping("/ChZBmList.jp")
 	public String ChZBmList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
 		
-		String emp_num = (String)session.getAttribute("memId");
-		List ChZBmList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMytodoListcount", emp_num);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		ChZBmList = sqlMap.queryForList("bm.getMytodoList", bmdto);
-		
-		
+		String emp_num = (String)session.getAttribute("memId");	
+		bmdto.setEmp_num(emp_num);
+		String ref_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		List ChZBGBmIjList = null;
+		ChZBGBmIjList = sqlMap.queryForList("bm.getChZBGBmIjList", ref_name);
+		int count = (int) sqlMap.queryForObject("bm.getChZBGBmIjListcount", ref_name);
+
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 	
 
@@ -673,7 +700,8 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
+	
+		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
@@ -681,10 +709,8 @@ public class bmBean {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("ChZBmList", ChZBmList);
-		model.addAttribute("count", count);		
-		model.addAttribute("sdf", sdf);		
-		
+		model.addAttribute("ChZBGBmIjList", ChZBGBmIjList);
+		model.addAttribute("count", count);	
 		
 		return "/bm/BmList/ChZBmList";
 
@@ -699,9 +725,11 @@ public class bmBean {
 		int countBns_box = (int) sqlMap.queryForObject("bm.countBns_box",bmdto);
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
+		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
 		List ListBns_box = sqlMap.queryForList("bm.ListBns_box", null);
 		bmdto = (bmDTO)sqlMap.queryForObject("bm.getEmp_name2", emp_num);	
 	
+		model.addAttribute("bm_name",bm_name);
 		model.addAttribute("bmdto",bmdto);
 		model.addAttribute("emp_num",emp_num);
 		model.addAttribute("countBns_box", countBns_box);
@@ -720,7 +748,7 @@ public class bmBean {
 		bmDTO bmdto = new bmDTO();
 		empDTO edto2 = new empDTO();
 		String emp_num =(String)session.getAttribute("memId");
-		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		
 		empDTO edto1 = (empDTO)sqlMap.queryForObject("bm.empInf",emp_num);
 
 		
@@ -739,7 +767,6 @@ public class bmBean {
 		} else if(related_bns != null) {
 			bmdto.setRelated_bns(Integer.parseInt(related_bns));
 		}*/
-		
 		
 		bmdto.setBns_box(Integer.parseInt(request.getParameter("bns_box")));
 		
@@ -914,7 +941,7 @@ public class bmBean {
 
 	}
 	
-	/*수신rec_Pop*/
+	/*수신자 rec_Pop*/
 	
 	@RequestMapping("/bms_recPop.jp")
 	public String bms_recPop(HttpServletRequest request,HttpSession session, Model model){
@@ -946,7 +973,7 @@ public class bmBean {
 
 	}
 	
-/*담당자ref_Pop*/
+/*참조자 ref_Pop*/
 	
 	@RequestMapping("/refPop.jp")
 	public String refPop(HttpServletRequest request, HttpSession session, Model model){
@@ -1021,7 +1048,7 @@ public class bmBean {
 	@RequestMapping("/mytodo_state_update.jp")
 	public String mytodo_state_update(bmDTO bmdto, HttpServletRequest request) {
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
-		bmdto.setBm_num(bm_num);
+/*		bmdto.setBm_num(bm_num);*/
 		sqlMap.update("bm.mytodo_state_update",bm_num);
 		
 		return "/bm/mytodo/mytodo_state_update";

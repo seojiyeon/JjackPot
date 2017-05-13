@@ -12,13 +12,10 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />   
-<script src="/JackPot/js/jquery.form.min.js"></script><!-- 파일업로드 (jquery plug-in) -->
-<script src="/JackPot/js/jQuery.MultiFile.min.js"></script>
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=1" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
-
 
 <style type="text/css">
 
@@ -88,7 +85,9 @@ $(document).ready(function(){
 					}
 				});
 			});
+
 </script>
+
 <!-- 
 <script>
    function wrapWindowByMask(){
@@ -138,17 +137,15 @@ $(document).ready(function(){
  -->
 
 <title> 내가한 업무 요청 조회 </title>
-  
+    
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
-
 <div id="main-contents">
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
 <div class="con-header">
-    <h2>나의 할 일 조회</h2>
+    <h2>내가한 업무 요청 조회</h2>
     </div>
-<form id="myBmYCHCont">    
 <div class="form-block">
                 <table class="table">
                     <caption></caption>
@@ -163,23 +160,15 @@ $(document).ready(function(){
                             <th scope="row">상태</th>
                             <td>
                                 <div>
-                                	<span class="todo-cate-box1 color2">${bmdto.bm_state2}  </span>
-                                	
+                                	${bmdto.bm_state2}
                                 </div>
                             </td>                            
                             
                         </tr>
-	                   <tr>
-							<th scope="row" >지시자 </th>
-                            <td colspan="3">
-                                <div >
-                                	${bmdto.bm_name }
-                                </div>
-                   	 	</tr>
-                        
+	                  
 						<tr>
 							<th scope="row">업무기한 </th>
-                            <td colspan="3"> 
+                            <td colspan="3">
                                 <div>
                                 	${bmdto.bm_start } ~ ${bmdto.bm_end }
                                 </div>
@@ -187,12 +176,22 @@ $(document).ready(function(){
                    	 	
                    	 	<tr>
 							<th scope="row">업무등록일  </th>
+							
+							<c:if test="${bmdto.enrollment == null }">
+ 							<td>
+                                <div>
+                                  
+                                </div>            
+                            </td>                   
+ 							</c:if>
+ 							
+ 							<c:if test="${bmdto.enrollment != null }">
                             <td>
                                 <div>
                                 	${sdf.format(bmdto.enrollment) }
                                 </div>
-                            </td>
-                            
+                                </td>
+                                </c:if>
                                 
  							<th scope="row">수정일  </th>
  							
@@ -211,31 +210,16 @@ $(document).ready(function(){
                    	 	</tr>
                     
                  
-						<tr>
-							<th scope="row">담당자  </th>
-                            <td colspan="3">
-                                <div>
-                                	${bmdto.inchar_name }
-                                </div>
-                   	 	</tr>
-                        
-						<tr>
-							<th scope="row" >참조자  </th>
-                            <td colspan="3">
-                                <div>
-                                	${bmdto.ref_name }
-                                </div>
-                   	 	</tr>
                         
   						<tr>
 							<th scope="row">업무보관함    </th>
                             <td colspan="3">
-                                <div>
+                          
                                 	${bmdto.box_name }
-                                </div>
+                               
                    	 	</tr>
                    	 	
-  						<tr>
+  						<tr style=" height: 500px;">
 							<th scope="row">업무내용  </th>
                             <td colspan="3">
                                 <div>
@@ -256,7 +240,7 @@ $(document).ready(function(){
                    	 		<c:if test="${fileCount > 0}">
                             <td colspan="3">
 								<div>
-                                	<a>첨부 파일</a>
+
                                 	<c:forEach var="Bm_file" items="${Bm_file}">
 										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
 									</c:forEach>
@@ -265,8 +249,9 @@ $(document).ready(function(){
 							</c:if>
                    	 	</tr>
 
-</tbody></table></div>
-			
+
+</tbody></table></div></div>
+
 <div class="inform-wrap" >
 	<div class="statement">
     	<h4>처리내역</h4>
@@ -284,7 +269,7 @@ $(document).ready(function(){
     	 </c:if>
     	 
             	<div class="form-block" >
-            	<form name="history" class="form-horizontal" action="" method="post" enctype="multipart/form-data" id="inputfile"  >
+            	<form name="history" class="form-horizontal" action="" method="post">
                 	<table class="table">
                     	<caption></caption>
                          	<tbody>
@@ -294,7 +279,7 @@ $(document).ready(function(){
                                         	<div class="director-info">
                                         		<div>
                                             		<span>
-                                                 			<a style=" font-size: smaller;" href="javascript:void(0)" onclick="spro.showUserContextMenu(this, 'U144718', 'bottom')" title="담당자">${bmdto.inchar_name }</a>
+                                                 			<a href="javascript:void(0)" onclick="spro.showUserContextMenu(this, 'U144718', 'bottom')" title="서지연">${ Bm_ref1.ref_name}</a>
                                                     	</span>
                                                 	</div>
                                                 </div>
@@ -348,64 +333,36 @@ $(document).ready(function(){
                                         </tr>
                                        <tr>
                                             <th scope="row">업무내용</th>
-                                            <c:if test="${his_content == null}">
                                             <td colspan="3">
                                                 <textarea id="userContents" name="his_content  " class="form-control" value="${his_content}" placeholder="업무 내용을 입력하세요." rows="10" title="업무내용"></textarea>
                                             </td>
-                                            </c:if>
-                                            <c:if test="${his_content != null}">
-                                            <td colspan="3">
-                                                ${his.his_content}
-                                            </td>
-                                            </c:if>
                                         </tr>
                                 	</tbody>
                                 </table>
-                                
 							<!--파일 부분 -->	
 							<div class="fileup">
 								<div class="fileup_t">
 									<h3>파일 업로드</h3>
 								</div>
-						
-							<tr>
-
-							<c:if test="${fileCount == 0}">
-                            <td colspan="3">
-                                <div class="plupload_wrapper">
+			
+							<div class="plupload_wrapper">
 								파일 : <input type="file" name="org_file" value="파일 첨부" id="fileInp" />
-							<div id="file-list"></div>
-						    </td>
-							</c:if>
-							
-							
-                   	 	   <c:if test="${fileCount > 0}">
-                            <td colspan="3">
-								<div>
-                                	<a>첨부 파일</a>
-                                	<c:forEach var="Bm_file" items="${Bm_file}">
-										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
-									</c:forEach>
-                                </div>
-						    </td>
-							</c:if>
-                   	 	</tr>
-                   	 	
+								<div id="file-list"></div>
+							</div>
                             </div>
-                            
-                            
                         </div>
-                        
  
 
-
 			<div class="btn-wrap" >
-     		   	<button type="button" onClick="window.location='myBmModify.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
-    			<button type="button" onClick="window.location='my_bmYCHDel.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-    			<button type="button" onClick="window.location='myBmYCHList.jp'"class="btn2 btn-color7 br">목록  </button>
+			<c:if test="${bm_state != 2 }">
+				<button type="button" id="bmupdatebutton" class="btn2 btn-color7 br">업무완료 </button>
+     		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
+    			</c:if>
+    			<button type="button" onClick="window.location='my_bm_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+    			<button type="button" onClick="window.location='mytodoList.jp'"class="btn2 btn-color7 br">목록  </button>
     
     		</div>
-</div></div>
+</form></div></div>
 </div>
 </body>
 </html>

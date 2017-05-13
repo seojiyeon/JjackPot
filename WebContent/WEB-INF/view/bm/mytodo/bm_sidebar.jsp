@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
@@ -77,17 +77,7 @@
 		});      
 	});
 	
-	
-	/* 메모 카테고리 선택 후 페이지 이동 */
-	function selectMove(a, memoGroup) {
-		if(memoGroup > 0) {   // 체크박스 체크 여부 확인 후 경고창 띄우는거도 하기
-			document.multiForm.action="memoCateMove.jp?memoGroup=${memoGroup}&memo_cate="+a;
-			document.multiForm.submit();
-		} else if(memoGroup == 0) {
-			document.multiForm.action="memoRecover.jp?memoGroup=${memoGroup}&memo_cate="+a;
-			document.multiForm.submit();
-		}
-	}
+
 </script>
 
 	<div id="page-container">
