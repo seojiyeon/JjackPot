@@ -83,6 +83,18 @@
 	
   	<title>일일근태등록</title>
 	
+	
+<c:if test="${memId==null}" >
+
+로그인 후 이용해 주시기 바랍니다.
+
+<input type="button" onClick="window.location='main.jp'" value="돌아가기"/>
+
+</c:if>
+	
+	
+<c:if test="${memId!=null}" >
+	
 	<form method="post" name="work" >
 	
     <table  width="600" border="1">
@@ -163,3 +175,4 @@
 	</div>
 </div>
 </form>
+</c:if>	
