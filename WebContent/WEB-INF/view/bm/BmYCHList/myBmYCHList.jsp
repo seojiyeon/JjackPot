@@ -246,7 +246,7 @@ function mybmYCHdel(){
                 </thead>
 		<tbody>
 		
-	
+			
 			<c:forEach var="bmdto"  items="${MyBmYchList}">
 				<tr>
                         <th style="width: 40px;"><input  name="bm_num"  type="checkbox" value="${bmdto.bm_num}" /></th>
