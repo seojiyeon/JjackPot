@@ -133,13 +133,13 @@ function changeImp_click(bm_num){
 </script>
 
 
-<title> 나의 업무 요청 반려</title>
+<title> 나의 업무 요청 완료 </title>
 
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
 	<div id="main-contents" style="   font-family: serif;">
 		<div class="con-header">
-   			<h2>나의 업무 요청 반려 </h2>
+   			<h2>나의 업무 요청 완료 </h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
@@ -255,15 +255,15 @@ function changeImp_click(bm_num){
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="cHzBmYCHokList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}">${i}&nbsp;</a>
+							<a href="cHzBmYCHokList.jp?pageNum=${i}">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="cHzBmYCHokList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>

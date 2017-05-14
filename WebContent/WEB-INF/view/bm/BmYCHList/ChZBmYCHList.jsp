@@ -230,7 +230,7 @@ function mybmYCHdel() {
                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                       		<a href="mytodoContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="myBmYCHContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                             </a>	
                         </th>
@@ -259,15 +259,15 @@ function mybmYCHdel() {
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="ChZBmYCHList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="ChZBmYCHList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="ChZBmYCHList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>

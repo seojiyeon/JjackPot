@@ -127,7 +127,7 @@ $(document).ready(function(){
 
  -->
 
-<title> 내가한 업무 요청 조회 </title>
+<title> 업무 일지 </title>
   
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
@@ -137,7 +137,7 @@ $(document).ready(function(){
 <div class="content-write" style="width: 100%;">
 <div class="con-header">
 
-    <h2>내가 한 업무 요청</h2>
+    <h2> 업무 일지 </h2>
 
 
     </div>
@@ -228,10 +228,10 @@ $(document).ready(function(){
                     
                  
 						<tr>
-							<th scope="row">담당자  </th>
+							<th scope="row">수신자  </th>
                             <td colspan="3">
                                 <div>
-                                	${bmdto.inchar_name }
+                                	${bmdto.rec_name }
                                 </div>
                    	 	</tr>
                         
@@ -305,12 +305,12 @@ $(document).ready(function(){
                     	<caption></caption>
                          	<tbody>
                             	<tr>
-                                	<th scope="row">담당자</th>
+                                	<th scope="row">수신자</th>
                                     	<td>
                                         	<div class="director-info">
                                         		<div>
                                             		<span>
-                                                 			<a style=" font-size: smaller;" href="javascript:void(0)" onclick="spro.showUserContextMenu(this, 'U144718', 'bottom')" title="담당자">${bmdto.inchar_name }</a>
+                                                 			<a style=" font-size: smaller;" href="javascript:void(0)" onclick="spro.showUserContextMenu(this, 'U144718', 'bottom')" title="수신자 ">${bmdto.rec_name }</a>
                                                     	</span>
                                                 	</div>
                                                 </div>
@@ -431,6 +431,7 @@ $(document).ready(function(){
 							</c:if>
                    	 	</tr>
 					</c:if>
+					
 					<c:if test="${bm_state != 1 }">
 					<tr>
 						<div>
@@ -449,15 +450,16 @@ $(document).ready(function(){
 
 			<div class="btn-wrap" >
 				<c:if test="${bmdto.bm_state == 1}">
-     		   	<button type="button" id="bmupdatebutton"onClick="window.location='bmYCH_state_finish.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">완료 </button>
-    			<button type="button"  id="banlyeo"onClick="window.location='bmYCH_state_nonfinish.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">반려 </button>
-    			<button type="button" onClick="window.location='myBmYCHList.jp'"class="btn2 btn-color7 br">목록  </button>
+     		   	<button type="button" id="bmupdatebutton"onClick="window.location='myBmBGokList.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">완료 </button>
+    			<button type="button"  id="banlyeo"onClick="window.location='myBmBGnoList.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">반려 </button>
+    			<button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+    			<button type="button" onClick="window.location='myBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
     			</c:if>
 				<c:if test="${bmdto.bm_state == 2}">
-     		   	<button type="button" onClick="window.location='myBmYCHokList.jp'"class="btn2 btn-color7 br">목록  </button>
+     		   	<button type="button" onClick="window.location='myBmBGokList.jp'"class="btn2 btn-color7 br">목록  </button>
     			</c:if>   
 				<c:if test="${bmdto.bm_state == 0}">
-     		   	<button type="button" onClick="window.location='myBmYCHnoList.jp'"class="btn2 btn-color7 br">목록  </button>
+     		   	<button type="button" onClick="window.location='myBmBGnoList.jp'"class="btn2 btn-color7 br">목록  </button>
     			</c:if>       			 			
     			
     

@@ -222,7 +222,7 @@ function changeImp_click(bm_num){
                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                       		<a href="mytodoContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="myBmIjContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                             </a>	
                         </th>
@@ -263,15 +263,15 @@ function changeImp_click(bm_num){
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="myBmWriteList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="myBmWriteList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="myBmWriteList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>
@@ -280,7 +280,7 @@ function changeImp_click(bm_num){
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
 	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" onClick="window.location='bm_Ij_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+	            <button type="button" onClick="window.location='bmIj_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
 	            
 		</div>
 

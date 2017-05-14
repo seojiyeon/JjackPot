@@ -2,12 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/JackPot/js/jquery.min.js"></script> 
-<!--  jQuery UI CSS파일 --> 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<!-- // jQuery UI 라이브러리 js파일 -->
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
-<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
@@ -15,7 +10,15 @@
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
+<style type="text/css">
 
+.scrollBlind{
+	width:230px;
+	height:100%;
+	overflow-y:scroll;
+
+} 
+</style>
 
 <script>
 	/* 메뉴 슬라이드 업&다운 */
@@ -97,13 +100,14 @@
 	</span>	 
    </a>
 			</div>
+			
 			<div id="subarea">	
 				<div id="leftmenu-jp">
 					<div class="leftmenu-top">
 						<h2><a href="/JackPot/bmList.jp">업무관리 </a></h2>
 					</div>
 					
-					<div id="leftmenuarea">
+					<div id="leftmenuarea" class="scrollBlind">
 					<ul class="menulist" style="margin:0;padding:0;list-style:none;">
 						<li >
 							<a href="/JackPot/bmForm.jp">업무등록 </a><br>

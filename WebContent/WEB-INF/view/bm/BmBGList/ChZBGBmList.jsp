@@ -222,7 +222,7 @@ function changeImp_click(bm_num){
                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                       		<a href="mytodoContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="myBmBGContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                             </a>	
                         </th>

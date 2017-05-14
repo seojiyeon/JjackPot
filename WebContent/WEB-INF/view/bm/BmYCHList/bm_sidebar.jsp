@@ -10,7 +10,15 @@
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
+<style type="text/css">
 
+.scrollBlind{
+	width:230px;
+	height:100%;
+	overflow-y:scroll;
+
+} 
+</style>
 
 <script>
 	/* 메뉴 슬라이드 업&다운 */
@@ -92,13 +100,14 @@
 	</span>	 
    </a>
 			</div>
+			
 			<div id="subarea">	
 				<div id="leftmenu-jp">
 					<div class="leftmenu-top">
 						<h2><a href="/JackPot/bmList.jp">업무관리 </a></h2>
 					</div>
 					
-					<div id="leftmenuarea">
+					<div id="leftmenuarea" class="scrollBlind">
 					<ul class="menulist" style="margin:0;padding:0;list-style:none;">
 						<li >
 							<a href="/JackPot/bmForm.jp">업무등록 </a><br>

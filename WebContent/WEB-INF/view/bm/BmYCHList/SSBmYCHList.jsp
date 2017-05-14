@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=4" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=3" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
 <style>
 tr {
@@ -235,8 +235,19 @@ function changeImp_click(bm_num){
                         <th style="width: 120px;">
                             ${bmdto.bm_end}
                         </th>
-                        <th style="width: 100px;">
-                            ${bmdto.bm_state2}
+                        <th style="width: 100px;">	
+                        	<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+								<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+							</c:if>
+							<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+								<span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+							</c:if>
+							<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+								<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+							</c:if>
+							<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+								<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+							</c:if>
                         </th>
                     </tr>
 				</c:forEach>
@@ -251,15 +262,15 @@ function changeImp_click(bm_num){
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="SSBmYCHList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="SSBmYCHList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="SSBmYCHList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>

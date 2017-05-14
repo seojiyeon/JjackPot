@@ -17,7 +17,7 @@
 .boardmenu .hide{display:none;}
 
 #main-container{height:100%;padding:20px;padding-top:0;background: white;} 
-#main-contents{overflow:auto; top:60; position:fixed;left:270px;padding:25;width: 1100px;height:100%;background: white; overflow: auto;}
+#main-contents{overflow:auto; position:fixed;left:270px;padding:25;width: 1100px;height:100%;background: white; overflow: auto;}
 table { border-spacing: 0; width:100%; max-width:100%; table-layout:fixed; border-collapse:collapse; background-color:#fff; }
 .content-write{margin-bottom: 30px; } 
 .menulist a {text-decoration:none;}
