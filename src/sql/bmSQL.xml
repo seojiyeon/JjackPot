@@ -31,26 +31,30 @@
 		<!--  나의할일 리스트보기 -->		
 		<select id="getMytodoList" parameterClass="java.util.HashMap" resultClass="bmdto" >
 			<![CDATA[
-			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, r from (
-         	select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, rownum r from 
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from (
+         	select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
 			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm.bm_name=#bm_name# bm.bm_form=1 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			where bm_name=#bm_name# and bm.bm_form=1and bm.bm_state =1  and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
 			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
 			]]>
 		 </select>
 		
 		<!--  나의할일 COUNT 리스트보기 -->	
 		<select id="getMytodoListcount" parameterClass="String" resultClass="int" >
-			select count(*) from business_manage  where bm_form=1 and bm_state !=2 and bm_name=#bm_name# 	
+			select count(*) from business_manage  where bm_form=1 and bm_state =1 and bm_name=#bm_name# 	
 		</select>
 
 		<!--  나의할일 완성 리스트보기 -->		
-		<select id="mytodook" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+		<select id="mytodook" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from (
+         	select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm_name=#bm_name# and bm_form =1 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
-		 	
+			where bm_name=#bm_name# and bm.bm_form=1and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>
 		 </select>		
 		 
 		<!--  나의할일 COUNT 완성 리스트보기 -->	
@@ -66,7 +70,7 @@
          	select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
 			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm_name=#bm_name# and bm.bm_form=2and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			where bm_name=#bm_name# and bm.bm_form=2and bm.bm_state =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
 			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
 			]]>
 		 	
@@ -76,7 +80,7 @@
 		<select id="getBmYchListcount" parameterClass="String" resultClass="int" >
 			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
 			where bm_name=#bm_name# 
-			and  bm.bm_form =2 and bm.bm_state !=2 and bm.important=i.imp_num and 
+			and  bm.bm_form =2 and bm.bm_state =1 and bm.important=i.imp_num and 
 			bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and 
 			bf.bmfo_num=bm.bm_form 
 			order by bm.bm_num desc		
@@ -93,23 +97,50 @@
 		
 		
 		<!--  내가 한 업무요청 완성 리스트보기 -->		
-		<select id="getMyBmYchListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+		<select id="getMyBmYchListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where ic.bm_name=#bm_name# and bm.bm_form =2 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
-		 	
+			where bm_name=#bm_name# and bm.bm_form=2and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>
 		 </select>		
 		 
+		 <!--  내가 한 업무요청 반려 리스트보기 -->		
+		<select id="getMyBmYchListno" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs 
+			where bm_name=#bm_name# and bm.bm_form=2 and bm.bm_state =0 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>
+		 </select>	
+		 
+		 <!--  내가 한 업무요청 COUNT 반려 리스트보기 -->	
+		<select id="getMyBmYchListnocount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage  where bm_form=2 and bm_state = 0 and bm_name=#bm_name# 	
+		</select>		 
+
 		<!--  내가 한 업무요청 COUNT 완성 리스트보기 -->	
 		<select id="getMyBmYchListokcount" parameterClass="String" resultClass="int" >
-			select count(*) from business_manage  where bm_form=2 and bm_state = 2 and bm_name=#bm_name# 	
+			select count(*) from business_manage  where bm_form=2 and bm_state =2 and bm_name=#bm_name# 	
 		</select>		 
 		
 		<!--  수신 업무요청 리스트보기 -->		
-		<select id="getSSBmYCHList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
+		<select id="getSSBmYCHList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
-			where rec.rec_name=#rec_name# and bm.bm_form=2 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
+			where rec.rec_name=#rec_name# and bm.bm_form=2 and bm.bm_state =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>
+		
 		</select>
 		
 		<!--  수신 업무요청 COUNT 리스트보기 -->	
@@ -125,56 +156,111 @@
 		</select>
 		
 		<!--  수신업무 완성 리스트보기 -->		
-		<select id="SSBmYCHListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
+		<select id="SSBmYCHListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
-			where ic.rec_name=#rec_name# and bm_form =2 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
-		 	
+			where rec.rec_name=#rec_name# and bm.bm_form=2 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>		 	
 		 </select>		
 		 
 		<!--  수신업무완료 COUNT 완성 리스트보기 -->	
 		<select id="getSSBmYCHokcount" parameterClass="String" resultClass="int" >
 			select count(*) from business_manage, bms_rec   where bm_form=2 and bm_state = 2 and rec_name=#rec_name#
 		</select>		 
+
+		<!--  수신업무 반려 리스트보기 -->		
+		<select id="SSBmYCHListno" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
+			where rec.rec_name=#rec_name# and bm.bm_form=2 and bm.bm_state =0 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>		 	
+		 </select>		
+		 
+		<!--  수신업무완료 COUNT 반려 리스트보기 -->	
+		<select id="getSSBmYCHnocount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage, bms_rec   where bm_form=2 and bm_state = 0 and rec_name=#rec_name#
+		</select>		 		
 		
 		<!--  참조 업무요청 리스트보기 -->		
-		<select id="getChZBGBmYCHList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref ref
-			where ref.ref_name=#ref_name# and bm.bm_form=2 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
+		<select id="getChZBmYCHList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  ,bm_ref ref
+			where ref_name=#ref_name# and bm.bm_form=2and bm.bm_state =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>	
+	
 		</select>
 		
 		<!--  참조 업무요청 COUNT 리스트보기 -->	
-		<select id="getChZBGBmYCHListcount" parameterClass="String" resultClass="int" >
+		<select id="getChZBmYCHListcount" parameterClass="String" resultClass="int" >
 			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf ,bm_ref bef	
 			where bef.ref_name=#ref_name# and  bm_form =2 and bm.bm_state != 2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
 			order by bm.bm_num desc		
 		</select>
 		
 		<!-- 참조 업무요청 countent 보기-->	
-		<select id="getSChZBGBmYCHcont" parameterClass="String" resultClass="bmdto" >
+		<select id="getSChZBmYCHcont" parameterClass="String" resultClass="bmdto" >
 			select * from business_manage where bm_form=2 	
 		</select>
 		
 		<!--  참조 업무요청 완성 리스트보기 -->		
-		<select id="ChZBGBmYCHListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
-			where bef.ref_name=#ref_name# and bm_form =2and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
-		 	
+		<select id="ChZBmYCHListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+		 	<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  ,bm_ref ref	
+			where ref.ref_name=#ref_name# and bm_form =2and bm.bm_state =2  and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>	
 		 </select>		
 		 
 		<!--  참조 업무요청 COUNT 완성 리스트보기 -->	
-		<select id="getChZBGBmYCHokcount" parameterClass="String" resultClass="int" >
+		<select id="getChZBmYCHokcount" parameterClass="String" resultClass="int" >
 			select count(*) from business_manage, bm_ref  where bm_form=2 and bm_state = 2 and ref_name=#ref_name# 	
 		</select>		 
+		
+		<!--  참조 업무요청 반려 리스트보기 -->		
+		<select id="ChZBmYCHnoList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+		 	<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  ,bm_ref ref	
+			where ref.ref_name=#ref_name# and bm_form =2and bm.bm_state =0  and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>	
+		 </select>		
+		 
+		<!--  참조 업무요청 COUNT 완성 리스트보기 -->	
+		<select id="getChZBmYCHnocount" parameterClass="String" resultClass="int" >
+			select count(*) from business_manage, bm_ref  where bm_form=2 and bm_state = 0 and ref_name=#ref_name# 	
+		</select>				
 
 <!-- ============================업무보고 =========================== -->			
 		<!--  내가 한 업무보고 리스트보기 -->		
-		<select id="getMyBmBgList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
-			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm_name=#bm_name# and bm.bm_form =3  and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
+		<select id="getMyBmBgList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs 	
+			where bm_name=#bm_name# and bm.bm_form =3  and bm.bm_state =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>	
+		
+		
 		</select>
 		
 		<!--  내가 한 업무보고 COUNT 리스트보기 -->	
@@ -193,10 +279,17 @@
 		</select>
 		
 		<!--  내가 한  업무보고 완성 리스트보기 -->		
-		<select id="getMyBmBgListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm.bm_name=#bm_name# and bm.bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		<select id="getMyBmBgListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+		 	
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs	
+			where bm.bm_name=#bm_name# and bm.bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>			 	
+		 	
 		 	
 		 </select>		
 		 
@@ -206,10 +299,17 @@
 		</select>		 
 		
 		<!--  수신 업무보고 리스트보기 -->		
-		<select id="getSSBmBgList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
-			where  rec.rec_name=#rec_name# and bm.bm_form =3 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
+		<select id="getSSBmBgList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  ,bms_rec rec	
+			where rec.rec_name=#rec_name# and bm.bm_form =3 and bm.bm_state =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>			 
+		
 		</select>
 		
 		<!--  수신 업무업무보고 COUNT 리스트보기 -->	
@@ -225,10 +325,15 @@
 		</select>
 		
 		<!--  수신업무보고 완성 리스트보기 -->		
-		<select id="SSBmBgListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
-			where rec.rec_name=#rec_name# and bm.bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		<select id="SSBmBgListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+		 	<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  ,bms_rec rec	
+			where rec.rec_name=#rec_name# and bm.bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>			 	
 		 	
 		 </select>		
 		 
@@ -238,16 +343,22 @@
 		</select>		 
 		
 		<!--  참조 업무보고리스트보기 -->		
-		<select id="getChZBGBmList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref ref
-			where ref.ref_name=#ref_name# and bm.bm_form =3 and bm.bm_state != 2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
+		<select id="getChZBGBmList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs   ,bm_ref ref	
+			where ref.ref_name=#ref_name# and bm.bm_form =3 and bm.bm_state =1  and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>			 	 
 		</select>
 		
 		<!--  참조 업무보고 COUNT 리스트보기 -->	
 		<select id="getChZBGBmListcount" parameterClass="String" resultClass="int" >
 			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf ,bm_ref bef	
-			where bef.ref_name=#ref_name# and  bm_form =3 and bm.bm_state != 2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			where bef.ref_name=#ref_name# and  bm_form =3 and bm.bm_state = 1 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
 			order by bm.bm_num desc		
 		</select>
 		
@@ -257,11 +368,15 @@
 		</select>
 		
 		<!--  참조 업무보고 완성 리스트보기 -->		
-		<select id="ChZBGBmListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
-			where bef.ref_name=#ref_name# and bm_form =3 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
-		 	
+		<select id="ChZBGBmListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+		 	<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  ,bm_ref ref	
+			where ref.ref_name=#ref_name# and bm.bm_form =3 and bm.bm_state = 2  and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>		
 		 </select>		
 		 
 		<!--  참조 업무보고 COUNT 완성 리스트보기 -->	
@@ -271,17 +386,24 @@
 
 <!-- ============================업무일지 =========================== -->			
 		<!--  내가 한 업무일지 리스트보기 -->		
-		<select id="getMyBmIjList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
-			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm_name=#bm_name# and bm.bm_form =4  and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
+		<select id="getMyBmIjList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  
+			where bm_name=#bm_name# and bm.bm_form =4  and bm.bm_state =1  and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>		
+		
 		</select>
 		
 		<!--  내가 한 업무일지 COUNT 리스트보기 -->
 		<select id="getBmIjListcount" parameterClass="String" resultClass="int" >
 			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
 			where bm_name=#bm_name# 
-			and  bm_form =4 and bm.bm_state !=2 and bm.important=i.imp_num and 
+			and  bm_form =4 and bm.bm_state =1 and bm.important=i.imp_num and 
 			bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and 
 			bf.bmfo_num=bm.bm_form 
 			order by bm.bm_num desc		
@@ -293,11 +415,15 @@
 		</select>
 		
 		<!--  내가 한  업무일지 완성 리스트보기 -->		
-		<select id="getMyBmIjListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where ic.bm_name=#bm_name# and bm.bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
-		 	
+		<select id="getMyBmIjListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs
+			where bm_name=#bm_name# and bm.bm_form =4  and bm.bm_state =2  and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>		
 		 </select>		
 		 
 		<!--  내가 한 업무일지  COUNT 완성 리스트보기 -->	
@@ -306,16 +432,23 @@
 		</select>		 
 		
 		<!--  수신 업무일지 리스트보기 -->		
-		<select id="getSSBmIjList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
-			where rec.rec_name=#rec_name# and bm.bm_form=4 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
+		<select id="getSSBmIjList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  ,bms_rec rec
+			where rec.rec_name=#rec_name# and bm.bm_form=4 and bm.bm_state =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>			
+		
 		</select>
 		
 		<!--  수신 업무일지 COUNT 리스트보기 -->	
 		<select id="getSSBmYCHIjcount" parameterClass="String" resultClass="int" >
 			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	,bms_rec rec
-			where rec.rec_name=#rec_name# and  bm_form =4 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			where rec.rec_name=#rec_name# and  bm_form =4 and bm.bm_state =1 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
 			order by bm.bm_num desc		
 		</select>
 		
@@ -325,10 +458,16 @@
 		</select>
 		
 		<!--  수신 업무일지 완성 리스트보기 -->		
-		<select id="SSBmIjListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
-			where rec.rec_name=#rec_name# and bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		<select id="SSBmIjListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs  ,bms_rec rec
+			where rec.rec_name=#rec_name# and bm_form =4 and bm.bm_state =2   and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>			
+		
 		 	
 		 </select>		
 		 
@@ -338,16 +477,23 @@
 		</select>		 
 		
 		<!--  참조 업무일지 리스트보기 -->		
-		<select id="getChZBGBmIjList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
-			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where ref.ref_name=#ref_name# and bm.bm_form=4 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
+		<select id="getChZBGBmIjList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state ,bm_ref ref	
+			where  ref.ref_name=#ref_name# and bm_form =4 and bm.bm_state =1  and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>	
+		
 		</select>
 		
 		<!--  참조 업무일지 COUNT 리스트보기 -->	
 		<select id="getChZBGBmIjListcount" parameterClass="String" resultClass="int" >
 			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf ,bm_ref ref	
-			where ref.ref_name=#ref_name# and  bm_form =4 and bm.bm_state != 2 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
+			where ref.ref_name=#ref_name# and  bm_form =4 and bm.bm_state =1 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
 			order by bm.bm_num desc		
 		</select>
 		
@@ -357,10 +503,15 @@
 		</select>
 		
 		<!--  참조 업무일지 완성 리스트보기 -->		
-		<select id="ChZBGBmIjListok" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num,bm.important,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref bef	
-			where bef.ref_name=#ref_name# and bm_form =4 and bm.bm_state =2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc
+		<select id="ChZBGBmIjListok" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			from business_manage bm,important i,bns_box bns, bm_state bs ,bm_ref ref	
+			where ref.ref_name=#ref_name# and bm_form =4 and bm.bm_state =2    and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>			 	
 		 	
 		 </select>		
 		 
@@ -377,38 +528,6 @@
 			select count(*) from business_manage where emp_num=#emp_num# 
 		</select>
 		
-
-		
-<!-- 		
-		 업무보고 리스트보기		
-		<select id="getBmBgList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where emp_num=#emp_num# and bm_form =3 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
-		</select>
-		
-		 업무보고 COUNT 리스트보기	
-		<select id="getBmBgListcount" parameterClass="bmdto" resultClass="int" >
-			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
-			where emp_num=#emp_num# and bm_form =3 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
-			order by bm.bm_num desc		
-		</select>
-		
-		
-		 업무일지 리스트보기		
-		<select id="getBmIgList" parameterClass="bmdto" resultClass="bmdto" >
-			select bm.bm_num,i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2
-			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where emp_num=#emp_num# and bm_form =4 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  order by bm.bm_num desc	
-		</select>
-		
-		 업무일지 COUNT 리스트보기	
-		<select id="getBmIgListcount" parameterClass="bmdto" resultClass="int" >
-			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	
-			where emp_num=#emp_num# and bm_form =4  and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form and bm.bm_form=1 
-			order by bm.bm_num desc		
-		</select>
-				 -->
 		<select id="getEmp_name1" parameterClass="String" resultClass="String">
 		
 			select emp_name from emp where emp_num=#emp_num#
@@ -459,6 +578,11 @@
 			]]>
 		</insert>
 		
+		<!-- 업무 내용 수정 -->
+		<update id="bmUpdate" parameterClass="int">
+			update business_manage set bm_title=#bm_title#,bm_content=#bm_content#,bm_start=#bm_start#,bm_end=#bm_end#,reg_notice=#reg_notice#,cmp_notice=#cmp_notice#, bns_box=#bns_box# where bm_num =#bm_num#  
+		</update>
+		
 		<select id="showBmNum" resultClass="int">
 			select max(bm_num) from business_manage
 		</select>
@@ -486,6 +610,12 @@
 			)
 		</insert>	
 		
+	<!-- 참조자 수정  -->
+	<update id="updateBm_ref" parameterClass="int">
+		update Bm_ref set emp_num=#emp_num#, ref_name=#ref_name#,ref_branch=#ref_branch#,ref_depart=#ref_depart#,ref_position=#ref_position# where bm_num=#bm_num#
+	</update >	
+		
+		
 		<!-- 참조자 불러오기
 		<select id="selectBm_ref" parameterClass="int" resultClass="bmdto" >
         	 select * from bm_ref where bm_num=#bm_num# 
@@ -508,6 +638,11 @@
 				]]>
 		</insert>	
 		
+		<!-- 담당자수정  -->
+		<update id="updateIncharge "  parameterClass="int">
+			update incharge set emp_num=#emp_num#, inchar_name=#inchar_name#, inchar_branch=#inchar_branch#, inchar _depart=#inchar_depart#, inchar _position=#inchar_position# where bm_num=#bm_num#
+		</update >	
+		
 		<!-- 담당자 불러오기
 		<select id="selectIncharge1"  parameterClass="int " resultClass="bmdto">
         	 select * from incharge where bm_num=#bm_num# 
@@ -526,6 +661,11 @@
 				#rec_position#
 			)
 		</insert>
+		
+		<!-- 수신자 수정 -->
+		<update id="updateBms_rec" parameterClass="int">
+			update bms_rec set emp_num=#emp_num#, rec_name=#rec_name#, rec_branch=#rec_branch#, rec_depart=#rec_depart#, rec_position=#rec_position# where  bm_num=#bm_num#
+		</update >
 
 		<!--수신자 불러오기  
 		<select id="selectBms_rec"  parameterClass="bmdto" resultClass="bmdto">
@@ -562,8 +702,23 @@
 			)
 		</insert>
 		
+		<!-- 업무파일 수정 -->
+		<update id="updateBm_file" parameterClass="bmdto">
+			update bm_file set org_file=#org_file#, sys_file=#sys_file# where bm_num=#bm_num#
+		</update >		
+		
+		<!-- 파일 삭제  -->
+		<delete id=" delBm_file" parameterClass="bmdto">
+			delete from bm_file where bm_num=#bm_num# and org_file=#org_file#
+		</delete>
+		
 		<!-- 업무파일 불러오기  -->		
 		<select id="Bm_file" parameterClass="bmdto" resultClass="bmdto">
+			select * from bm_file where bm_num=#bm_num#
+		</select>
+		
+		<!-- 업무파일 불러오기  -->		
+		<select id="Bm_file2" parameterClass="int" resultClass="bmdto">
 			select * from bm_file where bm_num=#bm_num#
 		</select>
 		
@@ -571,6 +726,12 @@
 		<select id="Bm_filecount" parameterClass="bmdto" resultClass="int">
 			select count(*) from bm_file where bm_num=#bm_num#
 		</select>
+		
+		<!-- 업무파일 세기  -->		
+		<select id="Bm_filecount2" parameterClass="int" resultClass="int">
+			select count(*) from bm_file where bm_num=#bm_num#
+		</select>
+		
 		
 		<!-- 업무보관함 등록  -->
 		<insert id="insertBns_box" parameterClass="bmdto">
@@ -662,7 +823,7 @@
 			bm_title=#bm_title#,bm_content=#bm_content#,bm_form=#bm_form#,bm_start=#bm_start#,
 			bm_end=#bm_end#,reg_notice=#reg_notice#,cmp_notice=#cmp_notice#,bns_box=#bns_box#,
 			important=#important#,bm_state=#bm_state# 
-			where bm_num=#bm_num# and bm_name=#bm_name#
+			where bm_num=#bm_num# 
 
 		</update>
 		
@@ -754,10 +915,25 @@
    	    </delete>
    	    
   <!-- ========== bm_state update============-->
-	<update id="mytodo_state_update" parameterClass="int">
+	<!--반려 -->	
+	<update id="state_update0" parameterClass="int">
+		update business_manage set bm_state =0 where bm_num=#bm_num# 
+	</update>
+	<!--미완료-->	
+	<update id="state_update1" parameterClass="int">
+		update business_manage set bm_state =1 where bm_num=#bm_num# 
+	</update>
+	<!--완료  -->
+	<update id="state_update2" parameterClass="int">
 		update business_manage set bm_state =2 where bm_num=#bm_num# 
 	</update>
-		
+	<!--지연 -->
+	<update id="state_update3" parameterClass="int">
+		update business_manage set bm_state =3 where bm_num=#bm_num# 
+	</update>
+
+			
+			
         
 
 </sqlMap>

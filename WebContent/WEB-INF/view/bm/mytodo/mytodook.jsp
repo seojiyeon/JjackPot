@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <!--  jQuery UI CSS파일 --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <!-- // jQuery 기본 js파일 -->
@@ -203,7 +203,19 @@ tbody {
                             ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
-                            ${bmdto.bm_state2}
+	                        <th style="width: 100px;">
+								<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+		    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+		    					</c:if>
+		    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+		    	  					  <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+		    	 				</c:if>
+		    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+		    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+		    	 				</c:if>
+		    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+		    	    				<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+		    	 				</c:if>
                         </th>
                     </tr>
 				</c:forEach>

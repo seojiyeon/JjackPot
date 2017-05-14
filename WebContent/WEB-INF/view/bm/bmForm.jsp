@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <!--  jQuery UI CSS파일 --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
-<!-- // jQuery 기본 js파일 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <!-- // jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -13,7 +12,8 @@
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=9" type="text/css" />   
-<script src="/JackPot/js/jquery.form.min.js"></script><!-- 파일업로드 (jquery plug-in) -->
+<!-- 파일업로드 (jquery plug-in) -->
+<script src="/JackPot/js/jquery.form.min.js"></script>
 <script src="/JackPot/js/jQuery.MultiFile.min.js"></script>
 <script src="resource/ckeditor.js"></script>
 <html>
@@ -26,7 +26,7 @@
 }
 </style>
 
-<script type="text/javascript">
+<script >
 	 
 
     	   $(document).ready(function()
@@ -140,10 +140,8 @@
 		} */
 	}
 	
-	
 	/* 파일 다중 업로드 */
 	$(document).ready(function(){
-    
     	//use jQuery MultiFile Plugin 
 	    $('#inputfile input[name=org_file]').MultiFile({
     	    max: 3, //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
@@ -162,6 +160,7 @@
         	list:"#file-list" //파일목록을 출력할 요소 지정가능
 	    });
 	});
+	
 	
 
 function openInchar(){
@@ -376,12 +375,12 @@ function resetAll(){
 			<div class="fileup_t">
 				<h3>파일 업로드</h3>
 			</div>
-			
-			<div class="plupload_wrapper">
-		
-			파일 : <input type="file" name="org_file" value="파일 첨부" id="fileInp" />
-			<div id="file-list"></div>
-		</div>
+			<div class="inputFileNImg">
+				파일 : <input type="file" name="org_file" value="파일 첨부" id="fileInp" />
+			</div>
+			<td>
+				<div id="file-list"></div>
+			</td>
 		
 		<div class="btn-wrap" >
 			<input type="submit" value="저장" class="btn btn-color5 br" />

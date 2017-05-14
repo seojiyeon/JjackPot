@@ -12,9 +12,21 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=4" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
-<style>
+<html>
+<head>
+<style type="text/css">
+
+body {
+    font-family: "Nanum Gothic", NanumGothic, 나눔고딕, NanumGothic, ng, 돋움, Dotum, Helvetica, "Apple SD Gothic Neo", sans-serif;
+    color: rgb(17, 17, 17);
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 1;
+    margin: 0px;
+}
+
 tr {
     display: table-row;
     vertical-align: inherit;
@@ -28,9 +40,7 @@ td, th {
 }
 
 
-.con-header {
-    position: relative;
-    height: 65px;
+.con-header {  position: relative; height: 65px;
     /* margin: 0 20px; */
     padding: 25px 0 0 0;
     border-bottom: 1px solid #d1d1d1;
@@ -106,7 +116,7 @@ i.icon.nonimp{width:13px;height:13px;margin:0 0 2px 0;background-position:-83px 
 
 function changeImp_click(bm_num){
 	
-	var abc = "."+bm_num;  //주석
+	var abc = "."+bm_num;  
 	$.ajax({
 		type :"post",
 		url :"MybmImportantChange.jp",
@@ -120,38 +130,60 @@ function changeImp_click(bm_num){
 		});
 }
 
+//체크박스 전체선택 전체해제 
+function selectAllTodo(){
+      if( $("#bm_num").is(':checked') ){
+        $("input[name=bm_num]").prop("checked", true);
+      }else{
+        $("input[name=bm_num]").prop("checked", false);
+      }
+}
+
+/* 삭제(체크박스된 것 전부) */
+function mybmYCHdel(){
+  var bm_num = "";
+  $( "input[name='bm_num']:checked" ).each (function (){
+	  bm_num = bm_num + $(this).val()+"," ;
+  });
+  bm_num = bm_num.substring(0,bm_num.lastIndexOf( ",")); //맨끝 콤마 지우기
+ 
+  if(bm_num == ''){
+    alert("삭제할 대상을 선택하세요.");
+    return false;
+  }
+  console.log("### bm_num => {}"+bm_num);
+  
+  if(confirm("정보를 삭제 하시겠습니까?")){
+	  $.ajax({
+	        url: "my_bmYCHDel.jp?=bm_num=${bm_num}",
+	        type:"post", 
+	        data : {bm_num:bm_num},
+	        success: function(result){
+	            if (result =="OK") {
+	              alert("삭제되었습니다.");
+	            } else{
+	                alert("삭제되지 않았습니다.");
+	            }
+	        }
+	    })
+	}
+
+
 </script>
 
-<html>
-<title>내가 한 업무보고리스트</title>
 
-</head>    
+<title> 수신 업무 요청 완료 </title>
+
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
-	<div id="main-contents">
+	<div id="main-contents" style="   font-family: serif;">
 		<div class="con-header">
-   			<h2>내가 한 업무보고리스트</h2>
+   			<h2>수신 업무 요청 완료 </h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
                 
-                    <select id="pagePerRecord" name="pagePerRecord" title="[ui.lightpack.todo.common.searchCondition.pagePerRecord] 가 없습니다. 확인해주세요.">
-                    
-                        <option value="10">10</option>
-                    
-                        <option value="15">15</option>
-                    
-                        <option value="20">20</option>
-                    
-                        <option value="30">30</option>
-                    
-                        <option value="40">40</option>
-                    
-                        <option value="50" selected="selected">50</option>
-                    
-                    </select>
-                
-                <div class="totalnum">전체 <span>${bmcount }</span></div>
+                <div class="totalnum">전체 <span>${count }</span></div>
             </div>
             <div class="table-search" style="right:250px;">
                
@@ -204,9 +236,9 @@ function changeImp_click(bm_num){
 		<tbody>
 		
 	
-			<c:forEach var="bmdto"  items="${MyBmBgList}">
+			<c:forEach var="bmdto"  items="${SSBmYCHokList}">
 				<tr>
-                        <th style="width: 40px;"><input id="checkAll" name="${bmdto.bm_num}" onclick="selectAllTodo()" type="checkbox" value="${bmdto.bm_num}" title="checkAll"></th>
+                        <th style="width: 40px;"><input  name="bm_num"  type="checkbox" value="${bmdto.bm_num}" /></th>
                         <th style="width: 40px;">${bmdto.bm_num}</th>
                         <th style="width: 50px;" class="${bmdto.bm_num}">
                         	<span onclick="changeImp_click(${bmdto.bm_num})">
@@ -219,10 +251,10 @@ function changeImp_click(bm_num){
 							</span>
                         </th>
                         <th style="width: 120px;">
-                       		${bmdto.box_name}
+                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                       		<a href="mytodoContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="myBmYCHContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                             </a>	
                         </th>
@@ -236,7 +268,18 @@ function changeImp_click(bm_num){
                             ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
-                            ${bmdto.bm_state2}
+							<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+	    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+	    					</c:if>
+	    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+	    	  					  <span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+	    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+	    	    				<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
                         </th>
                     </tr>
 				</c:forEach>
@@ -255,7 +298,7 @@ function changeImp_click(bm_num){
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="mytodoList.jp?pageNum=${i}">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
@@ -267,8 +310,7 @@ function changeImp_click(bm_num){
 	        
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
-	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+	            <button type="button" onClick="window.location='bm_delete1.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
 	            
 		</div>
 
@@ -287,3 +329,4 @@ function changeImp_click(bm_num){
 
 
 </html>
+</head>

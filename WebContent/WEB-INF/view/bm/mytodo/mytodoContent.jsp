@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <!--  jQuery UI CSS파일 --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <!-- // jQuery 기본 js파일 -->
@@ -110,9 +110,20 @@ $(document).ready(function(){
                             <th scope="row">상태</th>
                             <td>
                                 <div>
-                                	${bmdto.bm_state2}
-                                </div>
-                            </td>                            
+									<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+			    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+			    					</c:if>
+			    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+			    	  					  <span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+			    	 				</c:if>
+			    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+			    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+			    	 				</c:if>
+			    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+			    	    				<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+			    	 				</c:if>
+								</div>
+					    </td>                            
                             
                         </tr>
 	                  
@@ -204,7 +215,7 @@ $(document).ready(function(){
 			<div class="btn-wrap" >
 			<c:if test="${bm_state != 2 }">
 				<button type="button" id="bmupdatebutton" class="btn2 btn-color7 br">업무완료 </button>
-     		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
+     		   	<button type="button" onClick="window.location='mytodoContentModify.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
     			</c:if>
     			<button type="button" onClick="window.location='my_bm_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
     			<button type="button" onClick="window.location='mytodoList.jp'"class="btn2 btn-color7 br">목록  </button>

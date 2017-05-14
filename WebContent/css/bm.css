@@ -30,6 +30,7 @@ li{padding: 8px; text-align: center;border: hidden;  font-size : 12px;}
 .content-view .form-group {display:table;margin-bottom:0;padding:0;}
 
 /*버튼*/
+
 .btn-color5.br { border: 1px solid #363636; border: 1px solid #363636; font-size: 12; }
 
 .btn-wrap .btn { min-width: 63px; padding: 5px 11px;/* box-shadow: 0 3px 5px #e3e3e3; */}
@@ -78,7 +79,28 @@ button, input, optgroup, select, textarea {color: inherit; font: inherit; margin
 
 
 .btn { display: inline-block;padding: 3px 11px;line-height: 19px;font-size: 13px;font-weight: 600;color: #fff;text-align: center; vertical-align: middle;border: 1px solid transparent; border-radius: 2px; cursor: pointer; white-space: nowrap;}
-
+.todo-cate-box.color2, .todo-cate-box1.color2, .todo-cate-box3.color2, .todo-cate-box4.color2 {  background: #59c2e6;}
+.statement .todo-cate-box1, .statement .todo-cate-box2, .statement .todo-cate-box3 {  position: absolute; top: 11px; right: 20px;}
+.todo-cate-box1 { display: inline-block; width: 83px; padding: 2px 8px 1px !important; line-height: 18px;  text-align: center;  font-size: 11px;  color: #fff;  border-radius: 2px;}
+.todo-cate-box2 {display: inline-block; width: 83px; padding: 1px 8px 0 !important; line-height: 18px; border: 1px solid #ddd !important; background: #fff; text-align: center; font-size: 11px; color: #767575 !important; border-radius: 2px;}
+.todo-cate-box.color4, .todo-cate-box1.color4, .todo-cate-box3.color4, .todo-cate-box4.color4 { background: #f2a62e;}
+.todo-cate-box.color3, .todo-cate-box1.color3, .todo-cate-box3.color3, .todo-cate-box4.color3 { background: #fdaf00;}
+.todo-cate-box1 {display: inline-block; width: 83px; padding: 2px 8px 1px !important; line-height: 18px; text-align: center; font-size: 11px; color: #fff; border-radius: 2px;}
+ul:not(.itemContentLi), ol:not(.itemContentLi), dl, dt, dd, p { margin: 0; padding: 0;}
+.progtd-todo {}
+.progtd { margin-bottom: 0; list-style: none;}
+* {  -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+ul, menu, dir { display: block; list-style-type: disc; -webkit-margin-before: 1em; -webkit-margin-after: 1em; -webkit-margin-start: 0px; -webkit-margin-end: 0px; -webkit-padding-start: 40px;}
+.bar-chart-todo:first-child { margin-top: 5px;}
+.bar-chart-todo { position: relative; margin-top: 20px;}
+.bar-chart-todo .bar-chart {  height: 15px; background: #f5f5f5;}
+.bar-chart-todo .bar-chart .bar { height: 15px; background: #de4848;width: 60%;}
+i.icon.exclamation02 {  width: 12px; height: 12px; background-position: -45px -57px;}
+i.icon { display: inline-block; vertical-align: middle; background-image: url(../images/common/ic_common.png); margin: 0 4px; background-repeat: no-repeat;}
+.form-control {display: inline-block; width: 100%; border: 1px solid #c3c6c9; border-radius: 2px; font-size: 12px; color: #555; line-height: 1.42857;}
+button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0;}
+textarea { padding: 5px 8px; color: #555; border: 1px solid #c3c6c9; border-radius: 2px; /* box-shadow: 0 3px 3px #f4f4f4 inset; */ resize: vertical; overflow: auto;}
+input, button, select, textarea { vertical-align: middle;}
 button, input, optgroup, select, textarea {  color: inherit; font: inherit;  margin: 0;}
 /*---------------------------------------*/
 

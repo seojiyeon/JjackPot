@@ -120,17 +120,23 @@ function changeImp_click(bm_num){
 		});
 }
 
+// 삭제 
+function mybmYCHdel() {
+	document.chzbG.action="my_bmYCHDel.jp?bm_num=${bm_num}";
+	document.chzbG.submit();
+}
+
 </script>
 
 <html>
-<title>내가 한 업무보고리스트</title>
+<title> 참조업무요청리스트</title>
 
 </head>    
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
 	<div id="main-contents">
 		<div class="con-header">
-   			<h2>내가 한 업무보고리스트</h2>
+   			<h2>참조업무요청리스트</h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
@@ -171,12 +177,14 @@ function changeImp_click(bm_num){
                 </div>
             </div>
         </div>
-	
+        
+		<form name="chzbG" method="post">
    		<div class="content-list">
             <table class="table table-striped" id="tblList">	
 				<thead >
                     <tr>
-                        <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
+                        <th style="width: 40px;">
+                        <input type="checkbox"  name="bm_num"  value="${bmdto.bm_num }" class="bm_num"></th>
                         <th style="width: 40px;">번호</th>
                         <th style="width: 50px;">
                             <a data-sortcolumn="PRIORITY" href="#">중요<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
@@ -204,9 +212,9 @@ function changeImp_click(bm_num){
 		<tbody>
 		
 	
-			<c:forEach var="bmdto"  items="${MyBmBgList}">
+			<c:forEach var="bmdto"  items="${ChZBGBmYCHList}">
 				<tr>
-                        <th style="width: 40px;"><input id="checkAll" name="${bmdto.bm_num}" onclick="selectAllTodo()" type="checkbox" value="${bmdto.bm_num}" title="checkAll"></th>
+                        <th style="width: 40px;"><input  type="checkbox"  value="${bmdto.bm_num}" name="bm_num" /></th>
                         <th style="width: 40px;">${bmdto.bm_num}</th>
                         <th style="width: 50px;" class="${bmdto.bm_num}">
                         	<span onclick="changeImp_click(${bmdto.bm_num})">
@@ -268,7 +276,7 @@ function changeImp_click(bm_num){
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
 	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+	            <button type="button" onClick="window.location='bmYCH_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
 	            
 		</div>
 

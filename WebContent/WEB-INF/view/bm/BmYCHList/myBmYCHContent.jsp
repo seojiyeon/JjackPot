@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <!--  jQuery UI CSS파일 --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <!-- // jQuery 기본 js파일 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <!-- // jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -28,28 +28,6 @@
 .statement h4 { padding: 12px 14px;  background-color: #f9fafc;  border-bottom: 1px solid #cccccc;  font-size: 16px;  font-weight: 600;}
 h4 {  display: block;  -webkit-margin-before: 1.33em;  -webkit-margin-after: 1.33em;  -webkit-margin-start: 0px;  -webkit-margin-end: 0px;  font-weight: bold;}
 h1, h2, h3, h4, h5, h6 { padding: 0;  margin: 0;  font-weight: 500;  line-height: 1.1;}
-
-.todo-cate-box.color2, .todo-cate-box1.color2, .todo-cate-box3.color2, .todo-cate-box4.color2 {  background: #59c2e6;}
-.statement .todo-cate-box1, .statement .todo-cate-box2, .statement .todo-cate-box3 {  position: absolute; top: 11px; right: 20px;}
-.todo-cate-box1 { display: inline-block; width: 83px; padding: 2px 8px 1px !important; line-height: 18px;  text-align: center;  font-size: 11px;  color: #fff;  border-radius: 2px;}
-.todo-cate-box2 {display: inline-block; width: 83px; padding: 1px 8px 0 !important; line-height: 18px; border: 1px solid #ddd !important; background: #fff; text-align: center; font-size: 11px; color: #767575 !important; border-radius: 2px;}
-.todo-cate-box.color4, .todo-cate-box1.color4, .todo-cate-box3.color4, .todo-cate-box4.color4 { background: #f2a62e;}
-.todo-cate-box1 {display: inline-block; width: 83px; padding: 2px 8px 1px !important; line-height: 18px; text-align: center; font-size: 11px; color: #fff; border-radius: 2px;}
-ul:not(.itemContentLi), ol:not(.itemContentLi), dl, dt, dd, p { margin: 0; padding: 0;}
-.progtd-todo {}
-.progtd { margin-bottom: 0; list-style: none;}
-* {  -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
-ul, menu, dir { display: block; list-style-type: disc; -webkit-margin-before: 1em; -webkit-margin-after: 1em; -webkit-margin-start: 0px; -webkit-margin-end: 0px; -webkit-padding-start: 40px;}
-.bar-chart-todo:first-child { margin-top: 5px;}
-.bar-chart-todo { position: relative; margin-top: 20px;}
-.bar-chart-todo .bar-chart {  height: 15px; background: #f5f5f5;}
-.bar-chart-todo .bar-chart .bar { height: 15px; background: #de4848;width: 60%;}
-i.icon.exclamation02 {  width: 12px; height: 12px; background-position: -45px -57px;}
-i.icon { display: inline-block; vertical-align: middle; background-image: url(../images/common/ic_common.png); margin: 0 4px; background-repeat: no-repeat;}
-.form-control {display: inline-block; width: 100%; border: 1px solid #c3c6c9; border-radius: 2px; font-size: 12px; color: #555; line-height: 1.42857;}
-button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0;}
-textarea { padding: 5px 8px; color: #555; border: 1px solid #c3c6c9; border-radius: 2px; /* box-shadow: 0 3px 3px #f4f4f4 inset; */ resize: vertical; overflow: auto;}
-input, button, select, textarea { vertical-align: middle;}
 
 </style>
 
@@ -82,12 +60,24 @@ $(document).ready(function(){
 				var bm_state;
 				var result = confirm('업무완료 처리하시겠습니까?');
 					if(bm_state != 2){
-						window.location="/JackPot/mytodo_state_update.jp?bm_num=${bm_num}";
+						window.location='bmYCH_state_finish.jp?bm_num=${bm_num}';
 					}else if(bm_state == 2){
-						
+						alert("이미 완료되었습니다.")
 					}
 				});
 			});
+			
+$(document).ready(function(){
+	$("#bmupdatebutton").click(function(){
+			var bm_state;
+			var result = confirm('업무반려 처리하시겠습니까?');
+				if(bm_state != 0){
+					window.location='bmYCH_state_nonfinish.jp?bm_num=${bm_num}'";
+				}else if(bm_state == 0){
+					
+				}
+			});
+		});
 </script>
 <!-- 
 <script>
@@ -146,7 +136,10 @@ $(document).ready(function(){
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
 <div class="con-header">
-    <h2>나의 할 일 조회</h2>
+
+    <h2>내가 한 업무 요청</h2>
+
+
     </div>
 <form id="myBmYCHCont">    
 <div class="form-block">
@@ -163,7 +156,20 @@ $(document).ready(function(){
                             <th scope="row">상태</th>
                             <td>
                                 <div>
-                                	<span class="todo-cate-box1 color2">${bmdto.bm_state2}  </span>
+                                	<span class="todo-cate-box1 color2">
+										<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+											<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+										</c:if>
+										<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+											<span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+										</c:if>
+										<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+											<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+										</c:if>
+										<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+											<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+										</c:if>
+									</span>
                                 	
                                 </div>
                             </td>                            
@@ -187,11 +193,22 @@ $(document).ready(function(){
                    	 	
                    	 	<tr>
 							<th scope="row">업무등록일  </th>
+							
+							<c:if test="${bmdto.enrollment == null }">
+ 							<td>
+                                <div>
+                                  
+                                </div>            
+                            </td>                   
+ 							</c:if>
+ 							
+ 							<c:if test="${bmdto.enrollment != null }">
                             <td>
                                 <div>
                                 	${sdf.format(bmdto.enrollment) }
                                 </div>
-                            </td>
+                                </td>
+                                </c:if>
                             
                                 
  							<th scope="row">수정일  </th>
@@ -270,18 +287,18 @@ $(document).ready(function(){
 <div class="inform-wrap" >
 	<div class="statement">
     	<h4>처리내역</h4>
-    	<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
-    	    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
-    	 </c:if>
-    	 <c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
-    	    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
-    	 </c:if>
-    	 <c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
-    	    <span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
-    	 </c:if>
-    	 <c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
-    	    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
-    	 </c:if>
+				<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+					<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+				</c:if>
+				<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+					<span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+				</c:if>
+				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+				</c:if>
+				<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+					<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+				</c:if>
     	 
             	<div class="form-block" >
             	<form name="history" class="form-horizontal" action="" method="post" enctype="multipart/form-data" id="inputfile"  >
@@ -318,6 +335,7 @@ $(document).ready(function(){
 
                                         <tr>
                                             <th scope="row">진척율</th>
+                                            <c:if test="${bm_state == 1 }">
                                             <c:if test="${his_process ==null }">
                                             <td colspan="3">
                                             	<ul class="progtd progtd-todo">
@@ -328,6 +346,25 @@ $(document).ready(function(){
                                                     <li class=""><a href="javascript:checkProgress('80');"><span>80%</span></a></li>
                                                     <li class=""><a href="javascript:checkProgress('100');"><span>100%</span></a></li>
                                                 </ul>
+                                                </td>
+                                                </c:if>
+                                                </c:if>
+                                            <c:if test="${bm_state != 1 }">
+                                            <c:if test="${his_process ==null }">
+                                            <td colspan="3">
+                                            	<ul class="progtd progtd-todo">
+                                                    <li class="active"><a ><span>0%</span></a></li>
+                                                </ul>
+                                               </td>
+                                                </c:if>
+                                            <c:if test="${his_process !=null }">
+                                            <td colspan="3">
+                                            	<ul class="progtd progtd-todo">
+                                                    <li class="active"><a ><span>{bmdto.his_process}</span></a></li>
+                                                </ul>
+                                               </td>
+                                                </c:if>                                                
+                                                
                                                 <div class="tdprogress" style="width:448px;">
 	                                                <div class="bar-chart-todo">
 	                                                    <div class="bar-chart">
@@ -392,17 +429,25 @@ $(document).ready(function(){
                    	 	</tr>
                    	 	
                             </div>
-                            
-                            
+
                         </div>
                         
  
 
 
 			<div class="btn-wrap" >
-     		   	<button type="button" onClick="window.location='myBmModify.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
-    			<button type="button" onClick="window.location='my_bmYCHDel.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+				<c:if test="${bmdto.bm_state == 1}">
+     		   	<button type="button" id="bmupdatebutton"onClick="window.location='bmYCH_state_finish.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">완료 </button>
+    			<button type="button"  id="banlyeo"onClick="window.location='bmYCH_state_nonfinish.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">반려 </button>
     			<button type="button" onClick="window.location='myBmYCHList.jp'"class="btn2 btn-color7 br">목록  </button>
+    			</c:if>
+				<c:if test="${bmdto.bm_state == 2}">
+     		   	<button type="button" onClick="window.location='myBmYCHokList.jp'"class="btn2 btn-color7 br">목록  </button>
+    			</c:if>   
+				<c:if test="${bmdto.bm_state == 0}">
+     		   	<button type="button" onClick="window.location='myBmYCHnoList.jp'"class="btn2 btn-color7 br">목록  </button>
+    			</c:if>       			 			
+    			
     
     		</div>
 </div></div>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <!--  jQuery UI CSS파일 --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <!-- // jQuery 기본 js파일 -->
@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=4" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
 <style>
 tr {
@@ -128,7 +128,7 @@ function selectAllTodo(){
         $("input[name=bm_num]").prop("checked", false);
       }
 }
-
+/* 
 /* 삭제(체크박스된 것 전부) */
 function mybmYCHdel(){
   var bm_num = "";
@@ -142,22 +142,26 @@ function mybmYCHdel(){
     return false;
   }
   console.log("### bm_num => {}"+bm_num);
-  
+
   if(confirm("정보를 삭제 하시겠습니까?")){
+	  
 	  $.ajax({
-	        url: "my_bmYCHDel.jp",
+	        url: "my_bmYCHDel.jp?=bm_num=${bm_num}",
 	        type:"post", 
 	        data : {bm_num:bm_num},
-	        success: function(bm_num){
-	            if (bm_num=="OK") {
+	        success: function(result){
+	            if (result =="OK") {
 	              alert("삭제되었습니다.");
 	            } else{
 	                alert("삭제되지 않았습니다.");
 	            }
 	        }
-	    })
+	    }) 
 	}
 
+}	 function selectRemove() {
+	document.multiForm.action="memoRemovePro.jp?memoGroup=${memoGroup}";
+	document.multiForm.submit();
 }
 
 
@@ -279,7 +283,18 @@ function mybmYCHdel(){
                             ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
-                            ${bmdto.bm_state2}
+							<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+	    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+	    					</c:if>
+	    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+	    	  					  <span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+	    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+	    	    				<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
                         </th>
                     </tr>
 				</c:forEach>
@@ -294,15 +309,15 @@ function mybmYCHdel(){
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="myBmYCHList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="myBmYCHList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="myBmYCHList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>
@@ -311,7 +326,7 @@ function mybmYCHdel(){
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
 	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" onclick="mybmYCHdel()"class="btn2 btn-color7 br">삭제 </button>
+	            <button type="button" class="btn2 btn-color7 br"oonClick="window.location='bmYCH_delete.jp?bm_num=${bm_num}'">삭제 </button>
 	            
 		</div>
 

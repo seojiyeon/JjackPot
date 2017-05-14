@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="/JackPot/js/jquery-3.1.1.min.js"></script> 
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 <!--  jQuery UI CSS파일 --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <!-- // jQuery 기본 js파일 -->
@@ -12,9 +12,21 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=4" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
-<style>
+<html>
+<head>
+<style type="text/css">
+
+body {
+    font-family: "Nanum Gothic", NanumGothic, 나눔고딕, NanumGothic, ng, 돋움, Dotum, Helvetica, "Apple SD Gothic Neo", sans-serif;
+    color: rgb(17, 17, 17);
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 1;
+    margin: 0px;
+}
+
 tr {
     display: table-row;
     vertical-align: inherit;
@@ -28,9 +40,7 @@ td, th {
 }
 
 
-.con-header {
-    position: relative;
-    height: 65px;
+.con-header {  position: relative; height: 65px;
     /* margin: 0 20px; */
     padding: 25px 0 0 0;
     border-bottom: 1px solid #d1d1d1;
@@ -106,7 +116,7 @@ i.icon.nonimp{width:13px;height:13px;margin:0 0 2px 0;background-position:-83px 
 
 function changeImp_click(bm_num){
 	
-	var abc = "."+bm_num;  //주석
+	var abc = "."+bm_num;  
 	$.ajax({
 		type :"post",
 		url :"MybmImportantChange.jp",
@@ -120,44 +130,21 @@ function changeImp_click(bm_num){
 		});
 }
 
-// 삭제 
-function mybmYCHdel() {
-	document.chzbG.action="my_bmYCHDel.jp?bm_num=${bm_num}";
-	document.chzbG.submit();
-}
-
 </script>
 
-<html>
-<title> 참조업무요청리스트</title>
 
-</head>    
+<title> 나의 업무 요청 반려</title>
+
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
-	<div id="main-contents">
+	<div id="main-contents" style="   font-family: serif;">
 		<div class="con-header">
-   			<h2>참조업무요청리스트</h2>
+   			<h2>나의 업무 요청 반려 </h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
                 
-                    <select id="pagePerRecord" name="pagePerRecord" title="[ui.lightpack.todo.common.searchCondition.pagePerRecord] 가 없습니다. 확인해주세요.">
-                    
-                        <option value="10">10</option>
-                    
-                        <option value="15">15</option>
-                    
-                        <option value="20">20</option>
-                    
-                        <option value="30">30</option>
-                    
-                        <option value="40">40</option>
-                    
-                        <option value="50" selected="selected">50</option>
-                    
-                    </select>
-                
-                <div class="totalnum">전체 <span>${bmcount }</span></div>
+                <div class="totalnum">전체 <span>${count }</span></div>
             </div>
             <div class="table-search" style="right:250px;">
                
@@ -177,14 +164,12 @@ function mybmYCHdel() {
                 </div>
             </div>
         </div>
-        
-		<form name="chzbG" method="post">
+	
    		<div class="content-list">
             <table class="table table-striped" id="tblList">	
 				<thead >
                     <tr>
-                        <th style="width: 40px;">
-                        <input type="checkbox"  name="bm_num"  value="${bmdto.bm_num }" class="bm_num"></th>
+                        <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
                         <th style="width: 40px;">번호</th>
                         <th style="width: 50px;">
                             <a data-sortcolumn="PRIORITY" href="#">중요<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
@@ -212,9 +197,9 @@ function mybmYCHdel() {
 		<tbody>
 		
 	
-			<c:forEach var="bmdto"  items="${ChZBGBmYCHList}">
+			<c:forEach var="bmdto"  items="${cHzBmYCHokList}">
 				<tr>
-                        <th style="width: 40px;"><input  type="checkbox"  value="${bmdto.bm_num}" name="bm_num" /></th>
+                        <th style="width: 40px;"><input id="checkAll" name="" onclick="selectAllTodo()" type="checkbox" value="" title="checkAll"></th>
                         <th style="width: 40px;">${bmdto.bm_num}</th>
                         <th style="width: 50px;" class="${bmdto.bm_num}">
                         	<span onclick="changeImp_click(${bmdto.bm_num})">
@@ -227,10 +212,10 @@ function mybmYCHdel() {
 							</span>
                         </th>
                         <th style="width: 120px;">
-                       		${bmdto.box_name}
+                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                       		<a href="mytodoContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="myBmYCHContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                             </a>	
                         </th>
@@ -244,7 +229,18 @@ function mybmYCHdel() {
                             ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
-                            ${bmdto.bm_state2}
+			 				<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+								<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+							</c:if>
+							<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+								<span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+							</c:if>
+							<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+								<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+							</c:if>
+							<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+								<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+							</c:if>
                         </th>
                     </tr>
 				</c:forEach>
@@ -263,7 +259,7 @@ function mybmYCHdel() {
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="mytodoList.jp?pageNum=${i}">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
@@ -275,8 +271,7 @@ function mybmYCHdel() {
 	        
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
-	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" onClick="window.location='my_bmYCHDel.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+	            <button type="button" onClick="window.location='bm_delete1.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
 	            
 		</div>
 
@@ -295,3 +290,4 @@ function mybmYCHdel() {
 
 
 </html>
+</head>
