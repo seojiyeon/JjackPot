@@ -135,35 +135,12 @@ ul.tabs li.active {
 		
 		<div id="container">
 			<ul class="tabs">
-				<li class="active" rel="tab1">폴더 등록</li>
-				<li rel="tab2">폴더 수정</li>
+				<li class="active" rel="tab1">폴더 수정</li>
+				<li rel="tab2">폴더 등록</li>
 			</ul>
 			<div class="tab_container">
+				
 				<div id="tab1" class="tab_content">
-					<form method="post" action="memoCateInsert.jp" name="cateInsert" onSubmit="return frmCheck();">
-						<table>
-							<tr>
-								<td>
-									<table>
-										<tr>
-											<td>
-												<button type="button" style="cursor:hand" onClick="insCate();">폴더 추가</button>
-												<input type="submit" value="저장" />
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<table id="addTable">
-									</table>
-								</td>
-							</tr>										
-						</table>
-					</form>
-				</div>
-				<div id="tab2" class="tab_content">
 					<form method="post" action="">
 						<div class="tab-main">
 							<div class="tab-left">
@@ -190,6 +167,31 @@ ul.tabs li.active {
 								</ul>
 							</div>
 						</div>
+					</form>
+				</div>
+				
+				<div id="tab2" class="tab_content">
+					<form method="post" action="memoCateInsert.jp" name="cateInsert" onSubmit="return frmCheck();">
+						<table>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>
+												<button type="button" style="cursor:hand" onClick="insCate();">폴더 추가</button>
+												<input type="submit" value="저장" />
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table id="addTable">
+									</table>
+								</td>
+							</tr>										
+						</table>
 					</form>
 				</div>
 			</div>

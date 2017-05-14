@@ -13,6 +13,21 @@
 			#buy_code#, #buy_name#, #big_cate#, #middle_cate#, #small_cate#, #note#
 		)
 	</insert>
+	<select id="itemAllList" resultClass="idto">
+		select * from item order by item_num desc
+	</select>
+	<select id="itemContent" resultClass="idto" parameterClass="idto">
+		select * from item where item_num=#item_num#
+	</select>
+	<update id="itemModify" parameterClass="idto">
+		update item set pro_code=#pro_code#, barcode=#barcode#, pro_name=#pro_name#, item_division=#item_division#, sale_cost=#sale_cost#,
+						buy_cost=#buy_cost#, retail_cost=#retail_cost#, tax=#tax#, stand=#stand#, unit=#unit#, use=#use#,
+						buy_code=#buy_code#, buy_name=#buy_name#, big_cate=#big_cate#, middle_cate=#middle_cate#, small_cate=#small_cate#, note=#note#
+		where item_num=#item_num#
+	</update>	
+	<delete id="itemDelete" parameterClass="idto">
+		delete from item where item_num=#item_num#
+	</delete>
 	
 	<!-- 카테고리 -->
 	<!-- 대분류 -->
@@ -30,9 +45,15 @@
 	</select>
 	<select id="bigCateCount" resultClass="int">
 		select count(*) from big_cate
-	</select>
+	</select><!-- 
 	<update id="bigCateUpdate" parameterClass="idto">
 		update big_cate set big_name=#big_name#, big_use=#big_use# where big_num=#big_num#
+	</update> -->
+	<update id="bigCateNameUpdate" parameterClass="idto">
+		update big_cate set big_name=#big_name# where big_num=#big_num#
+	</update>
+	<update id="bigCateUseUpdate" parameterClass="idto">
+		update big_cate set big_use=#big_use# where big_num=#big_num#
 	</update>
 	
 	<!-- 중분류 -->

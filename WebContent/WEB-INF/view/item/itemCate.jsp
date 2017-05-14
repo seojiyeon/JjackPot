@@ -112,7 +112,7 @@
 			var con = this.innerHTML;
 			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>";
 		});		
-		
+				
 		$(".modifyUse").dblclick(function() {
 			var conUse = this.innerHTML;
 			this.innerHTML ="<select name='big_use'>"
@@ -121,24 +121,6 @@
 			 + "</select>";
 		});
 	});
-	
-	$(document).on('click', '#big-cate', function() {
-		showMiddleCate(big_num);
-	});
-	
-	function showMiddleCate(big_num) {
-		$.ajax({
-			type: "POST",
-			url: " showMiddleCate.jp",
-			data: {big_num:big_num},
-			success: function(middleCate) {
-				$(".")
-			},
-			error: function() {
-				alert("error");
-			}
-		});
-	}
 </script>
 
 <html>
@@ -224,13 +206,13 @@
 					
 					<c:forEach var="bigCate" items="${bigCateList}">
 					<tr id="big-cate">
-						<td style="width:40px; height:20px;">${bigCate.big_code}
-						<input type="hidden" name="check" value="2" />
+						<td style="width:40px; height:20px;">
+							${bigCate.big_code}
+							<input type="hidden" name="big_num" value="${bigCate.big_num}" />
+							<input type="hidden" name="check" value="2" />
 						</td>			
 						<td class="modifyName" style="width:100px; height:20px;">${bigCate.big_name}</td>
-						<td class="modifyUse">${bigCate.big_use}
-						<input type="hidden" name="big_num" value="${bigCate.big_num}" />
-						</td>
+						<td class="modifyUse">${bigCate.big_use}</td>
 					</tr>
 					</c:forEach>
 				</table>

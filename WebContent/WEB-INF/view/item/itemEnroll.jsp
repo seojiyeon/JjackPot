@@ -111,6 +111,46 @@ ul.tabs li.active {
 			return false;
 		}
 	}
+	
+	function selectRemove() {
+		document.itemListForm.action="itemDeletePro.jp";
+		document.itemListForm.submit();
+	}
+
+	function allCheck() {
+		if($("#th_checkAll").is(':checked')) {
+			$("input[name=item_num]").prop("checked", true);
+		} else {
+			$("input[name=item_num]").prop("checked", false);
+		}
+	}
+	
+	function showItemCont(item_num) {
+		$.ajax({
+			type:"POST",
+			url:"itemContent.jp",
+			data:{item_num:item_num},
+			success:function(content) {
+				$(".itemForm-pro_code-td").html("<input type=text name=pro_code disabled=disabled value="+content.pro_code+"></input>");
+				$(".itemForm-sale_cost-td").html("<input type=text name=sale_cost value="+content.sale_cost+"></input>");
+				$(".itemForm-barcode-td").html("<input type=text name=barcode value="+content.barcode+"></input>");
+				$(".itemForm-buy_cost-td").html("<input type=text name=buy_cost value="+content.buy_cost+"></input>");
+				$(".itemForm-pro_name-td").html("<input type=text name=pro_name value="+content.pro_name+"></input>");
+				$(".itemForm-retail_cost-td").html("<input type=text name=retail_cost value="+content.retail_cost+"></input>");
+				$(".itemForm-item_division-td").html("<select name=item-division><option value=제품>제품</option><option value=상품>상품</option><option value=원자재>원자재</option><option value=부자재>부자재</option></select>");
+				$(".itemForm-tax-td").html("<select name=tax><option value=부가세별도>부가세별도</option><option value=부가세포함>부가세포함</option></select>");
+				$(".itemForm-stand-td").html("<input type=text name=stand value="+content.stand+"></input>");
+				$(".itemForm-unit-td").html("<input type=text name=unit value="+content.unit+"></input>");
+				$(".itemForm-use-td").html("<select name=use><option value=사용>사용</option><option value=미사용>미사용</option></select>");
+				$(".itemForm-buy_code-td").html("<input type=text name=buy_code value="+content.buy_code+"></input>");
+				$(".itemForm-buy_name-td").html("<input type=text name=buy_name value="+content.buy_name+"></input>");
+				$(".itemForm-note-td").html("<textarea name=note style=width:500px; height:120px;>"+content.note+"</textarea><input type=hidden name=item_num value="+content.item_num+"></input>");
+			},
+			error:function(request, status, error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
 </script>
 
 <html>
@@ -146,14 +186,226 @@ ul.tabs li.active {
 		
 		<div id="container">
 			<ul class="tabs">
-				<li class="active" rel="tab1">재고 등록</li>
-				<li rel="tab2">재고 관리</li>
+				<li class="active" rel="tab1">재고 관리</li>
+				<li rel="tab2">재고 등록</li>
 			</ul>
 		</div>
 		
 		<div class="tab_container">
 			<!-- 첫번째 탭 -->
 			<div id="tab1" class="tab_content">
+			
+			<div class="search-wrap">
+				<form name="searchForm" method="post" action="itemEnroll.jp">
+				<div class="form-group">
+					<table class="search-table">
+						<tr>
+							<th>품목구분</th>
+							<td>
+								<select name="item_division">
+									<option value="전체">전체</option>
+									<option value="상품">상품</option>
+									<option value="원자재">원자재</option>
+									<option value="부자재">부자재</option>
+								</select>
+							</td>
+							<th>분류</th>
+							<td>
+								<select name="big_cate">
+									<option value="0">대분류</option>
+								</select>
+								&nbsp;
+								<select name="middle_cate">
+									<option value="0">중분류</option>
+								</select>
+								&nbsp;
+								<select name="small_cate">
+									<option value="0">소분류</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>품명/품목코드</th>
+							<td>
+								<input type="text" name="pro_code" />
+							</td>
+							<th>사용여부</th>
+							<td>
+								<select name="use">
+									<option value="사용">사용</option>
+									<option value="미사용">미사용</option>
+									<option value="전체">전체</option>
+								</select>
+							</td>
+						</tr>				
+					</table>
+					<div class="search-btn">
+						<input type="submit" value="검색" />
+					</div>
+				</div>
+			</form>
+			</div>
+			
+			<div class="left-layout">
+				<div class="sub-title">
+					<table>
+						<tr>
+							<th>품목목록 <font color="red">숫자</font></th>
+						</tr>
+					</table>
+				</div>
+				<div class="sub-head">
+					<table>
+						<tr>
+							<th><input type="checkbox" name="check" id="th_checkAll" onclick="allCheck();"/></th>
+							<th style="width:80px;">품목코드</th>
+							<th style="width:80px;">품목명</th>
+							<th style="width:80px;">규격</th>
+						</tr>
+					</table>
+					<div class="sub-content">
+						<form name="itemListForm" method="post">
+						<table>
+							<c:forEach var="itemList" items="${itemList}">
+							<tr class="sub-area" onclick="showItemCont(${itemList.item_num})">
+								<td>
+									<input type="checkbox" value="${itemList.item_num}" name="item_num" id="allCheck"/>
+								</td>
+								<td style="width:80px;">${itemList.pro_code}</td>
+								<td style="width:80px;">${itemList.pro_name}</td>
+								<td style="width:80px;">${itemList.stand}</td>
+							</tr>								
+							</c:forEach>
+						</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		
+			<div class="rigth-layout">
+				<div class="sub-title">
+					<table style="width:580px;">
+						<tr>
+							<th style="width:300px; text-align:left;">품목정보</th>
+							<td align="right">
+								<button type="button" onclick="selectRemove()">일괄삭제</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<form method="post" name="itemForm" action="itemModifyPro.jp">
+				<div class="sub-content">
+					<table class="item-table">
+						<tr>
+							<th><font color="red">*</font>품목코드</th>
+							<td class="itemForm-pro_code-td">
+								<input type="text" name="pro_code" />
+							</td>
+							<th><font color="red">*</font>판매단가</th>
+							<td class="itemForm-sale_cost-td">
+								<input type="text" name="sale_cost" />
+							</td>
+						</tr>
+						<tr>
+							<th>바코드</th>
+							<td class="itemForm-barcode-td">
+								<input type="text" name="barcode" />
+							</td>
+							<th><font color="red">*</font>구매단가</th>
+							<td class="itemForm-buy_cost-td">	
+								<input type="text" name="buy_cost" />
+							</td>
+						</tr>
+						<tr>
+							<th><font color="red">*</font>품명</th>
+							<td class="itemForm-pro_name-td">
+								<input type="text" name="pro_name" />
+							</td>
+							<th>소매단가</th>
+							<td class="itemForm-retail_cost-td">
+								<input type="text" name="retail_cost" />
+							</td>
+						</tr>
+						<tr>
+							<th>품목구분</th>
+							<td class="itemForm-item_division-td">
+								<select name="item_division">
+									<option value="제품">제품</option>
+									<option value="상품">상품</option>
+									<option value="원자재">원자재</option>
+									<option value="부자재">부자재</option>
+								</select>
+							</td>
+							<th>과세유형</th>
+							<td class="itemForm-tax-td">
+								<select name="tax">
+									<option value="부가세별도">부가세별도</option>
+									<option value="부가세포함">부가세포함</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>규격</th>
+							<td class="itemForm-stand-td">
+								<input type="text" name="stand" />
+							</td>
+							<th>단위</th>
+							<td class="itemForm-unit-td">
+								<input type="text" name="unit" />
+							</td>
+						</tr>
+						<tr>
+							<th>사용여부</th>
+							<td colspan="3" class="itemForm-use-td">
+								<select name="use">
+									<option value="사용">사용</option>
+									<option value="미사용">미사용</option>
+								</select>
+								<input type="text" name="use" />
+							</td>
+						</tr>
+						<tr>
+							<th>구매품목코드</th>
+							<td class="itemForm-buy_code-td">
+								<input type="text" name="buy_code" />
+							</td>
+							<th>구매품목명</th>
+							<td class="itemForm-buy_name-td">
+								<input type="text" name="buy_name" />
+							</td>
+						</tr>
+						<tr>	
+							<th>분류</th>
+							<td colspan="3">
+								<select name="big_cate">
+									<option value="0">대분류</option>
+								</select>
+								<select name="middle_cate">
+									<option value="0">중분류</option>
+								</select>
+								<select name="small_cate">
+									<option value="0">소분류</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>비고</th>
+							<td colspan="3" class="itemForm-note-td">
+								<textarea rows="20" cols="20" name="note" style="width:500px; height:54px;"></textarea>
+							</td>						
+					</table>
+					<div class="btn-wrap">
+						<input type="submit" value="수정" />
+						<button type='button' class="btn-wrap-delete">삭제</button>
+					</div>
+				</div>
+				</form>
+			</div>
+			</div>
+			
+			<!-- 두번째 탭 -->
+			<div id="tab2" class="tab_content">
 				<form method="post" name="itemForm" action="itemEnrollPro.jp" onSubmit="return checkIt();">
 				<div class="sub-content">
 					<table class="item-table">
@@ -260,202 +512,6 @@ ul.tabs li.active {
 					</div>
 				</div>
 				</form>
-			</div>
-			
-			<!--  두번째 탭 -->
-			<div id="tab2" class="tab_content">
-			
-			<div class="search-wrap">
-				<form name="searchForm" method="post" action="itemEnroll.jp">
-				<div class="form-group">
-					<table class="search-table">
-						<tr>
-							<th>품목구분</th>
-							<td>
-								<select name="item_division">
-									<option value="전체">전체</option>
-									<option value="상품">상품</option>
-									<option value="원자재">원자재</option>
-									<option value="부자재">부자재</option>
-								</select>
-							</td>
-							<th>분류</th>
-							<td>
-								<select name="big_cate">
-									<option value="0">대분류</option>
-								</select>
-								&nbsp;
-								<select name="middle_cate">
-									<option value="0">중분류</option>
-								</select>
-								&nbsp;
-								<select name="small_cate">
-									<option value="0">소분류</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>품명/품목코드</th>
-							<td>
-								<input type="text" name="pro_code" />
-							</td>
-							<th>사용여부</th>
-							<td>
-								<select name="use">
-									<option value="사용">사용</option>
-									<option value="미사용">미사용</option>
-									<option value="전체">전체</option>
-								</select>
-							</td>
-						</tr>				
-					</table>
-					<div class="search-btn">
-						<input type="submit" value="검색" />
-					</div>
-				</div>
-			</form>
-			</div>
-			
-			<div class="left-layout">
-				<div class="sub-title">
-					<table>
-						<tr>
-							<th>품목목록 <font color="red">숫자</font></th>
-						</tr>
-					</table>
-				</div>
-				<div class="sub-head">
-					<table>
-						<tr>
-							<th>&nbsp;&nbsp;&nbsp;</th>
-							<th>품목코드</th>
-							<th>품목명</th>
-							<th>규격</th>
-						</tr>
-					</table>
-					<div class="sub-content">
-					</div>
-				</div>
-			</div>
-		
-			<div class="rigth-layout">
-				<div class="sub-title">
-					<table>
-						<tr>
-							<th style="width:300px; text-align:left;">품목정보</th>
-							<td align="right">
-								<button type="button">일괄삭제</button>
-								<button type="button">엑셀업로드</button>
-								<button type="button">엑셀다운로드</button>
-							</td>
-						</tr>
-					</table>
-				</div>
-				
-				<form method="post" name="itemForm" action="">
-				<div class="sub-content">
-					<table class="item-table">
-						<tr>
-							<th><font color="red">*</font>품목코드</th>
-							<td>
-								<input type="text" name="pro_code" />
-							</td>
-							<th><font color="red">*</font>판매단가</th>
-							<td>
-								<input type="text" name="sale_cost" />
-							</td>
-						</tr>
-						<tr>
-							<th>바코드</th>
-							<td>
-								<input type="text" name="barcode" />
-							</td>
-							<th><font color="red">*</font>구매단가</th>
-							<td>	
-								<input type="text" name="buy_cost" />
-							</td>
-						</tr>
-						<tr>
-							<th><font color="red">*</font>품명</th>
-							<td>
-								<input type="text" name="pro_name" />
-							</td>
-							<th>소매단가</th>
-							<td>
-								<input type="text" name="retail_cost" />
-							</td>
-						</tr>
-						<tr>
-							<th>품목구분</th>
-							<td>
-								<select name="item_division">
-									<option value="제품">제품</option>
-									<option value="상품">상품</option>
-									<option value="원자재">원자재</option>
-									<option value="부자재">부자재</option>
-								</select>
-							</td>
-							<th>과세유형</th>
-							<td>
-								<select name="tax">
-									<option value="부가세별도">부가세별도</option>
-									<option value="부가세포함">부가세포함</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>규격</th>
-							<td>
-								<input type="text" name="stand" />
-							</td>
-							<th>단위</th>
-							<td>
-								<input type="text" name="unit" />
-							</td>
-						</tr>
-						<tr>
-							<th>사용여부</th>
-							<td colspan="3">
-								<input type="text" name="use" />
-							</td>
-						</tr>
-						<tr>
-							<th>구매품목코드</th>
-							<td>
-								<input type="text" name="buy_code" />
-							</td>
-							<th>구매품목명</th>
-							<td>
-								<input type="text" name="buy_name" />
-							</td>
-						</tr>
-						<tr>	
-							<th>분류</th>
-							<td colspan="3">
-								<select name="big_cate">
-									<option value="0">대분류</option>
-								</select>
-								<select name="middle_cate">
-									<option value="0">중분류</option>
-								</select>
-								<select name="small_cate">
-									<option value="0">소분류</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>비고</th>
-							<td colspan="3">
-								<textarea rows="20" cols="20" name="note" style="width:500px; height:100px;"></textarea>
-							</td>						
-					</table>
-					<div class="btn-wrap">
-						<input type="submit" value="수정" />
-						<button type="button">삭제</button>
-					</div>
-				</div>
-				</form>
-			</div>
 			</div>
 		</div>
 	</div>
