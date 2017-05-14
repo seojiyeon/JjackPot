@@ -373,7 +373,7 @@ height: 200px;
     	<li><a href=""><br/><br/>메신저<br><img src="/JackPot/mainsave/메신저.png"></a></li>
     	<li><a href="/JackPot/work.jp"><br/>인사관리폴더<br><img src="/JackPot/mainsave/인사관리폴더.png"></a></li>
     	<li><a href="/JackPot/emplist.jp"><br/>회계관리폴더<br><img src="/JackPot/mainsave/회계관리폴더.png"></a></li>
-    	<li><a href=""><br/>영업관리폴더<br><img src="/JackPot/mainsave/영업관리폴더.png"></a></li>
+    	
     </ul>
     </div>
 </body>
