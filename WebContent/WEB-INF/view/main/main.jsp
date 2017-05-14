@@ -370,7 +370,7 @@ height: 200px;
     	<li><a href="/JackPot/orgChart.jp"><br/><br/>주소록<br><img src="/JackPot/mainsave/주소록.png"></a></li>
     	<li><a href="/JackPot/memoList.jp?memoGroup=1"><br/><br/>메모<br><img src="/JackPot/mainsave/메모.png"></a></li>
     	<li><a href="/JackPot/UpVote.jp"><br/><br/>온라인투표<br><img src="/JackPot/mainsave/온라인투표.png"></a></li>
-    	<li><a href=""><br/><br/>메신저<br><img src="/JackPot/mainsave/메신저.png"></a></li>
+    	<li><a href="https://open.kakao.com/"><br/><br/>메신저<br><img src="/JackPot/mainsave/메신저.png"></a></li>
     	<li><a href="/JackPot/work.jp"><br/>인사관리폴더<br><img src="/JackPot/mainsave/인사관리폴더.png"></a></li>
     	<li><a href="/JackPot/emplist.jp"><br/>회계관리폴더<br><img src="/JackPot/mainsave/회계관리폴더.png"></a></li>
     	
