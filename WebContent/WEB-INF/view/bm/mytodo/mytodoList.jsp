@@ -116,7 +116,7 @@ i.icon.nonimp{width:13px;height:13px;margin:0 0 2px 0;background-position:-83px 
 
 function changeImp_click(bm_num){
 	
-	var abc = "."+bm_num;  //주석
+	var abc = "."+bm_num;  
 	$.ajax({
 		type :"post",
 		url :"MybmImportantChange.jp",

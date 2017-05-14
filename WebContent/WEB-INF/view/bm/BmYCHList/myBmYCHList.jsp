@@ -142,16 +142,15 @@ function mybmYCHdel(){
     return false;
   }
   console.log("### bm_num => {}"+bm_num);
- 
+  
   if(confirm("정보를 삭제 하시겠습니까?")){
 	  $.ajax({
 	        url: "my_bmYCHDel.jp",
 	        type:"post", 
-	        data: {"bm_num": $("#bm_num").val(), "bm_num": bm_num},
-	        success: function(result){
-	            if (result=="OK") {
-	                $("#bm_num"+bm_num).remove();
-	                alert("삭제되었습니다.");
+	        data : {bm_num:bm_num},
+	        success: function(bm_num){
+	            if (bm_num=="OK") {
+	              alert("삭제되었습니다.");
 	            } else{
 	                alert("삭제되지 않았습니다.");
 	            }

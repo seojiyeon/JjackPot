@@ -29,11 +29,15 @@
 		
 <!-- ============================mytodo=========================== -->			
 		<!--  나의할일 리스트보기 -->		
-		<select id="getMytodoList" parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
+		<select id="getMytodoList" parameterClass="java.util.HashMap" resultClass="bmdto" >
+			<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, r from (
+         	select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm_name=#bm_name# and bm.bm_form=1 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
-		 	
+			where bm.bm_name=#bm_name# bm.bm_form=1 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>
 		 </select>
 		
 		<!--  나의할일 COUNT 리스트보기 -->	
@@ -56,10 +60,16 @@
 		
 <!-- ============================업무요청 =========================== -->			
 		<!--  내가 한 업무요청 리스트보기 -->		
-		<select id="getMyBmYchList"  parameterClass="String" resultClass="bmdto" >
-			select bm.bm_num, bm.important, i.important2,bns.box_name,bm.bm_title,bm.bm_name,bm.bm_start,bm.bm_end,bs.bm_state bm_state2,bm.bm_state
+		<select id="getMyBmYchList"  parameterClass="java.util.HashMap" resultClass="bmdto" >
+		 	<![CDATA[
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, r from (
+         	select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs 
-			where bm_name=#bm_name# and bm.bm_form=2 and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num  and bm.bns_box=bns.bns_num order by bm.bm_num desc
+			where bm_name=#bm_name# and bm.bm_form=2and bm.bm_state !=2 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
+			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
+			]]>
+		 	
 		 	</select>
 		
 		<!--  내가 한 업무요청 COUNT 리스트보기 -->	

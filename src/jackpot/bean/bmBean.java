@@ -157,7 +157,7 @@ public class bmBean {
 		HashMap params = new HashMap();
 		params.put("startRow", startRow);
 		params.put("endRow", endRow);
-		params.put("bm_name", bm_name);
+
 
 		List mytodoList = null;
 		mytodoList = sqlMap.queryForList("bm.getMytodoList", bm_name);
@@ -252,16 +252,15 @@ public class bmBean {
 		int count = (int) sqlMap.queryForObject("bm.getBmYchListcount", bm_name);
 	
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
-	
 
-		if(pageNum == null) {
+		if(pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
 		
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage-1)*pageSize+1;
 		int endRow = currentPage*pageSize;
-		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		int pageCount =0;
 		int startPage = (int)(currentPage/10)*10+1;
 		int pageBlock = 10;
 		int endPage = startPage+pageBlock-1;
@@ -269,8 +268,14 @@ public class bmBean {
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
-	
-		model.addAttribute("emp_num", emp_num);
+
+		pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		
+		HashMap params = new HashMap();
+	    params.put("startRow", startRow);
+	    params.put("endRow", endRow);
+		
+	    model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
