@@ -89,9 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 .leftmenu ul.menulist > li {
     border-top: 1px solid #e6e6e6;
 }
-.leftmenu ul.menulist > li.current > a {
-    color: #d3292c;
-}
+
 .leftmenu ul.menulist > li > a {
     position: relative;display: block; min-height: 42px; padding: 12px 0 12px 15px;font-size: 14px;
     font-weight: 600;color: #222;background: #f7f7f7;

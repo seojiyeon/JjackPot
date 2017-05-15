@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />  
-<link href="/JackPot/css/org.css?ver=13" rel="stylesheet" type="text/css">   
+<link href="/JackPot/css/org.css?ver=15" rel="stylesheet" type="text/css">   
 
  	
  <script type="text/javascript">
@@ -55,7 +55,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 					</ul>
 			    </li>
 			    	<li id="commGroupTree" data-submenu="commGroup" data-emitem="addr.organogram">
-					<a href="listVote.jp"  class="sidebar-nav-menu">마감된 투표목록</a><i class="fa fa-chevron-up"></i></a>
+					<a href="listVote.jp"  class="sidebar-nav-menu" style="color:#d3292c">마감된 투표목록</a><i class="fa fa-chevron-up"></i></a>
 					<ul style="display: none;">
 					</ul>
 			    </li>
@@ -117,7 +117,12 @@ style="position:relative; top:0; left:0;" dir="ltr">
   </c:forEach>
   </div>
   
-
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
 
 
 

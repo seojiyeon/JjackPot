@@ -52,7 +52,7 @@ class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y"
 style="position:relative; top:0; left:0;" dir="ltr">
 			<ul class="menulist">	
 				<li data-submenu="allList" class="current">
-					<a href="UpVote.jp" class="sidebar-nav-menu"> 투표참여</a>
+					<a href="UpVote.jp" class="sidebar-nav-menu" style="color:#d3292c"> 투표참여</a>
 				</li>
 				
 				<li id="commGroupTree" data-submenu="commGroup" data-emitem="addr.organogram">

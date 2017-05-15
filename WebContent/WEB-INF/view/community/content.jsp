@@ -600,7 +600,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
       </form>    
 
     </table>
- <div id="layer1" class="pop-layer">
+<div id="layer1" class="pop-layer">
 								    <div class="pop-top">
 									<font>게시판</font><a href="#" class="cbtn"><img src="/JackPot/mainsave/logout.jpg"/></a>
 									</div>
@@ -610,10 +610,10 @@ style="position:relative; top:0; left:0;" dir="ltr">
 								<div class="pop-container">
 									<div class="pop-conts">
 										<a href="#" class="btn-example2" onclick="layer_open('layer2');return false;">게시판</a>
-											<div id="layer2" class="pop-layer2">
+											<div id="layer2" class="pop-layer2" style="display: block; margin-top: -301px; margin-left: -250px;">
 										<div class="contents">	
 								  			<div class="pop-top2">
-											게시판 <a href="#" class="cbtn2"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
+											게시판 <a href="#" class="cbtn"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
 											</div>
 											<div class="pop-board">
 												<div class="pop-info2">
@@ -645,22 +645,10 @@ style="position:relative; top:0; left:0;" dir="ltr">
 															<li><textarea class="ckeditor" cols="1" id="editor1" name="content" rows="15"></textarea></li>
 														</ul>
 														
-														 <input type="submit" value="제출">
+														 <input type="submit" value="제출" style="width:833px;">
 														</form>
 													</div>
-													<div class="pop2boardfileuplord">
-														<ul>
-															<li>
-															<form action="/JackPot/boardinsert.jp"
-     															  class="dropzone"
-     															  id="my-dropzone"
-     															  style="width:762px;border: 1px solid rgba(0, 0, 0, 0.3);"></form>
-															</li>
-														</ul>
-														<ul>
-														<li><button id="submit-all">업로드</button></li>
-														</ul>
-													</div>
+													
 												</div>
 											</div>
 										<div class="btn-r2">
@@ -672,6 +660,12 @@ style="position:relative; top:0; left:0;" dir="ltr">
 							</div>
 						<div class="btn-r">
 						<a href="#" class="cbtn">닫기</a>
+						</div>
+					</div>
+				</div>
+	
+	
+
 						</div>
 					</div>
 				</div>   

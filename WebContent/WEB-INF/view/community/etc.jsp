@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/community.css?ver=19" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=20" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -335,7 +335,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 				
 				<li id="menuTreeTitle">
 		
-					<a style="display:inline-block;height:40px;">게시판 목록 <img src="/JackPot/save/arrow.png" width="20" height="20" style="margin: 0 49;">	</a>		
+					<a style="display:inline-block;height:40px;">게시판 목록 <img src="/JackPot/save/arrow.png" width="20" height="20" style="margin: 0 40;">	</a>		
 			<ul style="display: block;">
 						
 					 <ul style="margin: 0 40; font-size: 17; text-decoration:none;">
@@ -351,7 +351,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 								     <i class="jstree-icon jstree-themeicon" role="presentation">
 								     </i><img src="/JackPot/save/folder.png" width="15" height="15"> &nbsp;자유게시판</a> <br/>
 								     
-								     <a class="jstree-anchor" href="etc.jp" tabindex="-1" id="7860780_anchor">
+								     <a class="jstree-anchor" href="etc.jp" tabindex="-1" id="7860780_anchor" style="color:#d3292c">
 								     <i class="jstree-icon jstree-themeicon" role="presentation">
 								     </i><img src="/JackPot/save/folder.png" width="15" height="15"> &nbsp;기타</a>
 								     

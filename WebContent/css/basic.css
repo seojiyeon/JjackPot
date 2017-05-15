@@ -104,8 +104,7 @@ layout
 .leftmenu ul.menulist { padding:0; }
 .leftmenu ul.menulist > li:first-child { border-top:none; }
 .leftmenu ul.menulist > li > a { position:relative; display:block; min-height:42px; padding:12px 0 12px 15px; font-size:14px; font-weight:600; color:#222; background:#f7f7f7}
-.leftmenu ul.menulist > li > a.current {color:#d3292c;}
-.leftmenu ul.menulist > li.current > a {color:#d3292c;}
+
 .leftmenu ul.menulist > li > a:hover { text-decoration:none;}
 .leftmenu ul.menulist > li > a > i { position:absolute; top:13px; right:14px; font-size:15px;}
 .leftmenu ul.menulist > li > a .noti-bg { position:absolute; top:10px; right:10px; padding:1px 6px; min-width:18px; height:18px; font-family:"Open Sans", sans-serif; font-size:11px; font-weight:600; border-radius:9px; }

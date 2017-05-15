@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-
+<link href="/JackPot/css/org.css?ver=17" rel="stylesheet" type="text/css">   
     <!--  jQuery UI CSS파일 --> 
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 	<!-- // jQuery 기본 js파일 -->
@@ -13,11 +13,65 @@
     <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" /> 
 	<link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
 	
+	<body>
+<div id="page-container" class="sub sidebar-mini sidebar-subarea">
+
+<div id="sidebar">
+<div class="sidebar-content"> 
+ <h1>
+		 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
+		   <img src="/JackPot/save/home.png" width=50px, height=50px style="margin:5;">
+   <span id="brand" class="brand none">  
+	</span>	 
+   </a>
+ </h1>
+</div>
+
+<div id="subarea">
+<div class="leftmenu">
+		<h1 class="blind">Left Menu</h1>
+<div class="leftmenu-top" style="background:#363636;">
+			<h2 style="margin:20; " >투표</h2>
+</div>
+
+<div class="leftmenu-inner-scroll mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" 
+style="height: 100%; position: relative; overflow: visible;"><div id="mCSB_1" 
+class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" 
+style="max-height: none;" tabindex="0"><div id="mCSB_1_container" 
+class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" 
+style="position:relative; top:0; left:0;" dir="ltr">
+			<ul class="menulist">	
+				<li data-submenu="allList" class="current">
+					<a href="UpVote.jp" class="sidebar-nav-menu" style="color:black;"> 투표참여</a>
+				</li>
+				
+				<li id="commGroupTree" data-submenu="commGroup" data-emitem="addr.organogram">
+					<a href="BeforeSuc.jp"  class="sidebar-nav-menu">나의 투표목록</a><i class="fa fa-chevron-up"></i></a>
+					<ul style="display: none;">
+					</ul>
+			    </li>
+			    	<li id="commGroupTree" data-submenu="commGroup" data-emitem="addr.organogram">
+					<a href="listVote.jp"  class="sidebar-nav-menu" >마감된 투표목록</a><i class="fa fa-chevron-up"></i></a>
+					<ul style="display: none;">
+					</ul>
+			    </li>
+
+</div>
+</div>
+</div>
+</div>
+	
+<div id="main-container">
+<div id="mainmain">
+
+<div class="con-header">
+ <h2> 온라인 투표  </h2>
+</div>	
  <div class="content-wrap" id="pollGallery">
 	
 <title>온라인 투표</title>
 
- <h2> 온라인 투표  </h2>
+
 <table border="0" width="500"  cellpadding="0" cellspacing="0" align="center"> 
     			
     <form method="post" name="result" >

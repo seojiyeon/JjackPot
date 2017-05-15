@@ -42,7 +42,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 				</li>
 				
 				<li id="commGroupTree" data-submenu="commGroup" data-emitem="addr.organogram">
-					<a href="Allorg.jp" class="sidebar-nav-menu">전체 조직도<i class="fa fa-chevron-up"></i></a>
+					<a href="Allorg.jp" class="sidebar-nav-menu" style="color:#d3292c">전체 조직도<i class="fa fa-chevron-up"></i></a>
 					<ul style="display: none;">
 					</ul>
 			    </li>

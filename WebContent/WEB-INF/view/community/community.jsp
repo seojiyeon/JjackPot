@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/community.css?ver=19" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/community.css?ver=20" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -331,13 +331,13 @@ style="position:relative; top:0; left:0;" dir="ltr">
 					</li>
 					
 		<li data-submenu="listAllBoardItem" class="current">
-					<a href="community.jp" class="sidebar-nav-menu">최근게시글</a>
+					<a href="community.jp" class="sidebar-nav-menu" style="color:#d3292c">최근게시글</a>
 					
 				</li>
 				
 				<li id="menuTreeTitle">
 		
-					<a style="display:inline-block;height:40px;">게시판 목록 <img src="/JackPot/save/arrow.png" width="20" height="20" style="margin: 0 49;">	</a>		
+					<a style="display:inline-block;height:40px;">게시판 목록 <img src="/JackPot/save/arrow.png" width="20" height="20" style="margin: 0 40;">	</a>		
 			<ul style="display: block;">
 						
 					 <ul style="margin: 0 40; font-size: 17; text-decoration:none;">
@@ -511,7 +511,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 											<div id="layer2" class="pop-layer2" style="display: block; margin-top: -301px; margin-left: -250px;">
 										<div class="contents">	
 								  			<div class="pop-top2">
-											게시판 <a href="#" class="cbtn2"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
+											게시판 <a href="#" class="cbtn"><img src="/JackPot/mainsave/logout.jpg" style="float:right"/></a>
 											</div>
 											<div class="pop-board">
 												<div class="pop-info2">
@@ -543,22 +543,10 @@ style="position:relative; top:0; left:0;" dir="ltr">
 															<li><textarea class="ckeditor" cols="1" id="editor1" name="content" rows="15"></textarea></li>
 														</ul>
 														
-														 <input type="submit" value="제출">
+														 <input type="submit" value="제출" style="width:833px;">
 														</form>
 													</div>
-													<div class="pop2boardfileuplord">
-														<ul>
-															<li>
-															<form action="/JackPot/boardinsert.jp"
-     															  class="dropzone"
-     															  id="my-dropzone"
-     															  style="width:762px;border: 1px solid rgba(0, 0, 0, 0.3);"></form>
-															</li>
-														</ul>
-														<ul>
-														<li><button id="submit-all">업로드</button></li>
-														</ul>
-													</div>
+													
 												</div>
 											</div>
 										<div class="btn-r2">
