@@ -340,7 +340,7 @@ function msgfind(){
 <c:if test="${count!=0}">(${count})</c:if>
 </li>
 <li><a href="/JackPot/msgsmain.jp">보낸 쪽지함</a></li>
-<li>임시 보관함</li>
+
 </ul>
 
 

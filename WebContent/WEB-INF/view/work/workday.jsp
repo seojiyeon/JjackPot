@@ -8,7 +8,7 @@
 					</c:if>
 					
 					<c:if test="${wdto.work_on != null}">	
-						<tr>
+						
 							<td  style="width: 105px;text-align:center;">${wdto.emp_num}</td>
 							<td style="width: 105px;text-align:center;"><label >${sys.format(wdto.work_on)}</label></td>
 							<td style="width: 105px; text-align:center;"><label >

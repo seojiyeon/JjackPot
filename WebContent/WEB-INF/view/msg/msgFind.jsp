@@ -25,52 +25,72 @@ tr:nth-child(even){background-color: #f2f2f2}
 <script type='text/javascript' src='js/jquery/lib/jquery.bgiframe.min.js'></script>
 <script type='text/javascript' src='js/jquery/lib/jquery.ajaxQueue.js'></script>
 <script type='text/javascript' src='js/jquery/jquery.autocomplete.js'></script>
-<link rel="stylesheet" type="text/css" href="js/jquery/jquery.autocomplete.css" />
+
 </head>
 <body>
 
-	<script>
-	var availableTags =		[
 
-							'가나',
-							'가나쵸콜렛',
-							'갈갈이 삼형제',
-							'북마크',
-							'북까페',
-							'엄마',
-							'아빠',
-							'북소리',
-							'여러분',
-							'소문',
-							'소문난 식당',
-							'나나나',
-							'쇼',
-							'쇼팽',
-							'모나미',
-							'한강',
-							'강강수월래',
-							'강촌',
-							'제주도',
-							'삼총사',
-							'먹보',
-							'먹소리',
-							'수박',
-							'수박 겉핥기'
-						];
-	</script>
 
-	<form name="form1" method="post" action="result.php">
-	  <input type="text" id="searchbox">
-	  <input type="submit" id="sumit" value="검색">
-	</form>
-
-	<script>
-	$(document).ready(function() {
-	    $("#searchbox").autocomplete(availableTags,{ 
-	        matchContains: true,
-	        selectFirst: false
-	    });
-	});
+	<script type='text/javascript'>
+	
+	function add_open(addform){   
+		   var temp = $('#' + addform);
+		   temp.fadeIn();
+		   temp.find('a.add-cbtn').click(function(e){
+		      temp.fadeOut();
+		      e.preventDefault();
+		   });
+		   temp.find('a.add-addbtn').click(function(e){
+		      temp.fadeOut();
+		      $('.layer1-participants').html("<input type=text id=participants readonly value="+idlistname+"></input><input type=hidden name=participants value="+idlist+"></input>")
+		      e.preventDefault();
+		   })
+		   
+		}
+	
+	
+	
+	
+	
+	   $(".namelist>li>a").click(function(){
+           var namelist = $(this);
+           var id = $(this).attr('id');
+           var name = $(this).text();
+           var name2 = name.substring(0,3);
+           var selectedlist = $(".selected-list");
+           
+           var exist = false;
+          for(i = 0 ; i < idlist.length;i++){
+             if(idlist[i] == id){
+                exist = true;
+                break;
+             }
+          } 
+          if(! exist){
+             $(".selected-list").append("<li class="+id+"><a href=# onClick=selected_click("+id+")>"+name+"</a></li>");
+             idlist.push(id);
+             idlistname.push(name2);
+          }
+           namelist.css("background-color","turquoise");
+        });	
+	
+	   
+	   
+	    function selected_click(id){
+	        var select = id.getAttribute('id');
+	        $("."+select).remove();
+	        $("#"+select).css("background-color","white");
+	        for(i=0;i < idlist.length; i++){
+	           if(idlist[i] == select){
+	              idlist.splice(i,1);
+	              idlistname.splice(i,1);
+	           }
+	        }
+	     }  
+	
+	
+	
+	
 	</script>
 
 <script>
@@ -104,6 +124,7 @@ function setId(e)
     </td></tr></table>
 </form>
 
+<a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a>
 
 <c:if test="${count==0}">
  
@@ -136,6 +157,100 @@ function setId(e)
     </div>
      
      </c:if>
+
+
+
+   <div id="participants-Form">
+      <div class="participants-Form-container">
+         <div class="participants-Form-top">
+         </div>
+         <div class="participants-Form-contents">
+            <div class="participants-Form-con-tab">
+               <ul>
+                  <li><a>조직도</a></li>
+                  <li><a>주소록</a></li>
+                  <li><a>거래처</a></li>
+               </ul>
+            </div>
+            <div class="participants-Form-con-contents">
+               <ul>
+               <li>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="강남">강남지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '강남'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>   
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="종로">종로지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '종로'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="동작">동작지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '동작'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="수지">수지지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '수지'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="용인">용인지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '용인'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li class="branchlist"><a href="#" class="인천서구">인천서구지점</a>
+                        <ul class="namelist">
+                        <c:forEach var="participantsDTO" items="${participants}">
+                        <c:if test="${participantsDTO.branch eq '인천서구'}">
+                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
+                        </c:if></c:forEach>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               </ul>
+            </div>
+            <div class="participants-Form-con-selected">
+               <ul class="selected-list">
+               </ul>
+            </div>
+         </div>
+         <div class="participants-Form-btn">
+            <ul>
+               <li><a href="#" class="add-cbtn">닫기</a></li>
+               <li><a href="#" class="add-addbtn">추가</a></li>
+            </ul>
+         </div>
+      </div>
+   </div>
 
 
 

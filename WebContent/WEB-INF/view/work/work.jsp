@@ -9,9 +9,21 @@
 	<!-- // jQuery UI 라이브러리 js파일 -->
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
     <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" /> 
 	<link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
 <head>
+
+<style>
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+th{
+background-color:  #ffcccc;
+}
+
+</style>
 
 	<script type="text/javascript">
 	
@@ -44,6 +56,12 @@
         	   $("#work_date").val($.datepicker.formatDate($.datepicker.ATOM, new Date()));    
         		   });
         		
+    	   
+/*     	   
+    	   $(document).ready(function(){
+    			window.setInterval('test()', 1000); 
+    			 
+    		}); */
         	   
         	   
            
@@ -88,7 +106,7 @@
 
 로그인 후 이용해 주시기 바랍니다.
 
-<input type="button" onClick="window.location='main.jp'" value="돌아가기"/>
+<input type="button" class="btn btn-success" onClick="window.location='main.jp'" value="돌아가기"/>
 
 </c:if>
 	
@@ -97,13 +115,7 @@
 	
 	<form method="post" name="work" >
 	
-    <table  width="600" border="1">
-    	<tr>
-    		<td>
-				<input type="text" id="work_date" value=${date } onchange="test(this.value)">
-    		</td>
-    	</tr>
-    </table>
+
     
  	<div class="subtitle">
 		<h3>일일근태등록</h3>
@@ -120,8 +132,11 @@
 		<i class="fa fa-clock-o"></i><span id="clock"></span>
 			<span>&nbsp;&nbsp;&nbsp;&nbsp; 접속IP : ${ip}</span>
 	</div>
+	
+
 
 	<div class="btn-wrap">
+		<input type="text" id="work_date" value=${date } readonly onchange="test(this.value)" />
    		<button type="button" id="work_on" class="btn btn-color7 br" style="display: inline-block;"> 출근 </button>
 		<button type="button" id="work_off" class="btn btn-color7 br"> 퇴근 </button>
 	</div>
@@ -129,7 +144,7 @@
 	<div class="tab-content">
 		<div id="tabs-1" class="tab-pane active">
 			<div class="content-write mb10">
-				<table class="table border-top separate">					
+				<table class="t1" >					
 				<tbody>
 					<tr>
 						<th style="width: 100px;text-align:center;"><label>사원번호</label></th>
@@ -145,12 +160,9 @@
 						<th style="width: 130px;text-align:center;">
 						<label for="onedayGolvwkMngPersForm_clientIP">PC IP</label></th>
 					</tr>
-					</table>
-					
-					
-			<table>		
+				
 			<tr id="workday">		
-				<c:if test="${wdto.work_on == null}">
+		<%-- 		<c:if test="${wdto.work_on == null}">
 							<th style="text-align:center;width: 730px;"><label>출근기록이 없습니다</label></th>
 				</c:if>
 			
@@ -165,7 +177,7 @@
 						<th style="width: 105px;text-align:center;"><label>${wdto.lateNess}</label></th>
 						<th style="width: 105px;text-align:center;"><label>${wdto.early}</label></th>
 						<th id="onedayGolvwkMngPersForm_ip" style="width: 130px;text-align:center;"><label>${wdto.ip}</label></th>
-					</c:if>
+					</c:if> --%>
 				</tr>
 
 				</tbody>

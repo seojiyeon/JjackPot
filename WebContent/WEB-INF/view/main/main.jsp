@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 
 function callMsg2(){
-	if("${count != 0}"){
+	if('${count != 0}'){
 		callMsg();
 		
 	}else{
@@ -60,7 +60,7 @@ $(document).ready(function(){
 
 
 function callAjax2(){
-	if("${count2 != 0}"){
+	if('${count2 != 0}'){
 		callAjax();
 		
 	}else{

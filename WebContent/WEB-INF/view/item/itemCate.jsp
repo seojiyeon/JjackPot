@@ -110,7 +110,8 @@
 	$(document).ready(function() {
 		$(".modifyName").dblclick(function() {
 			var con = this.innerHTML;
-			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>";
+			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>"
+			+ "<";
 		});		
 				
 		$(".modifyUse").dblclick(function() {
