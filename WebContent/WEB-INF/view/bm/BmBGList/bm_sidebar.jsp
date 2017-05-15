@@ -104,7 +104,7 @@
 			<div id="subarea">	
 				<div id="leftmenu-jp">
 					<div class="leftmenu-top">
-						<h2><a href="/JackPot/bmList.jp">업무관리 </a></h2>
+						<h2><a href="/JackPot/myBmYCHList.jp">업무관리 </a></h2>
 					</div>
 					
 					<div id="leftmenuarea" class="scrollBlind">
@@ -132,9 +132,9 @@
 								      <li><a href="/JackPot/myBmYCHList.jp">내가 한 업무 요청</a> </li>
 								      <li><a href="/JackPot/myBmYCHokList.jp">내가 한 업무 요청 완료</a> </li>
 								      <li><a href="/JackPot/myBmYCHnoList.jp">내가 한 업무 요청 반려</a> </li>
-								      <li><a href="/JackPot/SSBmYCHList.jp">수신  업무 요청</a></li>
+<!-- 								      <li><a href="/JackPot/SSBmYCHList.jp">수신  업무 요청</a></li>
 								      <li><a href="/JackPot/SSBmYCHnoList.jp">수신 업무 요청 완료</a> </li>
-								      <li><a href="/JackPot/SSBmYCHnoList.jp">수신 업무 요청 반려</a> </li>								      
+								      <li><a href="/JackPot/SSBmYCHnoList.jp">수신 업무 요청 반려</a> </li>	 -->							      
 								      <li><a href="/JackPot/ChZBmYCHList.jp">참조  업무 요청</a></li>
 								      <li><a href="/JackPot/cHzBmYCHokList.jp">참조 업무 요청 완료</a> </li>
 								      <li><a href="/JackPot/cHzBmYCHnoList.jp">참조 업무 요청 반려</a> </li>								      
@@ -146,14 +146,14 @@
 							<a style="display:inline-block;height:20px;">업무보고  </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
 								      <li><a href="/JackPot/myBmBGList.jp">내가 한 업무 보고 </a> </li>
-								      <li><a href="/JackPot/cHzBmYCHokList.jp">내가 한 업무 보고 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmYCHnoList.jp">내가 한 업무 보고 반려</a> </li>										      
+								      <li><a href="/JackPot/cHzBmBGokList.jp">내가 한 업무 보고 완료</a> </li>
+								      <li><a href="/JackPot/cHzBmBGnoList.jp">내가 한 업무 보고 반려</a> </li>										      
 								      <li><a href="/JackPot/SSBGBmList.jp">수신  업무 보고 </a></li>
-								      <li><a href="/JackPot/cHzBmYCHokList.jp">수신 업무  보고 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmYCHnoList.jp">수신 업무 보고 반려</a> </li>										      
+								      <li><a href="/JackPot/cHzBmBGokList.jp">수신 업무  보고 완료</a> </li>
+								      <li><a href="/JackPot/cHzBmBGnoList.jp">수신 업무 보고 반려</a> </li>										      
 								      <li><a href="/JackPot/ChZBGBmList.jp">참조  업무 보고 </a></li>
-								      <li><a href="/JackPot/cHzBmYCHokList.jp">참조 업무 보고 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmYCHnoList.jp">참조 업무  보고 반려</a> </li>										      
+								      <li><a href="/JackPot/cHzBmBGokList.jp">참조 업무 보고 완료</a> </li>
+								      <li><a href="/JackPot/cHzBmBGnoList.jp">참조 업무  보고 반려</a> </li>										      
 								      <li><hr color=" lightgrey " size="1"></li>
 								   </ul>
 						</li>
@@ -162,14 +162,14 @@
 							<a style="display:inline-block;height:20px;">업무일지  </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
 								      <li><a href="/JackPot/myBmWriteList.jp">내가 작성한 업무 일지  </a> </li>
-								      <li><a href="/JackPot/cHzBmYCHokList.jp">내가 작성한 업무 일지 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmYCHnoList.jp">내가 작성한 업무 일지 반려</a> </li>										      
+								      <li><a href="/JackPot/cHzBmIjokList.jp">내가 작성한 업무 일지 완료</a> </li>
+								      <li><a href="/JackPot/cHzBmIjnoList.jp">내가 작성한 업무 일지 반려</a> </li>										      
 								      <li><a href="/JackPot/SSBmList.jp">수신  업무 일지  </a></li>
-								      <li><a href="/JackPot/cHzBmYCHokList.jp">참조 업무 일지 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmYCHnoList.jp">참조 업무 일지 반려</a> </li>										      
+								      <li><a href="/JackPot/cHzBmIjokList.jp">참조 업무 일지 완료</a> </li>
+								      <li><a href="/JackPot/cHzBmIjnoList.jp">참조 업무 일지 반려</a> </li>										      
 								      <li><a href="/JackPot/ChZBmList.jp">참조  업무 일지 </a></li>
-								      <li><a href="/JackPot/cHzBmYCHokList.jp">참조 업무 일지 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmYCHnoList.jp">참조 업무 일지 반려</a> </li>										      
+								      <li><a href="/JackPot/cHzBmIjokList.jp">참조 업무 일지 완료</a> </li>
+								      <li><a href="/JackPot/cHzBmIjnoList.jp">참조 업무 일지 반려</a> </li>										      
 								      <li><hr color=" lightgrey " size="1"></li>
 								   </ul>
 						</li>
