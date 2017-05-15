@@ -449,8 +449,17 @@ $(document).ready(function(){
 
 
 			<div class="btn-wrap" >
+				<c:if test="${bmdto.bm_state == 1}">
+     		   	<button type="button" onClick="window.location='bmBG_state_update.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">완료 </button>
+    			<button type="button" onClick="window.location='bmBG_state_nonfinish.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">반려 </button>
     			<button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-    			<button type="button" onClick="window.location='myBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
+    			<button type="button" onClick="window.location='SSBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
+    			</c:if>
+				<c:if test="${bmdto.bm_state != 1}">
+     		   	<button type="button" onClick="window.location='SSBmBGokList.jp'"class="btn2 btn-color7 br">목록  </button>
+    			</c:if>   
+      			 			
+    			
     
     		</div>
 </div></div>

@@ -1,12 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script> 
 
+<!--  jQuery UI CSS파일 --> 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<!-- // jQuery 기본 js파일 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- // jQuery UI 라이브러리 js파일 -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+<script type="text/javascript" src="/JackPot/js/jquery.min.js"></script> 
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />  
+ 
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
@@ -132,7 +142,7 @@
 								      <li><a href="/JackPot/myBmYCHList.jp">내가 한 업무 요청</a> </li>
 								      <li><a href="/JackPot/myBmYCHokList.jp">내가 한 업무 요청 완료</a> </li>
 								      <li><a href="/JackPot/myBmYCHnoList.jp">내가 한 업무 요청 반려</a> </li>
-<!-- 								      <li><a href="/JackPot/SSBmYCHList.jp">수신  업무 요청</a></li>
+<!-- 								  <li><a href="/JackPot/SSBmYCHList.jp">수신  업무 요청</a></li>
 								      <li><a href="/JackPot/SSBmYCHnoList.jp">수신 업무 요청 완료</a> </li>
 								      <li><a href="/JackPot/SSBmYCHnoList.jp">수신 업무 요청 반려</a> </li>	 -->							      
 								      <li><a href="/JackPot/ChZBmYCHList.jp">참조  업무 요청</a></li>
@@ -146,11 +156,11 @@
 							<a style="display:inline-block;height:20px;">업무보고  </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
 								      <li><a href="/JackPot/myBmBGList.jp">내가 한 업무 보고 </a> </li>
-								      <li><a href="/JackPot/cHzBmBGokList.jp">내가 한 업무 보고 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmBGnoList.jp">내가 한 업무 보고 반려</a> </li>										      
+								      <li><a href="/JackPot/myBmBGokList.jp">내가 한 업무 보고 완료</a> </li>
+								      <li><a href="/JackPot/myBmBGnoList.jp">내가 한 업무 보고 반려</a> </li>										      
 								      <li><a href="/JackPot/SSBGBmList.jp">수신  업무 보고 </a></li>
-								      <li><a href="/JackPot/cHzBmBGokList.jp">수신 업무  보고 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmBGnoList.jp">수신 업무 보고 반려</a> </li>										      
+								      <li><a href="/JackPot/SSBmBGokList.jp">수신 업무  보고 완료</a> </li>
+								      <li><a href="/JackPot/SSBmBGnoList.jp">수신 업무 보고 반려</a> </li>										      
 								      <li><a href="/JackPot/ChZBGBmList.jp">참조  업무 보고 </a></li>
 								      <li><a href="/JackPot/cHzBmBGokList.jp">참조 업무 보고 완료</a> </li>
 								      <li><a href="/JackPot/cHzBmBGnoList.jp">참조 업무  보고 반려</a> </li>										      
@@ -162,11 +172,11 @@
 							<a style="display:inline-block;height:20px;">업무일지  </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
 								      <li><a href="/JackPot/myBmWriteList.jp">내가 작성한 업무 일지  </a> </li>
-								      <li><a href="/JackPot/cHzBmIjokList.jp">내가 작성한 업무 일지 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmIjnoList.jp">내가 작성한 업무 일지 반려</a> </li>										      
+								      <li><a href="/JackPot/myBmIjokList.jp">내가 작성한 업무 일지 완료</a> </li>
+								      <li><a href="/JackPot/myBmIjnoList.jp">내가 작성한 업무 일지 반려</a> </li>										      
 								      <li><a href="/JackPot/SSBmList.jp">수신  업무 일지  </a></li>
-								      <li><a href="/JackPot/cHzBmIjokList.jp">참조 업무 일지 완료</a> </li>
-								      <li><a href="/JackPot/cHzBmIjnoList.jp">참조 업무 일지 반려</a> </li>										      
+								      <li><a href="/JackPot/SSBmIjokList.jp">수신 업무 일지 완료</a> </li>
+								      <li><a href="/JackPot/SSBmIjnoList.jp">수신 업무 일지 반려</a> </li>										      
 								      <li><a href="/JackPot/ChZBmList.jp">참조  업무 일지 </a></li>
 								      <li><a href="/JackPot/cHzBmIjokList.jp">참조 업무 일지 완료</a> </li>
 								      <li><a href="/JackPot/cHzBmIjnoList.jp">참조 업무 일지 반려</a> </li>										      

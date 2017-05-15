@@ -133,13 +133,13 @@ function changeImp_click(bm_num){
 </script>
 
 
-<title> 나의 업무 요청 반려</title>
+<title>참조 업무 보고 반려</title>
 
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
 	<div id="main-contents" style="   font-family: serif;">
 		<div class="con-header">
-   			<h2>나의 업무 요청 반려 </h2>
+   			<h2>참조 업무 보고 반려 </h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">

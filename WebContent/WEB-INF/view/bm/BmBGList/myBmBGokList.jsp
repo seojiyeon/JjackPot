@@ -172,13 +172,13 @@ function mybmYCHdel(){
 </script>
 
 
-<title> 나의 업무 요청 완료 </title>
+<title> 나의 업무 보고 완료 </title>
 
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
 	<div id="main-contents" style="   font-family: serif;">
 		<div class="con-header">
-   			<h2>나의 업무 요청 완료 </h2>
+   			<h2>나의 업무 보고 완료 </h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
@@ -254,7 +254,7 @@ function mybmYCHdel(){
                         		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                       		<a href="myBmYCHContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="myBmBGContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                             </a>	
                         </th>
@@ -294,15 +294,15 @@ function mybmYCHdel(){
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="myBmBGokList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}">${i}&nbsp;</a>
+							<a href="myBmBGokList.jp?pageNum=${i}">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="myBmBGokList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>
@@ -310,7 +310,7 @@ function mybmYCHdel(){
 	        
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
-	            <button type="button" onClick="window.location='bm_delete1.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+	            <button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
 	            
 		</div>
 

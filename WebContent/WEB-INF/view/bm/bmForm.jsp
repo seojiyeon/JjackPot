@@ -237,7 +237,7 @@ function resetAll(){
 </head>    
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
-<div id="main-contents">
+<div id="main-contents" style=" TOP: 80PX;">
 <form name="bminput"method="post" id="inputfile" action="/JackPot/bmFormPro.jp" enctype="multipart/form-data"  onSubmit="return checkIt();">
 <div class="content-wrap">
 <div class="content-write" style="width: 100%;">
