@@ -137,7 +137,7 @@ ul.tabs li.active {
 				$(".itemForm-buy_cost-td").html("<input type=text name=buy_cost value="+content.buy_cost+"></input>");
 				$(".itemForm-pro_name-td").html("<input type=text name=pro_name value="+content.pro_name+"></input>");
 				$(".itemForm-retail_cost-td").html("<input type=text name=retail_cost value="+content.retail_cost+"></input>");
-				$(".itemForm-item_division-td").html("<select name=item-division><option value=제품>제품</option><option value=상품>상품</option><option value=원자재>원자재</option><option value=부자재>부자재</option></select>");
+				$(".itemForm-item_division-td").html("<select name=item_division><option value=제품>제품</option><option value=상품>상품</option><option value=원자재>원자재</option><option value=부자재>부자재</option></select>");
 				$(".itemForm-tax-td").html("<select name=tax><option value=부가세별도>부가세별도</option><option value=부가세포함>부가세포함</option></select>");
 				$(".itemForm-stand-td").html("<input type=text name=stand value="+content.stand+"></input>");
 				$(".itemForm-unit-td").html("<input type=text name=unit value="+content.unit+"></input>");
@@ -205,6 +205,7 @@ ul.tabs li.active {
 							<td>
 								<select name="item_division">
 									<option value="전체">전체</option>
+									<option value="제품">제품</option>
 									<option value="상품">상품</option>
 									<option value="원자재">원자재</option>
 									<option value="부자재">부자재</option>
@@ -216,13 +217,13 @@ ul.tabs li.active {
 									<option value="0">대분류</option>
 								</select>
 								&nbsp;
-								<select name="middle_cate">
+								<!-- <select name="middle_cate">
 									<option value="0">중분류</option>
 								</select>
 								&nbsp;
 								<select name="small_cate">
 									<option value="0">소분류</option>
-								</select>
+								</select> -->
 							</td>
 						</tr>
 						<tr>
@@ -382,12 +383,12 @@ ul.tabs li.active {
 								<select name="big_cate">
 									<option value="0">대분류</option>
 								</select>
-								<select name="middle_cate">
+								<!-- <select name="middle_cate">
 									<option value="0">중분류</option>
 								</select>
 								<select name="small_cate">
 									<option value="0">소분류</option>
-								</select>
+								</select> -->
 							</td>
 						</tr>
 						<tr>
@@ -398,7 +399,7 @@ ul.tabs li.active {
 					</table>
 					<div class="btn-wrap">
 						<ul>
-							<li>
+							<li style="width: 100px; position: absolute; left: 500px;">
 								<input type="submit" value="수정" />
 							</li>
 							<li class="btn-wrap-delete" style="width: 100px; left: 440px; position: absolute;">
@@ -499,12 +500,12 @@ ul.tabs li.active {
 								<select name="big_cate">
 									<option value="0">대분류</option>
 								</select>
-								<select name="middle_cate">
+								<!-- <select name="middle_cate">
 									<option value="0">중분류</option>
 								</select>
 								<select name="small_cate">
 									<option value="0">소분류</option>
-								</select>
+								</select> -->
 							</td>
 						</tr>
 						<tr>

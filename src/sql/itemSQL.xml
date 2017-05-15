@@ -54,8 +54,8 @@
 	</update>
 	
 	<!-- 중분류 -->
-	<select id="middleCateList" resultClass="idto" parameterClass="idto">
-		select * from middle_cate order by middle_code desc where big_num=#big_num#
+	<select id="showMiddleCate" resultClass="idto" parameterClass="idto">
+		select * from middle_cate where big_num=#big_num# order by middle_code desc
 	</select>
 	
 

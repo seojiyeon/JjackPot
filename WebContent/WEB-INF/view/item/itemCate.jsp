@@ -193,6 +193,7 @@
 				</div>
 				<table>
 					<tr>
+						<th style="width:40px;">&nbsp;</th>
 						<th>코드</th>
 						<th>명칭</th>
 						<th>사용여부</th>
@@ -204,8 +205,11 @@
 						</td>
 					</tr>
 					
-					<c:forEach var="bigCate" items="${bigCateList}" varStatus="st">
+					<c:forEach var="bigCate" items="${bigCateList}">
 					<tr id="big-cate">
+						<td>
+							<input type="checkbox" name="big_num" value="${bigCate.big_num}" />
+						</td>
 						<td style="width:40px; height:20px;">
 							${bigCate.big_code}
 							<input type="hidden" name="big_num" value="${bigCate.big_num}" />
@@ -222,7 +226,7 @@
 			</form>
 		</div>
 		
-		<!-- 중분류 -->
+		<%-- <!-- 중분류 -->
 		<div class="middle-cate">
 			<form name="middle-category" method="post" action="" onSubmit="return middleFrmCheck();">
 				<div class="subtitle">
@@ -251,10 +255,8 @@
 					
 					<c:forEach var="middleCate" items="${middleCateList}">
 					<tr>
-						<td style="width:40px; height:20px;">
-						</td>
-						<td class="middleModiName" style="width:100px; height:20px;">
-						</td>
+						<td class="middleModiCode" style="width:40px; height:20px;"></td>
+						<td class="middleModiName" style="width:100px; height:20px;"></td>
 						<td class="middleModiUse"></td>
 					</tr>
 					</c:forEach>
@@ -291,7 +293,7 @@
 					<button type="submit">저장</button>
 				</div>
 			</form>
-		</div>
+		</div> --%>
 	</div>
 </div>
 </body>

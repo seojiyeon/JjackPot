@@ -70,7 +70,7 @@ public class ItemBean {
 		
 		return "/item/itemCate";
 	}
-	
+
 /*	@RequestMapping("/bigCatePro.jp")
 	public String bigCatePro(HttpServletRequest request) {
 		String [] big_cate = request.getParameterValues("big_cate");

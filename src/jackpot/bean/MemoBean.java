@@ -116,6 +116,7 @@ public class MemoBean {
 		model.addAttribute("memoCateName", memoCateName);
 		
 		System.out.println(emp_num);
+		
 		return "/memo/memoList";
 	}
 
