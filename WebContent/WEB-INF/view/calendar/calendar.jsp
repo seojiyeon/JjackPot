@@ -337,7 +337,7 @@ function add_open(addform){
 						<li class="insertForm-name">장소</li><li class="insertForm-place-li"><input type="text" placeholder=" 장소" name="place" class="place"></li>
 					</ul>
 					<ul>
-						<li class="insertForm-name">참여자</li><li><input type="text" name="name" id="participants" class="participants"/></li><li id="addparticipants"><a>추가</a></li>
+						<li class="insertForm-name">참여자</li><li><input type="text"id="participants" class="participants"/><input type="hidden" name="participants"></li><li id="addparticipants"><a>추가</a></li>
 					</ul>
 					<ul>
 						<li class="insertForm-contents-li">내용</li><li class="insertForm-contents-li2"><textarea name="contents" class="insertForm-contents" placeholder=" 내용"></textarea></li>

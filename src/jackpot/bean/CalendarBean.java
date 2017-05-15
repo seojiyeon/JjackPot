@@ -48,6 +48,12 @@ public class CalendarBean {
 	public String fullcalendar(){
 		return "/calendar/FullCalendar";
 	}
+	
+	@RequestMapping("/fullcalendar2.jp")
+	public String fullcalendar2(){
+		return "/calendar/FullCalendar2";
+	}
+	
 	@RequestMapping("/getfullcalendar.jp")
 	public @ResponseBody List<Map<String, Object>> calendar(calendarDTO cdto, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session){
 
@@ -387,6 +393,7 @@ public class CalendarBean {
 	@RequestMapping("/leftmenu-department.jp")
 	public @ResponseBody List<Map<String, Object>> calendardepartment(calendarDTO cdto, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap){
 		String id = (String) sqlMap.queryForObject("calendar.departmentTransform", request.getParameter("id"));
+		System.out.println(id);
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 	      List result2 = new ArrayList();
 	      String title = "";

@@ -30,6 +30,7 @@ a{text-decoration:none;}
 #main-container{position:fixed;left:270px;top:0;width:85%;height:100%;} 
 #main-constop{position:fixed;height:60px;top:0px;width:85%;left:270px;}
 #main-contents{position:fixed;left:270px;top:60px;width:85%;height:100%;margin: 0 0 0 15;}
+#main-contents-department{position:fixed;left:270px;top:60px;width:85%;height:100%;margin: 0 0 0 15;}
 .menulist a {text-decoration:none;}
 
 #insertForm-container{display:none;position:fixed;left:270px;top:0;width:85%;height:100%;}
