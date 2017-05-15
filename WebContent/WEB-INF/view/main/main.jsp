@@ -2,8 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-<link href="/JackPot/css/main.css?ver=19" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/main.css?ver=21" rel="stylesheet" type="text/css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+<script src="js/jquery.digitalclock.js"></script>
+<link href="css/clock.css" rel="stylesheet" />
 <link href="css/fullcalendar.css" rel="stylesheet"/>
 <link href="css/fullcalendar.print.css" rel="stylesheet" media="print"/>
 <script type="text/javascript" src="js/moment.min.js"></script>
@@ -354,9 +358,14 @@ height: 200px;
  </c:if>
  </form>
     <div class="main-aside">
-    <form name="rtcForm">
-		<input type="text" name="rtcInput" size="20" readonly="readonly" />
-	</form>
+    <div id="clock" class="light">
+			<div class="display">
+				<div class="weekdays"></div>
+				<div class="ampm"></div>
+				<div class="alarm"></div>
+				<div class="digits"></div>
+			</div>
+		</div>
     </div> 
     
     <div class="contents">
@@ -377,8 +386,8 @@ height: 200px;
     </ul>
     </div>
 </body>
-	 <div class="ajax">
+	 <!-- <div class="ajax">
 	 <div id="ajaxRetur" style="display:none;">안읽은 쪽지</div> 
 	 </div>
-	 <div id="ajaxReturn" style="display:none;">새 쪽지</div>
+	 <div id="ajaxReturn" style="display:none;">새 쪽지</div> -->
 </html>    
