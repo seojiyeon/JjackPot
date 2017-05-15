@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
         ,  
         events: function(start, end, timezone, callback) {          //DB에서 이벤트 불러오기
             $.ajax({
-                url: '/JackPot/getfullcalendar.jp',
+                url: '/JackPot/leftmenu-department.jp',
                 type : 'post',
                 data : { startDate : start.format(), endDate : end.format() },
                 dataType: 'json',

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/calendar.css?ver=3" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/calendar.css?ver=4" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <html>
@@ -86,6 +86,24 @@ var idlistname = new Array();
         	if(state == '개인업무'){
         		$('.title-selected-private').fadeIn();
         	} else { $('.title-selected-private').hide(); }
+        });
+        
+        $('.leftmenu-departmentmenu-bt').click(function(){
+        	$.ajax({
+        		type :"post",
+        		url :"http://localhost:8080/JackPot/leftmenu-department.jp",
+        		data : {id:$(this).text()},
+        		success : function(departmentlist){
+        			alert(departmentlist)
+        		}, 
+        		error : function(){
+        			alert("error");
+        		}
+        		});
+        });
+        
+		$('.leftmenu-branch-bt').click(function(){
+			$(this).text();
         });
     });
     function selected_click(id){
@@ -250,16 +268,20 @@ function add_open(addform){
 					<li class="departmentmenu" style="width:208px;display:inline-block;text-align:center;">
 					<a>부서</a>
 						<ul style="-webkit-padding-start:0px;width:208px;list-style:none;">
-							<li><button>서비스</button></li>
-							<li><button>품질</button></li>
+							<li><button class="leftmenu-departmentmenu-bt">서비스</button></li>
+							<li><button class="leftmenu-departmentmenu-bt">제조,화학</button></li>
+							<li><button class="leftmenu-departmentmenu-bt">It,웹,통신</button></li>
 						</ul>
 					</li>
 					<li class="branchmenu" style="width:208px;display:inline-block;text-align:center;">
 					<a>지점</a>
 						<ul style="-webkit-padding-start:0px;width:208px;list-style:none;display:none;">
-							<li><button>강남지점</button></li>
-							<li><button>용인지점</button></li>
-							<li><button>부천지점</button></li>
+							<li><button class="leftmenu-branch-bt">강남지점</button></li>
+							<li><button class="leftmenu-branch-bt">종로지점</button></li>
+							<li><button class="leftmenu-branch-bt">동작지점</button></li>
+							<li><button class="leftmenu-branch-bt">수지지점</button></li>
+							<li><button class="leftmenu-branch-bt">용인지점</button></li>
+							<li><button class="leftmenu-branch-bt">인천서구지점</button></li>
 						</ul>
 					</li>
 				</ul>	

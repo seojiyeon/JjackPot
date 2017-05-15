@@ -52,4 +52,10 @@
            select b.branch||' '||e.emp_name||p.position participantsname from position p,emp e, branch b,department d where e.department=d.num and e.branch=b.num and p.num = e.position and e.emp_num=#st.nextToken()#
         </select>
         
+        <select id="departmentTransform" resultClass="String" parameterClass="String">
+           select num from department where department=#id#
+        </select>
+        <select id="departmentList" resultClass="cdto" parameterClass="String">
+           select * from calendar where department=#id#
+        </select>
 </sqlMap>

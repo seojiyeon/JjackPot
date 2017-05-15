@@ -142,8 +142,6 @@ public class CalendarBean {
 		           if(((calendarDTO)result2.get(i)).getBranch()!=0){
 		        	   int branch = ((calendarDTO)result2.get(i)).getBranch();
 		        	   int edtobranch = edto.getBranch();
-		        	   System.out.println(branch);
-		        	   System.out.println(edtobranch);
 		        	   if(branch == edtobranch) {
 		        		   Map<String, Object> map = new HashMap<String, Object>();
 		        		   title = ((calendarDTO) result2.get(i)).getCl_title();
@@ -207,6 +205,76 @@ public class CalendarBean {
 		        		   result.add(map);           
 		        	   }
 	            	}
+	            
+	            for(int i=0; i<result2.size(); i++){ // 연차
+	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("연차")){
+	 	        	   String participants = ((calendarDTO)result2.get(i)).getCl_participants();
+	 	        	   if(participants.contains(edto.getEmp_num())){
+	 	        		   Map<String, Object> map = new HashMap<String, Object>();
+	 	        		   title = ((calendarDTO) result2.get(i)).getCl_title();
+	 	        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
+	 	        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
+	 	        		   if(title.equals("연차")){color="#3498DB";}
+	 	        		   if(!end.equals("nullTnull")){
+	 	        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	 	        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
+	 	        			   String en = ((calendarDTO) result2.get(i)).getCl_edate()+" "+((calendarDTO) result2.get(i)).getCl_etime();
+	 	        			   try {
+	 	        				   Date sdate = mydate.parse(st);
+	 	        				   Date edate = mydate.parse(en);
+	 	        				   int check = (int) ((long) (edate.getTime() - sdate.getTime()) / ((long)24*60*60*1000));
+	 	        				   if(check>=1){
+	 	        					   allDay="true";
+	 	        					   map.put("allDay", allDay);
+	 	        				   }
+	 	        			   } catch (ParseException e) {
+	 	        				   e.printStackTrace();
+	 	        			   }
+	 	        		   }
+	 	        		   map.put("title", title);
+	 	        		   map.put("start", start);
+	 	        		   map.put("end", end);
+	 	        		   map.put("color", color);
+	 	        		   map.put("id",((calendarDTO) result2.get(i)).getCl_num());
+	 	        		   result.add(map);           
+	 	        	   }
+	 	            }  
+	 	         }
+	            
+	            for(int i=0; i<result2.size(); i++){ // 출장
+	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("출장")){
+	 	        	   String participants = ((calendarDTO)result2.get(i)).getCl_participants();
+	 	        	   if(participants.contains(edto.getEmp_num())){
+	 	        		   Map<String, Object> map = new HashMap<String, Object>();
+	 	        		   title = ((calendarDTO) result2.get(i)).getCl_title();
+	 	        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
+	 	        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
+	 	        		   if(title.equals("출장")){color="#FFA1D4";}
+	 	        		   if(!end.equals("nullTnull")){
+	 	        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	 	        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
+	 	        			   String en = ((calendarDTO) result2.get(i)).getCl_edate()+" "+((calendarDTO) result2.get(i)).getCl_etime();
+	 	        			   try {
+	 	        				   Date sdate = mydate.parse(st);
+	 	        				   Date edate = mydate.parse(en);
+	 	        				   int check = (int) ((long) (edate.getTime() - sdate.getTime()) / ((long)24*60*60*1000));
+	 	        				   if(check>=1){
+	 	        					   allDay="true";
+	 	        					   map.put("allDay", allDay);
+	 	        				   }
+	 	        			   } catch (ParseException e) {
+	 	        				   e.printStackTrace();
+	 	        			   }
+	 	        		   }
+	 	        		   map.put("title", title);
+	 	        		   map.put("start", start);
+	 	        		   map.put("end", end);
+	 	        		   map.put("color", color);
+	 	        		   map.put("id",((calendarDTO) result2.get(i)).getCl_num());
+	 	        		   result.add(map);           
+	 	        	   }
+	 	            }  
+	 	         }
 		return result;
 	}
 
@@ -314,5 +382,48 @@ public class CalendarBean {
 	public @ResponseBody List<participantsDTO> addparticipants(HttpServletResponse response ,participantsDTO dto){
 		List<participantsDTO> participants = sqlMap.queryForList("calendar.getparticipants", null);
 		return participants;
+	}
+	
+	@RequestMapping("/leftmenu-department.jp")
+	public @ResponseBody List<Map<String, Object>> calendardepartment(calendarDTO cdto, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap){
+		String id = (String) sqlMap.queryForObject("calendar.departmentTransform", request.getParameter("id"));
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+	      List result2 = new ArrayList();
+	      String title = "";
+	      String start = "";
+	      String end = "";
+	      String color = "";
+	      String allDay = "false";
+	      result2 = sqlMap.queryForList("calendar.departmentList", id);
+	      for(int i=0; i<result2.size(); i++){
+	        Map<String, Object> map = new HashMap<String, Object>();
+	        title = ((calendarDTO) result2.get(i)).getCl_title();
+	        start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
+	        end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
+	        if(title.equals("부서일정")){color="#CDA8FF";}
+	        if(!end.equals("nullTnull")){ 
+	        SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	        String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
+	        String en = ((calendarDTO) result2.get(i)).getCl_edate()+" "+((calendarDTO) result2.get(i)).getCl_etime();
+	        try {
+	        	  Date sdate = mydate.parse(st);
+	        	  Date edate = mydate.parse(en);
+	        	  int check = (int) ((long) (edate.getTime() - sdate.getTime()) / ((long)24*60*60*1000));
+	        	  if(check>=1){
+	        		allDay="true";
+	        		map.put("allDay", allDay);
+	        				   }
+	        			   } catch (ParseException e) {
+	        				   e.printStackTrace();
+	        			   }
+	        		   }
+	        		   map.put("title", title);
+	        		   map.put("start", start);
+	        		   map.put("end", end);
+	        		   map.put("color", color);
+	        		   map.put("id",((calendarDTO) result2.get(i)).getCl_num());
+	        		   result.add(map);           
+	        	   }
+		return result;
 	}
 }
