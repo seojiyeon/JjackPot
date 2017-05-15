@@ -110,8 +110,7 @@
 	$(document).ready(function() {
 		$(".modifyName").dblclick(function() {
 			var con = this.innerHTML;
-			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>"
-			+ "<";
+			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>";
 		});		
 				
 		$(".modifyUse").dblclick(function() {
@@ -205,7 +204,7 @@
 						</td>
 					</tr>
 					
-					<c:forEach var="bigCate" items="${bigCateList}">
+					<c:forEach var="bigCate" items="${bigCateList}" varStatus="st">
 					<tr id="big-cate">
 						<td style="width:40px; height:20px;">
 							${bigCate.big_code}

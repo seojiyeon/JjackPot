@@ -49,7 +49,8 @@
           destroy-method="close"
           p:driverClassName="oracle.jdbc.driver.OracleDriver"
           p:url="jdbc:oracle:thin:@khq.iptime.org:1521:orcl"
-          p:username="qam07" p:password="qam07" />  
+          p:username="qam07" p:password="qam07" />
+	
 
 </beans>
    

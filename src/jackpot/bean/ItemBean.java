@@ -106,18 +106,61 @@ public class ItemBean {
 					System.out.println("저장");
 				}
 			} else if(Integer.parseInt(check[a]) == 2) {
-				for(int i=0; i<big_num.length; i++) {
-					
-					
-					/*for(int x=0; x<big_name.length; x++) {
-						dto.setBig_name(big_name[x]);
-						System.out.println("1");
+				if(big_name == null) {
+					for(int i=0; i<big_use.length; i++) {
+						dto.setBig_num(Integer.parseInt(big_num[i]));
+						dto.setBig_use(big_use[i]);
+						
+						System.out.println("번호["+i+"]"+"::"+dto.getBig_num());
+						System.out.println("사용["+i+"]"+"::"+dto.getBig_use());
+						
+						sqlMap.update("item.bigCateUseUpdate", dto);
 					}
-					for(int y=0; y<big_use.length; y++) {
-						dto.setBig_use(big_use[y]);
-						System.out.println("2");
-					}*/
+				} else if(big_use == null) {
+					for(int i=0; i<big_name.length; i++) {
+						dto.setBig_num(Integer.parseInt(big_num[i]));
+						dto.setBig_name(big_name[i]);
+						
+						System.out.println("name["+i+"]"+"::"+dto.getBig_name());
+						System.out.println("num["+i+"]"+"::"+dto.getBig_num());
+						
+						sqlMap.update("item.bigCateNameUpdate", dto);
+					}
+				} else {
+					for(int i=0; i<big_name.length; i++) {
+						dto.setBig_num(Integer.parseInt(big_num[i]));
+						dto.setBig_name(big_name[i]);
+						
+						System.out.println("name["+i+"]"+"::"+dto.getBig_name());
+						System.out.println("num["+i+"]"+"::"+dto.getBig_num());
+						
+						sqlMap.update("item.bigCateNameUpdate", dto);
+					}
+					for(int j=0; j<big_use.length; j++) {
+						dto.setBig_num(Integer.parseInt(big_num[j]));
+						dto.setBig_use(big_use[j]);
+						
+						System.out.println("번호["+j+"]"+"::"+dto.getBig_num());
+						System.out.println("사용["+j+"]"+"::"+dto.getBig_use());
+						
+						sqlMap.update("item.bigCateUseUpdate", dto);
+					}
 				}
+				/*for(int i=0; i<big_num.length; i++) {
+					if(big_name == null) {
+						dto.setBig_use(big_use[i]);
+						dto.setBig_num(Integer.parseInt(big_num[i]));
+						System.out.println("번호"+dto.getBig_num());
+						System.out.println("사용"+dto.getBig_use());
+					} else if(big_use == null) {
+						dto.setBig_name(big_name[i]);
+						dto.setBig_name(big_name[i]);
+						System.out.println("name"+dto.getBig_name());
+						System.out.println("num"+dto.getBig_num());
+					} else {
+						
+					}
+				}*/
 			}
 		}
 		return "/item/bigCatePro";

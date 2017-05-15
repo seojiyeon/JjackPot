@@ -26,6 +26,18 @@
 		)
 	</insert>
 	
+	<select id="memoCateTitle" parameterClass="mdto" resultClass="mdto">
+		select * from memo_cate where emp_num=#emp_num# and cate_num=#cate_num#
+	</select>
+	
+	<update id="memoCateUdate" parameterClass="mdto">
+		update memo_cate set cate_title=#cate_title# where cate_num=#cate_num# and emp_num=#emp_num# 
+	</update>
+	
+	<delete id="memoCateDelete" parameterClass="mdto">
+		delete from memo_cate where cate_num=#cate_num#
+	</delete>
+	
 	
 	<!-- 메모 -->
 	<!-- 메모 내용 저장 -->

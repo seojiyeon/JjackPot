@@ -120,7 +120,22 @@ ul.tabs li.active {
 			}
 		}
 	}
-
+	
+	
+	function showMemoCont(cate_num) {
+		$.ajax({
+			type:"get",
+			url:"memoTitleCont.jp",
+			data:{cate_num:cate_num},
+			success:function(content) {
+				$(".cateForm-cate_title-li").html("<input type=text name=cate_title value="+content.cate_title+"></input><input type=hidden name=cate_num value="+content.cate_num+"></input>");
+				$(".cateForm-delete-button").html("<button type=button><a href=memoCateDelete.jp?cate_num="+content.cate_num+">삭제</a></button>");
+			},
+			error:function(request, status, error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
 </script>
 
 <html>
@@ -141,7 +156,7 @@ ul.tabs li.active {
 			<div class="tab_container">
 				
 				<div id="tab1" class="tab_content">
-					<form method="post" action="">
+					<form method="post" action="memoCateModify.jp" name="cateForm">
 						<div class="tab-main">
 							<div class="tab-left">
 								<ul id="memoFolder">
@@ -150,19 +165,19 @@ ul.tabs li.active {
 									</c:if>
 									<c:if test="${memoCateCount > 0}">
 										<c:forEach var="memoCate" items="${memoCateList}">
-											<li class="cateName">${memoCate.cate_title}</li>
+											<li class="cateName" onclick="showMemoCont(${memoCate.cate_num})">${memoCate.cate_title}</li>
 										</c:forEach>
 									</c:if>
 								</ul>
 							</div>
 							<div class="tab-right">
 								<ul style="list-diplay:none;">
-									<li>
+									<li class="cateForm-cate_title-li">
 										<input type="text" name="cate_title" class="cateTitle"/>
 									</li>
 									<li>
 										<input type="submit" value="수정" />
-										<button type="button">삭제</button>
+										<button type="button" class="cateForm-delete-button">삭제</button>
 									</li>
 								</ul>
 							</div>

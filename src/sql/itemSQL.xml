@@ -45,10 +45,7 @@
 	</select>
 	<select id="bigCateCount" resultClass="int">
 		select count(*) from big_cate
-	</select><!-- 
-	<update id="bigCateUpdate" parameterClass="idto">
-		update big_cate set big_name=#big_name#, big_use=#big_use# where big_num=#big_num#
-	</update> -->
+	</select> 
 	<update id="bigCateNameUpdate" parameterClass="idto">
 		update big_cate set big_name=#big_name# where big_num=#big_num#
 	</update>

@@ -145,6 +145,7 @@ ul.tabs li.active {
 				$(".itemForm-buy_code-td").html("<input type=text name=buy_code value="+content.buy_code+"></input>");
 				$(".itemForm-buy_name-td").html("<input type=text name=buy_name value="+content.buy_name+"></input>");
 				$(".itemForm-note-td").html("<textarea name=note style=width:500px; height:120px;>"+content.note+"</textarea><input type=hidden name=item_num value="+content.item_num+"></input>");
+				$(".btn-wrap-delete").html("<button type=button><a href=itemDeletePro.jp?item_num="+content.item_num+">삭제</a></button>");
 			},
 			error:function(request, status, error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -396,8 +397,14 @@ ul.tabs li.active {
 							</td>						
 					</table>
 					<div class="btn-wrap">
-						<input type="submit" value="수정" />
-						<button type='button' class="btn-wrap-delete">삭제</button>
+						<ul>
+							<li>
+								<input type="submit" value="수정" />
+							</li>
+							<li class="btn-wrap-delete" style="width: 100px; left: 440px; position: absolute;">
+								<button type='button'>삭제</button>
+							</li>
+						</ul>
 					</div>
 				</div>
 				</form>
