@@ -186,9 +186,7 @@ function changeImp_click(bm_num){
                         <th style="width: 120px;">
                             <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
-                        <th style="width: 120px;" >
-                            <a data-sortcolumn="DUEDATE" href="#">마감일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
-                        </th>
+
                         <th style="width: 100px;">
                             상태
                         </th>
@@ -226,7 +224,7 @@ function changeImp_click(bm_num){
                           ${bmdto.bm_start}
                         </th>
                         <th style="width: 120px;">
-                            ${bmdto.bm_end}
+ 						${sdf.format(bmdto.enrollment) }
                         </th>
                         <th style="width: 100px;">
 			 				<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->

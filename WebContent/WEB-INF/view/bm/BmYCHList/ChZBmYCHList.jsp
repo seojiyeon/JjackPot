@@ -230,7 +230,7 @@ function mybmYCHdel() {
                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                       		<a href="myBmYCHContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="chzBmYCHContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                             </a>	
                         </th>
@@ -244,7 +244,18 @@ function mybmYCHdel() {
                             ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
-                            ${bmdto.bm_state2}
+							<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+	    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+	    					</c:if>
+	    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+	    	  					  <span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+	    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+	    	    				<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
                         </th>
                     </tr>
 				</c:forEach>
@@ -273,12 +284,6 @@ function mybmYCHdel() {
 				</table>
 			</div>
 	        
-	        <div class="btn-wrap">
-	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
-	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" onClick="window.location='bmYCH_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-	            
-		</div>
 
 		<div class="ins-box">
 		    <ul>

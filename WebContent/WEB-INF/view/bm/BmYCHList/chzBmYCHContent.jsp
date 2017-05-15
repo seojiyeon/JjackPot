@@ -127,7 +127,7 @@ $(document).ready(function(){
 
  -->
 
-<title> 내가한 업무 요청 보고 </title>
+<title> 내가한 업무 요청 조회 </title>
   
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
@@ -137,7 +137,7 @@ $(document).ready(function(){
 <div class="content-write" style="width: 100%;">
 <div class="con-header">
 
-    <h2>내가 한 업무 보고 </h2>
+    <h2>내가 한 업무 요청</h2>
 
 
     </div>
@@ -228,10 +228,10 @@ $(document).ready(function(){
                     
                  
 						<tr>
-							<th scope="row">수신자  </th>
+							<th scope="row">담당자  </th>
                             <td colspan="3">
                                 <div>
-                                	${bmdto.rec_name }
+                                	${bmdto.inchar_name }
                                 </div>
                    	 	</tr>
                         
@@ -283,32 +283,33 @@ $(document).ready(function(){
 
 </tbody></table></div>
 			
-		
+
 <div class="inform-wrap" >
 	<div class="statement">
-    	<h4>확인내역</h4>
-    						<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
-	    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
-	    					</c:if>
-	    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
-	    	  					  <span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
-	    	 				</c:if>
-	    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
-	    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
-	    	 				</c:if>
-	    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
-	    	    				<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
-	    	 				</c:if>
+    	<h4>처리내역</h4>
            	<div class="form-block" >
-                	<table class="table">
-                    	<caption></caption>
+           					<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+					<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+				</c:if>
+				<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+					<span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+				</c:if>
+				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+				</c:if>
+				<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+					<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+				</c:if>
+             <table class="table">
+                    	    	
+
                          	<tbody>
                             	<tr>
-                                	<th scope="row">수신자</th>
+                                	<th scope="row">담당자</th>
                                     	<td >
                                         	<div class="director-info">
             
-                                                 	${bmdto.rec_name }
+                                                 	${bmdto.inchar_name }
 							
                                                 </div>
                                             </td>
@@ -365,13 +366,10 @@ $(document).ready(function(){
           </div></div>
           </div>
  
- 
 
 
 			<div class="btn-wrap" >
-				<button type="button" onClick="window.location='myBmContentModify.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">수정 </button>
-    			<button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-    			<button type="button" onClick="window.location='myBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
+				<button type="button" onClick="window.location='ChzBmYCHList.jp'"class="btn2 btn-color7 br">목록  </button>
     
     		</div>
 </div></div>

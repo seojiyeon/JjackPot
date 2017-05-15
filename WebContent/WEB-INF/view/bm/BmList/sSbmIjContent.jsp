@@ -127,7 +127,7 @@ $(document).ready(function(){
 
  -->
 
-<title> 내가한 업무 요청 보고 </title>
+<title> 업무 일지 </title>
   
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
@@ -137,7 +137,7 @@ $(document).ready(function(){
 <div class="content-write" style="width: 100%;">
 <div class="con-header">
 
-    <h2>내가 한 업무 보고 </h2>
+    <h2> 업무 일지 </h2>
 
 
     </div>
@@ -153,29 +153,14 @@ $(document).ready(function(){
                                 	${bmdto.bm_title }
                                 </div>
                             </td>
-                            <th scope="row">상태</th>
-                            <td>
-                                <div>
-										<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
-											<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
-										</c:if>
-										<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
-											<span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
-										</c:if>
-										<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
-											<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
-										</c:if>
-										<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
-											<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
-										</c:if>
-
+                            
                                 	
                                 </div>
                             </td>                            
                             
                         </tr>
 	                   <tr>
-							<th scope="row" >지시자 </th>
+							<th scope="row" >등록자 </th>
                             <td colspan="3">
                                 <div >
                                 	${bmdto.bm_name }
@@ -183,33 +168,13 @@ $(document).ready(function(){
                    	 	</tr>
                         
 						<tr>
-							<th scope="row">업무기한 </th>
-                            <td colspan="3"> 
+							<th scope="row">등록일 </th>
+                            <td > 
                                 <div>
-                                	${bmdto.bm_start } ~ ${bmdto.bm_end }
-                                </div>
-                   	 	</tr>
-                   	 	
-                   	 	<tr>
-							<th scope="row">업무등록일  </th>
-							
-							<c:if test="${bmdto.enrollment == null }">
- 							<td>
-                                <div>
-                                  
-                                </div>            
-                            </td>                   
- 							</c:if>
- 							
- 							<c:if test="${bmdto.enrollment != null }">
-                            <td>
-                                <div>
-                                	${sdf.format(bmdto.enrollment) }
+                                	  ${sdf.format(bmdto.enrollment)}
                                 </div>
                                 </td>
-                                </c:if>
-                            
-                                
+                   	 
  							<th scope="row">수정일  </th>
  							
  							<c:if test="${bmdto.update_day == null }">
@@ -283,23 +248,11 @@ $(document).ready(function(){
 
 </tbody></table></div>
 			
-		
 <div class="inform-wrap" >
 	<div class="statement">
     	<h4>확인내역</h4>
-    						<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
-	    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
-	    					</c:if>
-	    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
-	    	  					  <span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
-	    	 				</c:if>
-	    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
-	    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
-	    	 				</c:if>
-	    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
-	    	    				<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
-	    	 				</c:if>
            	<div class="form-block" >
+           	<form name="history" action="/JackPot/insertHistory.jp"  method="post" enctype="multipart/form-data" id="inputfile" onSubmit="return checkIt();" >
                 	<table class="table">
                     	<caption></caption>
                          	<tbody>
@@ -331,9 +284,16 @@ $(document).ready(function(){
 
                                      	  <tr>
 	                                         <th scope="row"> 의견 </th>
+	                                         <c:if test="${bm_state != 1 }">
 	                                            <td >
 	                                                ${his.his_content}
 	                                           </td>
+	                                          </c:if>
+	                                          <c:if test="${bm_state== 1 }">
+	                                           <td >
+													<textarea id="userContents" name="his_content" class="form-control" placeholder="의견을 입력하세요." rows="5" ></textarea>
+	                                           </td>
+	                                         </c:if>
 	                                    </tr>
                                 
 							<!--파일 부분 -->	
@@ -353,6 +313,7 @@ $(document).ready(function(){
                                 	<a>첨부 파일</a>
                                 	<c:forEach var="Bm_file" items="${Bm_file}">
 										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
+										
 									</c:forEach>
 									</c:if>
                                 </div>
@@ -362,16 +323,16 @@ $(document).ready(function(){
 
 			</tbody>
           </table>
-          </div></div>
-          </div>
- 
  
 
 
 			<div class="btn-wrap" >
-				<button type="button" onClick="window.location='myBmContentModify.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">수정 </button>
-    			<button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-    			<button type="button" onClick="window.location='myBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
+			<c:if test="${bm_state !=1}">
+				<input type="submit" value="처리" class="btn btn-color5 br" />
+     		 </c:if>  	
+     		   	<button type="button" onClick="window.location='sSBmIjList.jp'"class="btn2 btn-color7 br">목록  </button>
+			 			
+    			
     
     		</div>
 </div></div>

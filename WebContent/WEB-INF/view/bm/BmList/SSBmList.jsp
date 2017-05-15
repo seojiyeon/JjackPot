@@ -191,13 +191,7 @@ function changeImp_click(bm_num){
                             <a data-sortcolumn="REGISTERNAME" href="#">요청자<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 120px;">
-                            <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
-                        </th>
-                        <th style="width: 120px;" >
-                            <a data-sortcolumn="DUEDATE" href="#">마감일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
-                        </th>
-                        <th style="width: 100px;">
-                            상태
+                            <a data-sortcolumn="INSERTDATE" href="#">등록일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                     </tr>
                 </thead>
@@ -222,7 +216,7 @@ function changeImp_click(bm_num){
                        		${bmdto.box_name}
                         </th>
                         <th style="min-width: 200px;">
-                       		<a href="mytodoContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
+                       		<a href="sSbmIjContent.jp?bm_num=${bmdto.bm_num}&pageNum=${pageNum}">
                             	${bmdto.bm_title}
                             </a>	
                         </th>
@@ -230,14 +224,9 @@ function changeImp_click(bm_num){
                             ${bmdto.bm_name}
                         </th>
                         <th style="width: 120px;">
-                          ${bmdto.bm_start}
+                        ${sdf.format(bmdto.enrollment)}
                         </th>
-                        <th style="width: 120px;">
-                            ${bmdto.bm_end}
-                        </th>
-                        <th style="width: 100px;">
-                            ${bmdto.bm_state2}
-                        </th>
+
                     </tr>
 				</c:forEach>
 
@@ -251,26 +240,25 @@ function changeImp_click(bm_num){
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="SSBmList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="SSBmList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="SSBmList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>
 			</div>
 	        
 	        <div class="btn-wrap">
-	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
-	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" onClick="window.location='bm_Ij_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-	            
-		</div>
+				<button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
+     		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
+    			<button type="button" onClick="window.location='bm_Ij_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+			</div>
 
 		<div class="ins-box">
 		    <ul>

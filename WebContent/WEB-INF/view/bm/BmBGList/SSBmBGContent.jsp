@@ -282,169 +282,90 @@ $(document).ready(function(){
                    	 	</tr>
 
 </tbody></table></div>
-			
+		
 <div class="inform-wrap" >
 	<div class="statement">
-    	<h4>처리내역</h4>
-				<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
-					<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
-				</c:if>
-				<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
-					<span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
-				</c:if>
-				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
-					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
-				</c:if>
-				<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
-					<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
-				</c:if>
-    	 
-            	<div class="form-block" >
-            	<form name="history" class="form-horizontal" action="" method="post" enctype="multipart/form-data" id="inputfile"  >
+    	<h4>확인내역</h4>
+    						<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+	    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+	    					</c:if>
+	    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+	    	  					  <span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+	    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+	    	    				<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+           	<div class="form-block" >
                 	<table class="table">
                     	<caption></caption>
                          	<tbody>
                             	<tr>
                                 	<th scope="row">수신자</th>
-                                    	<td>
+                                    	<td >
                                         	<div class="director-info">
-                                        		<div>
-                                            		<span>
-                                                 			<a style=" font-size: smaller;" href="javascript:void(0)" onclick="spro.showUserContextMenu(this, 'U144718', 'bottom')" title="수신자 ">${bmdto.rec_name }</a>
-                                                    	</span>
-                                                	</div>
+            
+                                                 	${bmdto.rec_name }
+							
                                                 </div>
                                             </td>
-                                            
+                                            </tr>
+                                            <tr>
                                             <th scope="row">최종수정일</th>
-                                            	<td>
                                             		<c:if test="${his.modify_date == null }">
- 														<td>
+ 														<td >
                              			   				<div> </div>                               
  													</c:if>
  							
 		                           				 	<c:if test="${his.modify_date != null }">
-        		                    					<td>
+        		                    					<td >
                 		                					<div>
                         		          						${sdf.format(his.modify_date) }
                                 							</div>           
 				      	 	 							</td>     
 												</c:if>               
-                   	 					</tr>
+                   	 						</tr>                 
 
-                                        <tr>
-                                            <th scope="row">진척율</th>
-                                            <c:if test="${bm_state == 1 }">
-                                            <c:if test="${his_process ==null }">
-                                            <td colspan="3">
-                                            	<ul class="progtd progtd-todo">
-                                                    <li class="active"><a href="javascript:checkProgress('0');"><span>0%</span></a></li>
-                                                    <li class=""><a href="javascript:checkProgress('20');"><span>20%</span></a></li>
-                                                    <li class=""><a href="javascript:checkProgress('40');"><span>40%</span></a></li>
-                                                    <li class=""><a href="javascript:checkProgress('60');"><span>60%</span></a></li>
-                                                    <li class=""><a href="javascript:checkProgress('80');"><span>80%</span></a></li>
-                                                    <li class=""><a href="javascript:checkProgress('100');"><span>100%</span></a></li>
-                                                </ul>
-                                                </td>
-                                                </c:if>
-                                                </c:if>
-                                            <c:if test="${bm_state != 1 }">
-                                            <c:if test="${his_process ==null }">
-                                            <td colspan="3">
-                                            	<ul class="progtd progtd-todo">
-                                                    <li class="active"><a ><span>0%</span></a></li>
-                                                </ul>
-                                               </td>
-                                                </c:if>
-                                            <c:if test="${his_process !=null }">
-                                            <td colspan="3">
-                                            	<ul class="progtd progtd-todo">
-                                                    <li class="active"><a ><span>{bmdto.his_process}</span></a></li>
-                                                </ul>
-                                               </td>
-                                                </c:if>                                                
-                                                
-                                                <div class="tdprogress" style="width:448px;">
-	                                                <div class="bar-chart-todo">
-	                                                    <div class="bar-chart">
-	                                                        <div id="progressBar" class="bar" style="width:0%;"></div>
-	                                                    </div>
-	                                                </div>
-	                                            </div>
-	                                            <div>
-	                                            </c:if>
-	                                            <c:if test="${his_process !=null }">
-	                                            	<td colspan="3">
-	                                            		${his. his_process}
-	                                            	</td>
-	                                            </c:if>
-	                                                <span><i class="icon exclamation02"></i> 업무완료(100%) 후에는 업무 내용을 수정할 수 없습니다.</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                       <tr>
-                                            <th scope="row">업무내용</th>
-                                            <c:if test="${bm_state == 1 }">
-                                            <c:if test="${his_content == null}">
-                                            <td colspan="3">
-                                                <textarea id="userContents" name="his_content  " class="form-control" value="${his_content}" placeholder="업무 내용을 입력하세요." rows="10" title="업무내용"></textarea>
-                                            </td>
-                                            </c:if>
-                                            </c:if>
-                                            <c:if test="${bm_state != 1 }">
-                                            <c:if test="${his_content != null}">
-                                            <td colspan="3">
-                                                ${his.his_content}
-                                            </td>
-                                            </c:if>
-                                            </c:if>
-                                        </tr>
-                                	</tbody>
-                                </table>
+                                     	  <tr>
+	                                         <th scope="row"> 의견 </th>
+	                                            <td >
+	                                                ${his.his_content}
+	                                           </td>
+	                                    </tr>
                                 
 							<!--파일 부분 -->	
+							
 							<div class="fileup">
-								<div class="fileup_t">
-									<h3>파일 업로드</h3>
-								</div>
-						
-							<c:if test="${bm_state == 1 }">
-							<tr>
+								<tr>
+								  <th scope="row">
+								 파일 업로드 
+								</th>
+
+						<td class="plupload_wrapper" >
 							<c:if test="${fileCount == 0}">
-                            <td colspan="3">
-                                <div class="plupload_wrapper">
 								파일 : <input type="file" name="org_file" value="파일 첨부" id="fileInp" />
 							<div id="file-list"></div>
-						    </td>
 							</c:if>
-							
-							
                    	 	   <c:if test="${fileCount > 0}">
-                            <td colspan="3">
-								<div>
                                 	<a>첨부 파일</a>
                                 	<c:forEach var="Bm_file" items="${Bm_file}">
 										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
 									</c:forEach>
+									</c:if>
                                 </div>
 						    </td>
-							</c:if>
                    	 	</tr>
-					</c:if>
-					
-					<c:if test="${bm_state != 1 }">
-					<tr>
-						<div>
-                          	<a>첨부 파일</a>
-                              	<c:forEach var="Bm_file" items="${Bm_file}">
-									<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
-								</c:forEach>	
-						</div>				
-					</tr>
-					</c:if>
 					</div>
-				</div>
+
                         
+			</tbody>
+          </table>
+          </div></div>
+          </div>
+ 
+ 
  
 
 

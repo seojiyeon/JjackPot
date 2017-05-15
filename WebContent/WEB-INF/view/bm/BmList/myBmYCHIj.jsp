@@ -354,13 +354,10 @@ $(document).ready(function(){
  
 
 			<div class="btn-wrap" >
-			<c:if test="${bm_state != 2 }">
-				<button type="button" id="bmupdatebutton" class="btn2 btn-color7 br">업무완료 </button>
+				<button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
      		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
-    			</c:if>
     			<button type="button" onClick="window.location='bm_Ij_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
     			<button type="button" onClick="window.location='mytodoList.jp'"class="btn2 btn-color7 br">목록  </button>
-    
     		</div>
 </form></div></div>
 </div>

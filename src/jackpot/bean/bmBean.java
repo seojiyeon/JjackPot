@@ -204,8 +204,6 @@ public class bmBean {
 		
 	}
 
-
-
 	/*나의 할일 수정  */
 @RequestMapping("/mytodoContentModify.jp")
 public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session){
@@ -237,6 +235,90 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 	
 	return "/bm/mytodo/mytodoContentModify";
 	
+}
+
+
+/*나의 업무수정 myBmFormModifyPro*/
+@RequestMapping("/mytodoContentModifyPro.jp")
+public String mytodoContentModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request,bmDTO bmdto){
+	System.out.println("1");
+	int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+	System.out.println(bm_num);
+	String emp_num =(String)session.getAttribute("memId");
+	bmdto.setEmp_num(emp_num);
+	bmdto.setBm_num(bm_num);
+	bmdto.setBm_title(request.getParameter("bm_title"));
+	bmdto.setBm_content(request.getParameter("bm_content"));
+	bmdto.setReg_notice(request.getParameter("reg_notice"));
+	bmdto.setCmp_notice(request.getParameter("cmp_notice"));
+	bmdto.setBns_box(Integer.parseInt(request.getParameter("bns_box")));
+	System.out.println("2");
+	/*시작 끝 날짜 */
+	bmdto.setBm_start(request.getParameter("bm_start"));
+	bmdto.setBm_end(request.getParameter("bm_end"));
+	sqlMap.update("bm.bmUpdate", bm_num);
+	
+	String path = request.getRealPath("save"); // 파일 경로
+	System.out.println("3");
+	String [] cfile = request.getParameterValues("cfile");
+	if(cfile != null) {
+		for(int i=0; i<cfile.length; i++) {
+			bmdto.setOrg_file(cfile[i]);
+			System.out.println("파일 : "+bmdto.getOrg_file());
+			
+			bmdto = (bmDTO)sqlMap.queryForObject("bm.Bm_file", bmdto);
+			
+			/* 서버에 저장된 곳에서 삭제 */
+			try {
+				File fileF = new File(path+"\\"+bmdto.getSys_file());
+				
+				if(fileF.exists()) {
+					fileF.delete();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("4");
+		sqlMap.delete("bm.delBm_file", bmdto);
+		}
+	}
+	
+	/*업무파일 등록*/
+	System.out.println("5");
+	List<MultipartFile> fileMf = request.getFiles("org_file");
+	for(MultipartFile multiFile : fileMf) {
+		String fileName = multiFile.getOriginalFilename();
+		System.out.println(fileName);
+		if(fileName != "") {
+			//bmdto.setOrg_file(fileName);
+			int extFile = fileName.lastIndexOf(".");
+			fileName = fileName.substring(extFile+1);
+			String fmFile ="_"+bmdto.getBm_num()+"."+fileName;
+		
+			fmFile = fmFile.replace(" ", "");
+			fmFile = fmFile.replace(":", "");
+			File ff = new File(path+"//"+fmFile);
+	
+			try {
+				multiFile.transferTo(ff);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}//서버에 파일 저장
+			bmdto.setSys_file(fmFile);
+			System.out.println("6");
+			//sqlMap.insert("bm.inserBm_file", bmdto);
+		}
+		System.out.println("7");
+	}
+
+
+/*		업무보관함 등록
+	bmdto.setBm_num(bmNum);
+	sqlMap.insert("bm.insertBns_box", bmdto);*/
+
+	System.out.println("8");
+	return "/bm/mytodo/mytodoContentModifyPro";
+
 }
 
 	/*나의할일 삭제 */
@@ -339,16 +421,16 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		bmdto.setEmp_num(emp_num);
 		bmdto.setBm_num(bm_num);
 		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-
+		bmDTO his = new bmDTO();
 		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBmYchcont", bm_num);
-
+		his = (bmDTO) sqlMap.queryForObject("bm.gethistory", bm_num);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		/*  파일 불러오기 */
 		List Bm_file = sqlMap.queryForList("bm.Bm_file2", bm_num);
 		int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount2", bm_num);
 
-		
+		model.addAttribute("his", his);
 		model.addAttribute("bmdto", bmdto);
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("bm_num", bm_num);
@@ -360,6 +442,191 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		
 		
 		return "/bm/BmYCHList/myBmYCHContent";
+		
+	}
+	
+/*나의 업무보고 수정  */
+@RequestMapping("/myBmContentModify.jp")
+public String myBmContentModify(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session){
+	int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+	String emp_num =(String)session.getAttribute("memId");
+	bmdto.setEmp_num(emp_num);
+	bmdto.setBm_num(bm_num);
+	String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+	bmdto = (bmDTO)sqlMap.queryForObject("bm.getEmp_name2", emp_num);	
+	bmdto = (bmDTO) sqlMap.queryForObject("bm.getBusinessCont", bm_num);
+	int countBns_box = (int) sqlMap.queryForObject("bm.countBns_box",bmdto);
+	List ListBns_box = sqlMap.queryForList("bm.ListBns_box", null);
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+	/*  파일 불러오기 */
+	List Bm_file = sqlMap.queryForList("bm.Bm_file", bmdto);
+	int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount", bmdto);
+
+	model.addAttribute("bmdto", bmdto);
+	model.addAttribute("emp_num", emp_num);
+	model.addAttribute("bm_num", bm_num);
+	model.addAttribute("bmdto", bmdto);
+	model.addAttribute("sdf", sdf);		
+	model.addAttribute("Bm_file", Bm_file);		
+	model.addAttribute("fileCount", fileCount);	
+	model.addAttribute("countBns_box", countBns_box);
+	model.addAttribute("ListBns_box", ListBns_box);
+	model.addAttribute("bm_name",bm_name);
+	
+	return "/bm/BmBGList/myBmContentModify";
+	
+}
+
+/*나의 업무수정 myBmFormModifyPro*/
+@RequestMapping("/myBmContentModifyPro.jp")
+public String myBmContentModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request,bmDTO bmdto){
+	System.out.println("1");
+	int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+	System.out.println(bm_num);
+	String emp_num =(String)session.getAttribute("memId");
+	bmdto.setEmp_num(emp_num);
+	bmdto.setBm_num(bm_num);
+	bmdto.setBm_title(request.getParameter("bm_title"));
+	bmdto.setBm_content(request.getParameter("bm_content"));
+	bmdto.setReg_notice(request.getParameter("reg_notice"));
+	bmdto.setCmp_notice(request.getParameter("cmp_notice"));
+	bmdto.setBns_box(Integer.parseInt(request.getParameter("bns_box")));
+	System.out.println("2");
+	
+	sqlMap.update("bm.bgbmUpdate", bm_num);
+	/*참조자*/
+	bmdto.setBm_num(bm_num);
+	String ref_name[] = request.getParameterValues("ref_name");
+	
+	if(ref_name.length > 0){
+		for(String s : ref_name){
+			System.out.println("--->"+s);
+		}
+	}
+	if(!ref_name[0].equals("")){
+	for(int i=0; i<ref_name.length; i++ ) {
+		bmdto.setRef_name(ref_name[i]);
+		empDTO edto = (empDTO)sqlMap.queryForObject("bm.empInfpop",emp_num);
+		bmdto.setEmp_num(edto.getEmp_num());
+		bmdto.setRef_branch(edto.getBranch2());
+		bmdto.setRef_depart(edto.getDepartment2());
+		bmdto.setRef_position(edto.getPosition2());
+		
+		sqlMap.update("bm.updateBm_ref", bmdto);
+	}
+}
+
+	/*수신자*/
+
+	bmdto.setBm_num(bm_num);
+	
+	String rec_name[] = request.getParameterValues("rec_name");
+	
+	if(rec_name.length > 0){
+		for(String s : rec_name){
+			System.out.println("--->"+s);
+		}
+	}
+	if(!rec_name[0].equals("")){
+	for(int i=0; i<rec_name.length; i++ ) {
+		bmdto.setRec_name(rec_name[i]);
+		empDTO edto = (empDTO)sqlMap.queryForObject("bm.empInfpop",emp_num);
+		bmdto.setEmp_num(edto.getEmp_num());
+		bmdto.setRec_branch(edto.getBranch2());
+		bmdto.setRec_depart(edto.getDepartment2());
+		bmdto.setRec_position(edto.getPosition2());
+		sqlMap.update("bm.updateBms_rec", bmdto);
+	}
+}
+	String path = request.getRealPath("save"); // 파일 경로
+	System.out.println("3");
+	String [] cfile = request.getParameterValues("cfile");
+	if(cfile != null) {
+		for(int i=0; i<cfile.length; i++) {
+			bmdto.setOrg_file(cfile[i]);
+			System.out.println("파일 : "+bmdto.getOrg_file());
+			
+			bmdto = (bmDTO)sqlMap.queryForObject("bm.Bm_file", bmdto);
+			
+			/* 서버에 저장된 곳에서 삭제 */
+			try {
+				File fileF = new File(path+"\\"+bmdto.getSys_file());
+				
+				if(fileF.exists()) {
+					fileF.delete();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("4");
+		sqlMap.delete("bm.delBm_file", bmdto);
+		}
+	}
+	
+	/*업무파일 등록*/
+	System.out.println("5");
+	List<MultipartFile> fileMf = request.getFiles("org_file");
+	for(MultipartFile multiFile : fileMf) {
+		String fileName = multiFile.getOriginalFilename();
+		System.out.println(fileName);
+		if(fileName != "") {
+			//bmdto.setOrg_file(fileName);
+			int extFile = fileName.lastIndexOf(".");
+			fileName = fileName.substring(extFile+1);
+			String fmFile ="_"+bmdto.getBm_num()+"."+fileName;
+		
+			fmFile = fmFile.replace(" ", "");
+			fmFile = fmFile.replace(":", "");
+			File ff = new File(path+"//"+fmFile);
+	
+			try {
+				multiFile.transferTo(ff);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}//서버에 파일 저장
+			bmdto.setSys_file(fmFile);
+			System.out.println("6");
+			//sqlMap.insert("bm.inserBm_file", bmdto);
+		}
+		System.out.println("7");
+	}
+		/*		업무보관함 등록
+		bmdto.setBm_num(bmNum);
+		sqlMap.insert("bm.insertBns_box", bmdto);*/
+
+		System.out.println("8");
+
+		return "/bm/BmBGList/myBmContentModifyPro";
+	}
+	
+	
+	/*참조 업무요청 내용 보기*/
+	@RequestMapping("/chzBmYCHContent.jp")
+	public String chzBmYCHContent(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session,bmDTO bdto){
+		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+		String emp_num =(String)session.getAttribute("memId");
+		bmdto.setEmp_num(emp_num);
+		bmdto.setBm_num(bm_num);
+		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+		bmDTO his = new bmDTO();
+		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBmYchcont", bm_num);
+		his = (bmDTO) sqlMap.queryForObject("bm.gethistory", bm_num);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		/*  파일 불러오기 */
+		List Bm_file = sqlMap.queryForList("bm.Bm_file2", bm_num);
+		int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount2", bm_num);
+
+		model.addAttribute("his", his);
+		model.addAttribute("bmdto", bmdto);
+		model.addAttribute("emp_num", emp_num);
+		model.addAttribute("bm_num", bm_num);
+		model.addAttribute("sdf", sdf);		
+		model.addAttribute("Bm_file", Bm_file);		
+		model.addAttribute("fileCount", fileCount);	
+
+		return "/bm/BmYCHList/chzBmYCHContent";
 		
 	}
 	
@@ -676,7 +943,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		List SSBmBgList = null;
 		int count = (int) sqlMap.queryForObject("bm.getSSBmBgListcount", rec_name);
 		int number = 0;
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
 		if(pageNum == null || pageNum.equals("")) {
@@ -704,7 +971,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 	    params.put("rec_name", rec_name);
 	    
 	    SSBmBgList = sqlMap.queryForList("bm.getSSBmBgList", params);
-	
+	    model.addAttribute("sdf", sdf);
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
@@ -761,7 +1028,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		List ChZBGBmList = null;
 		int count = (int) sqlMap.queryForObject("bm.getChZBGBmListcount", ref_name);
 		int number = 0;
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
 		if(pageNum == null || pageNum.equals("")) {
@@ -789,7 +1056,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 	    params.put("ref_name", ref_name);
 	    
 	    ChZBGBmList = sqlMap.queryForList("bm.getChZBGBmList", params);
-	
+	    model.addAttribute("sdf", sdf);
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
@@ -817,6 +1084,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
 		List MyBmIjList = null;
 		int count = (int) sqlMap.queryForObject("bm.getBmIjListcount", bm_name);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int number = 0;
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
@@ -858,6 +1126,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("MyBmIjList", MyBmIjList);
 		model.addAttribute("count", count);	
+		model.addAttribute("sdf", sdf);		
 		
 		return "/bm/BmList/myBmWriteList";
 
@@ -870,15 +1139,19 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
 		bmdto.setBm_num(bm_num);
-
+		
+		bmDTO his = new bmDTO();
+		
 		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBusinessCont", bm_num);
+		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBmIjcont", bm_num);
+		his = (bmDTO) sqlMap.queryForObject("bm.gethistory", bm_num);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		/*  파일 불러오기 */
 		List Bm_file = sqlMap.queryForList("bm.Bm_file", bmdto);
 		int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount", bmdto);
-	
+		
+		model.addAttribute("his", his);
 		model.addAttribute("bmdto", bmdto);
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("bm_num", bm_num);
@@ -889,6 +1162,34 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		return "/bm/BmList/myBmIjContent";
 		
 	}
+/*수신일지 내용보기*/
+@RequestMapping("/sSbmIjContent.jp")
+public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session,bmDTO bdto){
+	int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+	String emp_num =(String)session.getAttribute("memId");
+	bmdto.setEmp_num(emp_num);
+	bmdto.setBm_num(bm_num);
+	bmDTO his = new bmDTO();
+	String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+	bmdto = (bmDTO) sqlMap.queryForObject("bm.getBmIjcont", bm_num);
+	his = (bmDTO) sqlMap.queryForObject("bm.gethistory", bm_num);
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+	/*  파일 불러오기 */
+	List Bm_file = sqlMap.queryForList("bm.Bm_file", bmdto);
+	int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount", bmdto);
+	
+	model.addAttribute("his", his);
+	model.addAttribute("bmdto", bmdto);
+	model.addAttribute("emp_num", emp_num);
+	model.addAttribute("bm_num", bm_num);
+	model.addAttribute("sdf", sdf);		
+	model.addAttribute("Bm_file", Bm_file);		
+	model.addAttribute("fileCount", fileCount);	
+	
+	return "/bm/BmList/sSbmIjContent";
+	
+}
 	
 	/*업무보고 삭제 */
 	@RequestMapping("bmIj_delete.jp")
@@ -934,6 +1235,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		String rec_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
 		List SSBmIjList = null;
 		int count = (int) sqlMap.queryForObject("bm.getChZBGBmListcount", rec_name);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int number = 0;
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
@@ -964,7 +1266,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 	    
 	    SSBmIjList = sqlMap.queryForList("bm.getSSBmIjList", params);
 	    
-	
+	    model.addAttribute("sdf", sdf);
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
@@ -990,6 +1292,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		String ref_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
 		List ChZBGBmIjList = null;
 		int count = (int) sqlMap.queryForObject("bm.getChZBGBmIjListcount", ref_name);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int number = 0;
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
@@ -1020,6 +1323,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 	    
 	    ChZBGBmIjList = sqlMap.queryForList("bm.getChZBGBmIjList", params);
 	    
+	    model.addAttribute("sdf", sdf);		
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
@@ -1227,10 +1531,65 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 
 	}
 	
+	
+	/*	업무내역 등록hisrory*/
+	@RequestMapping("/insertHistory.jp")
+	public String insertHistory(Model model,HttpSession session, MultipartHttpServletRequest request){
+		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+		bmDTO bmdto = new bmDTO();
+		empDTO edto2 = new empDTO();
+		String emp_num =(String)session.getAttribute("memId");
+		
+		empDTO edto1 = (empDTO)sqlMap.queryForObject("bm.empInf",emp_num);
 
-	/*나의 업무수정 myBmFormModify*/
-	@RequestMapping("/myBmFormModify.jp")
-	public String myBmFormModify(Model model,HttpSession session, MultipartHttpServletRequest request,bmDTO bmdto){
+		String his_process = bmdto.getHis_process();
+		String his_content = bmdto.getHis_content();
+		bmdto.setEmp_num(emp_num);
+		bmdto.setBm_num(Integer.parseInt(request.getParameter("bm_num")));
+		bmdto.setHis_process(request.getParameter("his_process"));
+		bmdto.setHis_content(request.getParameter("his_content"));
+		sqlMap.insert("bm.insertHistory", bmdto);
+
+		
+		/*업무파일 등록*/
+		String path = request.getRealPath("save"); // 업로드 경로
+		bmdto.setBm_num(Integer.parseInt(request.getParameter("bm_num")));
+		List<MultipartFile> fileMf = request.getFiles("org_file");
+		for(MultipartFile multiFile : fileMf) {
+			String fileName = multiFile.getOriginalFilename();
+			
+			if(fileName != "") {
+				bmdto.setOrg_file(fileName);
+				int extFile = fileName.lastIndexOf(".");
+				fileName = fileName.substring(extFile+1);
+				String fmFile = bmdto.getEmp_num()+"_"+bmdto.getBm_num()+"."+fileName;
+			
+				fmFile = fmFile.replace(" ", "");
+				fmFile = fmFile.replace(":", "");
+				File ff = new File(path+"//"+fmFile);
+		
+				try {
+					multiFile.transferTo(ff);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}//서버에저장 
+				bmdto.setSys_file(fmFile);
+			
+				sqlMap.insert("bm.inserBm_file", bmdto);
+			}
+			
+		}
+
+		return "/bm/insertHistory";
+
+	}
+
+	
+	
+	
+	/*나의 업무수정 myBmFormModifyPro*/
+	@RequestMapping("/myBmFormModifyPro.jp")
+	public String myBmFormModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request,bmDTO bmdto){
 		System.out.println("1");
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 		System.out.println(bm_num);
@@ -1307,7 +1666,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		sqlMap.insert("bm.insertBns_box", bmdto);*/
 
 		System.out.println("8");
-		return "/bm/myBmFormModify";
+		return "/bm/myBmFormModifyPro";
 
 	}
 	
@@ -1841,7 +2200,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		model.addAttribute("cHzBmYCHnoList", cHzBmYCHnoList);
 		model.addAttribute("count", count);	
 		model.addAttribute("number", number);
-	
+
 		return "/bm/BmYCHList/cHzBmYCHnoList";
 		
 	}		
@@ -1874,6 +2233,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		List myBmBGokList = null;
 		int count = (int) sqlMap.queryForObject("bm.getMyBmBgListokcount", bm_name);
 		int number = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
@@ -1914,7 +2274,8 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		model.addAttribute("myBmBGokList", myBmBGokList);
 		model.addAttribute("count", count);	
 		model.addAttribute("number", number);
-	
+		model.addAttribute("sdf", sdf);
+		
 		return "/bm/BmBGList/myBmBGokList";
 	}
 	
@@ -1927,7 +2288,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		List myBmBGnoList = null;
 		int count = (int) sqlMap.queryForObject("bm.getMyBmBgListnocount", bm_name);
 		int number = 0;
-	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
 		if(pageNum == null || pageNum.equals("")) {
@@ -1967,7 +2328,8 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		model.addAttribute("myBmBGnoList", myBmBGnoList);
 		model.addAttribute("count", count);	
 		model.addAttribute("number", number);
-	
+		model.addAttribute("sdf", sdf);
+		
 		return "/bm/BmBGList/myBmBGnoList";
 		
 	}	
@@ -1981,7 +2343,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		List SSBmBGokList = null;
 		int count = (int) sqlMap.queryForObject("bm.getSSBmBgokcount", rec_name);
 		int number = 0;
-	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
 		if(pageNum == null || pageNum.equals("")) {
@@ -2021,7 +2383,8 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		model.addAttribute("SSBmBGokList", SSBmBGokList);
 		model.addAttribute("count", count);	
 		model.addAttribute("number", number);
-	
+		model.addAttribute("sdf", sdf);
+		
 		return "/bm/BmBGList/SSBmBGokList";
 		
 	}
@@ -2035,7 +2398,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		List SSBmBGnoList = null;
 		int count = (int) sqlMap.queryForObject("bm.getSSBmBgnocount", rec_name);
 		int number = 0;
-	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
 		if(pageNum == null || pageNum.equals("")) {
@@ -2075,7 +2438,8 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		model.addAttribute("SSBmBGnoList", SSBmBGnoList);
 		model.addAttribute("count", count);	
 		model.addAttribute("number", number);
-	
+		model.addAttribute("sdf", sdf);
+		
 		return "/bm/BmBGList/SSBmBGnoList";
 		
 	}	
@@ -2089,7 +2453,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		List cHzBmBGokList = null;
 		int count = (int) sqlMap.queryForObject("bm.getChZBGBmokcount", ref_name);
 		int number = 0;
-	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
 		if(pageNum == null || pageNum.equals("")) {
@@ -2118,6 +2482,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 	    
 	    cHzBmBGokList = sqlMap.queryForList("bm.ChZBGBmListok", params);
 	    
+	    model.addAttribute("sdf", sdf);
 	    model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
@@ -2143,7 +2508,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		List cHzBmBGnoList = null;
 		int count = (int) sqlMap.queryForObject("bm.getChZBGBmnocount", ref_name);
 		int number = 0;
-	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
 		if(pageNum == null || pageNum.equals("")) {
@@ -2171,7 +2536,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 	    params.put("ref_name", ref_name);
 	    
 	    cHzBmBGnoList = sqlMap.queryForList("bm.ChZBGBmListno", params);
-	    
+	    model.addAttribute("sdf", sdf);
 	    model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
@@ -2188,347 +2553,7 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 		
 	}		
 	
-	
-	/*업무일지완료상태로 */
-	@RequestMapping("/bmIj_state_update.jp")
-	public String bmIj_state_update(bmDTO bmdto, HttpServletRequest request) {
-		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
-/*		bmdto.setBm_num(bm_num);*/
-		sqlMap.update("bm.state_update2",bm_num);
-		
-		return "/bm/BmList/bmIj_state_update";
-	}
-	/*업무일지반려 상태로 */
-	@RequestMapping("/bmIj_state_nonupdate.jp")
-	public String bmIj_state_nonupdate(bmDTO bmdto, HttpServletRequest request) {
-		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
-/*		bmdto.setBm_num(bm_num);*/
-		sqlMap.update("bm.state_update2",bm_num);
-		
-		return "/bm/BmList/bmIj_state_nonupdate";
-	}
-	
-	/*내가 한 업무보고 완료 리스트보기*/
-	@RequestMapping("/myBmIjokList.jp")
-	public String myBmIjokList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");	
-		bmdto.setEmp_num(emp_num);
-		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		List myBmIjokList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMyBmIjokcount", bm_name);
-		int number = 0;
-	
-		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
-		if(pageNum == null || pageNum.equals("")) {
-			pageNum = "1";
-		}
-		
-		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage-1)*pageSize+1;
-		int endRow = currentPage*pageSize;
-		int pageCount =0;
-		int startPage = (int)(currentPage/10)*10+1;
-		int pageBlock = 10;
-		int endPage = startPage+pageBlock-1;
-		
-		if(endPage > pageCount) {
-			endPage = pageCount;
-		}
-
-		pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
-		number=count-(currentPage-1)*pageSize;
-		
-		HashMap params = new HashMap();
-	    params.put("startRow", startRow);
-	    params.put("endRow", endRow);
-	    params.put("bm_name", bm_name);
-	    
-	    myBmIjokList = sqlMap.queryForList("bm.getMyBmIjListok", params);
-	    
-	    model.addAttribute("emp_num", emp_num);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("pageBlock", pageBlock);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("myBmIjokList", myBmIjokList);
-		model.addAttribute("count", count);	
-		model.addAttribute("number", number);
-	
-		return "/bm/BmList/myBmBGokList";
-	}
-	/*내가 한 업무보고 반려 리스트보기*/
-	@RequestMapping("/myBmIjnoList.jp")
-	public String myBmIjnoList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");	
-		bmdto.setEmp_num(emp_num);
-		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		List myBmIjnoList = null;
-		int count = (int) sqlMap.queryForObject("bm.getMyBmIjnocount", bm_name);
-		int number = 0;
-	
-		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
-
-		if(pageNum == null || pageNum.equals("")) {
-			pageNum = "1";
-		}
-		
-		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage-1)*pageSize+1;
-		int endRow = currentPage*pageSize;
-		int pageCount =0;
-		int startPage = (int)(currentPage/10)*10+1;
-		int pageBlock = 10;
-		int endPage = startPage+pageBlock-1;
-		
-		if(endPage > pageCount) {
-			endPage = pageCount;
-		}
-
-		pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
-		number=count-(currentPage-1)*pageSize;
-		
-		HashMap params = new HashMap();
-	    params.put("startRow", startRow);
-	    params.put("endRow", endRow);
-	    params.put("bm_name", bm_name);
-	    
-	    myBmIjnoList = sqlMap.queryForList("bm.getMyBmIjListno", params);
-	    
-	    model.addAttribute("emp_num", emp_num);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("pageBlock", pageBlock);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("myBmIjnoList", myBmIjnoList);
-		model.addAttribute("count", count);	
-		model.addAttribute("number", number);
-	
-		return "/bm/BmList/myBmIjnoList";
-		
-	}	
-	
-	/*수신 업무보고 완료 리스트보기*/
-	@RequestMapping("/SSBmIjokList.jp")
-	public String v(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");	
-		bmdto.setEmp_num(emp_num);
-		String rec_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		List SSBmIjokList = null;
-		int count = (int) sqlMap.queryForObject("bm.getSSBmIjokcount", rec_name);
-		int number = 0;
-	
-		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
-
-		if(pageNum == null || pageNum.equals("")) {
-			pageNum = "1";
-		}
-		
-		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage-1)*pageSize+1;
-		int endRow = currentPage*pageSize;
-		int pageCount =0;
-		int startPage = (int)(currentPage/10)*10+1;
-		int pageBlock = 10;
-		int endPage = startPage+pageBlock-1;
-		
-		if(endPage > pageCount) {
-			endPage = pageCount;
-		}
-
-		pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
-		number=count-(currentPage-1)*pageSize;
-		
-		HashMap params = new HashMap();
-	    params.put("startRow", startRow);
-	    params.put("endRow", endRow);
-	    params.put("rec_name", rec_name);
-	    
-	    SSBmIjokList = sqlMap.queryForList("bm.SSBmIjListok", params);
-	    
-	    model.addAttribute("emp_num", emp_num);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("pageBlock", pageBlock);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("SSBmIjokList", SSBmIjokList);
-		model.addAttribute("count", count);	
-		model.addAttribute("number", number);
-	
-		return "/bm/BmList/SSBmIjokList/";
-		
-	}
-
-	/*수신 업무보고 반려 리스트보기*/
-	@RequestMapping("/SSBmIjnoList.jp")
-	public String SSBmIjnoList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");	
-		bmdto.setEmp_num(emp_num);
-		String rec_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		List SSBmIjnoList = null;
-		int count = (int) sqlMap.queryForObject("bm.getSSBmIjnocount", rec_name);
-		int number = 0;
-	
-		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
-
-		if(pageNum == null || pageNum.equals("")) {
-			pageNum = "1";
-		}
-		
-		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage-1)*pageSize+1;
-		int endRow = currentPage*pageSize;
-		int pageCount =0;
-		int startPage = (int)(currentPage/10)*10+1;
-		int pageBlock = 10;
-		int endPage = startPage+pageBlock-1;
-		
-		if(endPage > pageCount) {
-			endPage = pageCount;
-		}
-
-		pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
-		number=count-(currentPage-1)*pageSize;
-		
-		HashMap params = new HashMap();
-	    params.put("startRow", startRow);
-	    params.put("endRow", endRow);
-	    params.put("rec_name", rec_name);
-	    
-	    SSBmIjnoList = sqlMap.queryForList("bm.SSBmIjListno", params);
-	    
-	    model.addAttribute("emp_num", emp_num);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("pageBlock", pageBlock);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("SSBmIjnoList", SSBmIjnoList);
-		model.addAttribute("count", count);	
-		model.addAttribute("number", number);
-	
-		return "/bm/BmList/SSBmYCHnoList";
-		
-	}	
-	
-	/*참조 업무보고 완료 리스트보기*/
-	@RequestMapping("/cHzBmIjokList.jp")
-	public String cHzBmIjokList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");	
-		bmdto.setEmp_num(emp_num);
-		String ref_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		List cHzBmIjokList = null;
-		int count = (int) sqlMap.queryForObject("bm.getChZBGBmIjokcount", ref_name);
-		int number = 0;
-	
-		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
-
-		if(pageNum == null || pageNum.equals("")) {
-			pageNum = "1";
-		}
-		
-		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage-1)*pageSize+1;
-		int endRow = currentPage*pageSize;
-		int pageCount =0;
-		int startPage = (int)(currentPage/10)*10+1;
-		int pageBlock = 10;
-		int endPage = startPage+pageBlock-1;
-		
-		if(endPage > pageCount) {
-			endPage = pageCount;
-		}
-
-		pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
-		number=count-(currentPage-1)*pageSize;
-		
-		HashMap params = new HashMap();
-	    params.put("startRow", startRow);
-	    params.put("endRow", endRow);
-	    params.put("ref_name", ref_name);
-	    
-	    cHzBmIjokList = sqlMap.queryForList("bm.ChZBGBmIjListok", params);
-	    
-	    model.addAttribute("emp_num", emp_num);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("pageBlock", pageBlock);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("cHzBmIjokList", cHzBmIjokList);
-		model.addAttribute("count", count);	
-		model.addAttribute("number", number);
-	
-		return "/bm/BmList/cHzBmIjokList";
-		
-	}
-
-	/*참조 업무보고 반려 리스트보기*/
-	@RequestMapping("/cHzBmIjnoList.jp")
-	public String cHzBmIjnoList(bmDTO bmdto,Model model,HttpSession session,bmDTO bdto,String pageNum){
-		String emp_num = (String)session.getAttribute("memId");	
-		bmdto.setEmp_num(emp_num);
-		String ref_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
-		List cHzBmIjnoList = null;
-		int count = (int) sqlMap.queryForObject("bm.getChZBGBmIjnocount", ref_name);
-		int number = 0;
-	
-		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
-
-		if(pageNum == null || pageNum.equals("")) {
-			pageNum = "1";
-		}
-		
-		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage-1)*pageSize+1;
-		int endRow = currentPage*pageSize;
-		int pageCount =0;
-		int startPage = (int)(currentPage/10)*10+1;
-		int pageBlock = 10;
-		int endPage = startPage+pageBlock-1;
-		
-		if(endPage > pageCount) {
-			endPage = pageCount;
-		}
-
-		pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
-		number=count-(currentPage-1)*pageSize;
-		
-		HashMap params = new HashMap();
-	    params.put("startRow", startRow);
-	    params.put("endRow", endRow);
-	    params.put("ref_name", ref_name);
-	    
-	    cHzBmIjnoList = sqlMap.queryForList("bm.ChZBGBmIjListno", params);
-	    
-	    model.addAttribute("emp_num", emp_num);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("pageBlock", pageBlock);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("cHzBmIjnoList", cHzBmIjnoList);
-		model.addAttribute("count", count);	
-		model.addAttribute("number", number);
-	
-		return "/bm/BmList/cHzBmIjnoList";
-		
-	}		
 	
 	
 /*--------------업무중요체크----------------------------------------------------------------------------*/

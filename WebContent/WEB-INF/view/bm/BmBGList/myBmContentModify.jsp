@@ -103,7 +103,21 @@
 		        }
 		    })
 		}*/
-
+		   
+		function openBms_rec(){
+			url = "/JackPot/bms_recPop.jp"
+		 	open(url, "bms_rec", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
+		   }   
+		   
+		function openBm_ref(){
+			url = "/JackPot/refPop.jp"
+		 	open(url, "Bm_ref", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200, height=500");
+		   }   
+		   
+		 
+		function resetAll(){
+			  document.frm.reset();
+			 }
 
 </script>
 
@@ -150,52 +164,29 @@
                             
                         </tr>
 	                  
-				
-                       <tr id="Termless" style=" display: ;" >
-							<th scope="row">업무기한 </th>
-                            <td colspan="3">
-								<input type="text" id="bm_start" name="bm_start"readonly value="${bmdto.bm_start }" ><!-- readonly 칸에 글자못쓰게 막기-->
-								<input type="text" title="종료날짜" id="bm_end" value="${bmdto.bm_end }" name="bm_end" readonly>
-                           		<span class="label-group ml10">
-								<input type="checkbox" title="기한없음" id="bm_end2" name="bm_end" value="0"><label>기한없음</label>
-                             	
+				        <tr id="rec" style=" display: none;">
+                        	<th id="rec_name" scope="row" ><span class="text-point-b">*</span>수신자</th>
+                            <td>
+                    
+                            	<input type="text" title="사용자" name="rec_name"  value="${bmdto.rec_name}" placeholder="사용자" readonly style="box-shadow:none;">
+								<button type="button" class="btn input-group-addon btn-color5 br"  onClick="openBms_rec()">
+								<i class="icon man-plus">
+                                <span class="none">사용자</span></i></button>
+                       
+                           </td>
+                        </tr>
+                        
+                        <tr id="ref" >
+                            <th id="ref_name" scope="row" ><span class="text-point-b">*</span>참조자
+                            </th>
+                            <td>
+                      			<input type="text" title="사용자" name="ref_name"  value="${bmdto.ref_name}" placeholder="사용자" readonly style="box-shadow:none;">
+                                <button type="button" class="btn input-group-addon btn-color5 br" onclick="openBm_ref()">
+                                <i class="icon man-plus">
+                                <span class="none">사용자</span></i></button>
+
                             </td>
                         </tr>
-                   	 	<tr>
-							<th scope="row">업무등록일  </th>
-							
-							<c:if test="${bmdto.enrollment == null }">
- 							<td>
-                                <div>
-                                  
-                                </div>            
-                            </td>                   
- 							</c:if>
- 							
- 							<c:if test="${bmdto.enrollment != null }">
-                            <td>
-                                <div>
-                                	${sdf.format(bmdto.enrollment) }
-                                </div>
-                                </td>
-                                </c:if>
-                                
- 							<th scope="row">수정일  </th>
- 							
- 							<c:if test="${bmdto.update_day == null }">
- 							<td>
-                                <div> </div>                               
- 							</c:if> 							
-                            <c:if test="${bmdto.update_day != null }">
-
-                            <td>
-                                <div>
-                                  	${sdf.format(bmdto.update_day) }
-                                </div>           
-				      	 	 </td>     
-							</c:if>               
-                   	 	</tr>
-                    	
                     	<tr id="alarmTR">
                             <th scope="row">수정 알림</th>
                             <td colspan="3">
@@ -282,7 +273,7 @@
 
 		<div class="btn-wrap" >
 			<input type="submit" value="저장" class="btn btn-color5 br" />
-        	<button type="button" onClick="window.location='mytodoList.jp'"class="btn2 btn-color7 br">취소</button>
+        	<button type="button" onClick="window.location='myBmBGList.jp'"class="btn2 btn-color7 br">취소</button>
     
     	</div>
 </form></div></div>

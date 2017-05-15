@@ -325,8 +325,8 @@ function mybmYCHdel(){
 	        
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
-	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" class="btn2 btn-color7 br"oonClick="window.location='bmYCH_delete.jp?bm_num=${bm_num}'">삭제 </button>
+	            <button type="button" class="btn btn-color5 br" onClick="window.location='bmYCH_state_finish.jp?bm_num=${bm_num}'">업무완료</button>
+	            <button type="button" class="btn2 btn-color7 br"onClick="window.location='bmYCH_delete.jp?bm_num=${bm_num}'">삭제 </button>
 	            
 		</div>
 

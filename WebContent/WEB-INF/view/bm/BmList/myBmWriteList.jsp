@@ -191,14 +191,9 @@ function changeImp_click(bm_num){
                             <a data-sortcolumn="REGISTERNAME" href="#">요청자<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 120px;">
-                            <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                            <a data-sortcolumn="INSERTDATE" href="#">등록일 <i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
-                        <th style="width: 120px;" >
-                            <a data-sortcolumn="DUEDATE" href="#">마감일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
-                        </th>
-                        <th style="width: 100px;">
-                            상태
-                        </th>
+
                     </tr>
                 </thead>
 		<tbody>
@@ -230,25 +225,7 @@ function changeImp_click(bm_num){
                             ${bmdto.bm_name}
                         </th>
                         <th style="width: 120px;">
-                          ${bmdto.bm_start}
-                        </th>
-                        <th style="width: 120px;">
-                            ${bmdto.bm_end}
-                        </th>
-                        <th style="width: 100px;">
-			 				<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
-								<span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
-							</c:if>
-							<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
-								<span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
-							</c:if>
-							<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
-								<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
-							</c:if>
-							<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
-								<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
-							</c:if>
-    
+                          ${sdf.format(bmdto.enrollment)}
                         </th>
                     </tr>
 				</c:forEach>
@@ -278,11 +255,10 @@ function changeImp_click(bm_num){
 			</div>
 	        
 	        <div class="btn-wrap">
-	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
-	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
-	            <button type="button" onClick="window.location='bmIj_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-	            
-		</div>
+				<button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
+     		   	<button type="button" onClick="window.location='myBmModify.jp?num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
+    			<button type="button" onClick="window.location='bm_Ij_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+			</div>
 
 		<div class="ins-box">
 		    <ul>

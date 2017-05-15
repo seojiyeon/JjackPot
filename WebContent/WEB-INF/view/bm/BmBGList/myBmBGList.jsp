@@ -120,6 +120,21 @@ function changeImp_click(bm_num){
 		});
 }
 
+<script>
+// 메모 휴지통으로 이동
+function () {
+	document.multiForm.action="memoDeletePro.jp?memoGroup=${memoGroup}";
+	document.multiForm.submit();
+}
+
+
+// 휴지통에 있는 메모 삭제
+function selectRemove() {
+	document.multiForm.action="memoRemovePro.jp?memoGroup=${memoGroup}";
+	document.multiForm.submit();
+}
+</script>
+
 </script>
 
 <html>
@@ -193,9 +208,6 @@ function changeImp_click(bm_num){
                         <th style="width: 120px;">
                             <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
-                        <th style="width: 120px;" >
-                            <a data-sortcolumn="DUEDATE" href="#">마감일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
-                        </th>
                         <th style="width: 100px;">
                             상태
                         </th>
@@ -230,13 +242,21 @@ function changeImp_click(bm_num){
                             ${bmdto.bm_name}
                         </th>
                         <th style="width: 120px;">
-                          ${bmdto.bm_start}
-                        </th>
-                        <th style="width: 120px;">
-                            ${bmdto.bm_end}
+                          ${sdf.format(bmdto.enrollment) }
                         </th>
                         <th style="width: 100px;">
-                            ${bmdto.bm_state2}
+							<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
+	    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
+	    					</c:if>
+	    					<c:if test="${bmdto.bm_state == 2}"><!-- 완료  -->
+	    	  					  <span class="todo-cate-box1 color3"style=" background: coral;">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    	 				<c:if test="${bmdto.bm_state == 3}"><!-- 지연  -->
+	    	   					<span class="todo-cate-box1 color4">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
+	    					<c:if test="${bmdto.bm_state == 0}"><!-- 반려  -->
+	    	    				<span class="todo-cate-box1 color1">${bmdto.bm_state2 }</span>
+	    	 				</c:if>
                         </th>
                     </tr>
 				</c:forEach>
@@ -251,15 +271,15 @@ function changeImp_click(bm_num){
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="myBmBGList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
+							<a href="myBmBGList.jp?pageNum=${i}" style="text-align: center; font-size: 13;">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="myBmBGList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>
@@ -267,7 +287,7 @@ function changeImp_click(bm_num){
 	        
 	        <div class="btn-wrap">
 	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">업무 등록</button>
-	            <button type="button" class="btn btn-color5 br" onclick="autoComplete();">업무완료</button>
+	            <button type="button" class="btn btn-color5 br" onclick="window.location='bmForm.jp'">수정</button>
 	            <button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
 	            
 		</div>

@@ -22,6 +22,56 @@ public class bmDTO {
 	private	String day;
 	private Timestamp update_day;	/*업무등록일*/
 	
+	/*업무담당자(incharge)*/
+	private int num;		/*번호*/
+	private String inchar_name;		/*업무담당자 이름*/
+	private String inchar_branch;	/*업무담당자 지점*/
+	private String inchar_depart;	/*업무담당자 부서*/
+	private String inchar_position;	/*업무담당자 직급*/
+
+	/*업무참조자(bm_ref)*/
+	private int bmr_num;		/*번호*/
+	private String ref_name;		/*참조자이름*/
+	private String ref_branch;		/*참조자지점*/
+	private String ref_depart;		/*참조자 부서*/
+	private String ref_position;		/*참조자 직급*/
+	
+	
+	/*업무보관함(bns_box)*/
+	private int bns_num;		/*업무보관번호*/
+	private String box_name;	/*업무보관함이름*/
+	
+	/*내역(history)*/
+	private int his_num;  /*번호*/
+	private String his_process;   /*진척율*/
+	private String his_content; 	/*업무내용*/
+	private Timestamp modify_date;		/*최종수정일*/
+
+	
+	/*업무관리 파일(bm_file)*/
+	private int bmf_num; 
+	private String org_file;
+	private String sys_file;
+	
+	/*업무수신자(bms_rec)*/
+	private int rec_num;
+	private String rec_name;  /*업무수신자이름*/
+	private String rec_branch; /*업무수신자 지점*/
+	private String rec_depart;  /*업무수신자 부서*/
+	private String rec_position;	/*업무수신자 직급*/
+	
+	/*업무형태(bm_form)*/
+	private int bmfo_num;  
+	private String bm_formName; 
+	
+	/*업무상태(bm_state)*/
+	private int state_num;
+	
+	 /*중요도 (important)*/
+	private int imp_num;
+	private String important2;
+	
+
 	public Timestamp getUpdate_day() {
 		return update_day;
 	}
@@ -139,14 +189,6 @@ public class bmDTO {
 	public void setEmp_num(String emp_num){
 		this.emp_num = emp_num;
 	}
-	
-	/*업무담당자(incharge)*/
-	private int num;		/*번호*/
-	private String inchar_name;		/*업무담당자 이름*/
-	private String inchar_branch;	/*업무담당자 지점*/
-	private String inchar_depart;	/*업무담당자 부서*/
-	private String inchar_position;	/*업무담당자 직급*/
-
 		
 	public int getNum() {
 		return num;
@@ -178,11 +220,7 @@ public class bmDTO {
 	public void setInchar_position(String inchar_position) {
 		this.inchar_position = inchar_position;
 	}
-	
-	/*업무보관함(bns_box)*/
-	
-	private int bns_num;		/*업무보관번호*/
-	private String box_name;	/*업무보관함이름*/
+
 
 	public void setBns_num(int bns_num){
 		this.bns_num = bns_num;
@@ -197,12 +235,7 @@ public class bmDTO {
 	public String getBox_name(){
 		return box_name;
 	}
-	
-	/*업무관리 파일(bm_file)*/
-	private int bmf_num; 
-	private String org_file;
-	private String sys_file;
-	
+
 	public void setBmf_num(int bmf_num){
 		this.bmf_num = bmf_num; 
 	}
@@ -223,14 +256,6 @@ public class bmDTO {
 	public String sys_file(){
 		return sys_file;
 	}
-	
-	
-	/*업무참조자(bm_ref)*/
-	private int bmr_num;		/*번호*/
-	private String ref_name;		/*참조자이름*/
-	private String ref_branch;		/*참조자지점*/
-	private String ref_depart;		/*참조자 부서*/
-	private String ref_position;		/*참조자 직급*/
 	
 	public void setBmr_num(int bmr_num){
 		this.bmr_num = bmr_num;
@@ -262,13 +287,6 @@ public class bmDTO {
 	public String ref_position(){
 		return ref_position;
 	}
-	
-	/*내역(history)*/
-	private int his_num;  /*번호*/
-	private String his_process;   /*진척율*/
-	private String his_content; 	/*업무내용*/
-	private Timestamp modify_date;		/*최종수정일*/
-
 	public int getHis_num() {
 		return his_num;
 	}
@@ -314,13 +332,6 @@ public class bmDTO {
 	public String getRef_position() {
 		return ref_position;
 	}
-	/*업무수신자(bms_rec)*/
-	private int rec_num;
-	private String rec_name;  /*업무수신자이름*/
-	private String rec_branch; /*업무수신자 지점*/
-	private String rec_depart;  /*업무수신자 부서*/
-	private String rec_position;	/*업무수신자 직급*/
-	
 	
 	public int getRec_num() {
 		return rec_num;
@@ -352,12 +363,6 @@ public class bmDTO {
 	public void setRec_position(String rec_position) {
 		this.rec_position = rec_position;
 	}
-	
-
-	/*업무형태(bm_form)*/
-	private int bmfo_num;  
-	private String bm_formName; 
-
 	public int getBmfo_num() {
 		return bmfo_num;
 	}
@@ -371,20 +376,13 @@ public class bmDTO {
 		this.bm_formName = bm_formName;
 	}
 
-	/*업무상태(bm_state)*/
-	private int state_num;
-
-	
 	public void setState_num(int state_num){
 		this.state_num = state_num;
 	}
 	public int getState_num() {
 		return state_num;
 	}
-	 /*중요도 (important)*/
-	private int imp_num;
-	private String important2;
-	
+
 	public void setImp_num(int imp_num){
 		 this.imp_num=imp_num;
 	}
