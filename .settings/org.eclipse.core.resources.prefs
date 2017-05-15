@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/view/calendar/calendar.jsp=UTF-8
+encoding//src/jackpot/bean/CalendarBean.java=UTF-8
 encoding//src/jackpot/bean/Work_yearBean.java=UTF-8

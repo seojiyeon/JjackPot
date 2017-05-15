@@ -94,7 +94,43 @@ var idlistname = new Array();
         		url :"http://localhost:8080/JackPot/leftmenu-department.jp",
         		data : {id:$(this).text()},
         		success : function(departmentlist){
-        			alert(departmentlist)
+
+        		    jQuery("#calendar").fullCalendar({
+        		          aspectRatio: 1.7
+        		        , locale: 'ko'
+        		        , eventLimit : true
+        				, header: {
+        					left: 'prev,next today',
+        					center: 'title',
+        					right: 'month,agendaWeek,agendaDay,listMonth'
+        				}
+        		        , defaultView: 'month'
+        		        , editable : true
+        				
+        		        ,minTime: "07:00:00"
+        		        ,maxTime: "23:00:00"
+        		        
+        		        , navLinks: true // can click day/week names to navigate views
+        				, weekNumbers: true
+        				, weekNumbersWithinDays: true
+        				, weekNumberCalculation: '0'
+        		        ,  
+        		        events: function(start, end, timezone, callback) {
+        		        	console.log(departmentlist);
+        		                   var events = [];
+        		                   $(departmentlist).each(function() {
+        		                        events.push({
+        		                           title: $(this).attr('title'),
+        		                            start: $(this).attr('start'),
+        		                            end: $(this).attr('end'),
+        		                            color: $(this).attr('color'),
+        		                            id: $(this).attr('id'),
+        		                            allDay: $(this).attr('allDay')
+        		                        });
+        		                    });
+        		                    callback(events);
+        		                }
+        		            })
         		}, 
         		error : function(){
         			alert("error");
