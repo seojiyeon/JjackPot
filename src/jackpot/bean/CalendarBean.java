@@ -68,7 +68,7 @@ public class CalendarBean {
 		  empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
 	      result2 = sqlMap.queryForList("calendar.calendarList", null);
 	      
-	         for(int i=0; i<result2.size(); i++){ // 비밀글, 로그인한 아이디가 참여자에 있으면 보여줌
+	         for(int i=0; i<result2.size(); i++){ // 鍮꾨�湲�, 濡쒓렇�씤�븳 �븘�씠�뵒媛� 李몄뿬�옄�뿉 �엳�쑝硫� 蹂댁뿬以�
 	           if(((calendarDTO)result2.get(i)).getCl_private()!=null){
 	        	   String participants = ((calendarDTO)result2.get(i)).getCl_participants();
 	        	   if(participants.contains(edto.getEmp_num())){
@@ -76,13 +76,13 @@ public class CalendarBean {
 	        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 	        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 	        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-	        		   if(title.equals("회사일정")){color="#F78088";}
-	        		   if(title.equals("지점일정")){color="#FFAE28";}
-	        		   if(title.equals("부서일정")){color="#CDA8FF";}
-	        		   if(title.equals("개인업무")){color="#82E898";}
-	        		   if(title.equals("출장")){color="#FFA1D4";}
-	        		   if(title.equals("연차")){color="#3498DB";}
-	        		   if(!end.equals("nullTnull")){ // end가 null이 아닐 때 실행
+	        		   if(title.equals("�쉶�궗�씪�젙")){color="#F78088";}
+	        		   if(title.equals("吏��젏�씪�젙")){color="#FFAE28";}
+	        		   if(title.equals("遺��꽌�씪�젙")){color="#CDA8FF";}
+	        		   if(title.equals("媛쒖씤�뾽臾�")){color="#82E898";}
+	        		   if(title.equals("異쒖옣")){color="#FFA1D4";}
+	        		   if(title.equals("�뿰李�")){color="#3498DB";}
+	        		   if(!end.equals("nullTnull")){ // end媛� null�씠 �븘�땺 �븣 �떎�뻾
 	        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
 	        			   String en = ((calendarDTO) result2.get(i)).getCl_edate()+" "+((calendarDTO) result2.get(i)).getCl_etime();
@@ -108,7 +108,7 @@ public class CalendarBean {
 	            }  
 	         }
 	         
-	         for(int i=0; i<result2.size(); i++){  // 부서일정
+	         for(int i=0; i<result2.size(); i++){  // 遺��꽌�씪�젙
 		           if(((calendarDTO)result2.get(i)).getDepartment()!=0){
 		        	   int department = ((calendarDTO)result2.get(i)).getDepartment();
 		        	   int edtoEdpartment = edto.getDepartment();
@@ -117,7 +117,7 @@ public class CalendarBean {
 		        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 		        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 		        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-		        		   if(title.equals("부서일정")){color="#CDA8FF";}
+		        		   if(title.equals("遺��꽌�씪�젙")){color="#CDA8FF";}
 		        		   if(!end.equals("nullTnull")){
 		        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
@@ -144,7 +144,7 @@ public class CalendarBean {
 		            }  
 		         }
 	         
-	         for(int i=0; i<result2.size(); i++){  // 지점일정
+	         for(int i=0; i<result2.size(); i++){  // 吏��젏�씪�젙
 		           if(((calendarDTO)result2.get(i)).getBranch()!=0){
 		        	   int branch = ((calendarDTO)result2.get(i)).getBranch();
 		        	   int edtobranch = edto.getBranch();
@@ -153,8 +153,8 @@ public class CalendarBean {
 		        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 		        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 		        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-		        		   if(title.equals("지점일정")){color="#FFAE28";}
-		        		   if(!end.equals("nullTnull")){ // end가 null이 아닐 때 실행
+		        		   if(title.equals("吏��젏�씪�젙")){color="#FFAE28";}
+		        		   if(!end.equals("nullTnull")){ // end媛� null�씠 �븘�땺 �븣 �떎�뻾
 		        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
 		        			   String en = ((calendarDTO) result2.get(i)).getCl_edate()+" "+((calendarDTO) result2.get(i)).getCl_etime();
@@ -180,14 +180,14 @@ public class CalendarBean {
 		            }  
 		         }
 	         
-	            for(int i=0; i<result2.size(); i++){ // 회사일정은 모두 추가
-		           if(((calendarDTO)result2.get(i)).getCl_title().equals("회사일정")){
+	            for(int i=0; i<result2.size(); i++){ // �쉶�궗�씪�젙�� 紐⑤몢 異붽�
+		           if(((calendarDTO)result2.get(i)).getCl_title().equals("�쉶�궗�씪�젙")){
 		        		   Map<String, Object> map = new HashMap<String, Object>();
 		        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 		        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 		        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-		        		   if(title.equals("회사일정")){color="#F78088";}
-		        		   if(!end.equals("nullTnull")){ // end가 null이 아닐 때 실행
+		        		   if(title.equals("�쉶�궗�씪�젙")){color="#F78088";}
+		        		   if(!end.equals("nullTnull")){ // end媛� null�씠 �븘�땺 �븣 �떎�뻾
 		        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
 		        			   String en = ((calendarDTO) result2.get(i)).getCl_edate()+" "+((calendarDTO) result2.get(i)).getCl_etime();
@@ -212,15 +212,15 @@ public class CalendarBean {
 		        	   }
 	            	}
 	            
-	            for(int i=0; i<result2.size(); i++){ // 연차
-	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("연차")){
+	            for(int i=0; i<result2.size(); i++){ // �뿰李�
+	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("�뿰李�")){
 	 	        	   String participants = ((calendarDTO)result2.get(i)).getCl_participants();
 	 	        	   if(participants.contains(edto.getEmp_num())){
 	 	        		   Map<String, Object> map = new HashMap<String, Object>();
 	 	        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 	 	        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 	 	        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-	 	        		   if(title.equals("연차")){color="#3498DB";}
+	 	        		   if(title.equals("�뿰李�")){color="#3498DB";}
 	 	        		   if(!end.equals("nullTnull")){
 	 	        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	 	        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
@@ -247,15 +247,15 @@ public class CalendarBean {
 	 	            }  
 	 	         }
 	            
-	            for(int i=0; i<result2.size(); i++){ // 출장
-	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("출장")){
+	            for(int i=0; i<result2.size(); i++){ // 異쒖옣
+	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("異쒖옣")){
 	 	        	   String participants = ((calendarDTO)result2.get(i)).getCl_participants();
 	 	        	   if(participants.contains(edto.getEmp_num())){
 	 	        		   Map<String, Object> map = new HashMap<String, Object>();
 	 	        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 	 	        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 	 	        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-	 	        		   if(title.equals("출장")){color="#FFA1D4";}
+	 	        		   if(title.equals("異쒖옣")){color="#FFA1D4";}
 	 	        		   if(!end.equals("nullTnull")){
 	 	        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	 	        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
@@ -393,7 +393,6 @@ public class CalendarBean {
 	@RequestMapping("/leftmenu-department.jp")
 	public @ResponseBody List<Map<String, Object>> calendardepartment(calendarDTO cdto, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap){
 		String id = (String) sqlMap.queryForObject("calendar.departmentTransform", request.getParameter("id"));
-		System.out.println(id);
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 	      List result2 = new ArrayList();
 	      String title = "";
@@ -407,7 +406,7 @@ public class CalendarBean {
 	        title = ((calendarDTO) result2.get(i)).getCl_title();
 	        start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 	        end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-	        if(title.equals("부서일정")){color="#CDA8FF";}
+	        if(title.equals("遺��꽌�씪�젙")){color="#CDA8FF";}
 	        if(!end.equals("nullTnull")){ 
 	        SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	        String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
