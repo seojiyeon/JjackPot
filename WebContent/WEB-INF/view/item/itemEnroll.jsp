@@ -131,7 +131,7 @@ ul.tabs li.active {
 			url:"itemContent.jp",
 			data:{item_num:item_num},
 			success:function(content) {
-				$(".itemForm-pro_code-td").html("<input type=text name=pro_code disabled value="+content.pro_code+"></input>");
+				$(".itemForm-pro_code-td").html("<input type=text name=pro_code value="+content.pro_code+" disabled=disabled></input>");
 				$(".itemForm-sale_cost-td").html("<input type=text name=sale_cost value="+content.sale_cost+"></input>");
 				$(".itemForm-barcode-td").html("<input type=text name=barcode value="+content.barcode+"></input>");
 				$(".itemForm-buy_cost-td").html("<input type=text name=buy_cost value="+content.buy_cost+"></input>");
@@ -161,7 +161,6 @@ ul.tabs li.active {
 				$(".itemForm-buy_code-td").html("<input type=text name=buy_code value="+content.buy_code+"></input>");
 				$(".itemForm-buy_name-td").html("<input type=text name=buy_name value="+content.buy_name+"></input>");
 				$(".itemForm-note-td").html("<textarea name=note style=width:500px; height:120px;>"+content.note+"</textarea><input type=hidden name=item_num value="+content.item_num+"></input>");
-				$(".itemForm-big_cate-td").html("<select name=big_cate><option value=0>대분류</option></select>");
 				$(".btn-wrap-delete").html("<button type=button><a href=itemDeletePro.jp?item_num="+content.item_num+">삭제</a></button>");
 			},
 			error:function(request, status, error) {
@@ -232,6 +231,9 @@ ul.tabs li.active {
 							<td>
 								<select name="big_cate">
 									<option value="0">대분류</option>
+									<c:forEach var="bigCate" items="${bigCateAbleList}">
+									<option value="${bigCate.big_num}">${bigCate.big_name}</option>
+									</c:forEach>
 								</select>
 								&nbsp;
 								<!-- <select name="middle_cate">
@@ -269,7 +271,7 @@ ul.tabs li.active {
 				<div class="sub-title">
 					<table>
 						<tr>
-							<th>품목목록 <font color="red">숫자</font></th>
+							<th>품목목록 <font color="red">${itemAllCount}</font></th>
 						</tr>
 					</table>
 				</div>
@@ -398,7 +400,7 @@ ul.tabs li.active {
 							<td colspan="3" class="itemForm-big_cate-td">
 								<select name="big_cate">
 									<option value="0">대분류</option>
-									<c:forEach var="bigCate" items="${bigCateList}">
+									<c:forEach var="bigCate" items="${bigCateAbleList}">
 									<option value="${bigCate.big_num}">${bigCate.big_name}</option>
 									</c:forEach>
 								</select>
@@ -518,9 +520,9 @@ ul.tabs li.active {
 							<td colspan="3">
 								<select name="big_cate">
 									<option value="0">대분류</option>
-									<c:forEach var="bigCate" items="${bigCateList}">
+									<c:forEach var="bigCate" items="${bigCateAbleList}">
 									<option value="${bigCate.big_num}">${bigCate.big_name}</option>
-									</c:forEach>									
+									</c:forEach>
 								</select>
 								<!-- <select name="middle_cate">
 									<option value="0">중분류</option>

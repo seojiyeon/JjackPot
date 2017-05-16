@@ -22,10 +22,13 @@ public class ItemBean {
 	@RequestMapping("/itemEnroll.jp")
 	public String itemEroll(ItemDTO dto, Model model) {
 		List itemList = sqlMap.queryForList("item.itemAllList", null);
-		List bigCateList = sqlMap.queryForList("item.bigCateList", null);
+		dto.setBig_use("»ç¿ë");
+		List bigCateAbleList = sqlMap.queryForList("item.bigCateAble", dto);
+		int itemAllCount = (int)sqlMap.queryForObject("item.itemAllCount", null);
 		
 		model.addAttribute("itemList", itemList);
-		model.addAttribute("bigCateList", bigCateList);
+		model.addAttribute("bigCateAbleList", bigCateAbleList);
+		model.addAttribute("itemAllCount", itemAllCount);
 		
 		return "/item/itemEnroll";
 	}
@@ -38,7 +41,7 @@ public class ItemBean {
 	}
 	
 	@RequestMapping("/itemContent.jp")
-	public @ResponseBody ItemDTO itemContent(ItemDTO dto) {
+	public @ResponseBody ItemDTO itemContent(ItemDTO dto, Model model) {
 		ItemDTO content = (ItemDTO)sqlMap.queryForObject("item.itemContent", dto);
 		
 		return content;
@@ -47,6 +50,7 @@ public class ItemBean {
 	@RequestMapping("/itemModifyPro.jp")
 	public String itemModifyPro(ItemDTO dto) {
 		System.out.println(dto.getItem_num());
+		System.out.println(dto.getPro_code());
 		sqlMap.update("item.itemModify", dto);
 		
 		return "/item/itemModifyPro";
@@ -65,9 +69,20 @@ public class ItemBean {
 	}
 	
 	@RequestMapping("/itemCate.jp")
-	public String itemCate(Model model) {	
-		List bigCateList = sqlMap.queryForList("item.bigCateList", null);
-		int bigCateCount = (int) sqlMap.queryForObject("item.bigCateCount", null);
+	public String itemCate(Model model, HttpServletRequest request, ItemDTO dto) {
+		String use = request.getParameter("use");
+		
+		List bigCateList = null;
+		int bigCateCount = 0;
+		System.out.println(use);
+		if(use == null || use == "") {
+			bigCateList = sqlMap.queryForList("item.bigCateList", null);
+			bigCateCount = (int) sqlMap.queryForObject("item.bigCateCount", null);
+		} else if(use != null) {
+			dto.setBig_use(use);
+			bigCateList = sqlMap.queryForList("item.bigCateSearch", dto);
+			bigCateCount = (int) sqlMap.queryForObject("item.bigCateSearchCount", dto);
+		}
 		
 		model.addAttribute("bigCateList", bigCateList);
 		model.addAttribute("bigCateCount", bigCateCount);

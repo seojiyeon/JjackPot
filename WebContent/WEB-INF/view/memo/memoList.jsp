@@ -46,8 +46,8 @@
 			</c:if>
 		</div>
 		<div class="table-header">
-			<div class="listInfo">
-				<select name="pageSize">
+			<div class="listInfo" style="position: absolute; top: 80px;">
+				<select name="pageSize" style="width: 50px; position: absolute;">
 					<option value="10" selected>10</option>
 					<option value="20">20</option>
 					<option value="30">30</option>
@@ -55,7 +55,7 @@
 					<option value="50">50</option>
 				</select>
 				
-				<div class="totalNum">
+				<div class="totalNum" style="width: 100px; position: absolute; left: 80px;">
 					<font color="#BDBDBD">전체</font> 
 					
 					<c:if test="${memoGroup == 1}">
@@ -72,10 +72,10 @@
 					</c:if>
 				</div>
 			</div>
-			<form action="memoList.jp?memoGroup=${memoGroup}" method="post" name="searchForm">
+			<form action="memoList.jp?memoGroup=${memoGroup}" method="post" name="searchForm" style="position: absolute; width: 400px; text-align: right; left: 1000px;">
 			<div class="table-search">
 				<select name="tableSch" title="검색타입">
-					<option value="1">제목</option>
+					<option value="memo_title">제목</option>
 				</select>
 				<input type="text" title="검색어" name="searchWord" />
 				<input type="submit" value="검색" />
@@ -84,7 +84,7 @@
 		</div>
 		
 		<form name="multiForm" method="post">
-		<div class="content-write" style="width:100%;">
+		<div class="content-write" style="width:100%; position:absolute; top:120px;">
 			<!-- 전체 메모 -->
 			<c:if test="${memoGroup == 1}">
 				<table>
@@ -240,7 +240,7 @@
 		</form>
 	</div>
 	
-	<div class="page-wrap">
+	<div class="page-wrap" style="position: absolute; top: 800px;">
 		<!-- 전체 메모 페이지 -->
 		<c:if test="${memoGroup == 1}">
 			<table>
@@ -326,7 +326,7 @@
 		</c:if>
 	</div>
 	
-	<div class="main-bottom">
+	<div class="main-bottom" style="position: absolute; top: 820px; text-align: right; width: 80%;">
 		<c:if test="${memoGroup > 0}">
 			<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp?memoGroup=${memoGroup}'">등록</button>
 			<button type="button" class="btnMove">이동</button>

@@ -16,8 +16,11 @@
 	<select id="itemAllList" resultClass="idto">
 		select * from item order by item_num desc
 	</select>
+	<select id="itemAllCount" resultClass="int">
+		select count(*) from item
+	</select>
 	<select id="itemContent" resultClass="idto" parameterClass="idto">
-		select * from item where item_num=#item_num#
+		select * from item i, big_cate bc where bc.big_num=i.big_cate and i.item_num=#item_num#
 	</select>
 	<update id="itemModify" parameterClass="idto">
 		update item set pro_code=#pro_code#, barcode=#barcode#, pro_name=#pro_name#, item_division=#item_division#, sale_cost=#sale_cost#,
@@ -40,10 +43,13 @@
 	</insert>
 	
 	<select id="bigCateList" resultClass="idto">
-		select * from big_cate order by big_name asc
+		select * from big_cate where big_num>0 order by big_name asc
+	</select>
+	<select id="bigCateAble" resultClass="idto" parameterClass="idto">
+		select * from big_cate where big_num>0 and big_use=#big_use# order by big_name asc
 	</select>
 	<select id="bigCateCount" resultClass="int">
-		select count(*) from big_cate
+		select count(*) from big_cate where big_num>0
 	</select> 
 	<update id="bigCateNameUpdate" parameterClass="idto">
 		update big_cate set big_name=#big_name# where big_num=#big_num#
@@ -55,10 +61,12 @@
 		delete from big_cate where big_num=#big_num#
 	</delete>
 	
-	<!-- 중분류 -->
-	<select id="showMiddleCate" resultClass="idto" parameterClass="idto">
-		select * from middle_cate where big_num=#big_num# order by middle_code desc
+	<!-- 검색 -->
+	<select id="bigCateSearch" resultClass="idto" parameterClass="idto">
+		select * from big_cate where big_num>0 and big_use=#big_use#
 	</select>
-	
+	<select id="bigCateSearchCount" resultClass="int" parameterClass="idto">
+		select count(*) from big_cate where big_num>0 and big_use=#big_use#
+	</select>
 
 </sqlMap>

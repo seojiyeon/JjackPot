@@ -43,7 +43,12 @@
 				<div class="note-write-head">
 					<div class="content-title" style="width:500px;">
 						<input type="hidden" name="memo_num" value="${dto.memo_num}" />
-						<i class="icon nonimp">	</i>
+						<c:if test="${dto.memo_state == 1}">
+							<i class="icon nonimp">	</i>
+						</c:if>
+						<c:if test="${dto.memo_state == 2}">
+							<i class="icon imp"></i>
+						</c:if>
 						&nbsp;
 						${dto.getMemo_title()}
 					</div>

@@ -142,7 +142,7 @@
 		</div>
 		
 		<div class="search-wrap">
-			<form name="searchForm" method="post">
+			<form name="searchForm" method="get" action="itemCate.jp">
 			<div class="search-content" style="position: absolute; width: 300px; top: 90px; left: 90px;">
 				<table>
 					<tr>
@@ -151,7 +151,7 @@
 							<select name="use">
 								<option value="사용">사용</option>
 								<option value="미사용">미사용</option>
-								<option value="전체">전체</option>
+								<option value="">전체</option>
 							</select>
 						</td>
 					</tr>

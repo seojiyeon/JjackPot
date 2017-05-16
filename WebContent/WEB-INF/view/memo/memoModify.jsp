@@ -129,7 +129,12 @@
 				<tr>
 					<td>
 						<input type="hidden" name="memo_num" value="${dto.memo_num}" />
-						<input type="checkbox" name="memo_state" value="2">중요
+						<c:if test="${dto.memo_state == 1}">
+							<input type="checkbox" name="memo_state" value="2">중요
+						</c:if>
+						<c:if test="${dto.memo_state == 2}">
+							<input type="checkbox" name="memo_state" value="2" checked>중요
+						</c:if>
 						<input type="text" name="memo_title" placeholder="제목을 입력하세요." value="${dto.memo_title}" />
 					</td>
 				</tr>
