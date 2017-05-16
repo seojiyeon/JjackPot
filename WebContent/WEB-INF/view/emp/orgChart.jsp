@@ -86,7 +86,7 @@ function favd(){
 <div class="leftmenu">
 		<h1 class="blind">Left Menu</h1>
 <div class="leftmenu-top" >
-			<h2 style="margin:20;" >조직도</h2>
+			<h2 style="margin:20;" >주소록</h2>
 </div>
 
 <div class="leftmenu-inner-scroll mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" 
@@ -101,7 +101,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 				</li>
 				
 				<li id="commGroupTree" data-submenu="commGroup" data-emitem="addr.organogram">
-					<a href="Allorg.jp" class="sidebar-nav-menu">전체 조직도<i class="fa fa-chevron-up"></i></a>
+					<a href="Allorg.jp" class="sidebar-nav-menu">전체 구성원<i class="fa fa-chevron-up"></i></a>
 					<ul style="display: none;">
 					</ul>
 			    </li>

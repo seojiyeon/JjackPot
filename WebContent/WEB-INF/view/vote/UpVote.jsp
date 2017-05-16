@@ -98,6 +98,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
     <img src="/JackPot/save/vote2.png" width="50" height="50">
     ${article.jilmoon} </td>
       <tr></tr>
+      
   
        <td width="100" align="center" ><br/>
        
