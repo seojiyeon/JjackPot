@@ -296,7 +296,7 @@ Dropzone.options.myDropzone = {
 
 <body>
 <div id="page-container"  class="sub sidebar-mini sidebar-subarea">
-	<div id="sidebar">
+	<div id="sidebar" style="background:white;">
   <jsp:include page="/sidebar.jp"></jsp:include>
 </div>
 <div class="sidebar-content"> 
