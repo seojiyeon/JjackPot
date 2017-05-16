@@ -23,10 +23,17 @@ public class empDTO {
 	private String branch2;
 	private int position;
 	private String position2;
+	private String emp_ename;
 	
 	
 
 	
+	public String getEmp_ename() {
+		return emp_ename;
+	}
+	public void setEmp_ename(String emp_ename) {
+		this.emp_ename = emp_ename;
+	}
 	public String getEmp_num() {
 		return emp_num;
 	}

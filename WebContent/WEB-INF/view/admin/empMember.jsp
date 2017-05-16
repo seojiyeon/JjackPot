@@ -274,7 +274,7 @@ $(function(){
 									<div class="photo-regi">
 										<div class="photo">
 										
-											<img src="<c:url value="/images/choo.PNG"/>" id="hrBasiMatrMngForm_potoFileName" name="potoFileName" style="width: 100%; height: 100%">
+											<img src="<c:url value="/images/${dto.getProfilephoto()}"/>" id="hrBasiMatrMngForm_potoFileName" name="potoFileName" style="width: 150px; height: 180px">
 										</div>
 									</div>
 								</td>
@@ -287,7 +287,7 @@ $(function(){
 							<tr>
 								<th scope="row"><label for="hrBasiMatrMngForm_emplEngNm">영문성명</label></th>
 								<!-- 영문성명 -->
-								<td><input class="w100" type="text" id="hrBasiMatrMngForm_emplEngNm" name="emplEngNm" maxlength="50" /></td>
+								<td><input class="w100" type="text" id="emp_ename" name="emplEngNm" value="${dto.getEmp_ename()}" maxlength="50" /></td>
 								<th scope="row"><label for="hrBasiMatrMngForm_emplHanNm">한자성명</label></th>
 								<!-- 한자성명 -->
 								<td><input type="text" class="w100" id="hrBasiMatrMngForm_emplHanNm" name="emplHanNm" maxlength="50" /></td>
