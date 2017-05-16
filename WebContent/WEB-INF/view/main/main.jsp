@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-<link href="/JackPot/css/main.css?ver=21" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/main.css?ver=22" rel="stylesheet" type="text/css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
 <script src="js/jquery.digitalclock.js"></script>
-<link href="css/clock.css" rel="stylesheet" />
+<link href="css/clock.css?ver=2" rel="stylesheet" />
 <link href="css/fullcalendar.css" rel="stylesheet"/>
 <link href="css/fullcalendar.print.css" rel="stylesheet" media="print"/>
 <script type="text/javascript" src="js/moment.min.js"></script>
@@ -99,26 +99,6 @@ $("#ajaxRetur").click(function(){
 
 /* ------------------------------------------------------- */
 
-jQuery(document).ready(function() {	 
-    jQuery("#calendar").fullCalendar({
-    	  height: 650
-    	, contentHeight: 150
-        , defaultDate : "2017-03-23"
-        , locale: 'ko'
-        , eventLimit : true
-		, header: {}
-        , defaultView: 'month'
-        , editable : true
-		
-        , navLinks: true // can click day/week names to navigate views
-		, weekNumbers: true
-		, weekNumbersWithinDays: true
-		, weekNumberCalculation: 'ISO'
-        ,	dayClick: function() {
-        	window.open("http://localhost:8080/JackPot/calendarinsert.jp",'insert','top=200px,left=500px,height=550px,width=430px ')
-		}
-    });
-});
 function checkCapsLock( e ) {
     var myKeyCode=0;
     var myShiftKey=false;
@@ -261,16 +241,18 @@ height: 200px;
     </div>
 	
 	<div id="mainInfo-wrap"  style="height: 1798px;">
-		<div class="mainlogo"><br/><br/><a href="/JackPot/main.jp"><img src="/JackPot/mainsave/logo.jpg"></a></div>
+		<div class="mainlogo"><a href="/JackPot/main.jp"><img src="/JackPot/save/mainlogo.png"/></a></div>
 		<div class="user-info"></div>
-		<div class="schedule"><div id="calendar"></div></div>
+		<div class="schedule">
+			<jsp:include page="/minicalendar.jp"></jsp:include>
+		</div>
 		<br/>
 		<div class="main-basic-info"></div>
 		
 		
 		 
 		
-		<ul style="list-style:none">
+		<ul style="list-style:none;padding:0px;margin:190 0 0 0;">
 
 <c:if test="${memId == null}">
  <div class="m-box coworker">
@@ -380,14 +362,15 @@ height: 200px;
     	<li><a href="/JackPot/memoList.jp?memoGroup=1"><br/><br/>메모<br><img src="/JackPot/mainsave/메모.png"></a></li>
     	<li><a href="/JackPot/UpVote.jp"><br/><br/>온라인투표<br><img src="/JackPot/mainsave/온라인투표.png"></a></li>
     	<li><a href="https://open.kakao.com/"><br/><br/>메신저<br><img src="/JackPot/mainsave/메신저.png"></a></li>
+    	<li><a href="/JackPot/itemEnroll.jp"><br/><br/>재고관리<br><img src="/JackPot/mainsave/sss재고관리.png"></a></li>
     	<li><a href="/JackPot/work.jp"><br/>인사관리폴더<br><img src="/JackPot/mainsave/인사관리폴더.png"></a></li>
     	<li><a href="/JackPot/emplist.jp"><br/>회계관리폴더<br><img src="/JackPot/mainsave/회계관리폴더.png"></a></li>
     	
     </ul>
     </div>
 </body>
-	 <div class="ajax">
+	 <!-- <div class="ajax">
 	 <div id="ajaxRetur" style="display:none;">안읽은 쪽지</div> 
 	 </div>
-	 <div id="ajaxReturn" style="display:none;">새 쪽지</div>
+	 <div id="ajaxReturn" style="display:none;">새 쪽지</div> -->
 </html>    
