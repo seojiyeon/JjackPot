@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 
     <% 
-	response.sendRedirect("main.jp");
+	response.sendRedirect("loginform.jp");
 	%>

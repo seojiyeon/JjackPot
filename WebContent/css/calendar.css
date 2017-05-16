@@ -5,9 +5,10 @@ select {border-radius: 3px;border-color: darkgray;height: 27px;}
 input {border-radius:3px;border:1px solid darkgray;height: 27px;padding-left: 5px;}
 form {}
 a{text-decoration:none;}
+h1{margin:0;background-color:dimgray;height:65;}
 
 #page-container{position: relative;min-height: 100%; min-width: 1200px; background:#fff;}
-#sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
+#sidebar{width:60px;height:100%;overflow:hidden;}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
 
 #leftmenu{position:fixed;top:0;width:210px;height:100%;}

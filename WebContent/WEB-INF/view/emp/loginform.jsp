@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>로그인</title>
-<style>
+<style> 
 @import url(http://weloveiconfonts.com/api/?family=fontawesome);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 [class*="fontawesome-"]:before {
@@ -69,6 +69,7 @@ input {
 .form--login input[type="submit"] {
   border-radius: 0.25rem;
   padding: 1rem;
+  color:darkgray;
 }
 .form--login label {
   background-color: #363b41;
@@ -178,24 +179,4 @@ input {
   </div>
 </body>
 </html>
-<!-- 
-<div id="loginForm">
-<form name="myform" action="loginPro.jp" method="post" class="form form--login" onSubmit="return checkIt()">
-  <ul>
-    <li>로그인</li></ul>
-  
-  <ul>
-    <li>사원번호</li>
-    <li>
-       <INPUT type="text" name="emp_num" size="15" maxlength="12"></li></ul>
-  <ul>
-    <li>비밀번호</li>
-    <li>
-      <INPUT type=pw name="pw"  size="15" maxlength="12"></li></ul>
-  <ul>
-    <li>
-      <INPUT type=submit value="로그인"> 
-      <INPUT type=reset value="다시입력">
-      <input type="button" value="회원가입" onclick="javascript:window.location='inputForm.jp'"></li></ul>
-</div>
-</form> -->
+

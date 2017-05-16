@@ -18,10 +18,9 @@ import jackpot.DTO.orgDTO;
 @Controller
 public class MainBean {
 	@Autowired
-	private SqlMapClientTemplate sqlMap;   
-	@RequestMapping("/main.jp")
-
+	private SqlMapClientTemplate sqlMap;  
 	
+	@RequestMapping("/main.jp")
 	public String main(HttpServletRequest request,HttpSession session,Model model){
 		String empfav= (String)session.getAttribute("memId");
 		String emp_num = request.getParameter("emp_num");
@@ -38,6 +37,16 @@ public class MainBean {
 		model.addAttribute("count2", count2);
 
 		return "/main/main";
+	}
+	
+	@RequestMapping("/minicalendar.jp")
+	public String minicalendar(){
+		return "/main/minicalendar";
+	}
+	
+	@RequestMapping("/sidebar.jp")
+	public String sidebar(){
+		return "/main/sidebar";
 	}
 	
 }
