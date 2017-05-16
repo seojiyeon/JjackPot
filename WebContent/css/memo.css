@@ -12,7 +12,7 @@ ul {
 	list-display:none;
 }
 
-#sidebar{width:60px;height:100%;overflow:hidden;background:#363636;}
+#sidebar{width:60px;height:100%;overflow:hidden;}
 #subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}
 /* 왼쪽 메뉴 부분 */
 .leftMenuTop {

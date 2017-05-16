@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link href="/JackPot/css/memo.css" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/memo.css?ver=5" rel="stylesheet" type="text/css">
 
 <script>
 	/* 메뉴 슬라이드 업&다운 */
@@ -78,7 +78,7 @@
 
 <div id="page-container">
 	<!-- 왼쪽 사이드바 -->
-	<div id="sidebar"></div>
+	<div id="sidebar"><jsp:include page="/sidebar.jp"></jsp:include></div>
 	<div id="subarea">
 		<div id="leftMenu">
 			<div class="leftMenuTop">

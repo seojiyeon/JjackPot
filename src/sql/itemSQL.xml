@@ -10,7 +10,7 @@
 		insert into item values(
 			item_seq.NEXTVAL, #pro_code#, #barcode#, #pro_name#, #item_division#,
 			#sale_cost#, #buy_cost#, #retail_cost#, #tax#, #stand#, #unit#, #use#,
-			#buy_code#, #buy_name#, #big_cate#, #middle_cate#, #small_cate#, #note#
+			#buy_code#, #buy_name#, #big_cate#, #note#
 		)
 	</insert>
 	<select id="itemAllList" resultClass="idto">
@@ -22,7 +22,7 @@
 	<update id="itemModify" parameterClass="idto">
 		update item set pro_code=#pro_code#, barcode=#barcode#, pro_name=#pro_name#, item_division=#item_division#, sale_cost=#sale_cost#,
 						buy_cost=#buy_cost#, retail_cost=#retail_cost#, tax=#tax#, stand=#stand#, unit=#unit#, use=#use#,
-						buy_code=#buy_code#, buy_name=#buy_name#, big_cate=#big_cate#, middle_cate=#middle_cate#, small_cate=#small_cate#, note=#note#
+						buy_code=#buy_code#, buy_name=#buy_name#, big_cate=#big_cate#, note=#note#
 		where item_num=#item_num#
 	</update>	
 	<delete id="itemDelete" parameterClass="idto">
@@ -34,14 +34,13 @@
 	<insert id="bigCateInsert" parameterClass="idto">
 		insert into big_cate values(
 			big_cate_seq.NEXTVAL,
-			#big_code#,
 			#big_name#,
 			#big_use#
 		)
 	</insert>
 	
 	<select id="bigCateList" resultClass="idto">
-		select * from big_cate order by big_code asc
+		select * from big_cate order by big_name asc
 	</select>
 	<select id="bigCateCount" resultClass="int">
 		select count(*) from big_cate
@@ -52,6 +51,9 @@
 	<update id="bigCateUseUpdate" parameterClass="idto">
 		update big_cate set big_use=#big_use# where big_num=#big_num#
 	</update>
+	<delete id="bigCateDelete" parameterClass="idto">
+		delete from big_cate where big_num=#big_num#
+	</delete>
 	
 	<!-- 중분류 -->
 	<select id="showMiddleCate" resultClass="idto" parameterClass="idto">

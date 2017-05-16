@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
-<link rel="stylesheet" href="/JackPot/css/item.css" type="text/css" />
+<link rel="stylesheet" href="/JackPot/css/item.css?ver=1" type="text/css" />
 
 <script type="text/javascript" src="/JackPot/js/jquery.min.js"></script>
 
@@ -90,7 +90,7 @@ ul.tabs li.active {
 		});
 	});
 	
-	function checkIt() {
+ /* 	function checkIt() {
 		var itemForm = eval("document.forms.itemForm");
 		
 		if(!itemForm.pro_code.value) { //품목코드
@@ -110,7 +110,7 @@ ul.tabs li.active {
 			itemForm.pro_name.focus();
 			return false;
 		}
-	}
+	} */
 	
 	function selectRemove() {
 		document.itemListForm.action="itemDeletePro.jp";
@@ -131,20 +131,37 @@ ul.tabs li.active {
 			url:"itemContent.jp",
 			data:{item_num:item_num},
 			success:function(content) {
-				$(".itemForm-pro_code-td").html("<input type=text name=pro_code disabled=disabled value="+content.pro_code+"></input>");
+				$(".itemForm-pro_code-td").html("<input type=text name=pro_code disabled value="+content.pro_code+"></input>");
 				$(".itemForm-sale_cost-td").html("<input type=text name=sale_cost value="+content.sale_cost+"></input>");
 				$(".itemForm-barcode-td").html("<input type=text name=barcode value="+content.barcode+"></input>");
 				$(".itemForm-buy_cost-td").html("<input type=text name=buy_cost value="+content.buy_cost+"></input>");
 				$(".itemForm-pro_name-td").html("<input type=text name=pro_name value="+content.pro_name+"></input>");
 				$(".itemForm-retail_cost-td").html("<input type=text name=retail_cost value="+content.retail_cost+"></input>");
-				$(".itemForm-item_division-td").html("<select name=item_division><option value=제품>제품</option><option value=상품>상품</option><option value=원자재>원자재</option><option value=부자재>부자재</option></select>");
-				$(".itemForm-tax-td").html("<select name=tax><option value=부가세별도>부가세별도</option><option value=부가세포함>부가세포함</option></select>");
+				if(content.item_division == '제품') {
+					$(".itemForm-item_division-td").html("<select name=item_division><option value=제품 selected>제품</option><option value=상품>상품</option><option value=원자재>원자재</option><option value=부자재>부자재</option></select>");
+				} else if(content.item_division == '상품') {
+					$(".itemForm-item_division-td").html("<select name=item_division><option value=제품>제품</option><option value=상품 selected>상품</option><option value=원자재>원자재</option><option value=부자재>부자재</option></select>");
+				} else if(content.item_division == '원자재') {
+					$(".itemForm-item_division-td").html("<select name=item_division><option value=제품>제품</option><option value=상품>상품</option><option value=원자재 selected>원자재</option><option value=부자재>부자재</option></select>");
+				} else if(content.item_division == '부자재') {
+					$(".itemForm-item_division-td").html("<select name=item_division><option value=제품>제품</option><option value=상품>상품</option><option value=원자재>원자재</option><option value=부자재 selected>부자재</option></select>");
+				}
+				if(content.tax == '부가세포함') {
+					$(".itemForm-tax-td").html("<select name=tax><option value=부가세별도>부가세별도</option><option value=부가세포함 selected>부가세포함</option></select>");
+				} else if(content.tax == '부가세별도') {
+					$(".itemForm-tax-td").html("<select name=tax><option value=부가세별도 selected>부가세별도</option><option value=부가세포함>부가세포함</option></select>");
+				}
 				$(".itemForm-stand-td").html("<input type=text name=stand value="+content.stand+"></input>");
 				$(".itemForm-unit-td").html("<input type=text name=unit value="+content.unit+"></input>");
-				$(".itemForm-use-td").html("<select name=use><option value=사용>사용</option><option value=미사용>미사용</option></select>");
+				if(content.use == '사용') {
+					$(".itemForm-use-td").html("<select name=use><option value=사용 selected>사용</option><option value=미사용>미사용</option></select>");
+				} else if(content.use == '미사용') {
+					$(".itemForm-use-td").html("<select name=use><option value=사용>사용</option><option value=미사용 selected>미사용</option></select>");
+				}
 				$(".itemForm-buy_code-td").html("<input type=text name=buy_code value="+content.buy_code+"></input>");
 				$(".itemForm-buy_name-td").html("<input type=text name=buy_name value="+content.buy_name+"></input>");
 				$(".itemForm-note-td").html("<textarea name=note style=width:500px; height:120px;>"+content.note+"</textarea><input type=hidden name=item_num value="+content.item_num+"></input>");
+				$(".itemForm-big_cate-td").html("<select name=big_cate><option value=0>대분류</option></select>");
 				$(".btn-wrap-delete").html("<button type=button><a href=itemDeletePro.jp?item_num="+content.item_num+">삭제</a></button>");
 			},
 			error:function(request, status, error) {
@@ -158,7 +175,7 @@ ul.tabs li.active {
 <body>
 <!-- 왼쪽 사이드바 -->
 <div id="page-container">
-	<div id="sidebar"></div>
+	<div id="sidebar"><jsp:include page="/sidebar.jp"></jsp:include></div>
 	<div id="subarea">
 		<div id="leftMenu">
 			<div class="leftmenu-top">
@@ -364,7 +381,6 @@ ul.tabs li.active {
 									<option value="사용">사용</option>
 									<option value="미사용">미사용</option>
 								</select>
-								<input type="text" name="use" />
 							</td>
 						</tr>
 						<tr>
@@ -379,9 +395,12 @@ ul.tabs li.active {
 						</tr>
 						<tr>	
 							<th>분류</th>
-							<td colspan="3">
+							<td colspan="3" class="itemForm-big_cate-td">
 								<select name="big_cate">
 									<option value="0">대분류</option>
+									<c:forEach var="bigCate" items="${bigCateList}">
+									<option value="${bigCate.big_num}">${bigCate.big_name}</option>
+									</c:forEach>
 								</select>
 								<!-- <select name="middle_cate">
 									<option value="0">중분류</option>
@@ -499,6 +518,9 @@ ul.tabs li.active {
 							<td colspan="3">
 								<select name="big_cate">
 									<option value="0">대분류</option>
+									<c:forEach var="bigCate" items="${bigCateList}">
+									<option value="${bigCate.big_num}">${bigCate.big_name}</option>
+									</c:forEach>									
 								</select>
 								<!-- <select name="middle_cate">
 									<option value="0">중분류</option>

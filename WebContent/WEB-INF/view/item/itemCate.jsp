@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />
-<link rel="stylesheet" href="/JackPot/css/item.css?ver=2" type="text/css" />    
+<link rel="stylesheet" href="/JackPot/css/item.css?ver=3" type="text/css" />    
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
@@ -19,12 +19,10 @@
 		oTable = document.getElementById("itemBigCate");
 		var oRow = oTable.insertRow();
 		oRow.onmouseover = function() {oTable.clickedRowIndex=this.rowInex};
-		var oCell1 = oRow.insertCell();
 		var oCell2 = oRow.insertCell();
 		var oCell3 = oRow.insertCell();
 		var oCell4 = oRow.insertCell();
 		
-		var frmTag1 = "<input tpye='text' name='big_code' style='width:40px; height:20px;' />";
 		var frmTag2 = "<input type='text' name='big_name' style='width:100px; height:20px;' />";
 		var frmTag3 = "<select name='big_use'>";
 		frmTag3 += "<option value='사용'>사용</option>";
@@ -32,7 +30,6 @@
 		frmTag3 += "</select>";
 		var frmTag4 = "<input type='hidden' name='check' value='1' />"
 		
-		oCell1.innerHTML = frmTag1;
 		oCell2.innerHTML = frmTag2;
 		oCell3.innerHTML = frmTag3;
 		oCell4.innerHTML = frmTag4;
@@ -42,12 +39,10 @@
 		oTable = document.getElementById("itemMiddleCate");
 		var oRow = oTable.insertRow();
 		oRow.onmouseover = function() {oTable.clickedRowIndex=this.rowInex};
-		var oCell1 = oRow.insertCell();
 		var oCell2 = oRow.insertCell();
 		var oCell3 = oRow.insertCell();
 		var oCell4 = oRow.insertCell();
 		
-		var frmTag1 = "<input tpye='text' name='middle_code' style='width:40px; height:20px;' />";
 		var frmTag2 = "<input type='text' name='middle_name' style='width:100px; height:20px;' />";
 		var frmTag3 = "<select name='middle_use'>";
 		frmTag3 += "<option value='사용'>사용</option>";
@@ -55,7 +50,6 @@
 		frmTag3 += "</select>";
 		var frmTag4 = "<input type='hidden' name='check' value='1' />"
 		
-		oCell1.innerHTML = frmTag1;
 		oCell2.innerHTML = frmTag2;
 		oCell3.innerHTML = frmTag3;
 		oCell4.innerHTML = frmTag4;
@@ -67,13 +61,6 @@
 		var frm = document.bigForm;
 		
 		for(var i = 0; i <= frm.elements.length-1; i++) {
-			if(frm.elements[i].name == "big_code") {
-				if(!frm.elements[i].value) {
-					alert("값을 입력하세요.");
-					frm.elements[i].foucus();
-					return;
-				}
-			}
 			if(frm.elements[i].name == "big_name") {
 				if(!frm.elements[i].value) {
 					alert("값을 입력하세요.");
@@ -88,13 +75,6 @@
 		var frm = document.middleForm;
 		
 		for(var i = 0; i <= frm.elements.length-1; i++) {
-			if(frm.elements[i].name == "middle_code") {
-				if(!frm.elements[i].value) {
-					alert("값을 입력하세요.");
-					frm.elements[i].foucus();
-					return;
-				}
-			}
 			if(frm.elements[i].name == "middle_name") {
 				if(!frm.elements[i].value) {
 					alert("값을 입력하세요.");
@@ -107,27 +87,34 @@
 	
 	/* 더블클릭시 input type="text" */
 	/* 대분류 */
-	$(document).ready(function() {
-		$(".modifyName").dblclick(function() {
-			var con = this.innerHTML;
-			this.innerHTML="<input type=text name='big_name' value="+con+" style='width:100px; height:20px;'>";
-		});		
-				
-		$(".modifyUse").dblclick(function() {
-			var conUse = this.innerHTML;
-			this.innerHTML ="<select name='big_use'>"
-			 + "<option value='사용'>사용</option>"
-			 + "<option value='미사용'>미사용</option>"
-			 + "</select>";
-		});
-	});
+
+	
+	function testchange(big_num,index){
+		var con = index.innerHTML;
+		index.innerHTML="<input type=text name='big_name-"+big_num+"' value="+con+" style='width:100px; height:20px;'>";
+	} 
+	
+	function bigUseChange(big_num, index) {
+		var conUse = index.innerHTML;
+		index.innerHTML ="<select name='big_use-"+big_num+"'>"
+		 + "<option value='사용'>사용</option>"
+		 + "<option value='미사용'>미사용</option>"
+		 + "</select>";
+	}
+	
+	
+	/* 선택한 카테고리 삭제 */
+	function selectRemove() {
+		document.bigCategory.action="bigCateRemove.jp";
+		document.bigCategory.submit();
+	}
 </script>
 
 <html>
 <body>
 <!-- 왼쪽 사이드바 -->
 <div id="page-container">
-	<div id="sidebar"></div>
+	<div id="sidebar"><jsp:include page="/sidebar.jp"></jsp:include></div>
 	<div id="subarea">
 		<div id="leftMenu">
 			<div class="leftmenu-top">
@@ -179,7 +166,7 @@
 		
 		<!-- 대분류 -->
 		<div class="big-cate">
-			<form name="big-category" method="post" action="bigCatePro.jp" onSubmit="return bigFrmCheck();">
+			<form name="bigCategory" method="post" action="bigCatePro.jp" onSubmit="return bigFrmCheck();">
 				<div class="subtitle">
 					<ul style="list-display:none;">
 						<li>
@@ -187,16 +174,15 @@
 						</li>
 						<li style="text-align:right;">
 							<button type="button" onclick="insBigRow();">행추가</button>
-							<button type="button">행삭제</button>
+							<button type="button" onclick="selectRemove();">행삭제</button>
 						</li>
 					</ul>
 				</div>
 				<table>
 					<tr>
-						<th style="width:40px;">&nbsp;</th>
-						<th>코드</th>
-						<th>명칭</th>
-						<th>사용여부</th>
+						<th style="width:30px;">&nbsp;</th>
+						<th align="left">명칭</th>
+						<th align="left">사용여부</th>
 					</tr>
 					<tr>
 						<td colspan="3">
@@ -210,13 +196,8 @@
 						<td>
 							<input type="checkbox" name="big_num" value="${bigCate.big_num}" />
 						</td>
-						<td style="width:40px; height:20px;">
-							${bigCate.big_code}
-							<input type="hidden" name="big_num" value="${bigCate.big_num}" />
-							<input type="hidden" name="check" value="2" />
-						</td>			
-						<td class="modifyName" style="width:100px; height:20px;">${bigCate.big_name}</td>
-						<td class="modifyUse">${bigCate.big_use}</td>
+						<td class="modifyName" style="width:100px; height:20px;" ondblclick="testchange(${bigCate.big_num},this);">${bigCate.big_name}</td>
+						<td class="modifyUse" ondblclick="bigUseChange(${bigCate.big_num}, this);">${bigCate.big_use}</td>
 					</tr>
 					</c:forEach>
 				</table>
