@@ -68,8 +68,8 @@ public class CalendarBean {
 		  empDTO edto = (empDTO)sqlMap.queryForObject("employee.member", emp_num);
 	      result2 = sqlMap.queryForList("calendar.calendarList", null);
 	      
-	         for(int i=0; i<result2.size(); i++){ // 鍮꾨�湲�, 濡쒓렇�씤�븳 �븘�씠�뵒媛� 李몄뿬�옄�뿉 �엳�쑝硫� 蹂댁뿬以�
-	           if(((calendarDTO)result2.get(i)).getCl_private()!=null){
+	         for(int i=0; i<result2.size(); i++){ 
+	           if(((calendarDTO)result2.get(i)).getCl_private()!=null){ 
 	        	   String participants = ((calendarDTO)result2.get(i)).getCl_participants();
 	        	   if(participants.contains(edto.getEmp_num())){
 	        		   Map<String, Object> map = new HashMap<String, Object>();

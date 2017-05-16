@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/JackPot/css/calendar.css?ver=4" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/calendar.css?ver=7" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <html>
@@ -288,7 +288,7 @@ function add_open(addform){
 <body style="height:100%;overflow-x:hidden;overflow-y:hidden;margin:0px;">
 <div id="page-container">
 	<div id="sidebar">
-
+		<jsp:include page="/sidebar.jp"></jsp:include>
 	</div>
 	<div id="subarea">	
 		<div id="leftmenu">
