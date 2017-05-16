@@ -24,19 +24,7 @@
 	overflow-y:scroll;
 
 } 
-/* //스크롤 고정  */
-	 #layer_fixed
-     {
-         width:100%;
-         color: #555;
-         font-size:12px;
-         position:fixed;
-         z-index:999;
-         top:0px;
-         left:0px;
-         -webkit-box-shadow: 0 1px 2px 0 #777;
 
-     }
 </style>
 
 <script>
@@ -104,7 +92,7 @@
 </script>
 
 	<div id="page-container">
-<div id="layer_fixed">
+<div >
 		  <jsp:include page="/sidebar.jp"></jsp:include>
 	</div>
 

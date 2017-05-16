@@ -135,8 +135,10 @@ function changeImp_click(bm_num){
 
 <title> 나의 할일</title>
 
-
+<body>
+<div>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
+	</div>
 	<div id="main-contents" >
 		<div class="con-header">
    			<h2>나의 할일 </h2>
@@ -164,9 +166,8 @@ function changeImp_click(bm_num){
                     
                      <button type="button" class="btn btn-color5 br" >검색</button>
               
-            </div>
-        </div>
-	
+            </div></div>
+
    		<div class="content-list">
             <table class="table table-striped" id="tblList">	
 				<thead >
