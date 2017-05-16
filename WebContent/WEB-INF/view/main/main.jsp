@@ -212,9 +212,9 @@ height: 200px;
 <body class="methods-page main-bg" data-page="methods">
     
     <div id="top">
-    <c:if test="${memId != null}">  
-    <font color="white">${memId} 님이 접속중입니다.</font>
-    <a href="logout.jp" onClick="logout()"><img src="/JackPot/mainsave/logout.jpg"></a>
+    <c:if test="${memId != null}">
+    <a href="logout.jp" onClick="logout()"><img src="/JackPot/mainsave/logout.jpg" style="float:right;"></a>  
+    <font color="white" style="float: right;margin: 10 380 0 0;">${memId} 님이 접속중입니다.</font>
     </c:if>
     	<ul style="padding: 0;list-style-type: none; -webkit-padding-start:0px;    -webkit-margin-before: 0em;
    				   -webkit-margin-after: 0em;">
