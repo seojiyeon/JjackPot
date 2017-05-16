@@ -139,7 +139,7 @@ function changeImp_click(bm_num){
 <jsp:include page="bm_sidebar.jsp" flush="false" />
 	<div id="main-contents" style="   font-family: serif;">
 		<div class="con-header">
-   			<h2>나의 할일</h2>
+   			<h2>나의 할일완료 </h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
@@ -152,16 +152,16 @@ function changeImp_click(bm_num){
             <div class="table-search">
                 
                     <select name="searchColumn" title="검색타입">
-                        <option value="emp_name" selected="selected">요청자</option>
+                        <option value="emp_name" selected="selected">수신자  </option>
                         <option value="searchTitle">제목</option>
                     </select>
-                
-                <div class="input-search">
+                    </div>
+                <div class="btn-wrap">
                     
                         <input name="searchWord" value="" type="text" class="w150 aTitle" title="검색어" placeholder="검색어">
                     
-                    <button id="searchMessageListButton" class="btn btn-color5"><i class="fa fa-search"></i><span>검색</span></button>
-                </div>
+                     <button type="button" class="btn btn-color5 br" >검색</button>
+              
             </div>
         </div>
 	
