@@ -76,13 +76,8 @@ public class CalendarBean {
 	        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 	        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 	        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-	        		   if(title.equals("회사일정")){color="#F78088";}
-	        		   if(title.equals("지점일정")){color="#FFAE28";}
-	        		   if(title.equals("부서일정")){color="#CDA8FF";}
-	        		   if(title.equals("개인일정")){color="#82E898";}
-	        		   if(title.equals("연차")){color="#FFA1D4";}
-	        		   if(title.equals("출장")){color="#3498DB";}
-	        		   if(!end.equals("nullTnull")){ // end媛� null�씠 �븘�땺 �븣 �떎�뻾
+	        		   if(title.equals("개인업무")){color="#82E898";}
+	        		   if(!end.equals("nullTnull")){ 
 	        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
 	        			   String en = ((calendarDTO) result2.get(i)).getCl_edate()+" "+((calendarDTO) result2.get(i)).getCl_etime();
@@ -181,7 +176,7 @@ public class CalendarBean {
 		         }
 	         
 	            for(int i=0; i<result2.size(); i++){ // �쉶�궗�씪�젙�� 紐⑤몢 異붽�
-		           if(((calendarDTO)result2.get(i)).getCl_title().equals("개인업무")){
+		           if(((calendarDTO)result2.get(i)).getCl_title().equals("회사일정")){
 		        		   Map<String, Object> map = new HashMap<String, Object>();
 		        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 		        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
@@ -212,15 +207,15 @@ public class CalendarBean {
 		        	   }
 	            	}
 	            
-	            for(int i=0; i<result2.size(); i++){ // 출장
-	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("출장")){
+	            for(int i=0; i<result2.size(); i++){ // 연차
+	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("연차")){
 	 	        	   String participants = ((calendarDTO)result2.get(i)).getCl_participants();
 	 	        	   if(participants.contains(edto.getEmp_num())){
 	 	        		   Map<String, Object> map = new HashMap<String, Object>();
 	 	        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 	 	        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 	 	        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-	 	        		   if(title.equals("출장")){color="#3498DB";}
+	 	        		   if(title.equals("연차")){color="#3498DB";}
 	 	        		   if(!end.equals("nullTnull")){
 	 	        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	 	        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
@@ -247,15 +242,15 @@ public class CalendarBean {
 	 	            }  
 	 	         }
 	            
-	            for(int i=0; i<result2.size(); i++){ // 연차
-	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("연차")){
+	            for(int i=0; i<result2.size(); i++){ // 출장
+	 	           if(((calendarDTO)result2.get(i)).getCl_title().equals("출장")){
 	 	        	   String participants = ((calendarDTO)result2.get(i)).getCl_participants();
 	 	        	   if(participants.contains(edto.getEmp_num())){
 	 	        		   Map<String, Object> map = new HashMap<String, Object>();
 	 	        		   title = ((calendarDTO) result2.get(i)).getCl_title();
 	 	        		   start = ((calendarDTO) result2.get(i)).getCl_sdate()+"T"+((calendarDTO) result2.get(i)).getCl_stime();
 	 	        		   end = ((calendarDTO) result2.get(i)).getCl_edate()+"T"+((calendarDTO) result2.get(i)).getCl_etime();
-	 	        		   if(title.equals("연차")){color="#FFA1D4";}
+	 	        		   if(title.equals("출장")){color="#FFA1D4";}
 	 	        		   if(!end.equals("nullTnull")){
 	 	        			   SimpleDateFormat mydate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	 	        			   String st = ((calendarDTO) result2.get(i)).getCl_sdate()+" "+((calendarDTO) result2.get(i)).getCl_stime();
