@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-<link href="/JackPot/css/main.css?ver=22" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/main.css?ver=23" rel="stylesheet" type="text/css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
@@ -213,8 +213,8 @@ height: 200px;
     
     <div id="top">
     <c:if test="${memId != null}">
-    <a href="logout.jp" onClick="logout()"><img src="/JackPot/mainsave/logout.jpg" style="float:right;"></a>  
-    <font color="white" style="float: right;margin: 10 380 0 0;">${memId} 님이 접속중입니다.</font>
+    <a href="logout.jp" onClick="logout()"><img src="/JackPot/mainsave/logout.png" style="float:right;height:40;margin:0 5 0 0;"></a>  
+    <font color="white" style="float: right;margin: 10 420 0 0;">${memId} 님이 접속중입니다.</font>
     </c:if>
     	<ul style="padding: 0;list-style-type: none; -webkit-padding-start:0px;    -webkit-margin-before: 0em;
    				   -webkit-margin-after: 0em;">
