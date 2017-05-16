@@ -31,8 +31,8 @@
 	    $('#multiform input[name=org_file]').MultiFile({
     	    max: 3, //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
         	accept: '',
-	        maxfile: 1024, //각 파일 최대 업로드 크기
-    	    maxsize: 3024,  //전체 파일 최대 업로드 크기
+	        maxfile: 4024, //각 파일 최대 업로드 크기
+    	    maxsize: 12024,  //전체 파일 최대 업로드 크기
         	STRING: { //Multi-lingual support : 메시지 수정 가능
         		file: '<em title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
         		remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
@@ -55,8 +55,8 @@
 	    $('#multiform input[name=org_img]').MultiFile({
     	    max: 3, //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
         	accept: 'jpg|png|gif', //허용할 확장자(지정하지 않으면 모든 확장자 허용)
-	        maxfile: 1024, //각 파일 최대 업로드 크기
-    	    maxsize: 3024,  //전체 파일 최대 업로드 크기
+	        maxfile: 4024, //각 파일 최대 업로드 크기
+    	    maxsize: 12024,  //전체 파일 최대 업로드 크기
         	STRING: { //Multi-lingual support : 메시지 수정 가능
         		remove : "<img src='/JackPot/images/memo/delete-photo.png'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
     	        duplicate : "$file 은 이미 선택된 파일입니다.", 

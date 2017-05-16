@@ -72,7 +72,7 @@
 					</c:if>
 				</div>
 			</div>
-			<form action="memoList.jp?memoGroup=${memoGroup}" method="post" name="searchForm" style="position: absolute; width: 400px; text-align: right; left: 1000px;">
+			<form action="memoList.jp?memoGroup=${memoGroup}" method="post" name="searchForm" style="position: absolute; width: 400px; text-align: right; left: 1100px;">
 			<div class="table-search">
 				<select name="tableSch" title="검색타입">
 					<option value="memo_title">제목</option>
@@ -326,7 +326,7 @@
 		</c:if>
 	</div>
 	
-	<div class="main-bottom" style="position: absolute; top: 820px; text-align: right; width: 80%;">
+	<div class="main-bottom" style="position: absolute; top: 820px; text-align: right; width: 70%;">
 		<c:if test="${memoGroup > 0}">
 			<button type="button" class="btnEnroll" onclick="window.location='memoInsert.jp?memoGroup=${memoGroup}'">등록</button>
 			<button type="button" class="btnMove">이동</button>

@@ -175,7 +175,7 @@ public class MemoBean {
 				System.out.println(extImg);
 				imgName = imgName.substring(extImg+1);
 			
-				String fmImg = dto.getEmp_num()+"_"+dto.getMemo_num()+"."+imgName;
+				String fmImg = dto.getEmp_num()+"_"+dto.getMemo_num()+multiImg+"."+imgName;
 			
 				File f = new File(path+"//"+fmImg);
 			
@@ -201,7 +201,7 @@ public class MemoBean {
 				dto.setOrg_file(fileName);
 				int extFile = fileName.lastIndexOf(".");
 				fileName = fileName.substring(extFile+1);
-				String fmFile = dto.getEmp_num()+"_"+dto.getMemo_num()+"."+fileName;
+				String fmFile = dto.getEmp_num()+"_"+dto.getMemo_num()+multiFile+"."+fileName;
 			
 				fmFile = fmFile.replace(" ", "");
 				fmFile = fmFile.replace(":", "");
@@ -554,7 +554,7 @@ public class MemoBean {
 				System.out.println(extImg);
 				imgName = imgName.substring(extImg+1);
 			
-				String fmImg = dto.getEmp_num()+"_"+dto.getMemo_num()+"."+imgName;
+				String fmImg = dto.getEmp_num()+"_"+dto.getMemo_num()+multiImg+"."+imgName;
 			
 				File f = new File(path+"//"+fmImg);
 			
@@ -580,7 +580,7 @@ public class MemoBean {
 				dto.setOrg_file(fileName);
 				int extFile = fileName.lastIndexOf(".");
 				fileName = fileName.substring(extFile+1);
-				String fmFile = dto.getEmp_num()+"_"+dto.getMemo_num()+"."+fileName;
+				String fmFile = dto.getEmp_num()+"_"+dto.getMemo_num()+multiFile+"."+fileName;
 			
 				fmFile = fmFile.replace(" ", "");
 				fmFile = fmFile.replace(":", "");
