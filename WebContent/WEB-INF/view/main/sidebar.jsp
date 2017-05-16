@@ -3,6 +3,7 @@
 <html>
 <head>
 <style type="text/css">
+#sidebar-sidebar {background-color:white;}
 #sidebar-sidebar img{height:50px;}
 #sidebar-sidebar a{text-decoration:none;}
 #sidebar-sidebar a:link{color:black;}
