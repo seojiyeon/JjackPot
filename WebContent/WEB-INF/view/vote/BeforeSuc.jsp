@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />  
-<link href="/JackPot/css/org.css?ver=14" rel="stylesheet" type="text/css">     
+<link href="/JackPot/css/org.css?ver=15" rel="stylesheet" type="text/css">     
 
     <script type="text/javascript" src="/JackPot/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
@@ -56,7 +56,7 @@
 <body>
 <div id="page-container" class="sub sidebar-mini sidebar-subarea">
 
-<div id="sidebar">
+<div id="sidebar" style="background:white;">
   <jsp:include page="/sidebar.jp"></jsp:include>
 </div>
 <div class="sidebar-content"> 

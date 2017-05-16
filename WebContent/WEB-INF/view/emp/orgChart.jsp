@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link href="/JackPot/css/org.css?ver=12" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/org.css?ver=15" rel="stylesheet" type="text/css">
 <script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />   
 <link rel="stylesheet" href="/JackPot/css/org.css" type="text/css" /> 
@@ -71,7 +71,7 @@ function favd(){
 <body>
 <div id="page-container" class="sub sidebar-mini sidebar-subarea">
 
-<div id="sidebar">
+<div id="sidebar" style="background:white;">
   <jsp:include page="/sidebar.jp"></jsp:include>
 </div>
 <div class="sidebar-content"> 
@@ -203,7 +203,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
         <input type="button" value="즐겨찾기 추가"  onclick="fav()">
         <input type="button" value="즐겨찾기 해제"  onclick="favd()">&nbsp;&nbsp;&nbsp;
         <input type="button" value="전체구성원 보기" onclick="window.location='Allorg.jp'">&nbsp;&nbsp;&nbsp;
-        <input type="image" src="/JackPot/save/house.png" width="30" height="30" value="메인" onclick="window.location='main.jp'">
+     
       </li>
     </Td>
    </tr>
