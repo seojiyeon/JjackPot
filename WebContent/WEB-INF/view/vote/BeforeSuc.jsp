@@ -38,6 +38,17 @@
     		window.location='VoteResult.jp?v_num='+v_num;	
     	}
     	
+    	$(document).ready(function(){
+    	    $("#menuTreeTitle>a").click(function(){
+    	        var boardmenu = $(this).next("ul");
+    	        if( boardmenu.is(":visible") ){
+    	            boardmenu.slideUp();
+    	        }else{
+    	            boardmenu.slideDown();
+    	        }
+    	    });
+    	});
+    	
     </script>
     
    
@@ -46,6 +57,8 @@
 <div id="page-container" class="sub sidebar-mini sidebar-subarea">
 
 <div id="sidebar">
+  <jsp:include page="/sidebar.jp"></jsp:include>
+</div>
 <div class="sidebar-content"> 
  <h1>
 		 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
@@ -70,6 +83,15 @@ style="max-height: none;" tabindex="0"><div id="mCSB_1_container"
 class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" 
 style="position:relative; top:0; left:0;" dir="ltr">
 			<ul class="menulist">	
+			<li>
+		<div class="btn-wrap-leftMenu row">
+					
+					<button type="button" class="btn btn-color7 br w100p" onclick="window.location='Vform.jp'" 
+					style="color: black; background-color: white; border-color: black;">투표 등록</button>
+						
+					
+					</div>		
+					</li>		
 				<li data-submenu="allList" class="current">
 					<a href="UpVote.jp" class="sidebar-nav-menu"> 투표참여</a>
 				</li>
@@ -113,23 +135,29 @@ style="position:relative; top:0; left:0;" dir="ltr">
   
      <div class="person-info-photo" style="margin: 0 550 50;">
      
+  <li id="menuTreeTitle">
+  <a style="display:inline-block;height:40px;">
   
-    <img src="/JackPot/save/vote2.png" width="50" height="50"> 
-    ${article.jilmoon} </td>
-      <tr></tr>
-    <tr>
+    <img src="/JackPot/save/vote2.png" width="50" height="50">  ${article.jilmoon}</a>
+	<ul style="display: none;">	  
     
-       <td width="100" align="center"><br/>(1)&nbsp;${article.monhang} <br/>
+     <ul style="margin: 0 40; font-size: 17; text-decoration:none;">
+         <br/>
+       
+       
+      (1)&nbsp;<font size="4">${article.monhang}</font> <br/>
        <img src="/JackPot/save/${article.up_img}" id="up_img"  width=200px, height=200px />
     </tr>  
      
          <tr>
-       <td width="100" align="center"><br/>(2)&nbsp;${article.monhang2} <br/>
+       <td width="100" align="center"><br/>
+       (2)&nbsp;<font size="4">${article.monhang2} </font><br/>
          <img src="/JackPot/save/${article.up_img2}" id="up_img2"  width=200px, height=200px />
     </td>
     </tr>
     
           <div class="pagination-button" style="margin:0 50;">
+          
 <c:if test="${article.notice==0}"> <br/>    
       <ul class="pagination">
     <li align="center" style="font-size: 15;">     
@@ -138,6 +166,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 </li>
 </ul>
 </c:if>
+
 
 <c:if test="${article.notice==1}"> <br/>  
      <ul class="pagination">      
@@ -148,7 +177,8 @@ style="position:relative; top:0; left:0;" dir="ltr">
    </ul>
 </c:if>
 
-<c:if test="${article.notice==2}">   
+
+<c:if test="${article.notice==2}"> <br/>
    <ul class="pagination">      
     <li>   
    <h2 style="color:#d3292c;">투표마감</h2>
@@ -156,16 +186,19 @@ style="position:relative; top:0; left:0;" dir="ltr">
    </li>
    </ul>
 </c:if>
-                    
-      </ul>
-      </div>
-      </div>
-    </c:forEach>
-    </div>
-    </form>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </body>
+                  
+     
+ </div>
+ </ul>
+ </ul>
+ </li>
+ </div>
+ </c:forEach>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+ </body>
+ 

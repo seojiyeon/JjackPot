@@ -295,6 +295,8 @@ Dropzone.options.myDropzone = {
 <body>
 <div id="page-container"  class="sub sidebar-mini sidebar-subarea">
 	<div id="sidebar">
+  <jsp:include page="/sidebar.jp"></jsp:include>
+</div>
 <div class="sidebar-content"> 
  <h1>
 		 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >

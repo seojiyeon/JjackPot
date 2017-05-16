@@ -20,6 +20,18 @@
 		window.location='VoteResult.jp?v_num='+v_num;	
 		
 	}
+	
+	$(document).ready(function(){
+	    $("#menuTreeTitle>a").click(function(){
+	        var boardmenu = $(this).next("ul");
+	        if( boardmenu.is(":visible") ){
+	            boardmenu.slideUp();
+	        }else{
+	            boardmenu.slideDown();
+	        }
+	    });
+	});
+
     </script>	     
 
 
@@ -27,6 +39,8 @@
 <div id="page-container" class="sub sidebar-mini sidebar-subarea">
 
 <div id="sidebar">
+  <jsp:include page="/sidebar.jp"></jsp:include>
+</div>
 <div class="sidebar-content"> 
  <h1>
 		 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
@@ -51,6 +65,17 @@ style="max-height: none;" tabindex="0"><div id="mCSB_1_container"
 class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" 
 style="position:relative; top:0; left:0;" dir="ltr">
 			<ul class="menulist">	
+	<li>
+		<div class="btn-wrap-leftMenu row">
+					
+					<button type="button" class="btn btn-color7 br w100p" onclick="window.location='Vform.jp'" 
+					style="color: black; background-color: white; border-color: black;">투표 등록</button>
+						
+					
+					</div>		
+					</li>		
+			
+			
 				<li data-submenu="allList" class="current">
 					<a href="UpVote.jp" class="sidebar-nav-menu" style="color:#d3292c"> 투표참여</a>
 				</li>
@@ -95,12 +120,14 @@ style="position:relative; top:0; left:0;" dir="ltr">
    <div class="person-info-photo" style="margin: 0 550 120;">
    
    
-    <img src="/JackPot/save/vote2.png" width="50" height="50">
-    ${article.jilmoon} </td>
-      <tr></tr>
-      
+  <li id="menuTreeTitle">
+  <a style="display:inline-block;height:40px;">
   
-       <td width="100" align="center" ><br/>
+    <img src="/JackPot/save/vote2.png" width="50" height="50">  ${article.jilmoon}</a>
+	<ul style="display: none;">	  
+   
+      <ul style="margin: 0 40; font-size: 17; text-decoration:none;">
+         <br/>
        
        (1)&nbsp;<font size="4">${article.monhang}</font> <br/>
        <img src="/JackPot/save/${article.up_img}" id="up_img"  width=200px, height=200px />
@@ -117,18 +144,20 @@ style="position:relative; top:0; left:0;" dir="ltr">
    <ul class="pagination">
     <tr>
      <li align="center" style="font-size: 15;">
-        
 
     <input type="button" id="success"  value="투표하기" onclick="test('${article.v_num}');" >
     <input type="button" value="결과보기" onclick="test2('${article.v_num}');">
-    
+   </li> 
+  
+   </ul>
+   </div>
+   </ul>
+   </ul>
     </li>
-    </tr>
-    </ul>
     </div>
  
-    </div> 
         </c:forEach>
+    </div> 
    
    </form>
 </div>

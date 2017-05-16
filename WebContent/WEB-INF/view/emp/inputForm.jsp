@@ -9,6 +9,28 @@
 <head>
 <title>회원가입</title>
 
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 700px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+</style>
+
 <script language="JavaScript">
 
 
@@ -194,14 +216,15 @@ style="position:relative; top:0; left:0;" dir="ltr">
  <div id="mainmain">
 <form method="post" action="inputPro.jp" name="userinput" 
   onSubmit="return checkIt()" enctype="multipart/form-data">
-  <table width="600" border="1" cellspacing="0" cellpadding="3" align="center" >
+  <table  cellspacing="0" cellpadding="3" align="center" >
     
  <tr> 
       <td width="200"> 프로필 사진</td>
       <td width="400" > 
         <input type="file" name="profilephoto" size="15" maxlength="12">
       </td>
-    <tr>  
+      </tr>
+    
     <tr> 
       <td width="200"> 사원번호</td>
       <td width="400"> 
@@ -216,14 +239,14 @@ style="position:relative; top:0; left:0;" dir="ltr">
       <td width="400" > 
         <input type="password" name="pw" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
        
        <tr> 
       <td width="200"> 사용자 이름</td>
       <td width="400" > 
         <input type="text" name="emp_name" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
      
     <tr> 
@@ -231,21 +254,21 @@ style="position:relative; top:0; left:0;" dir="ltr">
       <td width="400" > 
         <input type="file" name="signimg" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
     <tr> 
       <td width="200">입사날짜 (YYYYMMDD로 입력)</td>
       <td width="400" > 
         <input type="text" name="hiredate" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
     <tr> 
       <td width="200">봉급</td>
       <td width="400" > 
         <input type="text" name="rank" size="15" maxlength="12">만원
       </td>
-    <tr>  
+    </tr>  
        
 
         <tr> 
@@ -253,7 +276,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
       <td width="400" > 
         <input type="text" name="department" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
        
         
         <tr> 
@@ -261,31 +284,28 @@ style="position:relative; top:0; left:0;" dir="ltr">
       <td width="400" > 
         <input type="text" name="position" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
      <tr> 
       <td width="200">지점</td>
       <td width="400" > 
         <input type="text" name="branch" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
      <tr> 
       <td width="200"> 사원 점수</td>
       <td width="400" > 
         <input type="text" name="emp_point" size="15" maxlength="12">
       </td>
-    <tr>  
-    
-    <tr> 
-    <td colspan="2" height="39" align="center"  >
-       <font size="+1" >
-    <input type="submit" value="제출">
-       <input type="button" value="취소" onclick="window.location='loginform.jp'">
-    </font></td>
-    </td>
-    </Tr>
+    </tr>  
+  
        </table>
+       
+       <input type="submit" value="제출">
+       <input type="button" value="취소" onclick="window.location='loginform.jp'">
+    
+       
        </form>
        </div>
        </div>

@@ -21,6 +21,8 @@
 <div id="page-container" class="sub sidebar-mini sidebar-subarea">
 
 <div id="sidebar">
+  <jsp:include page="/sidebar.jp"></jsp:include>
+</div>
 <div class="sidebar-content"> 
  <h1>
 		 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
@@ -45,6 +47,16 @@ style="max-height: none;" tabindex="0"><div id="mCSB_1_container"
 class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" 
 style="position:relative; top:0; left:0;" dir="ltr">
 			<ul class="menulist">	
+			<li>
+		<div class="btn-wrap-leftMenu row">
+					
+					<button type="button" class="btn btn-color7 br w100p" onclick="window.location='Vform.jp'" 
+					style="color: black; background-color: white; border-color: black;">투표 등록</button>
+						
+					
+					</div>		
+					</li>		
+					
 				<li data-submenu="allList" class="current">
 					<a href="UpVote.jp" class="sidebar-nav-menu"> 투표참여</a>
 				</li>
