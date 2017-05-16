@@ -139,7 +139,7 @@ function changeImp_click(bm_num){
 <jsp:include page="bm_sidebar.jsp" flush="false" />
 	<div id="main-contents" style="   font-family: serif;">
 		<div class="con-header">
-   			<h2>나의 할일완료 </h2>
+   			<h2>나의 할일 </h2>
    			</div>
    			<div class="table-header">
             <div class="listinfo">
