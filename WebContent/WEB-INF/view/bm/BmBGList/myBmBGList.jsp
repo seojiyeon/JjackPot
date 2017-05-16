@@ -165,18 +165,19 @@ function changeImp_click(bm_num){
             <div class="table-search">
                 
                     <select name="searchColumn" title="검색타입">
-                        <option value="emp_name" selected="selected">요청자</option>
+                        <option value="emp_name" selected="selected">수신자  </option>
                         <option value="searchTitle">제목</option>
                     </select>
-                
-                <div class="input-search">
+                    </div>
+                <div class="btn-wrap">
                     
                         <input name="searchWord" value="" type="text" class="w150 aTitle" title="검색어" placeholder="검색어">
                     
-                    <button id="searchMessageListButton" class="btn btn-color5"><i class="fa fa-search"></i><span>검색</span></button>
-                </div>
+                     <button type="button" class="btn btn-color5 br" >검색</button>
+              
             </div>
         </div>
+	
 	
    		<div class="content-list">
             <table class="table table-striped" id="tblList">	
@@ -194,7 +195,7 @@ function changeImp_click(bm_num){
                             <a data-sortcolumn="TITLE" href="#">제목<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 100px;">
-                            <a data-sortcolumn="REGISTERNAME" href="#">요청자<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                            <a data-sortcolumn="REGISTERNAME" href="#">수신자 <i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 120px;">
                             <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
@@ -211,8 +212,8 @@ function changeImp_click(bm_num){
 				<tr>
                         <th style="width: 40px;"><input id="checkAll" name="${bmdto.bm_num}" onclick="selectAllTodo()" type="checkbox" value="${bmdto.bm_num}" title="checkAll"></th>
                         <th style="width: 40px;">${bmdto.bm_num}</th>
-                        <th style="width: 50px;" class="${bmdto.bm_num}">
-                        	<span onclick="changeImp_click(${bmdto.bm_num})">
+                        <th style="width: 50px;" class="${bmdto.rec_name}">
+                        	<span onclick="changeImp_click(${bmdto.rec_name})">
 								<c:if test="${bmdto.important == 1}">
 									<i class="icon nonimp"></i>
 								</c:if>

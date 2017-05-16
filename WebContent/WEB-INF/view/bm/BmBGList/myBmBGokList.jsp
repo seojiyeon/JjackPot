@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=4" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=6" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=9" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
@@ -27,6 +27,9 @@ body {
     margin: 0px;
 }
 
+.table-search select {
+    float: left;
+}
 tr {
     display: table-row;
     vertical-align: inherit;
@@ -139,7 +142,7 @@ function changeImp_click(bm_num){
 
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
-	<div id="main-contents" style="   font-family: serif;">
+	<div id="main-contents" >
 		<div class="con-header">
    			<h2>나의 업무 보고 완료 </h2>
    			</div>
@@ -154,16 +157,16 @@ function changeImp_click(bm_num){
             <div class="table-search">
                 
                     <select name="searchColumn" title="검색타입">
-                        <option value="emp_name" selected="selected">요청자</option>
+                        <option value="emp_name" selected="selected">수신자  </option>
                         <option value="searchTitle">제목</option>
                     </select>
-                
-                <div class="input-search">
+                    </div>
+                <div class="btn-wrap">
                     
                         <input name="searchWord" value="" type="text" class="w150 aTitle" title="검색어" placeholder="검색어">
                     
-                    <button id="searchMessageListButton" class="btn btn-color5"><i class="fa fa-search"></i><span>검색</span></button>
-                </div>
+                     <button type="button" class="btn btn-color5 br" >검색</button>
+              
             </div>
         </div>
 	
@@ -183,7 +186,7 @@ function changeImp_click(bm_num){
                             <a data-sortcolumn="TITLE" href="#">제목<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 100px;">
-                            <a data-sortcolumn="REGISTERNAME" href="#">요청자<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                            <a data-sortcolumn="REGISTERNAME" href="#">수신자 <i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 120px;">
                             <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
@@ -200,8 +203,8 @@ function changeImp_click(bm_num){
 				<tr>
                         <th style="width: 40px;"><input  name="bm_num"  type="checkbox" value="${bmdto.bm_num}" /></th>
                         <th style="width: 40px;">${bmdto.bm_num}</th>
-                        <th style="width: 50px;" class="${bmdto.bm_num}">
-                        	<span onclick="changeImp_click(${bmdto.bm_num})">
+                        <th style="width: 50px;" class="${bmdto.inchar_name}">
+                        	<span onclick="changeImp_click(${bmdto.inchar_name})">
 								<c:if test="${bmdto.important == 1}">
 									<i class="icon nonimp"></i>
 								</c:if>

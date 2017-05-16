@@ -176,7 +176,7 @@ function mybmYCHdel(){
 
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
-	<div id="main-contents" style="   font-family: serif;">
+	<div id="main-contents" >
 		<div class="con-header">
    			<h2>나의 업무 요청 완료 </h2>
    			</div>
@@ -191,16 +191,16 @@ function mybmYCHdel(){
             <div class="table-search">
                 
                     <select name="searchColumn" title="검색타입">
-                        <option value="emp_name" selected="selected">요청자</option>
+                        <option value="emp_name" selected="selected">담당자  </option>
                         <option value="searchTitle">제목</option>
                     </select>
-                
-                <div class="input-search">
+                    </div>
+                <div class="btn-wrap">
                     
                         <input name="searchWord" value="" type="text" class="w150 aTitle" title="검색어" placeholder="검색어">
                     
-                    <button id="searchMessageListButton" class="btn btn-color5"><i class="fa fa-search"></i><span>검색</span></button>
-                </div>
+                     <button type="button" class="btn btn-color5 br" >검색</button>
+              
             </div>
         </div>
 	
@@ -220,7 +220,7 @@ function mybmYCHdel(){
                             <a data-sortcolumn="TITLE" href="#">제목<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 100px;">
-                            <a data-sortcolumn="REGISTERNAME" href="#">요청자<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                            <a data-sortcolumn="REGISTERNAME" href="#">담당자 <i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 120px;">
                             <a data-sortcolumn="INSERTDATE" href="#">요청일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
@@ -259,7 +259,7 @@ function mybmYCHdel(){
                             </a>	
                         </th>
                         <th style="width: 100px;">
-                            ${bmdto.bm_name}
+                            ${bmdto.inchar_name}
                         </th>
                         <th style="width: 120px;">
                           ${bmdto.bm_start}

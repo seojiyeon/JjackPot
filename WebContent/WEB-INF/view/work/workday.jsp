@@ -4,7 +4,7 @@
         
 
 					<c:if test="${wdto.work_on == null}">
-						<th style="width: 730px;text-align:center;"><label>출근기록이 없습니다</label></th>
+						<th colspan="8" style="text-align: center;background-color: white;"><label>출근기록이 없습니다</label></th>
 					</c:if>
 					
 					<c:if test="${wdto.work_on != null}">	

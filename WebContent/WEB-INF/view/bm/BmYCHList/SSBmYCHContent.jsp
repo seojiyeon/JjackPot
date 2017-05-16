@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=13 type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=9 type="text/css" />   
 <script src="/JackPot/js/jquery.form.min.js"></script><!-- 파일업로드 (jquery plug-in) -->
 <script src="/JackPot/js/jQuery.MultiFile.min.js"></script>
 <script src="resource/ckeditor.js"></script>
@@ -79,53 +79,6 @@ $(document).ready(function(){
 			});
 		});
 </script>
-<!-- 
-<script>
-   function wrapWindowByMask(){
-      //화면의 높이와 너비를 구한다.
-      var maskHeight = $(document).height();  
-      var maskWidth = $(window).width();  
-
-      //마스크의 높이와 너비를 화면의 높이와 너비로 설정한다.
-      $('.mask').css({'width':maskWidth,'height':maskHeight});  
-
-      //애니메이션 효과
-      $('.mask').fadeTo("slow",0.5);   
-      
-      // 레이어 팝업을 가운데로 띄운다.
-      var left = ($(window).scrollLeft() + ($(window).width() - $('.window').width())/2);
-      var top = ($(window).scrollTop() + ($(window).height() - $('.window').height())/2);
-      
-      // css 스타일 변경
-      $('.window').css({'left':left, 'top':top, 'position':'absolute'});
-
-      // 레이어 팝업 띄운다.
-      $('.window').show();
-   }
-
-   $(document).ready(function(){
-      //검은 마스크 배경과 레이어 팝업 띄운다.
-      $('.chMemoCate').click(function(e){
-         e.preventDefault();
-         wrapWindowByMask();
-      });
-
-      //닫기 버튼을 눌렀을 때
-      $('.window .close').click(function (e) {  
-          //링크 기본동작은 작동하지 않도록 한다.
-          e.preventDefault();  
-          $('.mask, .window').hide();  
-      });       
-
-      //검은 마스크을 눌렀을 때
-      $('.mask').click(function () {  
-          $(this).hide();  
-          $('.window').hide();  
-      });      
-   });
-</script>
-
- -->
 
 <title> 내가한 업무 요청 조회 </title>
   

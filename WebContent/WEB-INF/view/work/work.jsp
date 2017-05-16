@@ -9,10 +9,9 @@
 	<!-- // jQuery UI 라이브러리 js파일 -->
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
     <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" /> 
 	<link rel="stylesheet" href="/JackPot/css/basic.css" type="text/css" />
+	<link rel="stylesheet" href="/JackPot/css/work.css?ver=3" type="text/css" />
 <head>
 
 <style>
@@ -100,8 +99,10 @@ background-color:  #ffcccc;
 	</script>
 	
   	<title>일일근태등록</title>
-	
-	
+<jsp:include page="work_sidebar.jsp" flush="false" />	
+<div id="main-contents">
+<div class="content-wrap">
+<div class="content-write" style="width: 100%;">
 <c:if test="${memId==null}" >
 
 로그인 후 이용해 주시기 바랍니다.

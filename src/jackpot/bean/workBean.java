@@ -30,7 +30,7 @@ public class workBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 
-	@RequestMapping("/work.jp")
+	@RequestMapping("/work.jp") //일별로 근태불러오기 
 	public String work(HttpServletRequest request,workDTO wdto,Model model,HttpSession session,String dateFormatStr ){
 		
 		String emp_num =(String)session.getAttribute("memId");

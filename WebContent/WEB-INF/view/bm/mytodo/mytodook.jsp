@@ -135,7 +135,6 @@ tbody {
             <div class="table-search">
                 
                     <select name="searchColumn" title="검색타입">
-                        <option value="emp_name" selected="selected">요청자</option>
                         <option value="searchTitle">제목</option>
                     </select>
                     </div>

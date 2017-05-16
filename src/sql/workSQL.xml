@@ -74,10 +74,9 @@
 	 
 	<insert id="insertWork" parameterClass="wdto">
 	<![CDATA[
-		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip) values(
+		insert into work(num,emp_num,work_on,work_time,h_work,workOut,lateNess,early,division,ip) values(
 			work_seq.nextval,
 			#emp_num#,
-			sysdate,
 			sysdate,
 			'00:00',
 			'00:00',

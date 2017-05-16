@@ -156,22 +156,21 @@ function changeImp_click(bm_num){
             <div class="table-search" style="right:250px;">
                
             </div>
-            <div class="table-search">
+          <div class="table-search">
                 
                     <select name="searchColumn" title="검색타입">
-                        <option value="emp_name" selected="selected">요청자</option>
+                        <option value="emp_name" selected="selected">등록자  </option>
                         <option value="searchTitle">제목</option>
                     </select>
-                
-                <div class="input-search">
+                    </div>
+                <div class="btn-wrap">
                     
                         <input name="searchWord" value="" type="text" class="w150 aTitle" title="검색어" placeholder="검색어">
                     
-                    <button id="searchMessageListButton" class="btn btn-color5"><i class="fa fa-search"></i><span>검색</span></button>
-                </div>
+                     <button type="button" class="btn btn-color5 br" >검색</button>
+              
             </div>
         </div>
-	
    		<div class="content-list">
             <table class="table table-striped" id="tblList">	
 				<thead >
@@ -188,7 +187,7 @@ function changeImp_click(bm_num){
                             <a data-sortcolumn="TITLE" href="#">제목<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 100px;">
-                            <a data-sortcolumn="REGISTERNAME" href="#">요청자<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
+                            <a data-sortcolumn="REGISTERNAME" href="#">등록자 <i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>
                         </th>
                         <th style="width: 120px;">
                             <a data-sortcolumn="INSERTDATE" href="#">등록일<i class="fa fa-caret-up"><span class="blind">오름차순</span></i></a>

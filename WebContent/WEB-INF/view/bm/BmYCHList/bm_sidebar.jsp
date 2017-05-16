@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />  
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=2" type="text/css" />  
 
 <script src="resource/ckeditor.js"></script>
 <html>
@@ -24,6 +24,19 @@
 	overflow-y:scroll;
 
 } 
+/* //스크롤 고정  */
+	 #layer_fixed
+     {
+         width:100%;
+         color: #555;
+         font-size:12px;
+         position:fixed;
+         z-index:999;
+         top:0px;
+         left:0px;
+         -webkit-box-shadow: 0 1px 2px 0 #777;
+
+     }
 </style>
 
 <script>
@@ -91,18 +104,15 @@
 </script>
 
 	<div id="page-container">
-		<div id="sidebar">
-		<a href="main.jp" class="sidebar-brand otherMenu menuTooltip">
-		    <img src="/JackPot/save/home.png" style="background-color: white;width: 60;height: 60px;">
-   <span id="brand" class="brand none">  
-	</span>	 
-   </a>
-			</div>
+<div id="layer_fixed">
+		  <jsp:include page="/sidebar.jp"></jsp:include>
+	</div>
+
 			
 			<div id="subarea">	
 				<div id="leftmenu-jp">
 					<div class="leftmenu-top">
-						<h2><a href="/JackPot/myBmYCHList.jp">업무관리 </a></h2>
+						<h2><a href="/JackPot/myBmBGList.jp">업무관리 </a></h2>
 					</div>
 					
 					<div id="leftmenuarea" class="scrollBlind">

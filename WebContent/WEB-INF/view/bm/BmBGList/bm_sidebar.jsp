@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />  
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=2" type="text/css" />  
 
 <script src="resource/ckeditor.js"></script>
 <html>
@@ -24,6 +24,7 @@
 	overflow-y:scroll;
 
 } 
+
 </style>
 
 <script>
@@ -91,13 +92,10 @@
 </script>
 
 	<div id="page-container">
-		<div id="sidebar">
-		<a href="main.jp" class="sidebar-brand otherMenu menuTooltip">
-		    <img src="/JackPot/save/home.png" style="background-color: white;width: 60;height: 60px;">
-   <span id="brand" class="brand none">  
-	</span>	 
-   </a>
-			</div>
+<div >
+		  <jsp:include page="/sidebar.jp"></jsp:include>
+	</div>
+
 			
 			<div id="subarea">	
 				<div id="leftmenu-jp">
