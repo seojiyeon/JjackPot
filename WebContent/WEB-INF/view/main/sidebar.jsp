@@ -3,18 +3,18 @@
 <html>
 <head>
 <style type="text/css">
-img{height:50px;}
-a{text-decoration:none;}
-a:link{color:black;}
-a:hover{none;}
-#sidebar li {width:60px;font-size:small;text-align: center;height: 85px;}
-#sidebar ul {margin:0;}
+#sidebar-sidebar img{height:50px;}
+#sidebar-sidebar a{text-decoration:none;}
+#sidebar-sidebar a:link{color:black;}
+#sidebar-sidebar a:hover{none;}
+#sidebar-sidebar li {width:60px;font-size:small;text-align: center;height: 85px;}
+#sidebar-sidebar ul {margin:0;}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>사이드바</title>
 </head>
 <body style="display:inline-block;margin:0;">
- <div id="sidebar">
+ <div id="sidebar-sidebar">
  	<ul style="list-style:none;padding:0;border-right: 1px solid;">
  		<li><a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
      		<img src="/JackPot/save/home.png" width=50px, height=50px style="margin:5;"><span id="brand" class="brand none">
