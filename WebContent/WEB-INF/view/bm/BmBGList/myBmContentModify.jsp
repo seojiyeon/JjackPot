@@ -37,8 +37,8 @@
 						minDate : 'd',
 					});
      	      
-     	  
  	   });
+     	  
  	   
  	   
  	   
@@ -132,7 +132,7 @@
 <div class="con-header">
     <h2>나의 할 일 수정 </h2>
     </div>
-<form name="bmInput" method="post" id="bminputfile" action="mytodoContentModifyPro.jp?bm_num=${bm_num }" enctype="multipart/form-data"    onSubmit="return checkIt();">
+<form name="bmInput" method="post" id="bminputfile" action="myBmContentModifyPro.jp?bm_num=${bm_num }" enctype="multipart/form-data"    onSubmit="return checkIt();">
 <div class="form-block">
                 <table class="table">
                     <caption></caption>
@@ -231,7 +231,7 @@
 							<th scope="row">업무내용  </th>
                             <td colspan="3">
                                 <div>			
-									<textarea class="ckeditor" cols="1" id="bm_content"  value="${bmdto.bm_content}"  name="bm_content" rows="15">${bmdto.bm_content}</textarea>
+									<textarea class="ckeditor" cols="1" id="bm_content"  value="${bmdto.bm_content}"  name="bm_conten" rows="15">${bmdto.bm_content}</textarea>
                                 </div>
                    	 	</tr>
                    	 	<!--파일 부분 -->	
@@ -257,7 +257,7 @@
                    	 		<c:if test="${fileCount > 0}">
                             <td colspan="3">
 								<div>
-									<c:forEach var="file" items="${file}">
+									<c:forEach var="Bm_file" items="${Bm_file}">
 										<a class="fileList"><img src='/JackPot/images/memo/delete-photo.png'/>${Bm_file.org_file}</a><br/>
 									</c:forEach>
 									<div class="plupload_wrapper">

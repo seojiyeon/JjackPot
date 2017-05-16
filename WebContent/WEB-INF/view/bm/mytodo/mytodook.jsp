@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=5" type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=9" type="text/css" />   
 <script src="resource/ckeditor.js"></script>
 <style>
 tr {
@@ -138,13 +138,13 @@ tbody {
                         <option value="emp_name" selected="selected">요청자</option>
                         <option value="searchTitle">제목</option>
                     </select>
-                
-                <div class="input-search">
+                    </div>
+                <div class="btn-wrap">
                     
                         <input name="searchWord" value="" type="text" class="w150 aTitle" title="검색어" placeholder="검색어">
                     
-                    <button id="searchMessageListButton" class="btn btn-color5"><i class="fa fa-search"></i><span>검색</span></button>
-                </div>
+                     <button type="button" class="btn btn-color5 br" >검색</button>
+              
             </div>
         </div>
 	
@@ -203,7 +203,7 @@ tbody {
                             ${bmdto.bm_end}
                         </th>
                         <th style="width: 100px;">
-	                        <th style="width: 100px;">
+	     
 								<c:if test="${bmdto.bm_state == 1}"> <!-- 미완료  -->
 		    						    <span class="todo-cate-box1 color2">${bmdto.bm_state2 }</span>
 		    					</c:if>

@@ -219,9 +219,7 @@ function changeImp_click(bm_num){
                         <th style="width: 100px;">
                             ${bmdto.bm_name}
                         </th>
-                        <th style="width: 120px;">
-                          ${bmdto.bm_start}
-                        </th>
+
                         <th style="width: 120px;">
                          ${sdf.format(bmdto.enrollment) }
                         </th>

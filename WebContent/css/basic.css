@@ -13,6 +13,7 @@ layout
 #page-container.main { height:100%; overflow:hidden; }
 #page-container.sub { position:relative; min-height:100%; min-width:1200px; background:#fff; }s
 
+
 /* submenu */
 .bmtable {box-sizing: border-box; table-layout: fixed;border-collapse: separate; border-spacing: 2px;  border-color: gray;}
 #submenu { position:absolute; top:0; width:190px; height:100%;  background:#fff; z-index:100; overflow:hidden; }
@@ -530,8 +531,7 @@ table-header
 .table-search .input-date { position:relative; float:left;padding-right:15px;line-height:26px; }
 .input-search input {position:relative; padding-right:36px; }
 .table-search .input-unread label { font-weight:normal; }
-.table-search .input-search .btn {padding:3px 6px; margin-left:-5px; border-radius:0 2px 2px 0; font-size:15px; border:1px #bbb solid; background:#fff !important;}
-/*.table-search .input-search .btn i {color:#fd7d86 !important;}*/
+
 .table-search .input-search .btn span {position:absolute; left:-10000px; top:-10000px; width:0; height:0; font-size:0;}
 .table-search.po-left {position:relative; left:0; top:0; padding:7px 0 12px 0; }
 .table-search.po-left .input-search {float:none;}

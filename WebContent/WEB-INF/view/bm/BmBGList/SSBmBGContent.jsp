@@ -12,7 +12,8 @@
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
-<link rel="stylesheet" href="/JackPot/css/bm.css?ver=13 type="text/css" />   
+<link rel="stylesheet" href="/JackPot/css/bm.css?ver=13" type="text/css" />  
+
 <script src="/JackPot/js/jquery.form.min.js"></script><!-- 파일업로드 (jquery plug-in) -->
 <script src="/JackPot/js/jQuery.MultiFile.min.js"></script>
 <script src="resource/ckeditor.js"></script>
@@ -28,6 +29,7 @@
 .statement h4 { padding: 12px 14px;  background-color: #f9fafc;  border-bottom: 1px solid #cccccc;  font-size: 16px;  font-weight: 600;}
 h4 {  display: block;  -webkit-margin-before: 1.33em;  -webkit-margin-after: 1.33em;  -webkit-margin-start: 0px;  -webkit-margin-end: 0px;  font-weight: bold;}
 h1, h2, h3, h4, h5, h6 { padding: 0;  margin: 0;  font-weight: 500;  line-height: 1.1;}
+input:focus, textarea:focus{     outline: none; }
 
 </style>
 
@@ -56,78 +58,31 @@ h1, h2, h3, h4, h5, h6 { padding: 0;  margin: 0;  font-weight: 500;  line-height
 	});
  
 $(document).ready(function(){
-		$("#bmupdatebutton").click(function(){
-				var bm_state;
-				var result = confirm('업무완료 처리하시겠습니까?');
-					if(bm_state != 2){
-						window.location='bmYCH_state_finish.jp?bm_num=${bm_num}';
-					}else if(bm_state == 2){
+		$("#bmBG_state_update").click(function(){
+				var result = confirm('업무완료 처리하시겠습니까?');				
+					if(${bmdto.bm_state} == 1 ){
+						window.location='bmBG_state_update.jp?bm_num=${bm_num}';
+					}else if(bmdto.bm_state != 1){
 						alert("이미 완료되었습니다.")
 					}
 				});
 			});
 			
 $(document).ready(function(){
-	$("#bmupdatebutton").click(function(){
-			var bm_state;
+	$("#bmBG_state_nonfinish").click(function(){
 			var result = confirm('업무반려 처리하시겠습니까?');
-				if(bm_state != 0){
-					window.location='bmYCH_state_nonfinish.jp?bm_num=${bm_num}';
-				}else if(bm_state == 0){
+				if(${bmdto.bm_state } == 1){
+					window.location='bmBG_state_nonfinish.jp?bm_num=${bm_num}';
+				}else if(bmdto.bm_state != 1){
 					
 				}
 			});
 		});
-</script>
-<!-- 
-<script>
-   function wrapWindowByMask(){
-      //화면의 높이와 너비를 구한다.
-      var maskHeight = $(document).height();  
-      var maskWidth = $(window).width();  
 
-      //마스크의 높이와 너비를 화면의 높이와 너비로 설정한다.
-      $('.mask').css({'width':maskWidth,'height':maskHeight});  
-
-      //애니메이션 효과
-      $('.mask').fadeTo("slow",0.5);   
-      
-      // 레이어 팝업을 가운데로 띄운다.
-      var left = ($(window).scrollLeft() + ($(window).width() - $('.window').width())/2);
-      var top = ($(window).scrollTop() + ($(window).height() - $('.window').height())/2);
-      
-      // css 스타일 변경
-      $('.window').css({'left':left, 'top':top, 'position':'absolute'});
-
-      // 레이어 팝업 띄운다.
-      $('.window').show();
-   }
-
-   $(document).ready(function(){
-      //검은 마스크 배경과 레이어 팝업 띄운다.
-      $('.chMemoCate').click(function(e){
-         e.preventDefault();
-         wrapWindowByMask();
-      });
-
-      //닫기 버튼을 눌렀을 때
-      $('.window .close').click(function (e) {  
-          //링크 기본동작은 작동하지 않도록 한다.
-          e.preventDefault();  
-          $('.mask, .window').hide();  
-      });       
-
-      //검은 마스크을 눌렀을 때
-      $('.mask').click(function () {  
-          $(this).hide();  
-          $('.window').hide();  
-      });      
-   });
 </script>
 
- -->
 
-<title> 내가한 업무 요청 보고 </title>
+<title> 수신 업무 요청 보고 </title>
   
  <body>
 <jsp:include page="bm_sidebar.jsp" flush="false" />
@@ -137,7 +92,7 @@ $(document).ready(function(){
 <div class="content-write" style="width: 100%;">
 <div class="con-header">
 
-    <h2>내가 한 업무 보고 </h2>
+    <h2>수신 한 업무 보고 </h2>
 
 
     </div>
@@ -182,13 +137,6 @@ $(document).ready(function(){
                                 </div>
                    	 	</tr>
                         
-						<tr>
-							<th scope="row">업무기한 </th>
-                            <td colspan="3"> 
-                                <div>
-                                	${bmdto.bm_start } ~ ${bmdto.bm_end }
-                                </div>
-                   	 	</tr>
                    	 	
                    	 	<tr>
 							<th scope="row">업무등록일  </th>
@@ -282,6 +230,7 @@ $(document).ready(function(){
                    	 	</tr>
 
 </tbody></table></div>
+			
 		
 <div class="inform-wrap" >
 	<div class="statement">
@@ -304,7 +253,7 @@ $(document).ready(function(){
                          	<tbody>
                             	<tr>
                                 	<th scope="row">수신자</th>
-                                    	<td >
+                                    	<td colspan = "2">
                                         	<div class="director-info">
             
                                                  	${bmdto.rec_name }
@@ -315,7 +264,7 @@ $(document).ready(function(){
                                             <tr>
                                             <th scope="row">최종수정일</th>
                                             		<c:if test="${his.modify_date == null }">
- 														<td >
+ 														<td colspan = "2" >
                              			   				<div> </div>                               
  													</c:if>
  							
@@ -328,12 +277,23 @@ $(document).ready(function(){
 												</c:if>               
                    	 						</tr>                 
 
-                                     	  <tr>
+<%--                                      	  <tr>
 	                                         <th scope="row"> 의견 </th>
+	                                            <c:if test="${bmdto.bm_state == 1  }">
+	                                            <td >
+	                                               <input type="text" name="text" size="20" style="width:100%; border: 0;"> 
+	                                               <textarea name=his_content rows="10" style="width:100%; border: 0;"></textarea>
+
+	                                           </td>
+	                                           </c:if>
+	                                           
+												<c:if test="${bm_state !=1  }">
 	                                            <td >
 	                                                ${his.his_content}
 	                                           </td>
-	                                    </tr>
+	                                           </c:if>
+	                                    </tr> --%>
+                                
                                 
 							<!--파일 부분 -->	
 							
@@ -342,45 +302,59 @@ $(document).ready(function(){
 								  <th scope="row">
 								 파일 업로드 
 								</th>
-
-						<td class="plupload_wrapper" >
+							<c:if test="${bmdto.bm_state == 1}">
 							<c:if test="${fileCount == 0}">
+						<td class="plupload_wrapper" >
 								파일 : <input type="file" name="org_file" value="파일 첨부" id="fileInp" />
-							<div id="file-list"></div>
+							<div id="file-list">
+							</td>
 							</c:if>
+							
                    	 	   <c:if test="${fileCount > 0}">
+                   	 	   <td class="plupload_wrapper" >
                                 	<a>첨부 파일</a>
                                 	<c:forEach var="Bm_file" items="${Bm_file}">
 										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
 									</c:forEach>
 									</c:if>
-                                </div>
-						    </td>
+                             </div>
+						    </td></c:if>
+						    
+						    
+							<c:if test="${bmdto.bm_state != 1}">
+							<c:if test="${fileCount == 0}">
+						<td class="plupload_wrapper" >
+								파일이 없습니다.
+							<div id="file-list">
+							</td>
+							</c:if>
+							
+                   	 	   <c:if test="${fileCount > 0}">
+                   	 	   <td class="plupload_wrapper" >
+                                	<a>첨부 파일</a>
+                                	<c:forEach var="Bm_file" items="${Bm_file}">
+										<a href="bmFileDown.jp?fileName=${Bm_file.sys_file}">${Bm_file.org_file}</a><br/>
+									</c:forEach>
+									</c:if>
+                             </div>
+						    </td></c:if>
+						    						    
                    	 	</tr>
-					</div>
 
-                        
 			</tbody>
           </table>
           </div></div>
           </div>
  
  
- 
 
 
 			<div class="btn-wrap" >
-				<c:if test="${bmdto.bm_state == 1}">
-     		   	<button type="button" onClick="window.location='bmBG_state_update.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">완료 </button>
-    			<button type="button" onClick="window.location='bmBG_state_nonfinish.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">반려 </button>
-    			<button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
-    			<button type="button" onClick="window.location='SSBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
+			<c:if test="${bmdto.bm_state ==1}">
+				<button type="button" id="bmBG_state_update" class="btn2 btn-color7 br">완료 </button>
+    			<button type="button" id="bmBG_state_nonfinish" class="btn2 btn-color7 br">반려 </button>
     			</c:if>
-				<c:if test="${bmdto.bm_state != 1}">
-     		   	<button type="button" onClick="window.location='SSBmBGokList.jp'"class="btn2 btn-color7 br">목록  </button>
-    			</c:if>   
-      			 			
-    			
+    			<button type="button" onClick="window.location='myBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
     
     		</div>
 </div></div>

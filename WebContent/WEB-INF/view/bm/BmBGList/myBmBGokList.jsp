@@ -130,43 +130,6 @@ function changeImp_click(bm_num){
 		});
 }
 
-//체크박스 전체선택 전체해제 
-function selectAllTodo(){
-      if( $("#bm_num").is(':checked') ){
-        $("input[name=bm_num]").prop("checked", true);
-      }else{
-        $("input[name=bm_num]").prop("checked", false);
-      }
-}
-
-/* 삭제(체크박스된 것 전부) */
-function mybmYCHdel(){
-  var bm_num = "";
-  $( "input[name='bm_num']:checked" ).each (function (){
-	  bm_num = bm_num + $(this).val()+"," ;
-  });
-  bm_num = bm_num.substring(0,bm_num.lastIndexOf( ",")); //맨끝 콤마 지우기
- 
-  if(bm_num == ''){
-    alert("삭제할 대상을 선택하세요.");
-    return false;
-  }
-  console.log("### bm_num => {}"+bm_num);
-  
-  if(confirm("정보를 삭제 하시겠습니까?")){
-	  $.ajax({
-	        url: "my_bmYCHDel.jp?=bm_num=${bm_num}",
-	        type:"post", 
-	        data : {bm_num:bm_num},
-	        success: function(result){
-	            if (result =="OK") {
-	              alert("삭제되었습니다.");
-	            } else{
-	                alert("삭제되지 않았습니다.");
-	            }
-	        }
-	    })
-	}
 
 
 </script>
@@ -258,9 +221,7 @@ function mybmYCHdel(){
                         <th style="width: 100px;">
                             ${bmdto.bm_name}
                         </th>
-                        <th style="width: 120px;">
-                          ${bmdto.bm_start}
-                        </th>
+                    
                         <th style="width: 120px;">
                              ${sdf.format(bmdto.enrollment) }
                         </th>

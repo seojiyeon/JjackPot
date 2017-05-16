@@ -28,7 +28,6 @@
 .statement h4 { padding: 12px 14px;  background-color: #f9fafc;  border-bottom: 1px solid #cccccc;  font-size: 16px;  font-weight: 600;}
 h4 {  display: block;  -webkit-margin-before: 1.33em;  -webkit-margin-after: 1.33em;  -webkit-margin-start: 0px;  -webkit-margin-end: 0px;  font-weight: bold;}
 h1, h2, h3, h4, h5, h6 { padding: 0;  margin: 0;  font-weight: 500;  line-height: 1.1;}
-input:focus, textarea:focus{     outline: none; }
 
 </style>
 
@@ -183,6 +182,13 @@ $(document).ready(function(){
                                 </div>
                    	 	</tr>
                         
+						<tr>
+							<th scope="row">업무기한 </th>
+                            <td colspan="3"> 
+                                <div>
+                                	${bmdto.bm_start } ~ ${bmdto.bm_end }
+                                </div>
+                   	 	</tr>
                    	 	
                    	 	<tr>
 							<th scope="row">업무등록일  </th>
@@ -276,7 +282,6 @@ $(document).ready(function(){
                    	 	</tr>
 
 </tbody></table></div>
-			
 		
 <div class="inform-wrap" >
 	<div class="statement">
@@ -325,12 +330,9 @@ $(document).ready(function(){
 
                                      	  <tr>
 	                                         <th scope="row"> 의견 </th>
-
-						
 	                                            <td >
 	                                                ${his.his_content}
 	                                           </td>
-
 	                                    </tr>
                                 
 							<!--파일 부분 -->	
@@ -357,21 +359,28 @@ $(document).ready(function(){
                    	 	</tr>
 					</div>
 
+                        
 			</tbody>
           </table>
           </div></div>
           </div>
  
  
+ 
 
 
 			<div class="btn-wrap" >
-			
-    			<c:if test="${bmdto.bm_state == 1 }">
-				<button type="button" onClick="window.location='myBmContentModify.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">수정 </button>
+				<c:if test="${bmdto.bm_state == 1}">
+     		   	<button type="button" onClick="window.location='bmBG_state_update.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">완료 </button>
+    			<button type="button" onClick="window.location='bmBG_state_nonfinish.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">반려 </button>
     			<button type="button" onClick="window.location='bmBG_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>
+    			<button type="button" onClick="window.location='SSBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
     			</c:if>
-    			<button type="button" onClick="window.location='myBmBGList.jp'"class="btn2 btn-color7 br">목록  </button>
+				<c:if test="${bmdto.bm_state != 1}">
+     		   	<button type="button" onClick="window.location='SSBmBGokList.jp'"class="btn2 btn-color7 br">목록  </button>
+    			</c:if>   
+      			 			
+    			
     
     		</div>
 </div></div>

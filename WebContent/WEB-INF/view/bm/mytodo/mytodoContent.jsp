@@ -214,7 +214,7 @@ $(document).ready(function(){
 </tbody></table></div>
 			<div class="btn-wrap" >
 			<c:if test="${bm_state != 2 }">
-				<button type="button" id="bmupdatebutton" class="btn2 btn-color7 br">업무완료 </button>
+				<button type="button" id="bmupdatebutton" class="btn2 btn-color7 br" style="width: 63px;">업무완료 </button>
      		   	<button type="button" onClick="window.location='mytodoContentModify.jp?bm_num=${bm_num}'" class="btn2 btn-color7 br">수정 </button>
     			</c:if>
     			<button type="button" onClick="window.location='my_bm_delete.jp?bm_num=${bm_num}'"class="btn2 btn-color7 br">삭제 </button>

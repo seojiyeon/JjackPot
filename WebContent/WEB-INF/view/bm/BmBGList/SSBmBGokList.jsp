@@ -257,10 +257,7 @@ function mybmYCHdel(){
                         </th>
                         <th style="width: 100px;">
                             ${bmdto.bm_name}
-                        </th>
-                        <th style="width: 120px;">
-                          ${bmdto.bm_start}
-                        </th>
+                        </th>                        </th>
                         <th style="width: 120px;">
                             ${sdf.format(bmdto.enrollment) }
                         </th>
@@ -291,15 +288,15 @@ function mybmYCHdel(){
 					<c:if test="${count > 0}">
 			
 						<c:if test="${startPage > 10}">
-							<a href="mytodoList.jp?pageNum=${startPage-10}" >[이전]</a>
+							<a href="SSBmBGokList.jp?pageNum=${startPage-10}" >[이전]</a>
 						</c:if>
 			
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="mytodoList.jp?pageNum=${i}">${i}&nbsp;</a>
+							<a href="SSBmBGokList.jp?pageNum=${i}">${i}&nbsp;</a>
 						</c:forEach>
 		
 						<c:if test="${endPage < pageCount}">
-							<a href="mytodoList.jp?pageNum=${startPage+10}">[다음]</a>
+							<a href="SSBmBGokList.jp?pageNum=${startPage+10}">[다음]</a>
 						</c:if>
 					</c:if>
 				</table>

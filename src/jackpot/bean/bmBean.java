@@ -240,8 +240,9 @@ public String mytodoContentModify(HttpServletRequest request, bmDTO bmdto,Model 
 
 /*나의 업무수정 myBmFormModifyPro*/
 @RequestMapping("/mytodoContentModifyPro.jp")
-public String mytodoContentModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request,bmDTO bmdto){
+public String mytodoContentModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request){
 	System.out.println("1");
+	bmDTO bmdto = new bmDTO();
 	int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 	System.out.println(bm_num);
 	String emp_num =(String)session.getAttribute("memId");
@@ -480,7 +481,8 @@ public String myBmContentModify(HttpServletRequest request, bmDTO bmdto,Model mo
 
 /*나의 업무수정 myBmFormModifyPro*/
 @RequestMapping("/myBmContentModifyPro.jp")
-public String myBmContentModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request,bmDTO bmdto){
+public String myBmContentModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request){
+	bmDTO bmdto = new bmDTO();
 	System.out.println("1");
 	int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 	System.out.println(bm_num);
@@ -598,6 +600,162 @@ public String myBmContentModifyPro(Model model,HttpSession session, MultipartHtt
 		System.out.println("8");
 
 		return "/bm/BmBGList/myBmContentModifyPro";
+	}
+	
+
+/*수신 업무보고 수정  */
+@RequestMapping("/SSBmContentModify.jp")
+public String SSBmContentModify(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session){
+int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+String emp_num =(String)session.getAttribute("memId");
+bmdto.setEmp_num(emp_num);
+bmdto.setBm_num(bm_num);
+String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+bmdto = (bmDTO)sqlMap.queryForObject("bm.getEmp_name2", emp_num);	
+bmdto = (bmDTO) sqlMap.queryForObject("bm.getBusinessCont", bm_num);
+int countBns_box = (int) sqlMap.queryForObject("bm.countBns_box",bmdto);
+List ListBns_box = sqlMap.queryForList("bm.ListBns_box", null);
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+/*  파일 불러오기 */
+List Bm_file = sqlMap.queryForList("bm.Bm_file", bmdto);
+int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount", bmdto);
+
+model.addAttribute("bmdto", bmdto);
+model.addAttribute("emp_num", emp_num);
+model.addAttribute("bm_num", bm_num);
+model.addAttribute("bmdto", bmdto);
+model.addAttribute("sdf", sdf);		
+model.addAttribute("Bm_file", Bm_file);		
+model.addAttribute("fileCount", fileCount);	
+model.addAttribute("countBns_box", countBns_box);
+model.addAttribute("ListBns_box", ListBns_box);
+model.addAttribute("bm_name",bm_name);
+
+return "/bm/BmBGList/SSBmContentModify";
+
+}
+
+/*수신 업무수정 SSBmFormModifyPro*/
+@RequestMapping("/SSBmContentModifyPro.jp")
+public String SSBmContentModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request,bmDTO bmdto){
+	System.out.println("1");
+	int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+	System.out.println(bm_num);
+	String emp_num =(String)session.getAttribute("memId");
+	bmdto.setEmp_num(emp_num);
+	bmdto.setBm_num(bm_num);
+	bmdto.setBm_title(request.getParameter("bm_title"));
+	bmdto.setBm_content(request.getParameter("bm_content"));
+	bmdto.setReg_notice(request.getParameter("reg_notice"));
+	bmdto.setCmp_notice(request.getParameter("cmp_notice"));
+	bmdto.setBns_box(Integer.parseInt(request.getParameter("bns_box")));
+	System.out.println("2");
+	
+	sqlMap.update("bm.bgbmUpdate", bm_num);
+	/*참조자*/
+	bmdto.setBm_num(bm_num);
+	String ref_name[] = request.getParameterValues("ref_name");
+	
+	if(ref_name.length > 0){
+		for(String s : ref_name){
+			System.out.println("--->"+s);
+		}
+	}
+	if(!ref_name[0].equals("")){
+	for(int i=0; i<ref_name.length; i++ ) {
+		bmdto.setRef_name(ref_name[i]);
+		empDTO edto = (empDTO)sqlMap.queryForObject("bm.empInfpop",emp_num);
+		bmdto.setEmp_num(edto.getEmp_num());
+		bmdto.setRef_branch(edto.getBranch2());
+		bmdto.setRef_depart(edto.getDepartment2());
+		bmdto.setRef_position(edto.getPosition2());
+		
+		sqlMap.update("bm.updateBm_ref", bmdto);
+	}
+}
+
+	/*수신자*/
+
+	bmdto.setBm_num(bm_num);
+	
+	String rec_name[] = request.getParameterValues("rec_name");
+	
+	if(rec_name.length > 0){
+		for(String s : rec_name){
+			System.out.println("--->"+s);
+		}
+	}
+	if(!rec_name[0].equals("")){
+	for(int i=0; i<rec_name.length; i++ ) {
+		bmdto.setRec_name(rec_name[i]);
+		empDTO edto = (empDTO)sqlMap.queryForObject("bm.empInfpop",emp_num);
+		bmdto.setEmp_num(edto.getEmp_num());
+		bmdto.setRec_branch(edto.getBranch2());
+		bmdto.setRec_depart(edto.getDepartment2());
+		bmdto.setRec_position(edto.getPosition2());
+		sqlMap.update("bm.updateBms_rec", bmdto);
+	}
+}
+	String path = request.getRealPath("save"); // 파일 경로
+	System.out.println("3");
+	String [] cfile = request.getParameterValues("cfile");
+	if(cfile != null) {
+		for(int i=0; i<cfile.length; i++) {
+			bmdto.setOrg_file(cfile[i]);
+			System.out.println("파일 : "+bmdto.getOrg_file());
+			
+			bmdto = (bmDTO)sqlMap.queryForObject("bm.Bm_file", bmdto);
+			
+			/* 서버에 저장된 곳에서 삭제 */
+			try {
+				File fileF = new File(path+"\\"+bmdto.getSys_file());
+				
+				if(fileF.exists()) {
+					fileF.delete();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("4");
+		sqlMap.delete("bm.delBm_file", bmdto);
+		}
+	}
+	
+	/*업무파일 등록*/
+	System.out.println("5");
+	List<MultipartFile> fileMf = request.getFiles("org_file");
+	for(MultipartFile multiFile : fileMf) {
+		String fileName = multiFile.getOriginalFilename();
+		System.out.println(fileName);
+		if(fileName != "") {
+			//bmdto.setOrg_file(fileName);
+			int extFile = fileName.lastIndexOf(".");
+			fileName = fileName.substring(extFile+1);
+			String fmFile ="_"+bmdto.getBm_num()+"."+fileName;
+		
+			fmFile = fmFile.replace(" ", "");
+			fmFile = fmFile.replace(":", "");
+			File ff = new File(path+"//"+fmFile);
+	
+			try {
+				multiFile.transferTo(ff);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}//서버에 파일 저장
+			bmdto.setSys_file(fmFile);
+			System.out.println("6");
+			//sqlMap.insert("bm.inserBm_file", bmdto);
+		}
+		System.out.println("7");
+	}
+		/*		업무보관함 등록
+		bmdto.setBm_num(bmNum);
+		sqlMap.insert("bm.insertBns_box", bmdto);*/
+
+		System.out.println("8");
+
+		return "/bm/BmBGList/SSBmContentModifyPro";
 	}
 	
 	
@@ -823,6 +981,7 @@ public String myBmContentModifyPro(Model model,HttpSession session, MultipartHtt
 		List MyBmBgList = null;
 		int count = (int) sqlMap.queryForObject("bm.getMyBmBgListcount", bm_name);
 		int number = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		int pageSize = 10; // 추후 파라미터를 받아서 해야함.
 
@@ -851,7 +1010,8 @@ public String myBmContentModifyPro(Model model,HttpSession session, MultipartHtt
 	    params.put("bm_name", bm_name);
 	   
 	    MyBmBgList = sqlMap.queryForList("bm.getMyBmBgList", params);
-	
+	    
+	    model.addAttribute("sdf", sdf);
 		model.addAttribute("emp_num", emp_num);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
@@ -988,7 +1148,7 @@ public String myBmContentModifyPro(Model model,HttpSession session, MultipartHtt
 
 	}
 	
-	/*수신 업무 보고 */
+	/*참조 업무 보고 */
 	@RequestMapping("/SSBmBGContent.jp")
 	public String SSBmBGContent(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session,bmDTO bdto){
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
@@ -1017,6 +1177,38 @@ public String myBmContentModifyPro(Model model,HttpSession session, MultipartHtt
 		
 		
 		return "/bm/BmBGList/SSBmBGContent";
+	}
+
+	
+	/*참조 업무 보고 */
+	@RequestMapping("/chzBmBGContent.jp")
+	public String chzBmBGContent(HttpServletRequest request, bmDTO bmdto,Model model,HttpSession session,bmDTO bdto){
+		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
+		String emp_num =(String)session.getAttribute("memId");
+		bmdto.setEmp_num(emp_num);
+		bmdto.setBm_num(bm_num);
+		String bm_name = (String)sqlMap.queryForObject("bm.getEmp_name1", emp_num);
+
+		bmdto = (bmDTO) sqlMap.queryForObject("bm.getBmBgcont", bm_num);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		/*  파일 불러오기 */
+		List Bm_file = sqlMap.queryForList("bm.Bm_file2", bm_num);
+		int fileCount = (int)sqlMap.queryForObject("bm.Bm_filecount2", bm_num);
+
+		
+		model.addAttribute("bmdto", bmdto);
+		model.addAttribute("emp_num", emp_num);
+		model.addAttribute("bm_num", bm_num);
+		model.addAttribute("sdf", sdf);		
+		model.addAttribute("Bm_file", Bm_file);		
+		model.addAttribute("fileCount", fileCount);	
+
+		
+		
+		
+		return "/bm/BmBGList/chzBmBGContent";
 	}
 
 	/*참조 업무보고리스트보기*/
@@ -1535,6 +1727,7 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 	/*	업무내역 등록hisrory*/
 	@RequestMapping("/insertHistory.jp")
 	public String insertHistory(Model model,HttpSession session, MultipartHttpServletRequest request){
+		
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 		bmDTO bmdto = new bmDTO();
 		empDTO edto2 = new empDTO();
@@ -1576,7 +1769,9 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 				bmdto.setSys_file(fmFile);
 			
 				sqlMap.insert("bm.inserBm_file", bmdto);
+				
 			}
+			sqlMap.update("bm.state_update2", bm_num);
 			
 		}
 
@@ -1589,10 +1784,11 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 	
 	/*나의 업무수정 myBmFormModifyPro*/
 	@RequestMapping("/myBmFormModifyPro.jp")
-	public String myBmFormModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request,bmDTO bmdto){
-		System.out.println("1");
+	public String myBmFormModifyPro(Model model,HttpSession session, MultipartHttpServletRequest request){
+		
+		bmDTO bmdto = new bmDTO();
+
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
-		System.out.println(bm_num);
 		String emp_num =(String)session.getAttribute("memId");
 		bmdto.setEmp_num(emp_num);
 		bmdto.setBm_num(bm_num);
@@ -1601,14 +1797,13 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 		bmdto.setReg_notice(request.getParameter("reg_notice"));
 		bmdto.setCmp_notice(request.getParameter("cmp_notice"));
 		bmdto.setBns_box(Integer.parseInt(request.getParameter("bns_box")));
-		System.out.println("2");
+		
 		/*시작 끝 날짜 */
 		bmdto.setBm_start(request.getParameter("bm_start"));
 		bmdto.setBm_end(request.getParameter("bm_end"));
 		sqlMap.update("bm.bmUpdate", bm_num);
 		
 		String path = request.getRealPath("save"); // 파일 경로
-		System.out.println("3");
 		String [] cfile = request.getParameterValues("cfile");
 		if(cfile != null) {
 			for(int i=0; i<cfile.length; i++) {
@@ -1627,13 +1822,12 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
-				System.out.println("4");
+				
 			sqlMap.delete("bm.delBm_file", bmdto);
 			}
 		}
 		
 		/*업무파일 등록*/
-		System.out.println("5");
 		List<MultipartFile> fileMf = request.getFiles("org_file");
 		for(MultipartFile multiFile : fileMf) {
 			String fileName = multiFile.getOriginalFilename();
@@ -1654,18 +1848,12 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 					e.printStackTrace();
 				}//서버에 파일 저장
 				bmdto.setSys_file(fmFile);
-				System.out.println("6");
-				//sqlMap.insert("bm.inserBm_file", bmdto);
+				sqlMap.insert("bm.inserBm_file", bmdto);
 			}
-			System.out.println("7");
+			
 		}
 
 
-/*		업무보관함 등록
-		bmdto.setBm_num(bmNum);
-		sqlMap.insert("bm.insertBns_box", bmdto);*/
-
-		System.out.println("8");
 		return "/bm/myBmFormModifyPro";
 
 	}
@@ -1803,6 +1991,7 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 /*		bmdto.setBm_num(bm_num);*/
 		sqlMap.update("bm.state_update2",bm_num);
+		sqlMap.update("bm.date_update",bm_num);
 		
 		return "/bm/mytodo/mytodo_state_update";
 	}
@@ -1867,7 +2056,7 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 /*		bmdto.setBm_num(bm_num);*/
 		sqlMap.update("bm.state_update2",bm_num);
-		
+		sqlMap.update("bm.date_update",bm_num);
 		return "/bm/BmYCHList/bmYCH_state_finish";
 	}
 	
@@ -1932,6 +2121,7 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 /*		bmdto.setBm_num(bm_num);*/
 		sqlMap.update("bm.state_update0",bm_num);
+		sqlMap.update("bm.date_update",bm_num);
 		
 		return "/bm/BmYCHList/bmYCH_nonstate_finish";
 	}
@@ -2210,7 +2400,8 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 	public String bmBG_state_update(bmDTO bmdto, HttpServletRequest request) {
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 		sqlMap.update("bm.state_update2",bm_num);
-		
+		sqlMap.update("bm.date_update",bm_num);
+
 		return "/bm/BmBGList/bmBG_state_update";
 	}
 	
@@ -2220,6 +2411,7 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 		int bm_num=Integer.parseInt(request.getParameter("bm_num"));
 /*		bmdto.setBm_num(bm_num);*/
 		sqlMap.update("bm.state_update0",bm_num);
+		sqlMap.update("bm.date_update",bm_num);
 		
 		return "/bm/BmBGList/bmBG_state_nonfinish";
 	}
@@ -2545,7 +2737,7 @@ public String sSBmIjContent(HttpServletRequest request, bmDTO bmdto,Model model,
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("v", cHzBmBGnoList);
+		model.addAttribute("cHzBmBGnoList", cHzBmBGnoList);
 		model.addAttribute("count", count);	
 		model.addAttribute("number", number);
 	

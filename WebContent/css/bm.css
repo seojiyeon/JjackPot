@@ -25,7 +25,7 @@ table { border-spacing: 0; width:100%; max-width:100%; table-layout:fixed; borde
 .btn-wrap { padding: 8px 0 8px 0;text-align: right;}
 
 li{padding: 8px; text-align: center;border: hidden;  font-size : 12px;}
-
+.td input:focus, .td textarea:focus{     outline: none; }
 
 .content-view .form-group {display:table;margin-bottom:0;padding:0;}
 
@@ -33,7 +33,7 @@ li{padding: 8px; text-align: center;border: hidden;  font-size : 12px;}
 
 .btn-color5.br { border: 1px solid #363636; border: 1px solid #363636; font-size: 12; }
 
-.btn-wrap .btn { min-width: 63px; padding: 5px 11px;/* box-shadow: 0 3px 5px #e3e3e3; */}
+.btn-wrap .btn { min-width: 63px; width:80px; padding: 5px 11px;/* box-shadow: 0 3px 5px #e3e3e3; */}
 
 .btn-color5 { background: #363636!important;}
 
@@ -203,8 +203,8 @@ input[type="text"], input[type="password"] {height: 27px;line-height: 27px; padd
 .tbl-inner { height: 27px !important; min-width: 30px; padding: 0 6px !important; margin-left: -4px !important; line-height: 17px !important; border-radius: 0px 3px 3px 0;}
 .icon.calendar { height: 18px;  width: 18px; background: url(../../../images/theme/theme01/ic_theme01.png) 0 0 no-repeat;}
 .tbl-inner i { margin: 0;}
-.table-search { position: absolute; top: 11px;  right: 0;}
-.table-search select {float: left;margin-right: 5px;}
+.table-search {position: absolute;top: 9px;right: 0;}
+.table-search select {float: left;margin-right: 240px;}
 select {height: 27px; padding: 3px;color: #111; border: 1px solid #c3c6c9;border-radius: 2px;}
 option {font-weight: normal; display: block; white-space: pre; min-height: 1.2em; padding: 0px 2px 1px;}
 .table-search .input-search { position: relative; float: left;}

@@ -133,9 +133,9 @@
 		<!--  수신 업무요청 리스트보기 -->		
 		<select id="getSSBmYCHList" parameterClass="java.util.HashMap" resultClass="bmdto" >
 			<![CDATA[
-			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
-			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
-			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2,enrollment, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2,enrollment, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.enrollment,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
 			where rec.rec_name=#rec_name# and bm.bm_form=2 and bm.bm_state =1 and  bm.important=i.imp_num and bm.bm_num=rec.bm_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
 			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
@@ -145,7 +145,7 @@
 		
 		<!--  수신 업무요청 COUNT 리스트보기 -->	
 		<select id="getSSBmYCHListcount" parameterClass="String" resultClass="int" >
-			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	,bms_rec rec
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf ,bms_rec rec
 			where rec.rec_name=#rec_name# and  bm.bm_form =2 and bm.bm_num=rec.bm_num and bm.bm_state !=2 and  bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
 			order by bm.bm_num desc		
 		</select>
@@ -175,9 +175,9 @@
 		<!--  수신업무 반려 리스트보기 -->		
 		<select id="SSBmYCHListno" parameterClass="java.util.HashMap" resultClass="bmdto" >
 			<![CDATA[
-			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
-			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
-			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2,enrollment r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2,enrollment rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.enrollment,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs ,bms_rec rec
 			where rec.rec_name=#rec_name# and bm.bm_form=2 and bm.bm_state =0 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
 			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
@@ -252,9 +252,9 @@
 		<!--  내가 한 업무보고 리스트보기 -->		
 		<select id="getMyBmBgList" parameterClass="java.util.HashMap" resultClass="bmdto" >
 			<![CDATA[
-			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
-			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
-			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2,enrollment, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2,enrollment, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.enrollment,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs 	
 			where bm_name=#bm_name# and bm.bm_form =3  and bm.bm_state =1 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
 			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
@@ -305,9 +305,9 @@
 		<select id="getMyBmBgListno" parameterClass="java.util.HashMap" resultClass="bmdto" >
 		 	
 			<![CDATA[
-			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, r from 
-			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2, rownum r from 
-			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
+			select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2,enrollment, r from 
+			(select bm_num, important,box_name,bm_title,bm_name,bm_start,bm_end,bm_state, bm_state2,enrollment, rownum r from 
+			(select bm.bm_num bm_num, bm.important important, i.important2 important2,bns.box_name box_name,bm.enrollment,bm.bm_title bm_title,bm.bm_name bm_name,bm.bm_start bm_start,bm.bm_end bm_end,bs.bm_state bm_state2,bm.bm_state bm_state
 			from business_manage bm,important i,bns_box bns, bm_state bs	
 			where bm.bm_name=#bm_name# and bm.bm_form =3 and bm.bm_state =0 and bm.important=i.imp_num and  bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num  order by bm.bm_num desc)
 			order by bm_num desc)where r<=#endRow# and r>=#startRow# order by bm_num desc
@@ -337,7 +337,7 @@
 		
 		<!--  수신 업무업무보고 COUNT 리스트보기 -->	
 		<select id="getSSBmBgListcount" parameterClass="String" resultClass="int" >
-			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf 	,bms_rec rec
+			select count(*) from business_manage bm,important i,bns_box bns, bm_state bs,bm_form bf ,bms_rec rec
 			where rec.rec_name=#rec_name# and  bm_form =3 and bm.important=i.imp_num and bm.bm_state=bs.state_num and bm.bns_box=bns.bns_num and bf.bmfo_num=bm.bm_form 
 			order by bm.bm_num desc		
 		</select>
@@ -695,14 +695,14 @@
 		<update id="bmUpdate" parameterClass="int">
 			update business_manage set 
 			bm_title=#bm_title#,bm_content=#bm_content#,bm_start=#bm_start#,bm_end=#bm_end#,reg_notice=#reg_notice#,cmp_notice=#cmp_notice#, 
-			bns_box=#bns_box# ,enrollment=#enrollment# where bm_num =#bm_num#  
+			bns_box=#bns_box# ,enrollment=sysdate where bm_num =#bm_num#  
 		</update>
 		
 		<!-- 업무보고 내용 수정 -->
 		<update id="bgbmUpdate" parameterClass="int">
 			update business_manage set 
 			bm_title=#bm_title#,bm_content=#bm_content#,reg_notice=#reg_notice#,cmp_notice=#cmp_notice#, 
-			bns_box=#bns_box# ,enrollment=#enrollment# where bm_num =#bm_num#  
+			bns_box=#bns_box# ,enrollment=sysdate where bm_num =#bm_num#  
 		</update>
 		
 		<select id="showBmNum" resultClass="int">
@@ -797,11 +797,10 @@
 		<!-- 업무내역 등록  -->
 		<insert id="insertHistory" parameterClass="bmdto">
 	
-			insert into history(his_num,bm_num,emp_num,his_process,his_content,modify_date) values(
+			insert into history(his_num,bm_num,emp_num,his_content,modify_date) values(
 				HISTORY_SEQ.nextval,
 				#bm_num#,
 				#emp_num#,
-				#his_process#,
 				#his_content#,
 				sysdate
 			)
@@ -1052,6 +1051,14 @@
 	<update id="state_update3" parameterClass="int">
 		update business_manage set bm_state =3 where bm_num=#bm_num# 
 	</update>
+	
+	<!--날짜 -->
+	<update id="date_update" parameterClass="int">
+		update business_manage set update_day =sysdate where bm_num=#bm_num# 
+	</update>
+
+	
+
 
 
         

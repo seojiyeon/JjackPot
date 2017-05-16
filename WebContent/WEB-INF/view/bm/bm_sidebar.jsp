@@ -6,11 +6,17 @@
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
 <link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=8" type="text/css" />  
- 
+
 <script src="resource/ckeditor.js"></script>
 <html>
 <head>
 <style type="text/css">
+
+
+
+.listFolder ul{
+  display:none;
+}
 
 .scrollBlind{
 	width:230px;
@@ -80,6 +86,8 @@
 	});
 	
 
+
+
 </script>
 
 	<div id="page-container">
@@ -116,7 +124,8 @@
 						</li>
 							  
 						<li>
-							<a style="display:inline-block;height:20px;">업무보고  </a>
+							<div class="listFolder">
+							<a style="height:20px;">업무보고  </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
 								      <li><a href="/JackPot/myBmBGList.jp">내가 한 업무 보고 </a> </li>
 								      <li><a href="/JackPot/myBmBGokList.jp">내가 한 업무 보고 완료</a> </li>
@@ -129,10 +138,12 @@
 								      <li><a href="/JackPot/cHzBmBGnoList.jp">참조 업무  보고 반려</a> </li>										      
 								      <li><hr color=" lightgrey " size="1"></li>
 								   </ul>
+								   </div>
 						</li>
 							
 						<li >
-							<a style="display:inline-block;height:20px;">업무요청 </a>
+						    <div class="listFolder">
+							<a style="height:20px;">업무요청 </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
 								      <li><a href="/JackPot/myBmYCHList.jp">내가 한 업무 요청</a> </li>
 								      <li><a href="/JackPot/myBmYCHokList.jp">내가 한 업무 요청 완료</a> </li>
@@ -145,11 +156,13 @@
 								      <li><a href="/JackPot/cHzBmYCHnoList.jp">참조 업무 요청 반려</a> </li>								      
 								      <li><hr color=" lightgrey " size="1"></li>
 								   </ul>
+								   </div>
 						</li>
 						
 						
 						<li >
-							<a style="display:inline-block;height:20px;">업무일지  </a>
+						    <div class="listFolder">
+							<a style="height:20px;">업무일지  </a>
 							   <ul style="-webkit-padding-start:0px;width:208px;">
 								      <li><a href="/JackPot/myBmWriteList.jp">내가 작성한 업무 일지  </a> </li>								      
 								      <li><a href="/JackPot/SSBmList.jp">수신  업무 일지  </a></li>											    
@@ -157,6 +170,7 @@
 													      
 								      <li><hr color=" lightgrey " size="1"></li>
 								   </ul>
+								   </div>
 						</li>
 						
 						<li>

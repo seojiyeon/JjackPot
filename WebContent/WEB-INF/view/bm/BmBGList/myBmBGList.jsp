@@ -118,24 +118,15 @@ function changeImp_click(bm_num){
 			alert("error");
 		}
 		});
-}
 
-<script>
-// 메모 휴지통으로 이동
-function () {
-	document.multiForm.action="memoDeletePro.jp?memoGroup=${memoGroup}";
-	document.multiForm.submit();
+
 }
 
 
-// 휴지통에 있는 메모 삭제
-function selectRemove() {
-	document.multiForm.action="memoRemovePro.jp?memoGroup=${memoGroup}";
-	document.multiForm.submit();
-}
+
 </script>
 
-</script>
+
 
 <html>
 <title>내가 한 업무보고리스트</title>
