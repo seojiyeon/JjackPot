@@ -229,7 +229,7 @@ height: 200px;
     			</c:if>
     			<form>
        			<select><option>통합검색</option><option>직원검색</option></select>
-  				<input type="text" name=""/>
+  				<input type="text" name="" style="height:23;"/>
     			<input  TYPE="IMAGE" src="/JackPot/mainsave/submit.jpg" name="Submit" value="Submit" align="absmiddle">
     			</form>
     			</div>
