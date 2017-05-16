@@ -8,7 +8,7 @@ a{text-decoration:none;}
 a:link{color:black;}
 a:hover{none;}
 #sidebar li {width:60px;font-size:small;text-align: center;height: 85px;}
-#sidebar ul {}
+#sidebar ul {margin:0;}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>사이드바</title>
