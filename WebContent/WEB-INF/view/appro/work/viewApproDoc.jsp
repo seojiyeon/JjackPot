@@ -230,7 +230,7 @@ $(document).ready(function() {
     <div class="content-wrap approval responsive">
     <div class="content-write">
     	<h2>기안용지</h2>
-    <form id="apprDocForm" name="apprDocForm" method="post" action="/JackPot/listApproDocPro.jp" enctype="multipart/form-data" onsubmit="return checkContents()">
+    <form id="apprDocForm" name="apprDocForm" method="post" enctype="multipart/form-data" onsubmit="return checkContents()">
 		<div id="formButtonDiv" class="btn-wrap pt10" style="padding-right: 30px;">
 		    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재</button>
 		    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">참조자</button>
@@ -307,9 +307,9 @@ $(document).ready(function() {
 							</tr>
 							<tr>
 								<th>기안자</th>
-								<td>${emp_name}&nbsp;${position_name}</td>
+								<td>${adto.emp_name}&nbsp;${adto.position}</td>
 								<th>기안부서</th>
-								<td>${department_name}</td>
+								<td>${adto.department}</td>
 								<td>
 								<input type="hidden" name="emp_name" 		value="${emp_name}">
 								<input type="hidden" name="position" 		value="${emp_position}">
@@ -350,6 +350,7 @@ $(document).ready(function() {
 							<tr>
 								<th>문서제목</th>
 								<td colspan="3">
+								${adto.doc_title}
 								</td>
 							</tr>
 														

@@ -154,7 +154,7 @@ public class ApproBean {
 		int doc_num = Integer.parseInt(request.getParameter("doc_num"));
 		String drafter_num = (String)request.getParameter("emp_num");
 		approDTO adto = (approDTO)sqlMap.queryForObject("approSQL.TodoApproval",doc_num);
-		
+		System.out.println(adto);
 		request.setAttribute("adto", adto);
 		return "/appro/work/viewApproDoc";
 	}
