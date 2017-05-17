@@ -292,21 +292,7 @@ $(function(){
 								<!-- 한자성명 -->
 								<td><input type="text" class="w100" id="hrBasiMatrMngForm_emplHanNm" name="emplHanNm" maxlength="50" /></td>
 							</tr>
-							<tr>
-								<th scope="row"><label for="hrBasiMatrMngForm_resRegNo">주민등록번호</label></th>
-								<!-- 주민등록번호 -->
-								<td><input type="text" class="w120" id="hrBasiMatrMngForm_resRegNo" name="resRegNo" readonly="readonly" />
-									<button type="button" id="hrBasiMatrMngForm_resRegNoBtn" class="btn btn-color7 br">
-										확인/수정
-									</button>
-								</td>
-								<th scope="row"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_gndrGbn">성별</label></th>
-								<!-- 성별 -->
-								<td><span class="radio-check"> <input type="radio" id="hrBasiMatrMngForm_gndrGbn_m" name="gndrGbn" value="M"> <label for="hrBasiMatrMngForm_gndrGbn_m">남</label>
-									<!-- 남 --> <input type="radio" id="hrBasiMatrMngForm_gndrGbn_f" name="gndrGbn" value="F"> <label for="hrBasiMatrMngForm_gndrGbn_f">여</label>
-									<!-- 여 -->
-								</span></td>
-							</tr>
+							
 							<tr>
 								<th scope="row"><label for="hrBasiMatrMngForm_birthYmd">생년월일</label></th>
 								<!-- 생년월일 -->
