@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jackpot.DTO.empDTO;
 import jackpot.DTO.msgDTO;
+import jackpot.DTO.participantsDTO;
 
 @Controller
 public class MsgBean {
@@ -150,6 +151,10 @@ public class MsgBean {
 		
 		List articleList = null;
 		articleList = sqlMap.queryForList("msg.msgFind",id);
+		
+		List<participantsDTO> participants = sqlMap.queryForList("calendar.getparticipants", null);
+		model.addAttribute("participants" , participants);	
+		
 		model.addAttribute("count", count);
 		model.addAttribute("articleList", articleList);		
 		
@@ -167,7 +172,11 @@ public class MsgBean {
 				
 	
 	    model.addAttribute("count", count);
-		a =  "/msg/msgAlarm";	
+	    if(count!=0){
+	    	  a =  "/msg/msgAlarm";	
+	    }
+	    
+	  
 			
 		return a;
 		
@@ -180,9 +189,12 @@ public class MsgBean {
 	public String msgnew(msgDTO dto, HttpSession session, Model model){
 		String a = null;
 		String id = (String) session.getAttribute("memId");
+		int count = (int) sqlMap.queryForObject("msg.msgAcnt2", id);
 		
+		if(count!=0){
 	    a =  "/msg/msgNew";
-	    sqlMap.update("msg.msgAL", id);	
+	    sqlMap.update("msg.msgAL", id);
+		}
 		
 		return a;
 		

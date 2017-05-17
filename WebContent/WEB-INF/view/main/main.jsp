@@ -19,7 +19,7 @@
 
 
 $(document).ready(function(){
-	window.setInterval('callMsg2()', 3000); 
+	window.setInterval('callMsg()', 3000); 
 	window.setInterval('callAjax2()', 10000); 
 });
 
@@ -365,8 +365,8 @@ height: 200px;
     </ul>
     </div>
 </body>
-	 <!-- <div class="ajax">
+	 <div class="ajax">
 	 <div id="ajaxRetur" style="display:none;">안읽은 쪽지</div> 
 	 </div>
-	 <div id="ajaxReturn" style="display:none;">새 쪽지</div> -->
+	 <div id="ajaxReturn" style="display:none;">새 쪽지</div>
 </html>    

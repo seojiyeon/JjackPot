@@ -198,6 +198,12 @@ a:link {
 }
 
 
+.submit {
+    position: absolute;
+    left: initial;
+    padding: 5;
+}
+
 
     
 </style>
@@ -386,7 +392,9 @@ function msgfind(){
   </tr>
   </c:forEach>
 </table>
+<div class="submit">
 <input type="submit" value="선택 삭제" />
+</div>
 </form>
 <center>
 <button class="dialog__trigger">쪽지 쓰기</button>

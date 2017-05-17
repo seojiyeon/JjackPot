@@ -124,7 +124,7 @@ function setId(e)
     </td></tr></table>
 </form>
 
-<a href="#" class="add-btn2" onclick="add_open('participants-Form');return false;">추가</a>
+
 
 <c:if test="${count==0}">
  
@@ -160,98 +160,7 @@ function setId(e)
 
 
 
-   <div id="participants-Form">
-      <div class="participants-Form-container">
-         <div class="participants-Form-top">
-         </div>
-         <div class="participants-Form-contents">
-            <div class="participants-Form-con-tab">
-               <ul>
-                  <li><a>조직도</a></li>
-                  <li><a>주소록</a></li>
-                  <li><a>거래처</a></li>
-               </ul>
-            </div>
-            <div class="participants-Form-con-contents">
-               <ul>
-               <li>
-                  <ul>
-                     <li class="branchlist"><a href="#" class="강남">강남지점</a>
-                        <ul class="namelist">
-                        <c:forEach var="participantsDTO" items="${participants}">
-                        <c:if test="${participantsDTO.branch eq '강남'}">
-                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
-                        </c:if></c:forEach>   
-                        </ul>
-                     </li>
-                  </ul>
-                  <ul>
-                     <li class="branchlist"><a href="#" class="종로">종로지점</a>
-                        <ul class="namelist">
-                        <c:forEach var="participantsDTO" items="${participants}">
-                        <c:if test="${participantsDTO.branch eq '종로'}">
-                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
-                        </c:if></c:forEach>
-                        </ul>
-                     </li>
-                  </ul>
-                  <ul>
-                     <li class="branchlist"><a href="#" class="동작">동작지점</a>
-                        <ul class="namelist">
-                        <c:forEach var="participantsDTO" items="${participants}">
-                        <c:if test="${participantsDTO.branch eq '동작'}">
-                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
-                        </c:if></c:forEach>
-                        </ul>
-                     </li>
-                  </ul>
-                  <ul>
-                     <li class="branchlist"><a href="#" class="수지">수지지점</a>
-                        <ul class="namelist">
-                        <c:forEach var="participantsDTO" items="${participants}">
-                        <c:if test="${participantsDTO.branch eq '수지'}">
-                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
-                        </c:if></c:forEach>
-                        </ul>
-                     </li>
-                  </ul>
-                  <ul>
-                     <li class="branchlist"><a href="#" class="용인">용인지점</a>
-                        <ul class="namelist">
-                        <c:forEach var="participantsDTO" items="${participants}">
-                        <c:if test="${participantsDTO.branch eq '용인'}">
-                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
-                        </c:if></c:forEach>
-                        </ul>
-                     </li>
-                  </ul>
-                  <ul>
-                     <li class="branchlist"><a href="#" class="인천서구">인천서구지점</a>
-                        <ul class="namelist">
-                        <c:forEach var="participantsDTO" items="${participants}">
-                        <c:if test="${participantsDTO.branch eq '인천서구'}">
-                         <li><a href="#" id="${participantsDTO.emp_num}">${participantsDTO.emp_name} ${participantsDTO.position} (${participantsDTO.department})</a></li>
-                        </c:if></c:forEach>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               </ul>
-            </div>
-            <div class="participants-Form-con-selected">
-               <ul class="selected-list">
-               </ul>
-            </div>
-         </div>
-         <div class="participants-Form-btn">
-            <ul>
-               <li><a href="#" class="add-cbtn">닫기</a></li>
-               <li><a href="#" class="add-addbtn">추가</a></li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
+  
 
 
 

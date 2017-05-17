@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src=" https://code.jquery.com/jquery-3.1.1.min.js"></script> 
 
+
     
 <style>
 
@@ -18,6 +19,17 @@ height:800px;
     width: 1210px;
     height: 65px;
     background-color: gray;
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.sidebar{
+    color: white;
+    font-size: 17px;
+    width: 110px;
+    height: 65px;
+    background-color: black;
     padding: 20px;
     text-align: center;
     vertical-align: middle;
@@ -45,10 +57,10 @@ text-align:center;
 }
 
 .bottom{
-width:100%;
+width:1210px;
 height:65px;
 clear:both;
-background-color:green;
+background-color:gray;
 text-align:center;
 }
 
@@ -196,6 +208,12 @@ a:link {
   font-size: 1rem;
 }
 
+.submit {
+    position: absolute;
+    left: initial;
+    padding: 5;
+}
+
 
 
     
@@ -332,8 +350,11 @@ function checkSub(chk){
 
 <c:if test="${memId!=null}">
 
+
+
+
 <div class="root">
-<div class="top"><b>받은 쪽지</b></div>
+<div class="top"> <b>받은 쪽지</b></div>
 <div class="menu">
 <ul>
 
@@ -387,7 +408,9 @@ function checkSub(chk){
   </tr>
   </c:forEach>
 </table>
+<div class="submit">
 <input type="submit" value="선택 삭제" />
+</div>
 </form>
 <center>
 <button class="dialog__trigger">쪽지 쓰기</button>
@@ -405,7 +428,9 @@ function checkSub(chk){
 </div>
 
 
-<div class="bottom">하단</div>
+
+<div class="bottom">
+</div>
 
 
 
