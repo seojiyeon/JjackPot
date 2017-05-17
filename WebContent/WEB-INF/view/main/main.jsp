@@ -224,9 +224,7 @@ height: 200px;
     		<li style="text-align:center;">
     		
     			<div class="Search">
-    			<c:if test="${memId == null}"> 
-    			<input type="button" value="로그인폼가긔" onclick="window.location='loginform.jp'" />
-    			</c:if>
+    			
     			<form>
        			<select><option>통합검색</option><option>직원검색</option></select>
   				<input type="text" name="" style="height:23;"/>
