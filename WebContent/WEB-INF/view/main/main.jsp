@@ -253,9 +253,7 @@ height: 200px;
 		<ul style="list-style:none;padding:0px;margin:190 0 0 0;">
 
 <c:if test="${memId == null}">
- <div class="m-box coworker">
-     <h2 align="right"><a href="loginform.jp">로그인 해주세요</a></h2>
- </div>
+ <%response.sendRedirect("/JackPot/loginform.jp");%>
 </c:if>
 
 <c:if test="${memId != null}">
