@@ -117,9 +117,10 @@ ul.tabs li.active {
 		document.itemListForm.submit();
 	}
 
+	/* 체크박스 전체선택 */
 	function allCheck() {
 		if($("#th_checkAll").is(':checked')) {
-			$("input[name=item_num]").prop("checked", true);
+			$("input[name=item_num]").prop("checked", true); // prop - true : 전체선택, false : 전체해제
 		} else {
 			$("input[name=item_num]").prop("checked", false);
 		}
