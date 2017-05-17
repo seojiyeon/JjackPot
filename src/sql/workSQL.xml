@@ -8,52 +8,130 @@
 	
 	
 	<select id="getWork" parameterClass="wdto" resultClass="wdto">
+	
 	<![CDATA[
-		select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,r 
-		from (select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,rownum r
-		from work where emp_num=#emp_num# order by work_time desc) where rownum <= 1
+		select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip, r 
+		from (select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip, rownum r
+		from work where emp_num=#emp_num# order by num desc) where rownum <= 1
 	]]>
+	
 	</select>
 	
-	<select id="getItem" parameterClass="String" resultClass="wdto">
+	
+	<select id="getItem" parameterClass="wdto" resultClass="wdto">
+		
 		select num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip
 		from work where emp_num= #emp_num# order by num desc  
+
 	</select>
 	
+	
+	<select id="getDay" resultClass="wdto">
+                      
+		select * from work  where to_char(work_on,'yyyymmdd') = to_char(sysdate,'yyyymmdd') and emp_num=#emp_num#
+
+	</select>       
+	
+	
+	<select id="getDayChagne" resultClass="wdto" parameterClass="wdto">
+		<![CDATA[
+			select * from work  where to_char(work_on,'yyyymmdd') = to_char(to_date(#day#),'yyyymmdd') and emp_num=#emp_num#
+		]]>
+	</select> 
+	
+	<select id="dayCount" parameterClass="wdto" resultClass="int">
+	
+		select count(*) from work where to_char(work_on,'yyyyMMdd') = to_char(to_date(#day#),'yyyyMMdd') and emp_num=#emp_num#
+	
+	</select>
+	
+	<select id="getMonth" parameterClass="wdto" resultClass="wdto">
+    	select * from work  where to_char(work_on,'yyyymm') = to_char(sysdate,'yyyymm') and emp_num=#emp_num#
+	</select>    
+	
+	
+	<select id="getMonthChagne" resultClass="wdto" parameterClass="wdto">
+	
+		<![CDATA[
+			select * from work where to_char(work_on,'yyyyMM') = to_char(to_date(#day#),'yyyyMM') and emp_num=#emp_num#
+		]]>
+	
+	</select> 
+			
+	<select id="shDate" parameterClass="wdto" resultClass="int">
+		select count(*) from work  where to_char(work_on,'yyyymm') = to_char(sysdate,'yyyymm') and emp_num=#emp_num#
+	</select>
+
+	
+	
+	<select id="monthCount" parameterClass="wdto" resultClass="int">
+	
+		select count(*) from work where to_char(work_on,'yyyyMM') = to_char(to_date(#day#),'yyyyMM') and emp_num=#emp_num#
+	
+	</select>
+	 
+
+	 
 	<insert id="insertWork" parameterClass="wdto">
-		insert into work(num,emp_num,work_on,work_off,work_time,h_work,workOut,lateNess,early,division,ip) values(
+	<![CDATA[
+		insert into work(num,emp_num,work_on,work_time,h_work,workOut,lateNess,early,division,ip) values(
 			work_seq.nextval,
 			#emp_num#,
 			sysdate,
-			#work_off#,
-			#work_time#,
-			#h_work#,
-			#workOut#,
-			#lateNess#,
-			#early#,
+			'00:00',
+			'00:00',
+			'00:00',
+			'00:00',
+			'00:00',
 			#division#,
-			#ip# 
+			#ip#
 		)
+	]]>
 	</insert>	
-	<select id="workTime" resultClass="wdto" parameterClass="String">
 	
-		select round((work_off-work_on)*24)work_time from work where emp_num=#emp_num#
-		select emp_num, work_on, round((work_off-work_on)*24)work_time from work where emp_num=#emp_num# and work_on between to_date('20170320','YYYYMMDD') and to_date('20170320','YYYYMMDD')+1
-		
-		
-	</select>
 	
-	<update id="updateWork" parameterClass="wdto">
+	<update id="updateLateNess" parameterClass="wdto">
+	
 		update work set 
-			work_off=sysdate,
-			work_time=#work_time#,
-			h_work=#h_work#,
-			workOut=#workOut#,
-			early=#early# 
-			where num=#num#
+			lateNess=#lateNess#
+			where num=#num# 
 		
 	</update>	
 
+
+	<update id="updateWork" parameterClass="wdto">
+	
+		update work set 
+			work_off=sysdate
+			where num=#num# 
+		
+	</update>	
+	
+	
+	<update id="updateWorkTime" parameterClass="wdto">
+			
+			update work set 
+				work_time=#work_time# where num=#num# 
+		
+	</update>	
+
+
+	<update id="updateEarly" parameterClass="wdto">
+
+			update work set 
+				early=#early# where num=#num# 
+
+	</update>	
+		
+
+	<update id="updateWorkOut" parameterClass="wdto">
+			
+		update work set 		
+			workOut=#workOut# where num=#num# 
+	
+	</update>	
+	
+	
 
 </sqlMap>
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+
+<sqlMap namespace="item">
+	<typeAlias alias="idto" type="jackpot.DTO.ItemDTO"/>
+	
+	<!-- 재고 -->
+	<insert id="itemInsert" parameterClass="idto">
+		insert into item values(
+			item_seq.NEXTVAL, #pro_code#, #barcode#, #pro_name#, #item_division#,
+			#sale_cost#, #buy_cost#, #retail_cost#, #tax#, #stand#, #unit#, #use#,
+			#buy_code#, #buy_name#, #big_cate#, #note#
+		)
+	</insert>
+	<select id="itemAllList" resultClass="idto">
+		select * from item order by item_num desc
+	</select>
+	<select id="itemAllCount" resultClass="int">
+		select count(*) from item
+	</select>
+	<select id="itemContent" resultClass="idto" parameterClass="idto">
+		select * from item i, big_cate bc where bc.big_num=i.big_cate and i.item_num=#item_num#
+	</select>
+	<update id="itemModify" parameterClass="idto">
+		update item set pro_code=#pro_code#, barcode=#barcode#, pro_name=#pro_name#, item_division=#item_division#, sale_cost=#sale_cost#,
+						buy_cost=#buy_cost#, retail_cost=#retail_cost#, tax=#tax#, stand=#stand#, unit=#unit#, use=#use#,
+						buy_code=#buy_code#, buy_name=#buy_name#, big_cate=#big_cate#, note=#note#
+		where item_num=#item_num#
+	</update>	
+	<delete id="itemDelete" parameterClass="idto">
+		delete from item where item_num=#item_num#
+	</delete>
+	
+	<!-- 카테고리 -->
+	<!-- 대분류 -->
+	<insert id="bigCateInsert" parameterClass="idto">
+		insert into big_cate values(
+			big_cate_seq.NEXTVAL,
+			#big_name#,
+			#big_use#
+		)
+	</insert>
+	
+	<select id="bigCateList" resultClass="idto">
+		select * from big_cate where big_num>0 order by big_name asc
+	</select>
+	<select id="bigCateAble" resultClass="idto" parameterClass="idto">
+		select * from big_cate where big_num>0 and big_use=#big_use# order by big_name asc
+	</select>
+	<select id="bigCateCount" resultClass="int">
+		select count(*) from big_cate where big_num>0
+	</select> 
+	<update id="bigCateNameUpdate" parameterClass="idto">
+		update big_cate set big_name=#big_name# where big_num=#big_num#
+	</update>
+	<update id="bigCateUseUpdate" parameterClass="idto">
+		update big_cate set big_use=#big_use# where big_num=#big_num#
+	</update>
+	<delete id="bigCateDelete" parameterClass="idto">
+		delete from big_cate where big_num=#big_num#
+	</delete>
+	
+	<!-- 검색 -->
+	<select id="bigCateSearch" resultClass="idto" parameterClass="idto">
+		select * from big_cate where big_num>0 and big_use=#big_use#
+	</select>
+	<select id="bigCateSearchCount" resultClass="int" parameterClass="idto">
+		select count(*) from big_cate where big_num>0 and big_use=#big_use#
+	</select>
+
+</sqlMap>

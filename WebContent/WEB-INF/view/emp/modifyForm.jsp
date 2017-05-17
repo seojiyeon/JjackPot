@@ -63,9 +63,9 @@ function checkIt(){
        <font size="+1" ><b>사원정보 수정</b></font></td>
     </tr>
  <tr> 
-      <td width="200"> 프로필 사진</td>
+      <td width="300"> 프로필 사진</td>
       <td width="400" > 
-        <img src="/JackPot/save/${dto.profilephoto}" id="emp_num" title="profilephoto" width=90px, height=90px  />
+        <img src="/JackPot/save/${dto.profilephoto}" id="emp_num" title="profilephoto" width=150px, height=100px  />
          <input type="hidden" name="profilephoto" value="${dto.profilephoto}">
         <input type="file" name="profilephoto"  size="10" maxlength="10">  
         

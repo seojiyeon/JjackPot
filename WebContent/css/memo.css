@@ -1,0 +1,233 @@
+@CHARSET "UTF-8";
+
+html,BODY { 
+	height:100%;
+	overflow-x:hidden; 
+	overflow-y:auto; 
+	margin:0px; 
+	font-family:"Nanum Gothic","NanumGothic",나눔고딕,NanumGothic,ng,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;
+}
+
+ul {
+	list-display:none;
+}
+
+#sidebar{width:60px;height:100%;overflow:hidden;}
+#subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}
+/* 왼쪽 메뉴 부분 */
+.leftMenuTop {
+    height: 65px;
+    width: 210px;
+    background: #363636;
+    text-align: center;
+    display: inline-block;
+}
+.leftMenuTop h2 a {
+	color: white;
+}
+
+/* 메모 본문 */
+.main-container {
+	position: absolute;
+	left: 270px;
+	top: 0px;
+	background-color: white;
+	padding: 25px;
+	width: 100%;
+}
+
+/* 페이지 하단 번호 나오는 부분 */
+.page-wrap {
+	text-align: center;
+	width: 80%;
+}
+
+
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+table {
+	border-spacing: 0; 
+	width:90%; 
+	max-width:100%; 
+	table-layout:fixed; 
+	border-collapse:collapse; 
+	background-color:#fff; 
+}
+
+.content-write>table {
+	background-color: white;
+}
+
+/* 메모등록 버튼 */
+.chMemoCate {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+	width: 190px;
+}
+.chMemoCate:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
+	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
+	background-color:#f6f6f6;
+}
+.chMemoCate:active {
+	position:relative;
+	top:1px;
+}
+
+/* 닫기 버튼 */
+.close {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+	width: 90px;
+}
+.close:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
+	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
+	background-color:#f6f6f6;
+}
+.close:active {
+	position:relative;
+	top:1px;
+}
+
+
+/* 레이어 팝업 : 이미지 크게 보기 */
+.img-back {  
+	  position:absolute;  
+	  z-index:9000;  
+	  background-color:#000;  
+	  display:none;  
+	  left:0;
+	  top:0;
+}
+.img-pop {
+	display: none;
+	position:absolute;  
+	left:100px;
+	top:100px;
+	z-index:10000;
+}
+
+/* 레이어 팝업: 메모 이동 */
+.maskMove {  
+	  position:absolute;  
+	  z-index:9000;  
+	  background-color:#000;  
+	  display:none;  
+	  left:0;
+	  top:0;
+}
+.windowMove {
+	display: none;
+	position:absolute;  
+	left:100px;
+	top:100px;
+	z-index:10000;
+}
+
+/* 글자가 긴 경우 중간부분 자르기 */	
+.memoNote {
+	box-sizing: border-box;
+	color: rgb(17, 17, 17);
+	display: -webkit-box;
+	font-family: "Nanum Gothic","NanumGothic",나눔고딕,NanumGothic,ng,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 18px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 6px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	max-height: 52px;
+	overflow: hidden;
+	overflow-wrap: break-word;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	text-overflow: ellipsis;
+	-moz-box-orient: vertical;
+}
+
+
+/* 하단에 회색 줄 표시됨 */
+.content-head {
+	border-bottom-color:silver;
+	border-bottom-style:solid; 
+	border-bottom-width:1px;
+}
+.table-header {
+	border-bottom-color:silver;
+	border-bottom-style:solid; 
+	border-bottom-width:2px;
+}
+
+
+.tab-left{width: 300px; position: absolute;}
+.tab-right{position: absolute; left: 300px; text-align:right;}
+
+    
+/* a태그 파란글자/밑줄 X */
+a:link {text-decoration:none; color:#000000;}
+a:visited {text-decoration:none; color:#121212;}
+a:active {text-decoration:none; color:#121212;}
+a:hover {text-decoration:none; color:#3a5358;}

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+
+<sqlMap namespace="memo">
+	<typeAlias alias="mdto" type="jackpot.DTO.memoDTO"/>
+	
+	<!-- 메모 카테고리 -->
+	<select id="memoCate" parameterClass="String" resultClass="mdto">
+		select * from memo_cate where emp_num=#emp_num# order by cate_num asc
+	</select>
+	
+	<select id="memoCateCount" parameterClass="String" resultClass="int">
+		select count(*) from memo_cate where emp_num=#emp_num#
+	</select>
+	
+	<select id="memoCateName" parameterClass="mdto" resultClass="String">
+		select cate_title from memo_cate where emp_num=#emp_num# and cate_num=#cate_num#
+	</select>
+	
+	<insert id="memoCateInsert" parameterClass="mdto">
+		insert into memo_cate values(
+			memo_cate_seq.NEXTVAL,
+			#cate_title#,
+			#emp_num#
+		)
+	</insert>
+	
+	<select id="memoCateTitle" parameterClass="mdto" resultClass="mdto">
+		select * from memo_cate where emp_num=#emp_num# and cate_num=#cate_num#
+	</select>
+	
+	<update id="memoCateUdate" parameterClass="mdto">
+		update memo_cate set cate_title=#cate_title# where cate_num=#cate_num# and emp_num=#emp_num# 
+	</update>
+	
+	<delete id="memoCateDelete" parameterClass="mdto">
+		delete from memo_cate where cate_num=#cate_num#
+	</delete>
+	
+	
+	<!-- 메모 -->
+	<!-- 메모 내용 저장 -->
+	<insert id="memoInsert" parameterClass="mdto">
+		insert into memo values (
+    		memo_seq.NEXTVAL,
+    		#memo_cate#,
+    		#memo_title#,
+    		#memo_content#,
+    		#memo_state#,
+    		#emp_num#,
+    		sysdate,
+    		sysdate
+		)
+	</insert>
+	
+	<!-- 메모 파일 저장 -->
+	<insert id="memoInsImg" parameterClass="mdto">
+		insert into memo_img values(
+ 			#memo_num#,
+    		memo_img_seq.NEXTVAL,
+    		#org_img#,
+    		#sys_img#
+		)
+	</insert>
+	
+	<!-- 메모 파일 저장 -->
+	<insert id="memoInsFile" parameterClass="mdto">
+		insert into memo_file values(
+    		#memo_num#,
+		    memo_file_seq.NEXTVAL,
+    		#org_file#,
+	    	#sys_file#
+		)
+	</insert>
+	
+	<!-- 메모 전체 목록 -->
+	<select id="memoSh" parameterClass="java.util.HashMap" resultClass="mdto">
+		<![CDATA[
+			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, memo_state, r from (
+			select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, memo_state, rownum r from
+			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num, m.memo_state memo_state
+				from memo m, memo_cate mc where m.memo_state>0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
+		]]>
+	</select>
+	
+	<!-- 휴지통에 있는 메모 목록 -->
+	<select id="memoRemoveSh" parameterClass="java.util.HashMap" resultClass="mdto">
+		<![CDATA[
+			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, memo_state, r from (
+			select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, memo_state, rownum r from
+			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num, m.memo_state memo_state
+				from memo m, memo_cate mc where m.memo_state=0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
+		]]>
+	</select>
+	
+	<!-- 중요 메모 목록 -->
+	<select id="memoImp" parameterClass="java.util.HashMap" resultClass="mdto">
+		<![CDATA[
+			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, memo_state, r from (
+			select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, memo_state, rownum r from
+			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num, m.memo_state memo_state
+				from memo m, memo_cate mc where m.memo_state=2 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
+		]]>
+	</select>
+	
+	<!-- 각 카테고리별 메모 목록 -->
+	<select id="memoView" parameterClass="java.util.HashMap" resultClass="mdto">
+		<![CDATA[
+			select  memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, memo_state, r from (
+			select memo_num, memo_title, memo_content, emp_num, memo_enroll, memo_modi, cate_title, memo_cate, cate_num, memo_state, rownum r from
+			(select m.memo_num memo_num, m.memo_title memo_title, m.memo_content memo_content, m.emp_num emp_num, m.memo_enroll memo_enroll, m.memo_modi memo_modi, mc.cate_title cate_title, m.memo_cate memo_cate, mc.cate_num cate_num, m.memo_state memo_state
+				from memo m, memo_cate mc where m.memo_state>0 and m.memo_cate=mc.cate_num and m.emp_num=#emp_num# and m.memo_cate=#memo_cate# order by m.memo_enroll desc)
+			order by memo_enroll desc) where r<=#endRow# and r>=#startRow# order by memo_enroll desc
+		]]>
+	</select>
+	
+	<!-- 메모 내용 수정 -->
+	<update id="memoUpdate" parameterClass="mdto">
+		update memo set memo_title=#memo_title#, memo_content=#memo_content#, memo_cate=#memo_cate#, memo_state=#memo_state#, memo_modi=sysdate where memo_num=#memo_num#
+	</update>
+	
+	<!-- 휴지통에 있는 메모 삭제 -->
+	<delete id="memoRemoveImg" parameterClass="int">
+		delete from memo_img where memo_num=#memo_num#
+	</delete>
+	
+	<delete id="memoRemoveFile" parameterClass="int">
+		delete from memo_file where memo_num=#memo_num#
+	</delete>
+	
+	<delete id="memoRemove" parameterClass="int">
+		delete from memo where memo_num=#memo_num#
+	</delete>
+	
+	<!-- 메모 휴지통으로 이동 -->
+	<update id="memoDel" parameterClass="int">
+		update memo set memo_state=0 where memo_num=#memo_num#
+	</update>
+	
+	<select id="memoNumSelect" parameterClass="mdto" resultClass="int">
+		select max(memo_num) from memo where emp_num=#emp_num#
+	</select>
+	
+	<!-- 상태 1이상인 메모 개수 -->
+	<select id="memoCount" parameterClass="String" resultClass="int">
+		select count(*) from memo where emp_num=#emp_num# and memo_state>0
+	</select>
+	
+	<!-- 휴지통에 있는 메모 개수 -->
+	<select id="memoRemoveCount" parameterClass="String" resultClass="int">
+		select count(*) from memo where emp_num=#emp_num# and memo_state=0
+	</select>
+	
+	<!-- 중요메모 개수 -->
+	<select id="memoImpCount" parameterClass="String" resultClass="int">
+		select count(*) from memo where emp_num=#emp_num# and memo_state=2
+	</select>
+	
+	<!-- 각 카테고리별 메모 개수 -->
+	<select id="memoViewCount" parameterClass ="mdto" resultClass="int">
+		select count(*) from memo where emp_num=#emp_num# and memo_cate=#memo_cate# and memo_state>0
+	</select>
+	
+	<!-- 메모 내용 -->
+	<select id="memoContent" parameterClass="mdto" resultClass="mdto">
+		select * from memo m, memo_cate mc where m.memo_num=#memo_num# and memo_cate=cate_num
+	</select>
+	
+	<!-- 메모 상태 변화 -->
+	<update id="memoStateChange" parameterClass="mdto">
+		update memo set memo_state=#memo_state# where memo_num=#memo_num#
+	</update>
+	
+	<!-- 메모 카테고리 이동 -->
+	<update id="memoMove" parameterClass="mdto">
+		update memo set memo_cate=#memo_cate# where memo_num=#memo_num#
+	</update>
+	
+	<update id="memoRecover" parameterClass="mdto">
+		update memo set memo_cate=#memo_cate#, memo_state=1 where memo_num=#memo_num#
+	</update>
+	
+	<!-- 메모 이미지&파일 -->
+	<!-- memo 이미지 불러오기 -->
+	<select id="memoImg" parameterClass="mdto" resultClass="mdto">
+		select * from memo_img where memo_num=#memo_num#
+	</select>
+	
+	<select id="memoImgCount" parameterClass="mdto" resultClass="int">
+		select count(*) from memo_img where memo_num=#memo_num#
+	</select>
+	
+	<select id="memoOrgImg" parameterClass="mdto" resultClass="mdto">
+		select * from memo_img where memo_num=#memo_num# and org_img=#org_img#
+	</select>
+	
+	<!-- memo 파일 불러오기 -->
+	<select id="memoFile" parameterClass="mdto" resultClass="mdto">
+		select * from memo_file where memo_num=#memo_num#
+	</select>
+	
+	<select id="memoFileCount" parameterClass="mdto" resultClass="int">
+		select count(*) from memo_file where memo_num=#memo_num#
+	</select>
+	
+	<select id="memoOrgFile" parameterClass="mdto" resultClass="mdto">
+		select * from memo_file where memo_num=#memo_num# and org_file=#org_file#
+	</select>
+	
+	<!-- hide()한 메모 이미지 삭제 -->
+	<delete id="memoImgSelectDel" parameterClass="mdto">
+		delete from memo_img where memo_num=#memo_num# and org_img=#org_img# 
+	</delete>
+	
+	<!-- hide()한 메모 파일 삭제 -->
+	<delete id="memoFileSelectDel" parameterClass="mdto">
+		delete from memo_file where memo_num=#memo_num# and org_file=#org_file#
+	</delete>
+</sqlMap>

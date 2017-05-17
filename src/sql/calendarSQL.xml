@@ -6,23 +6,56 @@
 
        <insert id="insertCalendar" parameterClass="cdto">
         insert into calendar values(calendar_seq.NEXTVAL,#cl_title#,#cl_subject#,#cl_sys#,#cl_org#,#cl_place#,#cl_sdate#,
-   		#cl_stime#,#cl_edate#,#cl_etime#,#cl_participants#,#cl_contents#,#cl_writer#) 
+   		#cl_stime#,#cl_edate#,#cl_etime#,#cl_participants#,#cl_contents#,#cl_writer#,#cl_private#,#department#,#branch#) 
        </insert>
+       
+       <update id="updateCalendar" parameterClass="cdto">
+       update calendar set cl_title=#cl_title#,cl_subject=#cl_subject#, cl_sys=#cl_sys#,cl_org=#cl_org#,cl_place=#cl_place#,
+       cl_sdate=#cl_sdate#,cl_stime=#cl_stime#,cl_edate=#cl_edate#,cl_etime=#cl_etime#,cl_participants=#cl_participants#,
+       cl_contents=#cl_contents#,cl_writer=#cl_writer# where cl_num=#cl_num#
+       </update>
+       
+       <update id="updateCalendar2" parameterClass="cdto">
+       update calendar set cl_title=#cl_title#,cl_subject=#cl_subject#, cl_place=#cl_place#, cl_sdate=#cl_sdate#,
+       cl_stime=#cl_stime#,cl_edate=#cl_edate#,cl_etime=#cl_etime#,cl_participants=#cl_participants#,
+       cl_contents=#cl_contents#,cl_writer=#cl_writer# where cl_num=#cl_num#
+       </update>
 
         <select id="maxnum" resultClass="int">
-             select max(cl_num) from calendar
+        select max(cl_num) from calendar
         </select>  
         
         <select id="calendarList" resultClass="cdto">
         select * from calendar
         </select>
         
+        <select id="getcontents" resultClass="cdto" parameterClass="String">
+        select * from calendar where cl_num=#id#
+        </select>
        
         <select id="userCheck" resultClass="int" parameterClass="cdto">
         </select>
         
-        <delete id="deletePro" parameterClass="cdto">
-        
+        <delete id="delete" parameterClass="String">
+        delete calendar where cl_num=#cl_num#
         </delete>
         
+        <select id="getSysname" parameterClass="String" resultClass="String">
+        	select cl_sys from calendar where cl_num=#cl_num#
+        </select>
+        
+        <select id="getparticipants" resultClass="jackpot.DTO.participantsDTO">
+        	select e.emp_num,e.emp_name,d.department,b.branch, p.position from position p,emp e, branch b,department d where e.department=d.num and e.branch=b.num and p.num = e.position
+        </select>
+        
+        <select id="getparticipantsname" resultClass="String" parameterClass="String">
+           select b.branch||' '||e.emp_name||p.position participantsname from position p,emp e, branch b,department d where e.department=d.num and e.branch=b.num and p.num = e.position and e.emp_num=#st.nextToken()#
+        </select>
+        
+        <select id="departmentTransform" resultClass="String" parameterClass="String">
+           select num from department where department=#id#
+        </select>
+        <select id="departmentList" resultClass="cdto" parameterClass="String">
+           select * from calendar where department=#id#
+        </select>
 </sqlMap>

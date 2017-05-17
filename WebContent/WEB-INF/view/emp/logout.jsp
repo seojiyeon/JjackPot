@@ -2,6 +2,5 @@
     pageEncoding="UTF-8"%>
 
     <% 
-	session.invalidate();
-	response.sendRedirect("main.jp");
+	response.sendRedirect("loginform.jp");
 	%>

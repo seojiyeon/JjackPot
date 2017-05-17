@@ -2,10 +2,34 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+<link href="/JackPot/css/community.css?ver=14" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/JackPot/css/community.css" type="text/css" />
 <html>
 <head>
 <title>회원가입</title>
+
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 700px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+</style>
 
 <script language="JavaScript">
 
@@ -139,20 +163,68 @@ function openConfirm(userinput) {
 
 
 </script>	 
-	 
+	<body>
+<div id="page-container" class="sub sidebar-mini sidebar-subarea">
+
+<div id="sidebar">
+<div class="sidebar-content"> 
+ <h1>
+		 <a href="main.jp"  class="sidebar-brand otherMenu menuTooltip" >
+		   <img src="/JackPot/save/home.png" width=50px, height=50px style="margin:5;">
+   <span id="brand" class="brand none">  
+	</span>	 
+   </a>
+ </h1>
+</div>
+
+<div id="subarea">
+<div class="leftmenu">
+		<h1 class="blind">Left Menu</h1>
+<div class="leftmenu-top" >
+			<h2 style="margin:20;" >회원가입</h2>
+</div>
+
+<div class="leftmenu-inner-scroll mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" 
+style="height: 100%; position: relative; overflow: visible;"><div id="mCSB_1" 
+class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" 
+style="max-height: none;" tabindex="0"><div id="mCSB_1_container" 
+class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" 
+style="position:relative; top:0; left:0;" dir="ltr">
+			<ul class="menulist">	
+				<li data-submenu="allList" class="current">
+					<a href="inputForm.jp" class="sidebar-nav-menu">회원가입</a>
+				</li>
+				
+				
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="main-container">
+<div style="margin:20 400;">
+
+<div class="con-header">
+	<h2 >
+	회원가입
+	</h2>
+</div>
+			
+	
+
+ <div id="mainmain">
 <form method="post" action="inputPro.jp" name="userinput" 
   onSubmit="return checkIt()" enctype="multipart/form-data">
-  <table width="600" border="1" cellspacing="0" cellpadding="3" align="center" >
-    <tr> 
-    <td colspan="2" height="39" align="center"  >
-       <font size="+1" ><b>회원가입</b></font></td>
-    </tr>
+  <table  cellspacing="0" cellpadding="3" align="center" >
+    
  <tr> 
       <td width="200"> 프로필 사진</td>
       <td width="400" > 
         <input type="file" name="profilephoto" size="15" maxlength="12">
       </td>
-    <tr>  
+      </tr>
+    
     <tr> 
       <td width="200"> 사원번호</td>
       <td width="400"> 
@@ -167,14 +239,14 @@ function openConfirm(userinput) {
       <td width="400" > 
         <input type="password" name="pw" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
        
        <tr> 
       <td width="200"> 사용자 이름</td>
       <td width="400" > 
         <input type="text" name="emp_name" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
      
     <tr> 
@@ -182,21 +254,21 @@ function openConfirm(userinput) {
       <td width="400" > 
         <input type="file" name="signimg" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
     <tr> 
       <td width="200">입사날짜 (YYYYMMDD로 입력)</td>
       <td width="400" > 
         <input type="text" name="hiredate" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
     <tr> 
       <td width="200">봉급</td>
       <td width="400" > 
         <input type="text" name="rank" size="15" maxlength="12">만원
       </td>
-    <tr>  
+    </tr>  
        
 
         <tr> 
@@ -204,7 +276,7 @@ function openConfirm(userinput) {
       <td width="400" > 
         <input type="text" name="department" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
        
         
         <tr> 
@@ -212,31 +284,39 @@ function openConfirm(userinput) {
       <td width="400" > 
         <input type="text" name="position" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
      <tr> 
       <td width="200">지점</td>
       <td width="400" > 
         <input type="text" name="branch" size="15" maxlength="12">
       </td>
-    <tr>  
+    </tr>  
     
      <tr> 
       <td width="200"> 사원 점수</td>
       <td width="400" > 
         <input type="text" name="emp_point" size="15" maxlength="12">
       </td>
-    <tr>  
-    
-    <tr> 
-    <td colspan="2" height="39" align="center"  >
-       <font size="+1" >
-    <input type="submit" value="제출">
-       <input type="button" value="취소" onclick="window.location='loginform.jp'">
-    </font></td>
-    </td>
-    </Tr>
+    </tr>  
+  
        </table>
+       
+       <input type="submit" value="제출">
+       <input type="button" value="취소" onclick="window.location='loginform.jp'">
+    
+       
+       </form>
+       </div>
+       </div>
+       </div>
+       </div>
+       </div>
+       </div>
+    
+       </body>
+       </html>
+       
 
 
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="msg">      
+
+  <typeAlias alias="msgDTO" type="jackpot.DTO.msgDTO"/>
+  <typeAlias alias="empDTO" type="jackpot.DTO.empDTO"/>
+	
+       <insert id="sendmsg" parameterClass="msgDTO">
+        insert into message values(message_seq.NEXTVAL,#emp_num#,#msg_cate#,#msg_send#,#msg_receive#,#msg_title#,
+   #msg_content#,sysdate,#msg_group#,#msg_state#,#ref#,#re_step#,#re_level#,sysdate,#msg_rid#,default,default)
+           
+        </insert>
+        
+        <select id="msgCnt" resultClass="int" parameterClass="String">
+            select count(*) from message where ref=0 and msg_rid=#msg_rid# and msg_rd='no'
+        </select>
+        
+        <select id="msgAcnt" resultClass="int" parameterClass="String">
+            select count(*) from message where ref=0 and msg_rid=#msg_rid# and msg_rd='no'
+        </select>
+        
+        <select id="msgAcnt2" resultClass="int" parameterClass="String">
+            select count(*) from message where ref=0 and msg_rid=#msg_rid# and msg_rd='no' and re_step=1
+        </select>
+        
+        
+        
+        <select id="msgFind" resultClass="empDTO" parameterClass="String">
+            select * from emp where emp_name=#emp_name#
+        </select>
+        
+        <select id="msgFindCnt" resultClass="int" parameterClass="String">
+            select count(*) from emp where emp_name=#emp_name#
+        </select>
+        
+        
+        <select id="msgAll" resultClass="msgDTO" parameterClass="String">
+            select * from message where msg_rid=#msg_rid# and msg_RD!='yes' order by msg_num desc
+        </select>
+                
+         <select id="msgSend" resultClass="msgDTO" parameterClass="String">
+            select * from message where emp_num=#emp_num# and msg_SD!='yes' order by msg_num desc        
+        </select>
+        
+        <select id="msgCont" resultClass="msgDTO" parameterClass="int">
+            select * from message where msg_num=#msg_num#     
+        </select>
+        
+        <select id="msgMem" resultClass="String" parameterClass="String">
+            select emp_name from emp where emp_num=#emp_num#     
+        </select>
+        
+        <select id="msgMem2" resultClass="String" parameterClass="String">
+            select emp_num from emp where emp_name=#emp_name#     
+        </select>
+        
+        <delete id="msgDel">
+            delete from message where msg_sd='yes' and msg_rd='yes'
+        </delete>
+        
+        <update id="msgChk" parameterClass="int">
+        update message set ref=1 where msg_num=#msg_num#
+        </update>
+        
+        <update id="msgRD" parameterClass="int">
+        update message set msg_rd='yes' where msg_num=#msg_num#
+        </update>
+        
+        <update id="msgSD" parameterClass="int">
+        update message set msg_sd='yes' where msg_num=#msg_num#
+        </update>
+        
+        <update id="msgAL" parameterClass="String">
+        update message set re_step=0 where re_step=1 and msg_rid=#msg_rid#
+        </update>
+      
+</sqlMap>
+
+
+

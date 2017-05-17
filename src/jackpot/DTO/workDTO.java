@@ -8,15 +8,21 @@ public class workDTO {
 	private String emp_num;
 	private Timestamp work_on;
 	private Timestamp work_off;
-	private Timestamp work_time;
-	private Timestamp h_work;
-	private Timestamp workOut;
-	private Timestamp lateNess;
-	private Timestamp early;
+	private String work_time;
+	private String h_work;
+	private String workOut;
+	private String lateNess;
+	private String early;
 	private int division;
-
 	private String ip;
+	private	String day;
 	
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -41,34 +47,34 @@ public class workDTO {
 	public void setWork_off(Timestamp work_off) {
 		this.work_off = work_off;
 	}
-	public Timestamp getWork_time() {
+	public String getWork_time() {
 		return work_time;
 	}
-	public void setWork_time(Timestamp work_time) {
+	public void setWork_time(String work_time) {
 		this.work_time = work_time;
 	}
-	public Timestamp getH_work() {
+	public String getH_work() {
 		return h_work;
 	}
-	public void setH_work(Timestamp h_work) {
+	public void setH_work(String h_work) {
 		this.h_work = h_work;
 	}
-	public Timestamp getWorkOut() {
+	public String getWorkOut() {
 		return workOut;
 	}
-	public void setWorkOut(Timestamp workOut) {
+	public void setWorkOut(String workOut) {
 		this.workOut = workOut;
 	}
-	public Timestamp getLateNess() {
+	public String getLateNess() {
 		return lateNess;
 	}
-	public void setLateNess(Timestamp lateNess) {
+	public void setLateNess(String lateNess) {
 		this.lateNess = lateNess;
 	}
-	public Timestamp getEarly() {
+	public String getEarly() {
 		return early;
 	}
-	public void setEarly(Timestamp early) {
+	public void setEarly(String early) {
 		this.early = early;
 	}
 	public int getDivision() {
@@ -77,14 +83,13 @@ public class workDTO {
 	public void setDivision(int division) {
 		this.division = division;
 	}
-
 	public String getIp() {
 		return ip;
 	}
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	
-	
+
 	
 }
+	

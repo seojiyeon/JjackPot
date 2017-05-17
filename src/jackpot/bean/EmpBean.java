@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
 import jackpot.DTO.empDTO;
+import jackpot.DTO.favDTO;
 import jackpot.DTO.orgDTO;
 
 
@@ -218,19 +219,68 @@ public class EmpBean {
 	
 	
 	@RequestMapping("orgChart.jp")
-	public String orgChart(orgDTO dto,Model model,HttpSession session){
-		String emp_num=(String) session.getAttribute("memId");
-		System.out.println(emp_num);
-	   int department = (int)sqlMap.queryForObject("org.emp_department", emp_num);
-		System.out.println(department);
-		List articleList = null;
-
-		articleList = sqlMap.queryForList("org.member2",department);
-		model.addAttribute("articleList", articleList);
-		
+	public String orgChart(Model model,HttpSession session,HttpServletRequest request){
+           
+			String empfav=(String) session.getAttribute("memId");
+			
+			
+			System.out.println(empfav);			
+			int department = (int)sqlMap.queryForObject("org.emp_department", empfav);
+			
+			
+			List articleList = null;
+			articleList = sqlMap.queryForList("org.member2",department);
+			model.addAttribute("articleList", articleList);
+			
+			List list=null;
+			
+			list=sqlMap.queryForList("org.favlike", empfav);
+			model.addAttribute("list",list);
+			
+			
+			
+			
 		return "/emp/orgChart";
 	}
 	
+	@RequestMapping("orgChartPro.jp")
+	public String orgChartPro(favDTO dto,Model model,HttpSession session,HttpServletRequest request){
+
+		String empfav = (String)session.getAttribute("memId");
+		String [] emp_num = request.getParameterValues("emp_num");
+//					1,2
+
+
+		for(String en : emp_num){
+			dto.setEmp_num(en);
+			dto.setEmpfav(empfav);
+			
+			if(empfav.equals(en)){
+				model.addAttribute("check",new Integer(2));
+				continue;
+			}
+			
+			int check =(Integer)sqlMap.queryForObject("org.favcheck", dto);
+			System.out.println("count="+check);
+			
+	        if(check==0){
+	        	sqlMap.insert("org.insertfav",dto);
+			}
+	        model.addAttribute("check",new Integer(check));
+	       
+		}
+                    
+		return "/emp/orgChartPro";
+	}
+	
+	
+	@RequestMapping("addfav.jp")
+	public String addfav(HttpServletRequest request,HttpSession session,Model model){
+
+
+		return "/emp/addfav";
+		
+	}
 	
 	@RequestMapping("searchORG.jp")
 	public String searchORG(Model model,HttpServletRequest request){
@@ -246,15 +296,66 @@ public class EmpBean {
 		map.put("searchValue", searchValue);
 		
 		List list = sqlMap.queryForList("org.search", map);
-		
-		
+			
 		model.addAttribute("list", list);
-		
-		
+				
 		return "/emp/searchORG";
 		
 	}
 	
 	
+	@RequestMapping("orgChartDEL.jp")
+	public String orgChartDEL(favDTO dto,HttpSession session,HttpServletRequest request){
+		String empfav=(String) session.getAttribute("memId");
+		String [] emp_num = request.getParameterValues("emp_num");
+		
+       for(String en : emp_num){
+    		dto.setEmp_num(en);
+			dto.setEmpfav(empfav);
+			  sqlMap.delete("org.favdelete", dto);
+       }
+          
+           
+		return "/emp/orgChartDEL";
+		
+	}
+
+	@RequestMapping("Allorg.jp")
+	public String Allorg(Model model,HttpSession session,HttpServletRequest request){
+
+			String empfav=(String) session.getAttribute("memId");
+			String [] emp_num = request.getParameterValues("emp_num");
+		
+			int department = (int)sqlMap.queryForObject("org.emp_department",empfav);
+					
+			
+			List articleList = null;
+			articleList = sqlMap.queryForList("org.allorg",department);
+			
+			List list=null;
+			list=sqlMap.queryForList("org.allorg2",department);
+			
+			List list2=null;
+			list2=sqlMap.queryForList("org.allorg3",department);
+			
+			List list3=null;
+			list3=sqlMap.queryForList("org.allorg4",department);
+			
+			List list4=null;
+			list4=sqlMap.queryForList("org.allorg5",department);
+			
+			List list5=null;
+			list5=sqlMap.queryForList("org.allorg6",department);
+			
+
+			model.addAttribute("articleList", articleList);
+			model.addAttribute("list", list);
+			model.addAttribute("list2", list2);
+			model.addAttribute("list3", list3);
+			model.addAttribute("list4", list4);
+			model.addAttribute("list5", list5);
+			
+		return "/emp/Allorg";
+	}
 	
 }

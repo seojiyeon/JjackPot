@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+
+<sqlMap namespace="work_year">   
+
+	<typeAlias alias="ydto" type="jackpot.DTO.work_yDTO"/>
+	
+	
+	<select id="getWork" parameterClass="wdto" resultClass="wdto">
+	<![CDATA[
+		select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,r 
+		from (select num,emp_num,work_on,work_off,work_time,h_work,workout,lateness,early,division,ip,rownum r
+		from work where emp_num=#emp_num# order by num desc) where rownum <= 1
+	]]>
+	</select>
+	
+	
+	<select id="getYear" parameterClass="ydto" resultClass="ydto">
+		select num,emp_num,y_day,y_start,y_end,y_basic,y_use,y_remain,y_remain,ip
+		from work_year where emp_num= #emp_num# order by num desc  
+	</select>
+	
+	
+	<insert id="insertWork" parameterClass="ydto">
+	
+		insert into work(num,emp_num,y_day,y_start,y_end,y_basic,y_use,y_remain,y_kind) values(
+			ywork_seq.nextval,
+			#emp_num#,
+			#y_day#,
+			#y_start#,
+			#y_end#,
+			#y_basic#,
+			#y_use#,
+			#y_remain#, 
+			#y_kind#
+		)
+		
+	</insert>	
+	
+
+</sqlMap>
+

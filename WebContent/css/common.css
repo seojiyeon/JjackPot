@@ -5,17 +5,12 @@
 common
 =============================================================*/
 
-html, body { height:100%; }
-html { font-size: 62.5%; }
-body { margin:0; font-family: 'Nanum Gothic', 'NanumGothic', ë‚˜ëˆ”ê³ ë”•, NanumGothic, ng, 'ë‹ì›€',Dotum,Helvetica,'Apple SD Gothic Neo',Sans-serif; color:#111; font-size:1.2em;font-weight: normal; line-height: 1.42857143; }
-* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box }
-*:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box }
+
 
 #main-container.submain-bg, #main-container.submain-bg .content-wrap {background: #fff !important; }
 #skipNavigation { position:absolute; width:0; height:0; font-size:0; line-height:0; overflow:hidden; visibility:hidden; display:none; }
 
 li:not(.itemContentLi){ list-style:none; }
-ul:not(.itemContentLi), ol:not(.itemContentLi), dl, dt, dd, p { margin:0; padding:0; }
 .blind { position:absolute; left:-10000px; top:-10000px; width:0; height:0; font-size:0; }
 .none { display:none; }
 .bgnone { background:none !important; }
@@ -102,7 +97,7 @@ img { border:0; vertical-align:middle; }
 .textcolor8 { color:#fff !important; }
 .textcolor9 { color:#f1f1f1 !important; }
 .text-point, a.text-point { color:#f05050 !important; }
-.text-point-b {padding-right:3px; color:#f05050 !important; font-weight:bold; }
+.text-point-b {padding-right:1px; color:#f05050 !important; font-weight:bold; }
 
 .per1 {display:inline-block; margin-right:5px; vertical-align:middle; width:33px; height:33px; background-size:cover; background-image:url(../images/placeholders/avatars/avatar33.png); border-radius:50%;}
 .per1 img { width:33px; height:33px;border-radius:50%; }
@@ -366,7 +361,7 @@ img { border:0; vertical-align:middle; }
 .fa-reply { font-size:11px; color:#aaa; }
 
 /* heading */
-h1, h2, h3, h4, h5, h6 { padding:0; margin:0; font-weight:500; line-height:1.1; }
+h1, h2, h3, h4, h5, h6 { padding:0 0 0 0; margin:0; font-weight:bold; line-height:1.1; vertical-align: middle; }
 
 /* form style */
 input, button, select, textarea { vertical-align:middle; }
@@ -388,6 +383,8 @@ fieldset { padding: 0; margin: 0; border: 0; min-width: 0 }
 legend { display: block; width: 100%; padding: 0; margin-bottom: 20px; font-size: 21px; line-height: inherit; color: #333; border: 0; border-bottom: 1px solid #e5e5e5 }
 
 .form-control { display:inline-block; width:100%; border:1px solid #c3c6c9; border-radius:2px; font-size:12px; color:#555; line-height:1.42857; }
+.form-control li {width:50;}
+
 .input-group { position: relative; display: table; border-collapse: separate }
 .input-group .form-control { position: relative; z-index: 2; float: left; width: 100%; margin-bottom: 0; }
 .input-group .form-control:last-child, .input-group .form-control:first-child {border-radius: 2px; border-bottom-left-radius: 0; border-top-left-radius: 0 }
@@ -717,7 +714,7 @@ btn
 .btn-wrap02 { position:absolute; top:-15px; right:0; padding:8px 0px 8px 0; }
 .btn-wrap-leftMenu { padding:11px 10px; }
 .splitter-panel .btn-wrap { position:absolute; bottom:0; right:0; }
-.btn-wrap > div { display:inline-block; position:relative; }
+.btn-wrap > div { display:inline-block; position: fixed; }
 .btn-wrap > div .dropdown-menu { bottom:30px; top:auto; text-align:left; padding-top:4px; padding-bottom:4px; }
 .btn-wrap .btn {min-width:63px; padding:5px 11px; /*box-shadow:0 3px 5px #e3e3e3*/}
 .btn-wrap .btn.s2 {padding:3px 6px}

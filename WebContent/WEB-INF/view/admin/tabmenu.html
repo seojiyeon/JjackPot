@@ -76,7 +76,348 @@ ul.panel li{
 			</ul>
 			<ul class="panel">
 				<li id="tab1">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue elit eu mauris sollicitudin dictum. Phasellus nec felis ut arcu placerat tincidunt. Vestibulum luctus mauris ac ante molestie eleifend. Quisque dapibus nulla ac purus volutpat posuere a quis nisl. Nam condimentum purus vitae nibh feugiat imperdiet. Cras purus mi, egestas vitae imperdiet volutpat, suscipit nec odio. Maecenas elementum aliquam metus nec ultrices. Suspendisse potenti. Praesent lobortis gravida massa in volutpat. Nunc id mauris id orci congue malesuada. Aliquam vel mauris risus, sit amet laoreet sapien. Maecenas varius gravida purus vel pharetra. Sed quis leo id mi laoreet accumsan. Vestibulum ac mauris purus, nec rutrum sem. Sed euismod magna a lacus consectetur in mattis quam suscipit. Phasellus nec enim libero. Donec sit amet justo diam. In hac habitasse platea dictumst. Sed nibh libero, iaculis eget aliquet eu, rhoncus nec ligula. 
+	<table class="table border-top separate">
+						<colgroup>
+							<col width="165" />
+							<col width="100" />
+							<col width="300" />
+							<col width="100" />
+							<col />
+						</colgroup>
+						<tbody>
+							<tr>
+								<td rowspan="6">
+									<div class="photo-regi">
+										<div class="photo">
+										
+											<img src="<c:url value="/images/choo.PNG"/>" id="hrBasiMatrMngForm_potoFileName" name="potoFileName" style="width: 100%; height: 100%">
+										</div>
+									</div>
+								</td>
+								<th scope="row"><label for="hrBasiMatrMngForm_emplMgntNo">사원번호</label></th>
+								<td style="min-width: 290px;"><input type="text" class="w100" id="emp_num" value="" name="emp_num" maxlength="20" />
+									
+								<th scope="row"><label for="hrBasiMatrMngForm_emplNm">성명</label></th>
+								<td style="min-width: 290px;"><input type="text" class="w100" id="emp_name" value="" name="emp_name" /></td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="hrBasiMatrMngForm_emplEngNm">영문성명</label></th>
+								<!-- 영문성명 -->
+								<td><input class="w100" type="text" id="hrBasiMatrMngForm_emplEngNm" name="emplEngNm" maxlength="50" /></td>
+								<th scope="row"><label for="hrBasiMatrMngForm_emplHanNm">한자성명</label></th>
+								<!-- 한자성명 -->
+								<td><input type="text" class="w100" id="hrBasiMatrMngForm_emplHanNm" name="emplHanNm" maxlength="50" /></td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="hrBasiMatrMngForm_resRegNo">주민등록번호</label></th>
+								<!-- 주민등록번호 -->
+								<td><input type="text" class="w120" id="hrBasiMatrMngForm_resRegNo" name="resRegNo" readonly="readonly" />
+									<button type="button" id="hrBasiMatrMngForm_resRegNoBtn" class="btn btn-color7 br">
+										확인/수정
+									</button>
+								</td>
+								<th scope="row"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_gndrGbn">성별</label></th>
+								<!-- 성별 -->
+								<td><span class="radio-check"> <input type="radio" id="hrBasiMatrMngForm_gndrGbn_m" name="gndrGbn" value="M"> <label for="hrBasiMatrMngForm_gndrGbn_m">남</label>
+									<!-- 남 --> <input type="radio" id="hrBasiMatrMngForm_gndrGbn_f" name="gndrGbn" value="F"> <label for="hrBasiMatrMngForm_gndrGbn_f">여</label>
+									<!-- 여 -->
+								</span></td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="hrBasiMatrMngForm_birthYmd">생년월일</label></th>
+								<!-- 생년월일 -->
+								<td><input type="text" class="w100" id="hrBasiMatrMngForm_birthYmd" name="birthYmd" /></td>
+
+								<th scope="row"><label for="hrBasiMatrMngForm_solarLunar">양력
+										음력</label></th>
+								<!-- 양력음력 -->
+								<td><span class="radio-check"> <input type="radio" id="hrBasiMatrMngForm_solarLunar_1" name="solarLunar" value="1"> <label
+										for="hrBasiMatrMngForm_solarLunar_1">양력</label>
+									<!-- 양력 --> <input type="radio" id="hrBasiMatrMngForm_solarLunar_2" name="solarLunar" value="2"> <label for="hrBasiMatrMngForm_solarLunar_2">음력</label>
+									<!-- 음력 -->
+								</span></td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="hrBasiMatrMngForm_marriageYn">결혼유무</label></th>
+								<!-- 결혼유무 -->
+								<td><span class="radio-check"> <input type="radio" id="hrBasiMatrMngForm_marriageYn_1" name="marriageYn" value="1"> <label
+										for="hrBasiMatrMngForm_marriageYn_1">기혼</label>
+									<!-- 기혼 --> <input type="radio" id="hrBasiMatrMngForm_marriageYn_2" name="marriageYn" value="2" checked="checked"> <label for="hrBasiMatrMngForm_marriageYn_2">미혼</label>
+									<!-- 미혼 -->
+								</span></td>
+								<th scope="row"><label for="hrBasiMatrMngForm_marriageDt">결혼기념일</label></th>
+								<!-- 결혼기념일 -->
+								<td><input type="text" class="w100" id="hrBasiMatrMngForm_marriageDt" name="marriageDt" /></td>
+							</tr>
+<br />
+						</tbody>
+					</table>
+				
+				<div class="content-write mb10">
+					<table class="table border-top separate">
+						<colgroup>
+							<col width="120">
+							<col width="150">
+							<col width="120">
+							<col width="270">
+							<col width="100">
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row"><label for="hrBasiMatrMngForm_officeTelNo">회사전화</label></th>
+								<!-- 회사전화 -->
+								<td><input type="text" class="w100" id="hrBasiMatrMngForm_officeTelNo" name="officeTelNo" /></td>
+								<th scope="row"><label for="hrBasiMatrMngForm_homeTelNo">자택전화</label></th>
+								<!-- 자택전화 -->
+								<td><input type="text" class="w130" id="hrBasiMatrMngForm_homeTelNo" name="homeTelNo" /></td>
+								<th scope="row"><label for="hrBasiMatrMngForm_mobileTelNo">핸드폰</label></th>
+								<!-- 핸드폰 -->
+								
+								<td><input type="text" class="w130" id="hrBasiMatrMngForm_mobileTelNo" name="mobileTelNo" /></td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="hrBasiMatrMngForm_emailId">회사이메일</label></th>
+								<td colspan="5"><input type="text" class="w763" id="hrBasiMatrMngForm_emailId" name="emailId" /></td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="hrBasiMatrMngForm_emailId2">외부이메일</label></th>
+								<td colspan="5"><input type="text" class="w763" id="hrBasiMatrMngForm_emailId2" name="emailId2" /></td>
+							</tr>
+							<tr>
+								<th scope="row" rowspan="2"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_addr">자택주소</label></th>
+								<!-- 주소 -->
+								<td colspan="5"><input type="text" class="disabled w70" id="hrBasiMatrMngForm_zipNo" name="zipNo" readonly="readonly" /> <!-- <input type="button" id="hrBasiMatrMngForm_btnAddr" name="btnAddr" value='[조회] 가 없습니다. 확인해주세요.' /> -->
+									<button type="button" id="hrBasiMatrMngForm_btnAddr" class="btn btn-color5 br tbl-inner">
+										<i class="fa fa-search"></i>
+									</button> <input type="text" class="disabled w663" id="hrBasiMatrMngForm_addr" name="addr" readonly="readonly" /></td>
+							</tr>
+							<tr>
+								<td colspan="5"><input type="text" id="hrBasiMatrMngForm_ddr2" name="addr2" class="w763" maxlength="100" /></td>
+							</tr>
+								
+						</tbody>
+					</table>
+				</div>
+				
+
+				<div class="content-write mb10">
+					<table class="table border-top separate">
+						<colgroup>
+							<col width="120" />
+							<col width="150" />
+							<col width="120" />
+							<col width="270" />
+							<col width="100" />
+							<col />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_enplcCd">사업장</label></th>
+								<!-- 사업장 -->
+								<td><select class="w120" id="hrBasiMatrMngForm_enplcCd" name="enplcCd">
+										
+											<option value="G001">루크</option>
+										
+								</select></td>
+								<th scope="row"><label for="hrBasiMatrMngForm_deptNm">부서</label></th>
+								<!-- 부서 -->
+								<td><input type="text" class="w120" id="hrBasiMatrMngForm_deptNm" name="deptNm" readonly="readonly" /></td>
+								<th scope="row"><label>영문부서</label></th>
+								<!-- 영문부서 -->
+								<td id="engSuggest"><input type="text" class="w170 disabled" readonly id="hrBasiMatrMngForm_deptEngNm" name="deptEngNm"  placeholder="예시) M.I.S Team"/>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_paseBaseMeth">급여계약기준</label></th>
+								<!-- 급여지급기준 -->
+								<td><select class="w120" id="hrBasiMatrMngForm_paseBaseMeth" name="paseBaseMeth">
+										
+											<option value="01">연봉제</option>
+										
+											<option value="02">직급호봉제</option>
+										
+											<option value="03">계약직</option>
+										
+											<option value="04">임원</option>
+										
+								</select></td>
+								<th scope="row"><label for="hrBasiMatrMngForm_jobTitleName">직급</label></th>
+								<!-- 직급 -->
+								<td><input type="text" class="w120" id="hrBasiMatrMngForm_jobTitleName" name="jobTitleName" disabled="disabled" /></td>
+							<th scope="row"><label >영문직급</label></th>
+								<!-- 영문직급 -->
+								<td id="engSuggest"><input type="text" class="w170 disabled" readonly id="hrBasiMatrMngForm_jobGradeEngNm" name="jobGradeEngNm" placeholder="예시) Clerk / Manager"/></td>
+								</select></td>
+							</tr>
+							<tr>
+								<th scope="row"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_hdfcGbn">재직구분</label></th>
+								<!-- 재직구분 -->
+								<td>
+									<select class="w120" id="hrBasiMatrMngForm_hdfcGbn" name="hdfcGbn">
+										
+											<option value="1">재직</option>
+										
+											<option value="2">휴직</option>
+										
+											<option value="9">퇴직</option>
+										
+									</select>
+								</td>
+
+								<th scope="row"><label for="hrBasiMatrMngForm_responNm">직책</label></th>
+								<!-- 직책명 -->
+								<td><input type="text" class="w120" id="hrBasiMatrMngForm_responNm" name="responNm" readonly="readonly" /></td>
+
+								<th scope="row"><label for="hrBasiMatrMngForm_payGrade">호봉</label></th>
+								<!-- 호봉 -->
+								<td>
+									<select class="w120" id="hrBasiMatrMngForm_payGrade" name="payGrade">
+									
+										<option value="1">1</option>
+									
+										<option value="2">2</option>
+									
+										<option value="3">3</option>
+									
+										<option value="4">4</option>
+									
+										<option value="5">5</option>
+									
+										<option value="6">6</option>
+									
+										<option value="7">7</option>
+									
+										<option value="8">8</option>
+									
+										<option value="9">9</option>
+									
+										<option value="10">10</option>
+									
+										<option value="11">11</option>
+									
+										<option value="12">12</option>
+									
+										<option value="13">13</option>
+									
+										<option value="14">14</option>
+									
+										<option value="15">15</option>
+									
+										<option value="16">16</option>
+									
+										<option value="17">17</option>
+									
+										<option value="18">18</option>
+									
+										<option value="19">19</option>
+									
+										<option value="20">20</option>
+									
+										<option value="21">21</option>
+									
+										<option value="22">22</option>
+									
+										<option value="23">23</option>
+									
+										<option value="24">24</option>
+									
+										<option value="25">25</option>
+									
+										<option value="26">26</option>
+									
+										<option value="27">27</option>
+									
+										<option value="28">28</option>
+									
+										<option value="29">29</option>
+									
+										<option value="30">30</option>
+									
+										<option value="31">31</option>
+									
+										<option value="32">32</option>
+									
+										<option value="33">33</option>
+									
+										<option value="34">34</option>
+									
+										<option value="35">35</option>
+									
+										<option value="36">36</option>
+									
+										<option value="37">37</option>
+									
+										<option value="38">38</option>
+									
+										<option value="39">39</option>
+									
+										<option value="40">40</option>
+									
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="hrBasiMatrMngForm_probYn">수습여부/적용율</label></th>
+								<!-- 수습여부/적용률 -->
+								<td><input type="checkbox" id="hrBasiMatrMngForm_probYn" name="probYn" > <input type="text" class="w93 ml10" id="hrBasiMatrMngForm_probAdptRate"
+									name="probAdptRate" /> <input type="hidden" name="payAdptRate" /></td>
+								<th scope="row"><label for="hrBasiMatrMngForm_probStartDt">수습기간</label></th>
+								<!-- 수습기간 -->
+								<td><input type="text" class="datepicker" name="s1"/>
+									 - <input type="text" class="datepicker" name="s2" />
+								</td>
+								<th scope="row" rowspan="2"><label for="hrBasiMatrMngForm_rmk">비고</label></th>
+								<td rowspan="2"><textarea id="hrBasiMatrMngForm_rmk" name="rmk" rows="3" cols="23" style="resize: none;"></textarea></td>
+							</tr>
+							<tr>
+								<th scope="row"><span class="text-point-b" title="필수입력항목">*</span><label for="hrBasiMatrMngForm_entryDt">입사일자</label></th>
+								<!-- 입사일자 -->
+								<td><input type="text" class="datepicker" name="s3" /></td>
+								
+								<th scope="row"><label for="hrBasiMatrMngForm_retireDt">퇴직일자</label></th>
+								<!-- 퇴직일자 -->
+								<td><input type="text" class="datepicker" name="s4" />
+								</td>
+							</tr>
+							
+							
+						</tbody>
+					</table>
+				</div>
+				<br />
+
+				<div class="btn-wrap fright w30p">
+					
+						<button type="button" id="hrBasiMatrMngForm_uploadSample" class="btn btn-color7 br mb5">
+							업로드 양식
+						</button>
+						<button type="button" id="hrBasiMatrMngForm_excelupload" class="btn btn-color13 br mb5">
+							엑셀 업로드
+						</button>
+						<button type="button" id="hrBasiMatrMngForm_retire_reg" class="btn btn-color13 br mb5">
+							퇴사자 등록
+						</button>
+						<!-- 삭제 -->
+					
+					
+						<button type="button" id="hrBasiMatrMngFormDelete" class="btn btn-color7 br mb5">
+							삭제
+						</button>
+						<!-- 삭제 -->
+					
+					
+						<button type="button" id="hrBasiMatrMngFormUpdate" class="btn btn-color5 br mb5">
+							저장
+						</button>
+						<!-- 저장 -->
+					
+				</div>
+
+				
+
+			</div>
+			
 				</li>
 				<li id="tab2">
 Nam cursus molestie erat, a sodales erat sollicitudin ut. Maecenas nec urna mi, eu congue turpis. Duis vitae volutpat lorem. Ut vulputate tempor elit, vitae iaculis elit sollicitudin at. Ut gravida fermentum tempor. Mauris metus ante, volutpat et porta a, malesuada vel purus. In lobortis ullamcorper lorem eu malesuada. Nullam sollicitudin, urna eu euismod suscipit, eros sapien adipiscing arcu, sit amet ultricies lacus elit sed urna. Nam scelerisque, nulla eu mollis elementum, ipsum tortor ullamcorper felis, eget laoreet diam turpis dignissim metus. In eget lectus sit amet mi pretium pellentesque varius vitae augue. Integer mattis, elit nec adipiscing rhoncus, elit tellus congue sapien, et auctor mi nisi in purus. Curabitur commodo, neque sed ornare porta, purus magna rhoncus eros, quis consectetur ipsum erat ac mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce sed turpis tortor, quis euismod enim. Integer faucibus venenatis egestas. Etiam eu metus et sem bibendum fermentum. Sed dui ante, sollicitudin at tincidunt at, pretium sit amet diam. Nunc porttitor tristique est sed pulvinar. Fusce eu ligula vitae orci venenatis sagittis sed quis ipsum. 

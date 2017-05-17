@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="vote">      
+
+  <typeAlias alias="vdto" type="jackpot.DTO.voteDTO"/>
+  <typeAlias alias="sdto" type="jackpot.DTO.voteProDTO"/>
+  
+  
+    <insert id="insertVote" parameterClass="vdto">
+      
+            insert into vote(v_num,jilmoon,v_start,emp_num,notice,up_img,up_img2,monhang,monhang2,emp_name) 
+            values(vote_seq.nextval,#jilmoon#,sysdate,#emp_num#,0,#up_img#,#up_img2#,#monhang#,#monhang2#,#emp_name#)
+    </insert>
+        
+        
+      <select id="voteSelect" resultClass="vdto" parameterClass="String">
+        select * from vote where  emp_num=#emp_num# order by notice asc
+      </select>
+      
+      
+      <update id="Vupdate" parameterClass="int">
+      
+      	update vote set v_start=sysdate,notice=1 where v_num=#v_num#
+      
+      </update>
+      
+      
+       <delete id="Vdel" >
+          delete from vote where v_num=#v_num#
+       </delete>
+    
+       <delete id="garbage" parameterClass="int">
+            delete  from comm where comm_num=#comm_num#
+        </delete>  
+    
+       <update id="EndVote" parameterClass="int">     
+      	update vote set notice=2,v_end=sysdate where v_num=#v_num#      
+      </update>
+      
+      <select id="endList" resultClass="vdto" parameterClass="vdto">
+        select * from vote where notice=2 order by notice asc
+      </select>
+      
+      
+      
+      <select id="UpVote" resultClass="vdto" parameterClass="vdto">
+        select * from vote where notice=1
+      </select>
+  
+  
+      <select id="UpVotePro" resultClass="vdto" parameterClass="int">
+        select * from vote where v_num=#v_num#
+      </select>
+      
+      
+      <insert id="success" parameterClass="sdto">
+        insert into votePro values(#v_num#,#emp_num#,#monhang#,#monhang2#,#vote_num#)
+      </insert>
+     
+      
+      <select id="VoteSelect" resultClass="int" parameterClass="sdto">
+         select count(*)from votePro where v_num=#v_num# and vote_num=#vote_num#
+      </select>
+      
+      
+      <select id="v_num" resultClass="vdto" parameterClass="int">
+               select * from vote  where v_num=#v_num#
+      </select>
+
+
+     <select id="Allresult" resultClass="int" parameterClass="int">
+     select count(*) from votePro where v_num=#v_num# 
+     </select>
+     
+     
+      <select id="Result" resultClass="int" parameterClass="int">
+       select count(*) from votePro where v_num=#v_num# and monhang is not null
+      </select>
+     
+      
+       <select id="Result2" resultClass="int" parameterClass="int">
+       select count(*) from votePro where v_num=#v_num# and monhang2 is not null
+      </select>
+   
+   
+        <insert id="comment"  parameterClass="vdto">
+        insert into comm(comm_num,emp_num,content,reg,ref,emp_name) 
+            values(comm_seq.nextval,#emp_num#,#content#,sysdate,#ref#,#emp_name#)  
+        </insert>
+   
+      <select id="commetList" resultClass="vdto" parameterClass="int">
+         select * from comm where ref=#ref# order by reg desc
+      </select>
+      
+         <select id="emp" resultClass="vdto" parameterClass="String">
+           select emp_name from emp where emp_num=#emp_num#
+      </select>
+        
+         <select id="count" resultClass="int">
+            select count(*)from comm where ref=#ref#       
+        </select>
+        
+      
+      
+</sqlMap>
+
+
+
+

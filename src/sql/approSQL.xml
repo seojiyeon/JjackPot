@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="approSQL">      
+
+  <typeAlias alias="adto" type="jackpot.DTO.approDTO"/>
+  
+  		<insert id ="approInsert" parameterClass="adto">
+			insert into appro(doc_date,doc_num,ap_time,emp_name,emp_num,
+							  position,department,branch,doc_content,doc_title,style_num,doc_division,doc_step,doc_state)
+			
+			values(#doc_date#,appro_seq.nextval,#ap_time#,#emp_name#,#emp_num#,
+				   #position#,#department#,#branch#,#doc_content#,#doc_title#,#style_num#,#doc_division#,#doc_step#,#doc_state#)
+		</insert>
+
+        <select id="maxnum" resultClass="int">
+             select max(cl_num) from calendar
+        </select>  
+        
+        <select id="position" resultClass="String" parameterClass="int">
+        select position from position where num=#emp_position#
+        </select>
+        
+        <select id="department" resultClass="String" parameterClass="int">
+        	select department from department where num=#emp_department#
+        </select>
+        
+         <select id="branch" resultClass="String" parameterClass="int">
+        	select branch from branch where num=#emp_branch#
+        </select>
+        
+        <select id="docu_content" resultClass="jackpot.DTO.approDTO" parameterClass="int">
+			select * from document where doc_num = #doc_num#
+		</select>
+		
+		<select id="workInfo" resultClass="jackpot.DTO.workDTO" parameterClass="jackpot.DTO.workDTO">
+			select * from work where emp_num=#emp_num#
+		</select>
+		
+		<delete id="comment_delete" parameterClass="jackpot.DTO.approDTO">
+			delete com_article where doc_num=#doc_num#
+		</delete>
+		
+		<delete id="return_delete" parameterClass="jackpot.DTO.approDTO">
+			delete appro_file where doc_num=#doc_num#
+		</delete>	
+		
+		<select id="temp_check" resultClass="int" parameterClass="jackpot.DTO.approDTO">
+			select count(*) from appro where temp_num=#temp_num#
+		</select>
+       
+       <delete id="temp_delete" parameterClass="jackpot.DTO.approDTO">
+			delete appro where temp_num=#temp_num#
+		</delete>
+		
+		<select id="seqNum" resultClass="int">
+			select appro_seq.NEXTVAL seq_num FROM dual
+		</select>
+		
+		<select id="doc_content" parameterClass="String" resultClass="String">
+			select doc_content from appro where emp_num=#emp_num# and doc_num=#doc_num#
+		</select>
+		
+	
+		
+	<!-- 	<insert id ="approDecisionInsert" parameterClass="adto">
+			insert into appro(dec_num,dec_name,dec_branch,dec_depart,dec_position,sign_img,
+							  dec_empnum,sign_date);
+			
+			values(#doc_date#,#doc_num#,#approver_num#,#ap_time#,#emp_name#,#emp_num#,
+				   #position#,#department#,#branch#,#doc_content#,#doc_title#,#approver_num#)
+		
+		</insert> 		    
+		-->
+		<!-- <insert id="approInsert" parameterClass="jackpot.DTO.approDTO">
+		insert into ap_article(ap_num,ap_date,reportEnd,categorize,formName,
+		workPlace,dName,sawonCode,sawonName,docuSubject,ir1,re_sCwP,re_codeTable,point_check,
+		ap_wPsC1,ap_dName1,ap_rankName1,ap_sawonName1,ap_sign1,ap_signdate1,
+		ap_wPsC2,ap_dName2,ap_rankName2,ap_sawonName2,ap_sign2,ap_signdate2,
+		ap_wPsC3,ap_dName3,ap_rankName3,ap_sawonName3,ap_sign3,ap_signdate3,
+		ap_wPsC4,ap_dName4,ap_rankName4,ap_sawonName4,ap_sign4,ap_signdate4,
+		ap_wPsC5,ap_dName5,ap_rankName5,ap_sawonName5,ap_sign5,ap_signdate5,
+		step,ap_time)
+		
+		values(#ap_num#,#ap_date#,#reportEnd#,#categorize#,#formName#,
+		#workPlace#,#dName#,#sawonCode#,#sawonName#,#docuSubject#,#ir1#,#re_sCwP#,#re_codeTable#,#point_check#,
+		#ap_wPsC1#,#ap_dName1#,#ap_rankName1#,#ap_sawonName1#,#ap_sign1#,#ap_signdate1#,
+		#ap_wPsC2#,#ap_dName2#,#ap_rankName2#,#ap_sawonName2#,#ap_sign2#,#ap_signdate2#,
+		#ap_wPsC3#,#ap_dName3#,#ap_rankName3#,#ap_sawonName3#,#ap_sign3#,#ap_signdate3#,
+		#ap_wPsC4#,#ap_dName4#,#ap_rankName4#,#ap_sawonName4#,#ap_sign4#,#ap_signdate4#,
+		#ap_wPsC5#,#ap_dName5#,#ap_rankName5#,#ap_sawonName5#,#ap_sign5#,#ap_signdate5#,
+		#step#,#ap_time#)
+	</insert> -->
+	
+	<insert id="approalarm" parameterClass="jackpot.DTO.approDTO">
+		insert into approalarm(ap_wPsC,ap_report,ap_cate) values(#ap_wPsC#,#doc_num#,'1')
+	</insert>
+	
+	<insert id="impend_alarmInsert1" parameterClass="jackpot.DTO.approDTO">
+		insert into approalarm(ap_wPsC,ap_impend,ap_cate) values(#ap_wPsC#,#doc_num#,'2')
+	</insert>
+	
+	<select id="approCnt" resultClass="int" parameterClass="String">
+	        select count(*) from emp where emp_name=#emp_name#
+	</select>
+	
+	<select id="approver_info" resultClass="jackpot.DTO.empDTO" parameterClass="adto">
+		select*from emp where emp_num=#dec_empnum#
+	</select>
+	
+	<select id="approver_find" resultClass="jackpot.DTO.participantsDTO" parameterClass="String">
+		select e.emp_num,e.emp_name,d.department,b.branch, p.position from position p,emp e, branch b,department d where e.department=d.num and e.branch=b.num and p.num = e.position and emp_name=#approver# 
+	</select>
+	
+	<select id="listAppro_style" resultClass="jackpot.DTO.apStyleDTO">
+		select s.style_num,s.style_type,g.style_group group_string, s.bookmark,s.style_name,s.style_content from style s,style_group g where s.style_group=g.num order by style_num desc
+	</select>
+	
+	<select id="doc_count" resultClass="int" parameterClass="jackpot.DTO.apStyleDTO">
+		select count(*) from style
+	</select>
+	
+	<insert id ="decision_insert" parameterClass="jackpot.DTO.apDecDTO">
+		 insert into appro_decision(doc_num,dec_name,dec_branch,dec_depart,dec_position,dec_empnum,appro_state)			
+			values(#doc_num#,#dec_name#,#dec_branch#,#dec_depart#,#dec_position#,#dec_empnum#,#appro_state#)
+	</insert>
+	
+	<select id="decision_info" resultClass="jackpot.DTO.participantsDTO" parameterClass="String">
+		select e.emp_num,e.emp_name,d.department,b.branch, p.position from position p,emp e, branch b,department d where e.department=d.num and e.branch=b.num and p.num = e.position and emp_num=#approver_num#
+	</select>
+	
+	<select id="doc_maxnum" resultClass="int">
+             select max(doc_num) from appro
+    </select>
+    
+    <select id="listApproTodo" resultClass="jackpot.DTO.apListTodoDTO" parameterClass="String">
+    	select a.doc_num,a.emp_name,a.emp_num,a.doc_title,d.department,a.doc_date from appro a,appro_decision ad,department d where a.department =d.num and ad.doc_num = a.doc_num and dec_empnum = #emp_num#      
+    </select>
+    
+     <select id="listApproMy" resultClass="jackpot.DTO.approDTO" parameterClass="String">
+    	select a.doc_num,a.emp_name,a.emp_num,a.doc_title,d.department dep_String,a.doc_date,a.doc_finish,a.doc_state 
+    	from appro a,appro_decision ad,department d 
+    	where a.department =d.num and ad.doc_num = a.doc_num and a.emp_num = #emp_num#    
+    </select>
+    
+      <select id="listApproCom" resultClass="jackpot.DTO.approDTO" parameterClass="String">
+    	select a.doc_num,a.emp_name,a.emp_num,a.doc_title,d.department dep_String,a.doc_date,a.doc_finish,a.doc_state 
+    	from appro a,appro_decision ad,department d 
+    	where a.department =d.num and ad.doc_num = a.doc_num and a.doc_state = '미결' and a.emp_num = #emp_num#    
+    </select>
+    
+    <select id="listApproAll" resultClass="jackpot.DTO.approDTO" parameterClass="String">
+    	select a.doc_num,a.emp_name,a.emp_num,a.doc_title,d.department dep_String,a.doc_date,a.doc_finish,a.doc_state,a.style_num
+    	from appro a,appro_decision ad,department d 
+    	where a.department =d.num and ad.doc_num = a.doc_num and a.doc_state = '완료' and a.emp_num = #emp_num#    
+    </select>
+      <select id="listApproReturn" resultClass="jackpot.DTO.approDTO" parameterClass="String">
+    	select a.doc_num,a.emp_name,a.emp_num,a.doc_title,d.department dep_String,a.doc_date,a.doc_finish,a.doc_state,a.style_num
+    	from appro a,appro_decision ad,department d 
+    	where a.department =d.num and ad.doc_num = a.doc_num and a.doc_state = '반려' and a.emp_num = #emp_num#    
+    </select>
+    
+    <select id="TodoApproval" resultClass="jackpot.DTO.approDTO" parameterClass="int">
+    	select *from appro where doc_num = #doc_num#
+    </select>
+        
+</sqlMap>

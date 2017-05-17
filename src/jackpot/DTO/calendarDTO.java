@@ -15,7 +15,28 @@ public class calendarDTO {
 	private String cl_participants; // 참여자
 	private String cl_contents;
 	private String cl_writer;
+	private int department;
+	private int branch;
+	private String cl_private; 
 	
+	public String getCl_private() {
+		return cl_private;
+	}
+	public void setCl_private(String cl_private) {
+		this.cl_private = cl_private;
+	}
+	public int getDepartment() {
+		return department;
+	}
+	public void setDepartment(int department) {
+		this.department = department;
+	}
+	public int getBranch() {
+		return branch;
+	}
+	public void setBranch(int branch) {
+		this.branch = branch;
+	}
 	public int getCl_num() {
 		return cl_num;
 	}
