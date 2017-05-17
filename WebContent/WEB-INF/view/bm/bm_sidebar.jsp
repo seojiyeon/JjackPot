@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="/JackPot/css/common.css?ver=1" type="text/css" /> 
 <link rel="stylesheet" href="/JackPot/css/basic.css?ver=2" type="text/css" />
-<link rel="stylesheet" href="/JackPot/css/sub.css?ver=3" type="text/css" />    
+
 <link rel="stylesheet" href="/JackPot/css/bm.css?ver=2" type="text/css" />  
 
 <script src="resource/ckeditor.js"></script>
@@ -13,17 +13,11 @@
 <style type="text/css">
 
 
-
+ 
 .listFolder ul{
   display:none;
 }
 
-.scrollBlind{
-	width:230px;
-	height:100%;
-	overflow-y:scroll;
-
-} 
 
 </style>
 
@@ -104,7 +98,7 @@
 					</div>
 					
 					<div id="leftmenuarea" class="scrollBlind">
-					<ul class="menulist" style="margin:0;padding:0;list-style:none;">
+					<ul class="menulist" style="margin:0;padding:0;">
 						<li >
 							<a href="/JackPot/bmForm.jp">업무등록 </a><br>
 						</li>

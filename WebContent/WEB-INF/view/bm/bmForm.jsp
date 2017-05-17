@@ -113,15 +113,20 @@
 	function checkIt() {
 		var bminput = eval("document.forms.bminput"); //forms : 전체폼중에서 bminput을 사용한다.
 		
-		if(!bminput.bm_title.value) {
+		if(bminput.bm_title.value == null ) {
 			alert("제목을 입력하시요.");
 			return false;
 		}
 		
-		if(!bminput.bm_content.value) {
+		if(bminput.bm_content.value == null) {
 			alert("내용을 입력하시요.");
 			return false;
 		}
+		if(bminput.file.value == null) {
+			alert("파일을 선택 하시요.");
+			return false;
+		}
+		
 /* 		
 		if(!bminput.ref_name.value) {
 			alert("참조자를 선택하시요.");
@@ -220,7 +225,7 @@ function resetAll(){
                        	 	</td>
                    	 	</tr>
                     
-                    <tr id="Termless" style=" display: ;" >
+                    <tr id="Termless" >
                     	<th id="isTermlessTR"  ><span class="text-point-b">*</span>업무기한</th>
 							<td>
 		

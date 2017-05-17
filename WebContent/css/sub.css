@@ -35,7 +35,7 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:auto; margin:0px;}
 .pop-top2{border-bottom:1px solid black;line-height:35px;background: #555154;color:white;}
 .pop-info2{background: #fafafa;border: 1px solid #f5f5f5;line-height: 35px;margin:10 10 0;}
 .pop-layer2 .pop-container2 {padding: 0px 10px;}
-.pop-conts2 ul{list-style:none;-webkit-padding-start:0;display:-webkit-box;border-top: 1px solid lightgrey;line-height: 30px;}
+.pop-conts2 ul{list-style:none;-webkit-padding-start:0;display:-webkit-box;line-height: 30px;}
 .pop-conts2 li{}
 .pop-conts2 input {width:610px;height:25px;border:1px solid lightgrey;padding-top:4px;}
 .pop-layer2 p.ctxt2 {color: #666; line-height: 25px;}
