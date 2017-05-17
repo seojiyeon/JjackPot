@@ -359,8 +359,8 @@ height: 200px;
     	<li><a href="/JackPot/UpVote.jp"><br/><br/>온라인투표<br><img src="/JackPot/mainsave/온라인투표.png"></a></li>
     	<li><a href="https://open.kakao.com/"><br/><br/>메신저<br><img src="/JackPot/mainsave/메신저.png"></a></li>
     	<li><a href="/JackPot/itemEnroll.jp"><br/><br/>재고관리<br><img src="/JackPot/mainsave/sss재고관리.png"></a></li>
-    	<li><a href="/JackPot/work.jp"><br/>인사관리폴더<br><img src="/JackPot/mainsave/인사관리폴더.png"></a></li>
-    	<li><a href="/JackPot/emplist.jp"><br/>회계관리폴더<br><img src="/JackPot/mainsave/회계관리폴더.png"></a></li>
+    	<li><a href="/JackPot/work.jp"><br/><br/>인사관리폴더<br><img src="/JackPot/mainsave/gnte.PNG"></a></li>
+    	<li><a href="/JackPot/emplist.jp"><br/><br/>회계관리폴더<br><img src="/JackPot/mainsave/insa.PNG"></a></li>
     	
     </ul>
     </div>
