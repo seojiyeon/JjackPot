@@ -196,11 +196,6 @@ $(document).on('click','#emp', function(){
 });
 
 
-
-
-
-
-
 function callMsg(id){
 	 $.ajax({
 	        type: "post",
@@ -294,52 +289,7 @@ $(function(){
 	</h2><input type = 'hidden' id = 'flag'>
 </div>
 <div class="content-wrap">
-	<div class="search-wrap" width="1000">
-		<form id="hrBasiMatrMngGridSearchForm">
-			<div class="form-group">
-				<div class="main2">
-				<table>
-					<colgroup>
-						<col width="70" />
-			
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row"><label for="hrBasiMatrMngGridSearchForm_enplcCd"><span class="text-point-b" title='필수입력항목'>*</span>
-								사업장</label></th>
-							<!-- 사업장 -->
-							<td><select class="w150" id="hrBasiMatrMngGridSearchForm_enplcCd" name="enplcCd">
-									
-										<option value="G001" selected>루크</option>
-									
-							</select></td>
-
-							<th scope="row"><label for="hrBasiMatrMngGridSearchForm_searchColumn">검색어</label></th>
-							<!-- 검색어 -->
-							<td><select id="hrBasiMatrMngGridSearchForm_searchColumn" class="w100" name="searchColumn">
-									<option value="1">성명</option>
-									<option value="2">사원번호</option>
-									<option value="3">부서</option>
-							</select> <input type="text" class="w100" id="hrBasiMatrMngGridSearchForm_searchWord" name="searchWord" title="검색어" /></td>
-						
-							<td>	
-								<div class="search_btn">
-					<button type="submit" class="btn btn-color5" >
-						<i class="fa fa-search"></i>
-						검색
-					</button>
-				</div>
-				</td>
-						
-						</tr>
-					</tbody>
-				
-					
-				</table>
-			
-			</div>
-		</form>
-	</div>
+	
 </div>
 
 
@@ -370,8 +320,7 @@ $(function(){
     <tr height="30"  > 
      <th align="center"  width="100" > <b>사원번호</b></th> 
       <th align="center"  width="100" ><b>성명</b></th> 
-      <th align="center"  width="50" ><b>직책</b></th>
-      <th align="center"  width="100" ><b>부서</b></th>
+
       <th align="center"  width="150" ><b>입사일자</b></th>
       <th align="center"  width="150" ><b>주소</b></th> 
       <th align="center"  width="80" ><b>핸드폰</b></th>
@@ -385,8 +334,7 @@ $(function(){
 	  ${article.emp_num}
 	</td>
     <a href="#bar"><td  width="130" id="bar"> ${article.emp_name} </td></a>	
-	<td width="100" align="center"> ${article.rank}	</td>
-	<td align="center">${article.department} </td>
+
 	<td align="center">${article.hiredate}</td>	
     <td align="center"  width="100"> ${article.address} </td>
     <td align="center"  width="150">${article.phone}</td>

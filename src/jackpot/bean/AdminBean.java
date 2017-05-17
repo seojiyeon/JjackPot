@@ -39,7 +39,8 @@ public class AdminBean {
 		String id = request.getParameter("id");
 		id = id.trim();
 		List articleList = null;
-		dto = (empDTO) sqlMap.queryForObject("employee.member", id);		
+		dto = (empDTO) sqlMap.queryForObject("employee.member", id);
+		System.out.println(dto.getProfilephoto());
 	
 		model.addAttribute("dto", dto);		
 		
