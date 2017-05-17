@@ -173,9 +173,11 @@ public class MsgBean {
 	
 	    model.addAttribute("count", count);
 	    if(count!=0){
-		    a =  "/msg/msgNew";
+	    	  a =  "/msg/msgAlarm";	
 	    }
-	    	    			
+	    
+	  
+			
 		return a;
 		
 	}
