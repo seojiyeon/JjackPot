@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class approDTO {
 
-	private String doc_num; 			//문서 번호
+	private int doc_num;				//문서 번호
 	private String doc_date;			//상신 일자	
 	private String doc_finish;			//마감 일자
 	private String emp_num;				//사원 번호
@@ -21,7 +21,14 @@ public class approDTO {
 	private int branch;					//소속지점
 	private int department;				//소속부서
 	private int position;				//직급
+	private String dep_String;
 
+	public String getDep_String() {
+		return dep_String;
+	}
+	public void setDep_String(String dep_String) {
+		this.dep_String = dep_String;
+	}
 	private String situation;			
 	private String ap_count;			
 	private Timestamp ap_time;			//게시글이 업데이트 된 시간
@@ -29,17 +36,16 @@ public class approDTO {
 	private int impend_reCount;			
 	private int return_readCount;
 	
-	//�ӽ�����κ�
-	private String temp_End;			//�ӽ����� ��������
-	private String temp_subject;		//�ӽ����� ����
-	private String temp_ir1;			//����
-	private String temp_cate;			//�ӽ����� ī��
-	private String temp_num;			//�ӽ����� �ѹ�
-	private Timestamp temp_date;		//�ӽ����� �ð�
-	private int cc;						//�����Ⱓ �Ѱ���� �ȳѰ���� �����̵Ǵ� ����.
-	private String temp_geuntae_cate;	//�ӽ�����. �����з�
-	private String temp_startDate;		//�ӽ�����. �ް�������.
-	private String temp_endDate;		//�ӽ�����. �ް���.
+	private String temp_End;			
+	private String temp_subject;		
+	private String temp_ir1;			
+	private String temp_cate;			
+	private String temp_num;			
+	private Timestamp temp_date;	
+	private int cc;						
+	private String temp_geuntae_cate;	
+	private String temp_startDate;		
+	private String temp_endDate;		
 	
 	private String approver_num;
 	private String dec_num;				//결재권자 번호
@@ -59,7 +65,14 @@ public class approDTO {
 	private String ap_sawonRank;			//결재사원의 직급레벨
 	private String ap_wPsC;				//결재자의 테이블이름,사원코드
 	
+	
 		
+	public int getDoc_num() {
+		return doc_num;
+	}
+	public void setDoc_num(int doc_num) {
+		this.doc_num = doc_num;
+	}
 	public String getSituation() {
 		return situation;
 	}
@@ -162,13 +175,7 @@ public class approDTO {
 	public void setDoc_step(int doc_step) {
 		this.doc_step = doc_step;
 	}
-	
-	public String getDoc_num() {
-		return doc_num;
-	}
-	public void setDoc_num(String doc_num) {
-		this.doc_num = doc_num;
-	}
+
 	public String getDoc_date() {
 		return doc_date;
 	}

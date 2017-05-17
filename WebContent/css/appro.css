@@ -62,7 +62,6 @@ b_container { border: 1px solid #999; border-top: none; overflow: hidden; clear:
     margin: 0 auto;
 }
 
-* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box }
 #content-jp{position:relative; width:100%; background-color:#FFF; padding-top:10px; min-width:830px; padding-top: 10px}
 	
 	.mask {  
@@ -142,7 +141,6 @@ text-align:center;
 .employee th, td {
     padding: 8px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
     font-size : 12px;
 }
 
@@ -155,7 +153,6 @@ text-align:center;
 th, td {
     padding: 8px;
     text-align: center;
-    border: 1px solid #ddd;
     font-size : 12px;
 }
 
@@ -186,16 +183,6 @@ a:link {
   box-shadow: 0 5px 10px rgba(51, 51, 51, 0.4);
   font-size: 16px;
 }
-
-
-
-
-
-* {
-  box-sizing: border-box;
-}
-
-
 
 .dialog__trigger, .dialog__action {
   border: 2px solid #333333;
@@ -303,13 +290,13 @@ a:link {
 
 html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 
-#page-container{position: relative;min-height: 100%; min-width: 1200px; background:#fff;}
+#page-container{position: relative;min-height: 100%; background:#fff;}
 
 #sidebar-a{width:60px;height:100%;overflow:hidden;background:#363636;}
 
-#subarea{position: fixed;top:0;left: 60px; width:210px;height:100%;background-color:rgb(247,247,247);}	
+#subarea{position: fixed;top:0;left: 80px; width:210px;height:100%;background-color:rgb(247,247,247);}	
 /*con-header 부분*/
-.con-header { position:relative;width:100%; height:75px; margin:30px 10px ; padding:5px 0 0 0; border-bottom:1px solid #d1d1d1 ; background:#fff;padding-left: 10px; }
+.con-header { position:relative;width:100%; height:55px; margin:30px 10px ; padding:5px 0 0 0; border-bottom:1px solid #d1d1d1 ; background:#fff;padding-left: 10px; }
 
 /*content-wrap부분*/
 .content-wrap {/* display:table; */position: relative;;width: 100%;background-color:#fff;}
@@ -317,7 +304,7 @@ html,BODY { height:100%;overflow-x:hidden; overflow-y:hidden; margin:0px;}
 /*============================================================
 table-header
 =============================================================*/
-.table-header { position:relative; height:50px; /*margin:0 20px;*/ border-bottom:2px solid #c0c0c0; background:#fff; }
+.table-header { position:relative; height:50px; /*margin:0 20px;*/ background:#fff; }
 .table-search .input-search a { background:#a6857e url(../../images/common/ic_search.png) no-repeat center; }
 .table-search .btnSearch { background:#a6857e url(../../images/common/ic_search.png) no-repeat center; }
 .search-wrap .search_btn .btn {background:#a6857e !important;}
@@ -373,7 +360,7 @@ table-header
 .boardmenu .hide{display:none;}
 
 #main-container{ height:100%;padding:20px;padding-top:0; padding-right: 20px;} 
-#main-contents{position:fixed;left:270px;top:0;width:85%;height:100%;}
+	#main-contents{position:fixed;left:300px;top:0;width:85%;height:100%;}
 
 .pop-layer {display:none; position:fixed; top: 20%; left: 35%; width: 800px; height:500px;  background-color:#fff; border: 1px solid black; z-index: 10;}	
 .pop-top{border-bottom:1px solid black;background: #555154;font-color:;}
@@ -431,10 +418,6 @@ td#ap_subject
 .h_css{
 	font-family:openfont;
 	font-size:14px;
-}
-div {
-    font-family: openfont;
-    font-size:14px;
 }
 
 #apList_form{
@@ -506,7 +489,6 @@ span#leftMenuRight{
 	.approval_mainTableCss td,th{
 		padding: 1px;
 	    text-align: center;
-	    border: 1px solid #ddd;
 	    font-family: openfont;
 	    font-size:14px;
 	}
@@ -516,7 +498,7 @@ span#leftMenuRight{
 	td.apLine {
 	padding: 1px;
 	text-align: center;
-	border: 1px solid #ddd;
+	/*border: 1px solid #ddd;*/
 	font-family: openfont;
 	font-size:14px;
 	width:120px;
@@ -530,13 +512,12 @@ div#lineUpdate{
 }
 td#upd{
 	text-align: center;
-	border: 1px solid #ddd;
+	/*border: 1px solid #ddd;*/
 	height:30px;
 }
 
 td#apLine{
 	text-align: center;
-	border: 3px solid #ddd;
 	height:30px;
 }
 
@@ -546,7 +527,7 @@ input#textsize {
     width: 100px;
     padding: 1px;
 	    text-align: center;
-	    border: 1px solid #ddd;
+	   /* border: 1px solid #ddd;*/
 	    font-family: openfont;
 	    font-size:14px;
 }
@@ -562,7 +543,7 @@ input#docuSubject{
 td#setting{
 	padding: 10px;
 	text-align: left;
-	border: 1px solid #ddd;
+	/*border: 1px solid #ddd;*/
 	font-family: openfont;
 	font-size:14px;
 }
@@ -742,7 +723,6 @@ text-align:center;
 .employee th, td {
     padding: 8px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
     font-size : 12px;
 }
 
@@ -755,7 +735,6 @@ text-align:center;
 th, td {
     padding: 8px;
     text-align: center;
-    border: 1px solid #ddd;
     font-size : 12px;
 }
 
@@ -767,10 +746,6 @@ ul{
 
 
 
-
-li {
-margin: 5px 15px;
-}
 
 
 a:link {
@@ -786,15 +761,6 @@ a:link {
   box-shadow: 0 5px 10px rgba(51, 51, 51, 0.4);
   font-size: 16px;
 }
-
-
-
-
-
-* {
-  box-sizing: border-box;
-}
-
 
 
 .dialog__trigger, .dialog__action {

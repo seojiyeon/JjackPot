@@ -225,18 +225,17 @@ $(document).ready(function() {
 	<div id="main-container">
 		<div id="main-contents">
 			<div class="con-header">
-				<h2>기안문 작성</h2>
+				<h2>결재요청함</h2>
 			</div>
     <div class="content-wrap approval responsive">
     <div class="content-write">
     	<h2>기안용지</h2>
-    <form id="apprDocForm" name="apprDocForm" method="post" action="/JackPot/listApproDocPro.jp?${doc_num}" enctype="multipart/form-data" onsubmit="return checkContents()">
+    <form id="apprDocForm" name="apprDocForm" method="post" action="/JackPot/listApproDocPro.jp" enctype="multipart/form-data" onsubmit="return checkContents()">
 		<div id="formButtonDiv" class="btn-wrap pt10" style="padding-right: 30px;">
-	    	<a href="#" onclick="layer_open('layer1');return false;"><button id="addApprLineButton" type="button" class="btn btn-color5 br">결재선</button></a>
-		    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재요청</button>
-		    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">기결재첨부</button>
-		    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
-		    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
+		    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재</button>
+		    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">참조자</button>
+		    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">인쇄</button>
+		    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">목록</button>
     	</div>
 			<div class="appline-wrap" style="padding-right: 20px;">
 				<div class="fright" id="apprLine0Tr" style="display: block;">
@@ -253,9 +252,12 @@ $(document).ready(function() {
 									</th>
 								<th class="apprLine">기 안</th>
 								</tr>
-								<tr id="apprLine0BTr">									
-								<td height="60">${emp_name}</td>
+								<tr id="apprLine0BTr">	
+								<td height="60">${adto.emp_name}<br/>
+												${adto.doc_date}</td>
+												
 								</tr>
+								
 																	
 							</tbody>
 							
@@ -336,20 +338,18 @@ $(document).ready(function() {
 							<tr>
 								<th>참조자</th>
 								<td colspan="3">
-					    			<input id="participant" style="float: left;" type="text" title="참조자" name="participant" maxlength="65" placeholder="검색버튼클릭">
-					    			<input type="button" value="검색" style="float:left;">
+					    			
 								</td>
 							</tr>
 							<tr id="apprReceiveLineTr" style="display: none;">
 								<th scope="row">수신처</th>
 								<td colspan="3">
 									<div id="apprReceiveLineInfoDiv"></div>
-								</td>	
+								</td>
 							</tr>
 							<tr>
 								<th>문서제목</th>
 								<td colspan="3">
-					    			<input id="doc_title" type="text" title="문서제목" name="doc_title" class="inputbox w100p" maxlength="65" placeholder="문서제목을 입력하세요. ">
 								</td>
 							</tr>
 														
@@ -357,17 +357,7 @@ $(document).ready(function() {
 					</table>
 					<!--ckeditor 부분 -->
 					<div>
-						<textarea class="ckeditor" cols="1" id="editor" name="doc_content" rows="15"></textarea>
-						<script>
-							CKEDITOR.replace(
-									'editor',
-									{
-										toolbar:'Basic',
-										skin:'moonocolor',
-									}
-								);
-							
-						</script>
+						
 					</div>
 				</div>
 				</form>
@@ -467,7 +457,9 @@ $(document).ready(function() {
             </div>
          </div>
            <div class="participants-Form-btn">
+            <ul>
                <li><a href="#" onclick="add_apply();">결재선 추가</a></li>
+            </ul>
          </div>
          <div id="approver_add" style="margin-left: 10px">
 	        <input type="text" readonly  style="width: 440px;">

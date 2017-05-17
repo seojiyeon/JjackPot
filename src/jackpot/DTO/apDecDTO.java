@@ -12,7 +12,21 @@ public class apDecDTO {
 	private String sign_img;			//결재권자 서명
 	private String dec_empnum;			//결재권자 사원번호
 	private Timestamp sign_date;		//결재권자 승인날짜
+	private String appro_state;			//결재 상태
+	private int doc_num;
 	
+	public int getDoc_num() {
+		return doc_num;
+	}
+	public void setDoc_num(int doc_num) {
+		this.doc_num = doc_num;
+	}
+	public String getAppro_state() {
+		return appro_state;
+	}
+	public void setAppro_state(String appro_state) {
+		this.appro_state = appro_state;
+	}
 	public String getDec_num() {
 		return dec_num;
 	}

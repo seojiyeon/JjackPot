@@ -7,7 +7,7 @@
 	<title>결재문서등록</title>
 		<script type="text/JavaScript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
 		    <script type="text/JavaScript">
-		   		location.href='/JackPot/listApproTodo.jp';
+		   		location.href='/JackPot/listApproMyRequest.jp';
 	    	</script>
 	</head>
 		<body>

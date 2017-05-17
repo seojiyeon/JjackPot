@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />  
 <link href="/JackPot/css/appro.css?ver=13" rel="stylesheet" type="text/css">
 <html>
@@ -18,7 +17,7 @@
 </div>
 		<div id="leftmenuarea">
 						<table>
-										<tr>
+							<tr>
 								<td style="font-size: 20px;text-align: left;">
 									기안
 								</td>
@@ -49,7 +48,7 @@
 					<div id="main-container">
 					<div id="main-contents">
 						<div class="con-header">
-							<h2>결재요청함</h2>
+							<h2>결재진행함</h2>
 						</div>
 						<div class="content-wrap" style="margin-left: 10px;">
 <div class="pl10">
@@ -78,11 +77,11 @@
 		<col style="width: 50px;">
 		<col style="width: 100px;">
 		<col style="width: 400px;">
+		<col style="width: 100px;">
+		<col style="width: 200px;">
+		<col style="width: 200px;">
 		<col style="width: 200px;">
 		<col style="width: 100px;">
-		<col style="width: 90px;">
-		<col style="width: 75px;">
-		<col style="width: 75px;">
 		</colgroup>
 			<thead>
 				<tr style="background: rgb(249, 249, 249);">
@@ -96,30 +95,42 @@
 						문서제목
 					</th>
 					<th scope="col">
-						기안일
+						기안자
 					</th>
 					<th scope="col">
-					    완료일
+						기안부서
 					</th>
 					<th scope="col">
-					    문서상태
+					 	기안일
+					</th>
+					<th scope="col">
+					 	결재일
+					</th>
+					<th scope="col">
+					 	문서상태
 					</th>
 				</tr>
 			</thead>
 			
 				<tbody>
 				<tr class="boardItemLine">
-					<c:forEach var="article" items="${articleList}" varStatus="status">
-						<td align = "center">${article.doc_num}</td>
+					<c:forEach var="article" items="${articleList}" varStatus="status" >
+					<td align = "center">${article.doc_num}</td>
 						<td align = "center">공통</td>
 						<td align = "center">
 						<a style="cursor:pointer" href="#">${article.doc_title}</a>
 						</td>
 						<td align = "center">
-						${article.doc_date}
+						${article.emp_name}
 						</td>
 						<td align = "center">
-							${article.doc_finish}
+						${article.dep_String}
+						</td>
+						<td align = "center">
+							${article.doc_date}
+						</td>
+						<td align = "center">
+							${article.doc_date}
 						</td>
 						<td align = "center">
 							${article.doc_state}
@@ -138,7 +149,6 @@
 						</div>
 					</form>
 				</div>
-					</div>
 				</div>
 			</div>
 		</div>

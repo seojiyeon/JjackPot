@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />  
 <link href="/JackPot/css/appro.css?ver=13" rel="stylesheet" type="text/css">
 <html>
@@ -18,7 +16,7 @@
 </div>
 		<div id="leftmenuarea">
 						<table>
-										<tr>
+									<tr>
 								<td style="font-size: 20px;text-align: left;">
 									기안
 								</td>
@@ -49,7 +47,7 @@
 					<div id="main-container">
 					<div id="main-contents">
 						<div class="con-header">
-							<h2>결재요청함</h2>
+							<h2>완료문서함</h2>
 						</div>
 						<div class="content-wrap" style="margin-left: 10px;">
 <div class="pl10">
@@ -75,28 +73,34 @@
 		<table class="table table-striped" style="border-bottom: 2px solid #c0c0c0;border-top:2px solid #c0c0c0;">  
 		<caption></caption> 
 		<colgroup>
-		<col style="width: 50px;">
 		<col style="width: 100px;">
-		<col style="width: 400px;">
 		<col style="width: 200px;">
 		<col style="width: 100px;">
-		<col style="width: 90px;">
-		<col style="width: 75px;">
-		<col style="width: 75px;">
+		<col style="width: 400px;">
+		<col style="width: 100px;">
+		<col style="width: 100px;">
+		<col style="width: 100px;">
+		<col style="width: 100px;">
 		</colgroup>
 			<thead>
 				<tr style="background: rgb(249, 249, 249);">
 					<th scope="col">
-						NO
+						서식함
 					</th>
 					<th scope="col">
-						서식함
+						문서번호
+					</th>
+					<th scope="col">
+						유형
 					</th>
 					<th scope="col">
 						문서제목
 					</th>
 					<th scope="col">
-						기안일
+						기안자
+					</th>
+					<th scope="col">
+					    기안부서
 					</th>
 					<th scope="col">
 					    완료일
@@ -109,14 +113,24 @@
 			
 				<tbody>
 				<tr class="boardItemLine">
-					<c:forEach var="article" items="${articleList}" varStatus="status">
-						<td align = "center">${article.doc_num}</td>
-						<td align = "center">공통</td>
+					<c:forEach var="article" items="${articleList}" varStatus="status" >
 						<td align = "center">
-						<a style="cursor:pointer" href="#">${article.doc_title}</a>
+							<!-- 공통 -->
 						</td>
 						<td align = "center">
-						${article.doc_date}
+							${article.doc_num}
+						</td>
+						<td align = "center">
+						${article.style_num}
+						</td>
+						<td align = "center">
+							${article.doc_title}
+						</td>
+						<td align = "center">
+							${article.emp_name}
+						</td>
+						<td align = "center">
+							${article.department}
 						</td>
 						<td align = "center">
 							${article.doc_finish}
@@ -138,7 +152,6 @@
 						</div>
 					</form>
 				</div>
-					</div>
 				</div>
 			</div>
 		</div>

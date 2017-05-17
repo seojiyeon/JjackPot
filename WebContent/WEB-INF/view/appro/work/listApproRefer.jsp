@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
 <link rel="stylesheet" href="/JackPot/css/common.css" type="text/css" />  
 <link href="/JackPot/css/appro.css?ver=13" rel="stylesheet" type="text/css">
 <html>
@@ -18,7 +16,7 @@
 </div>
 		<div id="leftmenuarea">
 						<table>
-										<tr>
+								<tr>
 								<td style="font-size: 20px;text-align: left;">
 									기안
 								</td>
@@ -49,7 +47,7 @@
 					<div id="main-container">
 					<div id="main-contents">
 						<div class="con-header">
-							<h2>결재요청함</h2>
+							<h2>참조/열람문서함</h2>
 						</div>
 						<div class="content-wrap" style="margin-left: 10px;">
 <div class="pl10">
@@ -77,9 +75,9 @@
 		<colgroup>
 		<col style="width: 50px;">
 		<col style="width: 100px;">
+		<col style="width: 100px;">
 		<col style="width: 400px;">
 		<col style="width: 200px;">
-		<col style="width: 100px;">
 		<col style="width: 90px;">
 		<col style="width: 75px;">
 		<col style="width: 75px;">
@@ -90,39 +88,54 @@
 						NO
 					</th>
 					<th scope="col">
+						시스템
+					</th>
+					<th scope="col">
 						서식함
 					</th>
 					<th scope="col">
-						문서제목
+						양식명
 					</th>
 					<th scope="col">
-						기안일
+						담당부서
 					</th>
 					<th scope="col">
-					    완료일
-					</th>
-					<th scope="col">
-					    문서상태
+					    담당자
 					</th>
 				</tr>
 			</thead>
 			
 				<tbody>
 				<tr class="boardItemLine">
-					<c:forEach var="article" items="${articleList}" varStatus="status">
-						<td align = "center">${article.doc_num}</td>
-						<td align = "center">공통</td>
+					<c:forEach var="article" items="${list}" varStatus="status" >
 						<td align = "center">
-						<a style="cursor:pointer" href="#">${article.doc_title}</a>
+							${article.style_num}
 						</td>
 						<td align = "center">
-						${article.doc_date}
+							${article.style_type}
 						</td>
 						<td align = "center">
-							${article.doc_finish}
+						${article.group_string}
 						</td>
 						<td align = "center">
-							${article.doc_state}
+						<c:if test="${article.style_num == 1 }"> <!-- 출장신청서 -->
+							<a style="cursor:pointer" href="/JackPot/listApproDoc.jp?style_num=${article.style_num}&style_type=${article.style_type}&style_group=${article.group_string}">${article.style_name}</a>
+						</c:if>
+						<c:if test="${article.style_num == 2 }"> <!-- 기안용지 -->
+							<a style="cursor:pointer" href="/JackPot/listApproDoc.jp?style_num=${article.style_num}&style_type=${article.style_type}&style_group=${article.group_string}">${article.style_name}</a>
+						</c:if>
+						<c:if test="${article.style_num == 3 }"> <!-- 협조문 -->
+							<a style="cursor:pointer" href="/JackPot/listApproCoop.jp?style_num=${article.style_num}&style_type=${article.style_type}&style_group=${article.group_string}">${article.style_name}</a>
+						</c:if>
+						<c:if test="${article.style_num == 4 }"> <!-- 대외발신공문 -->
+							<a style="cursor:pointer" href="/JackPot/listApproOfficial.jp?style_num=${article.style_num}&style_type=${article.style_type}&style_group=${article.group_string}">${article.style_name}</a>
+						</c:if>
+						</td>
+						<td align = "center">
+							
+						</td>
+						<td align = "center">
+							
 						</td>
 				</tr>
 					</c:forEach>

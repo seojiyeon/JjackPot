@@ -6,10 +6,11 @@
 
 <jsp:useBean id="toDay" class="java.util.Date" />
 <fmt:formatDate value="${toDay}" pattern="yyyy.MM.dd" var="tdate"/>
-<link href="/JackPot/css/appro.css?ver=9" rel="stylesheet" type="text/css">
-<link href="/JackPot/css/basic.css?ver=6" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/appro.css?ver=11" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/basic.css?ver=2" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/theme.css?ver=3" rel="stylesheet" type="text/css">
 <link href="/JackPot/css/common.css?ver=4" rel="stylesheet" type="text/css">
+<link href="/JackPot/css/quick.css?ver=5" rel="stylesheet" type="text/css">
 <html>
 <head>
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -168,13 +169,7 @@ $(document).ready(function() {
 	}
     	
     	function add_apply(){   
-    		      $('#approver_add').html("<input type=text id=participants readonly value="+idlistname+"></input><input type=hidden id=participants_num value="+idlist+"></input>")
-    		      if($('#participants').val != null){
-    		    	  var apVal = $('#participants').val();
-    		    	  var apNum = $('#participants_num').val();
-    		    	  $('#approver_name').val(apVal);
-    		    	  $('#approver_num').val(apNum);
-    		      }
+    		      $('#approver_add').html("<input type=text id=participants readonly value="+idlistname+"></input><input type=hidden name=participants value="+idlist+"></input>")
     		}
 	</script>	
 	
@@ -185,14 +180,15 @@ $(document).ready(function() {
 
 <body>
 <div id="page-container">
-	<div>
-		<jsp:include page="/sidebar.jp"></jsp:include>
+	<div id="sidebar-a">
+	<span style="color:white">
+	(사이드바)
+	</span>
 	</div>
 	<div id="subarea">	
-		<div class="leftmenu-top">
-		<h2>전자결재</h2>
-		</div>
-			<div id="leftmenuarea">
+		<div id="leftmenu">
+		전자결재
+		(중간사이드)
 			<table>
 								<tr>
 								<td style="font-size: 20px;text-align: left;">
@@ -222,23 +218,29 @@ $(document).ready(function() {
 							</tr>
 			</table>
 		</div>
+	</div>
 	<div id="main-container">
 		<div id="main-contents">
 			<div class="con-header">
-				<h2>기안문 작성</h2>
+				<h2>
+					기안문 작성
+				</h2>
+				<div id="navText" class="breadcrumb-line"></div>
 			</div>
+	
     <div class="content-wrap approval responsive">
     <div class="content-write">
-    	<h2>기안용지</h2>
-    <form id="apprDocForm" name="apprDocForm" method="post" action="/JackPot/listApproDocPro.jp?${doc_num}" enctype="multipart/form-data" onsubmit="return checkContents()">
-		<div id="formButtonDiv" class="btn-wrap pt10" style="padding-right: 30px;">
-	    	<a href="#" onclick="layer_open('layer1');return false;"><button id="addApprLineButton" type="button" class="btn btn-color5 br">결재선</button></a>
-		    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재요청</button>
-		    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">기결재첨부</button>
-		    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
-		    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
+    <form id="apprDocForm" name="apprDocForm" method="post" action="/JackPot/listApproDocPro.jp" enctype="multipart/form-data" onsubmit="return checkContents()">
+		<h2>협조문</h2>
+				
+		<div id="formButtonDiv" class="btn-wrap pt10">
+    	<a href="#" onclick="layer_open('layer1');return false;"><button id="addApprLineButton" type="button" class="btn btn-color5 br">결재선</button></a>
+	    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재요청</button>
+	    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">기결재첨부</button>
+	    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
+	    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
     	</div>
-			<div class="appline-wrap" style="padding-right: 20px;">
+			<div class="appline-wrap">
 				<div class="fright" id="apprLine0Tr" style="display: block;">
 					<div class="fleft">	
 						<table class="appline-lst">
@@ -247,10 +249,10 @@ $(document).ready(function() {
 								<tr id="apprLine0TTr">
 									<th rowspan="2">
 										
-											결<br><br class="last">재
+											발<br class="last">신<br class="last">부<br class="last">서	
 										
 											         
-									</th>
+									</th>	
 								<th class="apprLine">기 안</th>
 								</tr>
 								<tr id="apprLine0BTr">									
@@ -314,40 +316,25 @@ $(document).ready(function() {
 								<input type="hidden" name="department" 		value="${emp_department}">
 								<input type="hidden" name="temp_num" 		value="${temp_num}">
 								<input type="hidden" name="emp_num" 		value="${emp_num}">
-								<input type="hidden" name="branch" 			value="${emp_branch}">
+								<input type="hidden" name="branch" 			value="${edto.branch}">
 								<input type="hidden" name="doc_date" 		value="${tdate}">
-								<input type="hidden" name="style_num" 		value="${style_num}">
-								<input type="hidden" name="doc_division"    value="${doc_division}">
-								<input type="hidden" name="doc_step"    	value="0">
-								<input type="hidden" name="doc_state"    	value="${pendency}">
-								<input type="hidden" id="approver_name" 	name="approver_name">
-								<input type="hidden" id="approver_num" 		name="approver_num">
-								<input type="hidden" name="dec_num"    		value="${ddto.dec_num}">
-								<input type="hidden" name="dec_name"    	value="${ddto.dec_name}">
-								<input type="hidden" name="dec_branch"    	value="${ddto.dec_branch}">
-								<input type="hidden" name="dec_depart"    	value="${ddto.dec_depart}">
-								<input type="hidden" name="dec_position"    value="${ddto.dec_position}">
-								<input type="hidden" name="dec_empnum"    	value="${ddto.dec_empnum}">
-								<input type="hidden" name="appro_state"    	value="${ddto.appro_state}">
-								<input type="hidden" name="doc_num"    		value="${ddto.doc_num}">
 								</td>
 							</tr>
 							
 							<tr>
 								<th>참조자</th>
 								<td colspan="3">
-					    			<input id="participant" style="float: left;" type="text" title="참조자" name="participant" maxlength="65" placeholder="검색버튼클릭">
-					    			<input type="button" value="검색" style="float:left;">
+					    			<input id="doc_title" type="text" title="참조자" name="doc_title" class="inputbox w100p" maxlength="65" placeholder="검색버튼을 클릭하세요">
 								</td>
 							</tr>
-							<tr id="apprReceiveLineTr" style="display: none;">
+							<tr id="apprReceiveLineTr">
 								<th scope="row">수신처</th>
 								<td colspan="3">
 									<div id="apprReceiveLineInfoDiv"></div>
-								</td>	
+								</td>
 							</tr>
 							<tr>
-								<th>문서제목</th>
+								<th><span class="text-point-b">*</span>문서제목</th>
 								<td colspan="3">
 					    			<input id="doc_title" type="text" title="문서제목" name="doc_title" class="inputbox w100p" maxlength="65" placeholder="문서제목을 입력하세요. ">
 								</td>
@@ -363,15 +350,21 @@ $(document).ready(function() {
 									'editor',
 									{
 										toolbar:'Basic',
-										skin:'moonocolor',
+										skin:'moonocolor'
 									}
 								);
 							
 						</script>
 					</div>
 				</div>
-				</form>
-    				</div>
+					<div id="formButtonDiv" class="btn-wrap pt10">
+	    <button id="addApprLineButton" 				type="button" class="btn btn-color5 br">결재선</button>
+	    <button id="createApprDocButton" 			type="submit" class="btn btn-color5 br">결재요청</button>
+	    <button id="addApprRefInfoButton" 			type="button" class="btn btn-color5 br">기결재첨부</button>
+	    <button id="createApprDocTemporayButton" 	type="button" class="btn btn-color5 br">임시저장</button>
+	    <button id="listApprDocButton" 				type="button" class="btn btn-color5 br">취소</button>
+    </div>
+     </form>
 				</div>
 		</div>
 	</div>
@@ -467,12 +460,13 @@ $(document).ready(function() {
             </div>
          </div>
            <div class="participants-Form-btn">
+            <ul>
                <li><a href="#" onclick="add_apply();">결재선 추가</a></li>
+            </ul>
          </div>
          <div id="approver_add" style="margin-left: 10px">
 	        <input type="text" readonly  style="width: 440px;">
 	     </div>
-	     
        
       </div>
    </div>
