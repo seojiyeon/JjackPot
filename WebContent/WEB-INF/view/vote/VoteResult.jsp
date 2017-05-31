@@ -145,7 +145,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 				<textarea title="textarea" id="8501850_contents" name="content" rows="2" class="form-control original" placeholder="댓글을 입력하세요."></textarea>
    <span class="input-group-btn">
       	<input TYPE="IMAGE" src="/JackPot/save/speech.png"  width="40" height="40"  name="Submit" value="Submit" align="absmiddle" style="margin : 5 10">
-   </span>  
+   </span>   
      </Td>    
       </tr>   
         

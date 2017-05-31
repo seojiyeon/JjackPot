@@ -475,7 +475,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 </div>
 
 
-<table width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">
+<table width="700" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">
 <form method="post"  action="comment.jp">      
       
     <tr height="20" >
@@ -526,7 +526,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 			</c:if>
 			
 				
-      <table  width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">		
+      <table  width="1600" align="center"  cellpadding="0" cellspacing="0" align="center">		
 		
 		
 		<form action="/JackPot/reply2.jp" method="post">
@@ -575,7 +575,7 @@ style="position:relative; top:0; left:0;" dir="ltr">
 		 </div>
    </c:if>  
      
-     	 <table  width="700" border="3" align="center" bordercolor="gray" cellpadding="0" cellspacing="0" align="center">	
+     	 <table  width="700" align="center" cellpadding="0" cellspacing="0" align="center">	
      	 	<form action="trash.jp" method="post">
      		<c:if test="${article.re_level== 1 }"  >	
 		  <input type="hidden" name="rep_num" value="${article.rep_num}"/>
