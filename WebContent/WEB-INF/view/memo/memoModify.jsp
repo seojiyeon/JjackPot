@@ -120,8 +120,41 @@
 		</div>
 		<div class="inputFileNImg">
 			<input type="reset" value="새메모" onclick="window.location='memoInsert.jp?memoGroup=${memoGroup}'"/><br/>
-			이미지 : <input type="file" name="org_img" title="이미지 첨부" id="imgInp"/>
-			파일 : <input type="file" name="org_file" title="파일 첨부" id="fileInp" />
+			<table>
+				<tr>
+					<td style="width:60px;">이미지 :</td>
+					<td> <input type="file" name="org_img" title="이미지 첨부" id="imgInp"/></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div id="img-list">
+		 					<c:if test="${imgCount > 0}">
+								<c:forEach var="img" items="${img}">
+									<a class="imgList"><img src='/JackPot/images/memo/delete-photo.png'/>${img.org_img}</a><br/>
+								</c:forEach>
+							</c:if>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:40px;">파일 :</td>
+					<td> <input type="file" name="org_file" title="파일 첨부" id="fileInp" /></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div id="file-list">
+							<c:if test="${fileCount > 0}">
+								<c:forEach var="file" items="${file}">
+									<a class="fileList"><img src='/JackPot/images/memo/delete-photo.png'/>${file.org_file}</a><br/>
+								</c:forEach>
+							</c:if>
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+			
+			
 		</div>
 		
 		<div class="content-write">
@@ -145,20 +178,20 @@
 				</tr>
 				<tr>
 					<td>
-						<div id="img-list">
+						<%-- <div id="img-list">
 		 					<c:if test="${imgCount > 0}">
 								<c:forEach var="img" items="${img}">
 									<a class="imgList"><img src='/JackPot/images/memo/delete-photo.png'/>${img.org_img}</a><br/>
 								</c:forEach>
 							</c:if>
-						</div>
-						<div id="file-list">
+						</div> --%>
+						<%-- <div id="file-list">
 							<c:if test="${fileCount > 0}">
 								<c:forEach var="file" items="${file}">
 									<a class="fileList"><img src='/JackPot/images/memo/delete-photo.png'/>${file.org_file}</a><br/>
 								</c:forEach>
 							</c:if>
-						</div>
+						</div> --%>
 					</td>
 				</tr>
 			</table>

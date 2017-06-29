@@ -112,22 +112,7 @@ public class ItemBean {
 		String [] big_use = request.getParameterValues("big_use");
 		String [] check = request.getParameterValues("check");
 		
-		/*for(int a=0; a<check.length; a++) {
-			if(Integer.parseInt(check[a]) == 1) {
-				for(int i=0; i<big_name.length; i++) {
-					dto.setBig_name(big_name[i]);
-					dto.setBig_use(big_use[i]);
-					
-					sqlMap.insert("item.bigCateInsert", dto);
-					System.out.println("저장");
-				}
-			} else {
-			
-			}
-			
-		}
-		
-		*/
+		/* 카테고리 저장 */
 		if(check != null) {
 			for(int i=0; i<check.length; i++) {
 				dto.setBig_name(big_name[i]);
